@@ -12,8 +12,11 @@
     "qrcode.react": "^4.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-material-ui-carousel": "^3.4.2",
     "react-qr-code": "^2.0.15",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
