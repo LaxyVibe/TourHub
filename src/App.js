@@ -71,7 +71,7 @@ function App() {
       clientName: 'Laxy Travel',
       variant: 'default',
       title: 'Laxy Travel Guide',
-      subtitle: 'Explore with us',
+      subtitle: 'Explore with us now',
       location: null
     };
   };
