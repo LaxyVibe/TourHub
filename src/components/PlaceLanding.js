@@ -169,8 +169,8 @@ function PlaceLanding({ clientInfo }) {
     if (hostname.includes('go.')) {
       // If we're on a go.laxy.travel domain, go back to the root
       window.history.back();
-    } else if (pathname.includes('/follow/') && pathname.includes('/go/')) {
-      // If we're in a nested structure like /follow/tour-id/go/place-id
+    } else if (pathname.includes('/join/') && pathname.includes('/go/')) {
+      // If we're in a nested structure like /join/tour-id/go/place-id
       // Go back to just the tour page
       if (tourId) {
         navigate(`/${tourId}`);
@@ -382,11 +382,11 @@ function PlaceLanding({ clientInfo }) {
               const hostname = window.location.hostname;
               
               if (hostname.includes('go.')) {
-                // If on a place domain, redirect to the follow domain
-                window.location.href = `https://follow.laxy.travel/${recommendedTourId}`;
+                // If on a place domain, redirect to the join domain
+                window.location.href = `https://join.laxy.travel/${recommendedTourId}`;
               } else {
                 // On hub domains, navigate to the tour within the same domain
-                navigate(`/follow/${recommendedTourId}`);
+                navigate(`/join/${recommendedTourId}`);
               }
             }}
           >
@@ -514,11 +514,11 @@ function PlaceLanding({ clientInfo }) {
               const hostname = window.location.hostname;
               
               if (hostname.includes('go.')) {
-                // If on a place domain, redirect to the follow domain
-                window.location.href = `https://follow.laxy.travel/${recommendedTourId}`;
+                // If on a place domain, redirect to the join domain
+                window.location.href = `https://join.laxy.travel/${recommendedTourId}`;
               } else {
                 // On hub domains, navigate to the tour within the same domain
-                navigate(`/follow/${recommendedTourId}`);
+                navigate(`/join/${recommendedTourId}`);
               }
             }}
           >

@@ -16,6 +16,9 @@ export const getHubClientInfo = (hostname, pathname) => {
       featuredImage: 'https://images.unsplash.com/photo-1583072379598-8c10a8c8ad05',
       featuredTours: ['jpn-bepu-tur-001', 'jpn-bepu-tur-002', 'jpn-bepu-tur-003'],
       featuredPlaces: ['beppu-tower', 'beppu-jigoku', 'beppu-ropeway', 'beppu-aquarium'],
+      hubCommentsToTours: {
+        'jpn-bepu-tur-001': 'This is a 5 stars tour'
+      },
       contactInfo: {
         email: 'info@beppu-story.com',
         phone: '+81-977-123-4567',
@@ -53,56 +56,6 @@ export const getHubClientInfo = (hostname, pathname) => {
       }
     };
   }
-
-  // Kyoto Zen - Traditional Japanese experience
-  if (hostname.includes('stay-kyoto-zen')) {
-    return {
-      clientName: 'Kyoto Zen',
-      variant: 'kyoto-zen',
-      title: 'Kyoto Zen Experience',
-      subtitle: 'Traditional Japan',
-      location: 'Kyoto, Japan',
-      description: 'Immerse yourself in the serene beauty of ancient Kyoto. Our guides take you through historic temples, peaceful gardens, and authentic cultural experiences in Japan\'s former capital.',
-      featuredImage: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e',
-      featuredTours: ['jpn-kyot-tur-001', 'jpn-kyot-tur-002'],
-      featuredPlaces: ['kinkakuji-temple', 'fushimi-inari', 'arashiyama-bamboo', 'gion-district'],
-      contactInfo: {
-        email: 'info@kyotozen.jp',
-        phone: '+81-75-987-6543',
-        address: '7-8-9 Higashiyama, Kyoto, Japan'
-      },
-      socialMedia: {
-        instagram: '@kyotozen',
-        facebook: 'KyotoZenExperience',
-        twitter: '@KyotoZen'
-      }
-    };
-  }
-
-  // Okinawa Paradise - Tropical island getaway
-  if (hostname.includes('stay-okinawa-paradise')) {
-    return {
-      clientName: 'Okinawa Paradise',
-      variant: 'okinawa-paradise',
-      title: 'Okinawa Paradise',
-      subtitle: 'Island Adventures',
-      location: 'Okinawa, Japan',
-      description: 'Escape to the tropical paradise of Okinawa, where crystal-clear waters, white sandy beaches, and unique island culture await. Discover a different side of Japan in this southern archipelago.',
-      featuredImage: 'https://images.unsplash.com/photo-1542640244-7e672d6cef4e',
-      featuredTours: ['jpn-okin-tur-001', 'jpn-okin-tur-002'],
-      featuredPlaces: ['churaumi-aquarium', 'shuri-castle', 'emerald-beach', 'cape-manzamo'],
-      contactInfo: {
-        email: 'hello@okinawa-paradise.com',
-        phone: '+81-98-765-4321',
-        address: '10-11-12 Naha, Okinawa, Japan'
-      },
-      socialMedia: {
-        instagram: '@okinawaparadise',
-        facebook: 'OkinawaParadiseOfficial',
-        twitter: '@OkinawaParadise'
-      }
-    };
-  }
   
   // Default variant
   return {
@@ -115,6 +68,9 @@ export const getHubClientInfo = (hostname, pathname) => {
     featuredImage: 'https://images.unsplash.com/photo-1492571350019-22de08371fd3',
     featuredTours: ['jpn-bepu-tur-001', 'jpn-toky-tur-001', 'jpn-kyot-tur-001', 'jpn-okin-tur-001'],
     featuredPlaces: ['tokyo-tower', 'beppu-jigoku', 'fushimi-inari', 'churaumi-aquarium'],
+    hubCommentsToTours: {
+      'jpn-bepu-tur-001': 'This is a local test'
+    },
     contactInfo: {
       email: 'info@laxytravel.com',
       phone: '+81-3-9876-5432',
