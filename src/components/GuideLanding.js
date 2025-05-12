@@ -12,10 +12,6 @@ import {
   CardContent, 
   Grid, 
   Avatar, 
-  List, 
-  ListItem, 
-  ListItemIcon, 
-  ListItemText,
   IconButton
 } from '@mui/material';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
