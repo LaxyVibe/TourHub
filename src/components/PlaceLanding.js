@@ -7,10 +7,7 @@ import {
   Button, 
   Paper, 
   Grid, 
-  Divider,
-  Avatar,
   Rating,
-  Chip,
   IconButton,
   Card,
   CardMedia,
@@ -22,7 +19,6 @@ import {
 } from '@mui/material';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LanguageIcon from '@mui/icons-material/Language';
 import PaidIcon from '@mui/icons-material/Paid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -154,7 +150,7 @@ function PlaceLanding({ clientInfo }) {
   const [favorite, setFavorite] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { placeId, tourId } = useParams();
+  const { tourId } = useParams();
   
   // Default to 'default' if variant is not specified
   const variant = clientInfo?.variant || 'default';
