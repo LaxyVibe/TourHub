@@ -14,6 +14,7 @@ import {
   Collapse,
   Grid
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import LanguageIcon from '@mui/icons-material/Language';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -95,7 +96,7 @@ const defaultTourOptions = [
 
 const languages = ["English", "日本語", "한국어"];
 
-const HomePage = ({ clientInfo = {
+const HubLanding = ({ clientInfo = {
   clientName: 'Laxy Travel',
   variant: 'default',
   title: 'Laxy Travel Guide',
@@ -107,6 +108,7 @@ const HomePage = ({ clientInfo = {
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentLanguage, setCurrentLanguage] = useState('English');
   const openLanguageMenu = Boolean(anchorEl);
+  const navigate = useNavigate();
   
   // Determine which tour options to use based on client variant
   const tourOptions = clientInfo.variant === 'beppu-story' ? beppuTourOptions : defaultTourOptions;
@@ -137,6 +139,18 @@ const HomePage = ({ clientInfo = {
     // On mobile, this would open the camera
     // On desktop, it would allow manual input or webcam scanning
     alert('QR scanner would open here');
+  };
+
+  // Handle tour selection
+  const handleTourSelect = (tourId) => {
+    // Navigate to the tour guide page
+    navigate(`/follow/${tourId}`);
+  };
+  
+  // Handle attraction selection
+  const handleAttractionSelect = (placeId) => {
+    // Navigate to the place landing page
+    navigate(`/go/${placeId}`);
   };
 
   // Render the appropriate header based on client info
@@ -308,8 +322,10 @@ const HomePage = ({ clientInfo = {
               width: 64,
               height: 64,
               mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)'
+              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+              cursor: 'pointer'
             }}
+            onClick={() => handleSectionToggle('info')}
           >
             <InfoIcon fontSize="large" color="primary" />
           </Paper>
@@ -330,8 +346,10 @@ const HomePage = ({ clientInfo = {
               width: 64,
               height: 64,
               mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)'
+              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+              cursor: 'pointer'
             }}
+            onClick={() => handleSectionToggle('restaurants')}
           >
             <RestaurantIcon fontSize="large" color="primary" />
           </Paper>
@@ -352,8 +370,10 @@ const HomePage = ({ clientInfo = {
               width: 64,
               height: 64,
               mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)'
+              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+              cursor: 'pointer'
             }}
+            onClick={() => handleSectionToggle('attractions')}
           >
             <AttractionsTwoToneIcon fontSize="large" color="primary" />
           </Paper>
@@ -374,8 +394,10 @@ const HomePage = ({ clientInfo = {
               width: 64,
               height: 64,
               mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)'
+              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+              cursor: 'pointer'
             }}
+            onClick={() => handleSectionToggle('tours')}
           >
             <TourIcon fontSize="large" color="primary" />
           </Paper>
@@ -522,11 +544,15 @@ const HomePage = ({ clientInfo = {
           <Collapse in={expandedSection === 'attractions'} timeout="auto" unmountOnExit>
             {clientInfo.variant === 'beppu-story' ? (
               <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
+                <ListItem 
+                  button 
+                  sx={{ pl: 4 }}
+                  onClick={() => handleAttractionSelect('beppu-tower')}
+                >
                   <ListItemIcon>
                     <ChevronRightIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Beppu Jigoku (Hells)" secondary="Famous hot spring pools • 15 min by bus" />
+                  <ListItemText primary="Beppu Tower" secondary="Landmark • 15 min by bus" />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
                   <ListItemIcon>
@@ -543,17 +569,21 @@ const HomePage = ({ clientInfo = {
               </List>
             ) : (
               <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
+                <ListItem 
+                  button 
+                  sx={{ pl: 4 }}
+                  onClick={() => handleAttractionSelect('tokyo-tower')}
+                >
                   <ListItemIcon>
                     <ChevronRightIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Historical Center" secondary="Cultural landmarks • Walking distance" />
+                  <ListItemText primary="Tokyo Tower" secondary="Iconic landmark • Central location" />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
                   <ListItemIcon>
                     <ChevronRightIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Nature Reserve" secondary="Hiking trails • 30 min drive" />
+                  <ListItemText primary="Historical Center" secondary="Cultural landmarks • Walking distance" />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
                   <ListItemIcon>
@@ -582,17 +612,21 @@ const HomePage = ({ clientInfo = {
           <Collapse in={expandedSection === 'tours'} timeout="auto" unmountOnExit>
             {clientInfo.variant === 'beppu-story' ? (
               <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
+                <ListItem 
+                  button 
+                  sx={{ pl: 4 }}
+                  onClick={() => handleTourSelect('jpn-bepu-tur-001')}
+                >
                   <ListItemIcon>
                     <ChevronRightIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Beppu City Bus Tour" secondary="3 hours • English guide available" />
+                  <ListItemText primary="Beppu Hot Springs Tour" secondary="3 hours • English guide available" />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
                   <ListItemIcon>
                     <ChevronRightIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Hot Spring Hopping Tour" secondary="4 hours • Includes lunch" />
+                  <ListItemText primary="City Bus Tour" secondary="4 hours • Includes lunch" />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
                   <ListItemIcon>
@@ -603,11 +637,15 @@ const HomePage = ({ clientInfo = {
               </List>
             ) : (
               <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
+                <ListItem 
+                  button 
+                  sx={{ pl: 4 }}
+                  onClick={() => handleTourSelect('jpn-toky-tur-001')}
+                >
                   <ListItemIcon>
                     <ChevronRightIcon />
                   </ListItemIcon>
-                  <ListItemText primary="City Highlights Tour" secondary="2 hours • Perfect introduction" />
+                  <ListItemText primary="Tokyo City Explorer" secondary="4 hours • Perfect introduction" />
                 </ListItem>
                 <ListItem button sx={{ pl: 4 }}>
                   <ListItemIcon>
@@ -649,6 +687,12 @@ const HomePage = ({ clientInfo = {
                   transform: 'translateY(-4px)',
                 }
               }}
+              onClick={() => {
+                const tourId = clientInfo.variant === 'beppu-story' 
+                  ? 'jpn-bepu-tur-001' 
+                  : 'jpn-toky-tur-001';
+                handleTourSelect(tourId);
+              }}
             >
               <Box
                 sx={{ 
@@ -671,4 +715,4 @@ const HomePage = ({ clientInfo = {
   );
 };
 
-export default HomePage;
+export default HubLanding;
