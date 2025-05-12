@@ -100,7 +100,7 @@ function App() {
       );
     }
     // Follow domains (GuideLanding as root)
-    else if (hostname.includes('follow.') || hostname.includes('uat-follow--')) {
+    else if (hostname.includes('follow.') || hostname.includes('follow--')) {
       return (
         <Routes>
           <Route path="/:tourId" element={<GuideWrapper />} />
@@ -110,7 +110,7 @@ function App() {
       );
     }
     // Go domains (PlaceLanding as root)
-    else if (hostname.includes('go.') || hostname.includes('uat-go--')) {
+    else if (hostname.includes('go.') || hostname.includes('go--')) {
       return (
         <Routes>
           <Route path="/:placeId" element={<PlaceWrapper />} />
