@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Routes, Route, useParams, useLocation } from 'react-router-dom';
 import HubLanding from './components/HubLanding';
-import GuideLanding from './components/GuideLanding';
+import TourLanding from './components/TourLanding';
 import PlaceLanding from './components/PlaceLanding';
 import { getHubClientInfo, getTourClientInfo, getPlaceClientInfo } from './config/clients';
 
@@ -67,12 +67,24 @@ function HubWrapper() {
   return <HubLanding clientInfo={getHubClientInfo(hostname, pathname)} />;
 }
 
-function GuideWrapper() {
+function TourWrapper() {
   const { tourId } = useParams();
   const { pathname } = useLocation();
   const hostname = window.location.hostname;
   
-  return <GuideLanding clientInfo={getTourClientInfo(hostname, pathname, tourId)} />;
+  // Get tour client info
+  const tourClientInfo = getTourClientInfo(hostname, pathname, tourId);
+  
+  // Get hub client info to access hubCommentsToTours
+  const hubClientInfo = getHubClientInfo(hostname, pathname);
+  
+  // Merge the hubCommentsToTours from hubClientInfo into tourClientInfo
+  const clientInfo = {
+    ...tourClientInfo,
+    hubCommentsToTours: hubClientInfo.hubCommentsToTours
+  };
+  
+  return <TourLanding clientInfo={clientInfo} />;
 }
 
 function PlaceWrapper() {
@@ -89,21 +101,21 @@ function App() {
   // Determine which routes to render based on hostname
   const getRouteConfig = () => {
     // Stay domains (HubLanding as root)
-    if (hostname.includes('stay-')) {
+    if (hostname.startsWith('stay-') || hostname.startsWith('uat-stay-')) {
       return (
         <Routes>
           <Route path="/" element={<HubWrapper />} />
-          <Route path="/follow/:tourId" element={<GuideWrapper />} />
+          <Route path="/join/:tourId" element={<TourWrapper />} />
           <Route path="/go/:placeId" element={<PlaceWrapper />} />
           <Route path="*" element={<HubWrapper />} />
         </Routes>
       );
     }
-    // Follow domains (GuideLanding as root)
-    else if (hostname.includes('follow.') || hostname.includes('follow--')) {
+    // Join domains (TourLanding as root)
+    else if (hostname.includes('join.') || hostname.includes('join--')) {
       return (
         <Routes>
-          <Route path="/:tourId" element={<GuideWrapper />} />
+          <Route path="/:tourId" element={<TourWrapper />} />
           <Route path="/:tourId/go/:placeId" element={<PlaceWrapper />} />
           <Route path="*" element={<h1>Tour not found</h1>} />
         </Routes>
@@ -123,7 +135,7 @@ function App() {
       return (
         <Routes>
           <Route path="/" element={<HubWrapper />} />
-          <Route path="/follow/:tourId" element={<GuideWrapper />} />
+          <Route path="/join/:tourId" element={<TourWrapper />} />
           <Route path="/go/:placeId" element={<PlaceWrapper />} />
           <Route path="*" element={<HubWrapper />} />
         </Routes>
