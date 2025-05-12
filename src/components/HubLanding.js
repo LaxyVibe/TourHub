@@ -144,7 +144,7 @@ const HubLanding = ({ clientInfo = {
   // Handle tour selection
   const handleTourSelect = (tourId) => {
     // Navigate to the tour guide page
-    navigate(`/follow/${tourId}`);
+    navigate(`/join/${tourId}`);
   };
   
   // Handle attraction selection
@@ -640,7 +640,7 @@ const HubLanding = ({ clientInfo = {
                 <ListItem 
                   button 
                   sx={{ pl: 4 }}
-                  onClick={() => handleTourSelect('jpn-toky-tur-001')}
+                  onClick={() => handleTourSelect('jpn-bepu-tur-001')}
                 >
                   <ListItemIcon>
                     <ChevronRightIcon />
@@ -690,7 +690,7 @@ const HubLanding = ({ clientInfo = {
               onClick={() => {
                 const tourId = clientInfo.variant === 'beppu-story' 
                   ? 'jpn-bepu-tur-001' 
-                  : 'jpn-toky-tur-001';
+                  : 'jpn-bepu-tur-001';
                 handleTourSelect(tourId);
               }}
             >
