@@ -1,6 +1,6 @@
 /**
  * Tour client configurations for different tour IDs
- * These configurations are used for the GuideLanding component
+ * These configurations are used for the TourLanding component
  */
 
 export const getTourClientInfo = (hostname, pathname, tourId) => {

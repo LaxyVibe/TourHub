@@ -12,7 +12,8 @@ import {
   CardContent, 
   Grid, 
   Avatar, 
-  IconButton
+  IconButton,
+  Alert
 } from '@mui/material';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -23,9 +24,10 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import InfoIcon from '@mui/icons-material/Info';
 
-// Mock data for the guide content
-const mockGuideImages = {
+// Mock data for the tour content
+const mockTourImages = {
   'beppu-tour': [
     "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     "https://images.unsplash.com/photo-1548574505-5e239809ee19?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
@@ -45,7 +47,7 @@ const mockGuideImages = {
 
 const mockItineraries = {
   'beppu-tour': [
-    { time: '09:00', description: 'Meet at Beppu Station', details: 'Look for your guide with a blue Laxy Travel flag' },
+    { time: '09:00', description: 'Meet at Beppu Station', details: 'Look for your tour with a blue Laxy Travel flag' },
     { time: '09:30', description: 'Visit to Hells of Beppu', details: 'Explore the famous hot springs known as "Jigoku" (Hells)' },
     { time: '11:30', description: 'Traditional Onsen Experience', details: 'Enjoy a relaxing time at a local hot spring' },
     { time: '13:00', description: 'Lunch at Local Restaurant', details: 'Taste Beppu specialties like "Jigoku-mushi" (Hell-steamed) cuisine' },
@@ -62,7 +64,7 @@ const mockItineraries = {
     { time: '16:30', description: 'Return to Shibuya Station', details: 'Tour concludes' }
   ],
   'default': [
-    { time: '09:00', description: 'Tour Start', details: 'Meet your guide at the designated location' },
+    { time: '09:00', description: 'Tour Start', details: 'Meet your tour at the designated location' },
     { time: '11:00', description: 'Main Attractions', details: 'Visit key sightseeing points' },
     { time: '13:00', description: 'Lunch Break', details: 'Enjoy local cuisine' },
     { time: '15:00', description: 'Additional Activities', details: 'Experience local culture' },
@@ -70,7 +72,7 @@ const mockItineraries = {
   ]
 };
 
-const guideProfiles = {
+const tourProfiles = {
   'beppu-tour': {
     name: 'Yuki Tanaka',
     image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
@@ -83,18 +85,18 @@ const guideProfiles = {
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
     experience: '7 years',
     languages: ['Japanese', 'English', 'Chinese'],
-    bio: 'A certified Tokyo guide with extensive knowledge of the city\'s history, culture, and hidden gems.'
+    bio: 'A certified Tokyo tour with extensive knowledge of the city\'s history, culture, and hidden gems.'
   },
   'default': {
-    name: 'Tour Guide',
+    name: 'Tour Tour',
     image: 'https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
     experience: '3 years',
     languages: ['English'],
-    bio: 'Professional guide passionate about sharing local experiences with travelers from around the world.'
+    bio: 'Professional tour passionate about sharing local experiences with travelers from around the world.'
   }
 };
 
-function GuideLanding({ clientInfo }) {
+function TourLanding({ clientInfo }) {
   const [favorite, setFavorite] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -104,14 +106,14 @@ function GuideLanding({ clientInfo }) {
   const variant = clientInfo?.variant || 'default';
   
   // Select the appropriate content based on the variant
-  const guideImages = mockGuideImages[variant] || mockGuideImages.default;
+  const tourImages = mockTourImages[variant] || mockTourImages.default;
   const itinerary = mockItineraries[variant] || mockItineraries.default;
-  const guideProfile = guideProfiles[variant] || guideProfiles.default;
+  const tourProfile = tourProfiles[variant] || tourProfiles.default;
   
   // Handle back button
   const handleBack = () => {
-    // If coming from a hub (like /follow/tourId), go back to the hub root
-    if (location.pathname.includes('/follow/')) {
+    // If coming from a hub (like /join/tourId), go back to the hub root
+    if (location.pathname.includes('/join/')) {
       // Extract domain parts to determine proper navigation
       const hostname = window.location.hostname;
       
@@ -130,10 +132,10 @@ function GuideLanding({ clientInfo }) {
   
   // Handle navigation to a place
   const handlePlaceNavigation = (placeId) => {
-    // If we're on a follow.laxy.travel domain, navigate to /:tourId/go/:placeId
+    // If we're on a join.laxy.travel domain, navigate to /:tourId/go/:placeId
     const hostname = window.location.hostname;
     
-    if (hostname.includes('follow.')) {
+    if (hostname.includes('join.')) {
       navigate(`/${tourId}/go/${placeId}`);
     } else {
       // On Hub domains, navigate to /go/:placeId
@@ -150,7 +152,7 @@ function GuideLanding({ clientInfo }) {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: clientInfo?.title || 'Laxy Travel Tour Guide',
+        title: clientInfo?.title || 'Laxy Travel Tour Tour',
         text: `Check out this amazing tour: ${clientInfo?.title}`,
         url: window.location.href,
       });
@@ -181,6 +183,19 @@ function GuideLanding({ clientInfo }) {
         </Box>
       </Box>
       
+      {/* Hub Comment Alert - Only shown when there's a comment for this tour in the hubCommentsToTours */}
+      {clientInfo.hubCommentsToTours && 
+       clientInfo.hubCommentsToTours[tourId] && (
+        <Alert 
+          icon={<InfoIcon />} 
+          severity="info" 
+          variant="outlined" 
+          sx={{ mb: 2, borderRadius: 2 }}
+        >
+          {clientInfo.hubCommentsToTours[tourId]}
+        </Alert>
+      )}
+      
       {/* Main Image */}
       <Paper 
         elevation={0} 
@@ -194,7 +209,7 @@ function GuideLanding({ clientInfo }) {
       >
         <Box
           component="img"
-          src={guideImages[0]}
+          src={tourImages[0]}
           alt={clientInfo?.title || "Tour Image"}
           sx={{
             width: '100%',
@@ -283,13 +298,13 @@ function GuideLanding({ clientInfo }) {
         </Typography>
         <Typography variant="body1" sx={{ mb: 2 }}>
           {variant === 'beppu-tour' ? 
-            'Experience the unique geothermal wonders of Beppu on this guided tour of the famous "Hells" (Jigoku). You\'ll also enjoy a traditional hot spring bath and taste local cuisine prepared using the natural steam vents.' :
+            'Experience the unique geothermal wonders of Beppu on this tourd tour of the famous "Hells" (Jigoku). You\'ll also enjoy a traditional hot spring bath and taste local cuisine prepared using the natural steam vents.' :
           variant === 'tokyo-tour' ?
-            'Discover the vibrant energy of Tokyo on this guided walking tour. From the iconic Shibuya Crossing to the serene Meiji Shrine and trendy Harajuku district, experience the perfect blend of modern and traditional Japan.' :
-            'Join us for a memorable guided tour experience. Our knowledgeable guides will show you the highlights of the area, share interesting stories, and provide insider tips to make your visit special.'}
+            'Discover the vibrant energy of Tokyo on this tourd walking tour. From the iconic Shibuya Crossing to the serene Meiji Shrine and trendy Harajuku district, experience the perfect blend of modern and traditional Japan.' :
+            'Join us for a memorable tourd tour experience. Our knowledgeable tours will show you the highlights of the area, share interesting stories, and provide insider tips to make your visit special.'}
         </Typography>
         <Grid container spacing={2}>
-          {guideImages.slice(1, 3).map((image, index) => (
+          {tourImages.slice(1, 3).map((image, index) => (
             <Grid item xs={6} key={index}>
               <Box 
                 component="img"
@@ -479,27 +494,27 @@ function GuideLanding({ clientInfo }) {
         </Grid>
       </Box>
       
-      {/* Meet Your Guide */}
+      {/* Meet Your Tour */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h6" fontWeight="bold" sx={{ mb: 2 }}>
-          Meet Your Guide
+          Meet Your Tour
         </Typography>
         
         <Paper elevation={3} sx={{ p: 2, borderRadius: 2, display: 'flex' }}>
           <Avatar
-            src={guideProfile.image}
-            alt={guideProfile.name}
+            src={tourProfile.image}
+            alt={tourProfile.name}
             sx={{ width: 80, height: 80, mr: 2 }}
           />
           <Box>
             <Typography variant="h6">
-              {guideProfile.name}
+              {tourProfile.name}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-              {guideProfile.experience} of experience • {guideProfile.languages.join(', ')}
+              {tourProfile.experience} of experience • {tourProfile.languages.join(', ')}
             </Typography>
             <Typography variant="body2">
-              {guideProfile.bio}
+              {tourProfile.bio}
             </Typography>
           </Box>
         </Paper>
@@ -528,4 +543,4 @@ function GuideLanding({ clientInfo }) {
   );
 }
 
-export default GuideLanding;
+export default TourLanding;
