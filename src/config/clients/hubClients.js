@@ -68,9 +68,6 @@ export const getHubClientInfo = (hostname, pathname) => {
     featuredImage: 'https://images.unsplash.com/photo-1492571350019-22de08371fd3',
     featuredTours: ['jpn-bepu-tur-001', 'jpn-toky-tur-001', 'jpn-kyot-tur-001', 'jpn-okin-tur-001'],
     featuredPlaces: ['tokyo-tower', 'beppu-jigoku', 'fushimi-inari', 'churaumi-aquarium'],
-    hubCommentsToTours: {
-      'jpn-bepu-tur-001': 'This is a local test'
-    },
     contactInfo: {
       email: 'info@laxytravel.com',
       phone: '+81-3-9876-5432',
