@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Container, 
@@ -7,115 +7,270 @@ import {
   Paper, 
   Menu, 
   MenuItem,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Collapse,
-  Grid
+  Grid,
+  CircularProgress,
+  TextField,
+  Button
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import LanguageIcon from '@mui/icons-material/Language';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InfoIcon from '@mui/icons-material/Info';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AttractionsTwoToneIcon from '@mui/icons-material/AttractionsTwoTone';
 import TourIcon from '@mui/icons-material/Tour';
 
 import Carousel from 'react-material-ui-carousel';
+import { fetchClientInfo } from '../config/clients/hubClients';
 
-// Mock data - would be replaced with actual API calls in production
-const roomImages = [
-  { 
-    id: 1, 
-    src: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 
-    alt: "Room Photo 1" 
+const languages = ["English", "日本語", "한국어", "繁體中文", "简体中文"];
+
+// Translations for UI text
+const translations = {
+  "English": {
+    infoLabel: 'Local Information',
+    restaurantsLabel: 'Dining Options',
+    attractionsLabel: 'Points of Interest',
+    toursLabel: 'Available Tours',
+    popularToursLabel: 'Featured Experiences',
+    restaurantsShortLabel: 'Dining',
+    attractionsShortLabel: 'Sights',
+    searchPlaceholder: 'Search',
+    enterRoomPasscodeTitle: 'Enter Room Passcode (1111)',
+    enterRoomPasscodeDescription: 'Please enter your room passcode to view room-specific information.',
+    passcodeLabel: 'Passcode',
+    passcodeErrorEmpty: 'Please enter a passcode',
+    passcodeErrorInvalid: 'Invalid passcode. Please try again.',
+    skip: 'Skip',
+    submit: 'Submit',
   },
-  { 
-    id: 2, 
-    src: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 
-    alt: "Room Photo 2" 
+  "日本語": {
+    infoLabel: '地域情報',
+    restaurantsLabel: '飲食店',
+    attractionsLabel: '観光名所',
+    toursLabel: '利用可能なツアー',
+    popularToursLabel: 'おすすめ体験',
+    restaurantsShortLabel: 'グルメ',
+    attractionsShortLabel: '観光',
+    searchPlaceholder: '検索',
+    enterRoomPasscodeTitle: 'ルームパスコードを入力 (1111)',
+    enterRoomPasscodeDescription: 'ルーム固有の情報を表示するには、ルームパスコードを入力してください。',
+    passcodeLabel: 'パスコード',
+    passcodeErrorEmpty: 'パスコードを入力してください',
+    passcodeErrorInvalid: '無効なパスコードです。もう一度お試しください。',
+    skip: 'スキップ',
+    submit: '送信',
   },
-  { 
-    id: 3, 
-    src: "https://images.unsplash.com/photo-1560185127-028e7c3a0f10?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80", 
-    alt: "Room Photo 3" 
+  "한국어": {
+    infoLabel: '지역 정보',
+    restaurantsLabel: '식당 옵션',
+    attractionsLabel: '관광 명소',
+    toursLabel: '이용 가능한 투어',
+    popularToursLabel: '추천 체험',
+    restaurantsShortLabel: '맛집',
+    attractionsShortLabel: '관광',
+    searchPlaceholder: '검색',
+    enterRoomPasscodeTitle: '객실 패스코드 입력 (1111)',
+    enterRoomPasscodeDescription: '객실 특정 정보를 보려면 객실 패스코드를 입력하세요.',
+    passcodeLabel: '패스코드',
+    passcodeErrorEmpty: '패스코드를 입력하세요',
+    passcodeErrorInvalid: '유효하지 않은 패스코드입니다. 다시 시도하세요.',
+    skip: '건너뛰기',
+    submit: '제출',
+  },
+  "繁體中文": {
+    infoLabel: '當地資訊',
+    restaurantsLabel: '餐飲選擇',
+    attractionsLabel: '景點',
+    toursLabel: '可用行程',
+    popularToursLabel: '精選體驗',
+    restaurantsShortLabel: '美食',
+    attractionsShortLabel: '景點',
+    searchPlaceholder: '搜尋',
+    enterRoomPasscodeTitle: '輸入房間密碼 (1111)',
+    enterRoomPasscodeDescription: '請輸入您的房間密碼以查看房間特定信息。',
+    passcodeLabel: '密碼',
+    passcodeErrorEmpty: '請輸入密碼',
+    passcodeErrorInvalid: '密碼無效。請重試。',
+    skip: '跳過',
+    submit: '提交',
+  },
+  "简体中文": {
+    infoLabel: '当地信息',
+    restaurantsLabel: '餐饮选择',
+    attractionsLabel: '景点',
+    toursLabel: '可用行程',
+    popularToursLabel: '精选体验',
+    restaurantsShortLabel: '美食',
+    attractionsShortLabel: '景点',
+    searchPlaceholder: '搜索',
+    enterRoomPasscodeTitle: '输入房间密码 (1111)',
+    enterRoomPasscodeDescription: '请输入您的房间密码以查看房间特定信息。',
+    passcodeLabel: '密码',
+    passcodeErrorEmpty: '请输入密码',
+    passcodeErrorInvalid: '密码无效。请重试。',
+    skip: '跳过',
+    submit: '提交',
   }
-];
+};
 
-// Beppu specific data
-const beppuTourOptions = [
-  { 
-    id: 1, 
-    name: "Beppu City Bus Tour", 
-    image: "https://images.unsplash.com/photo-1601024445121-e5b82f020549?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  },
-  { 
-    id: 2, 
-    name: "Beppu Hot Springs Tour", 
-    image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  },
-  { 
-    id: 3, 
-    name: "Takegawara Onsen", 
-    image: "https://images.unsplash.com/photo-1545569341-85aa36a0d485?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  },
-  { 
-    id: 4, 
-    name: "Mount Tsurumi Ropeway", 
-    image: "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  }
-];
-
-// Default tour options
-const defaultTourOptions = [
-  { 
-    id: 1, 
-    name: "City Walking Tour", 
-    image: "https://images.unsplash.com/photo-1569880153113-76e33fc52d5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  },
-  { 
-    id: 2, 
-    name: "Local Food Tasting", 
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  },
-  { 
-    id: 3, 
-    name: "Historical Sites Tour", 
-    image: "https://images.unsplash.com/photo-1558379852-0ebf8547f122?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  },
-  { 
-    id: 4, 
-    name: "Nature Excursion", 
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" 
-  }
-];
-
-const languages = ["English", "日本語", "한국어"];
-
-const HubLanding = ({ clientInfo = {
-  clientName: 'Laxy Travel',
-  variant: 'default',
-  title: 'Laxy Travel Guide',
-  subtitle: 'Explore with us',
-  location: null
-}}) => {
-  // State for expandable sections
-  const [expandedSection, setExpandedSection] = useState(null);
+const HubLanding = ({ initialClientInfo }) => {
+  // State for language and UI
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentLanguage, setCurrentLanguage] = useState('English');
+  const [clientInfo, setClientInfo] = useState(initialClientInfo);
+  const [loading, setLoading] = useState(!initialClientInfo);
+  const [error, setError] = useState(null);
+  const [suiteInfo, setSuiteInfo] = useState(null);
+  const [showPasscodeForm, setShowPasscodeForm] = useState(false);
+  const [passcodeInput, setPasscodeInput] = useState('');
+  const [passcodeError, setPasscodeError] = useState('');
+  
   const openLanguageMenu = Boolean(anchorEl);
   const navigate = useNavigate();
+  const location = useLocation();
   
-  // Determine which tour options to use based on client variant
-  const tourOptions = clientInfo.variant === 'beppu-story' ? beppuTourOptions : defaultTourOptions;
+  // Fetch client info if needed, but wait for MSW to be ready
+  useEffect(() => {
+    const loadClientInfo = async () => {
+      try {
+        // Wait for MSW to be initialized before fetching
+        if (process.env.NODE_ENV === 'development') {
+          // Check for MSW readiness with a timeout to prevent infinite waiting
+          let attempt = 0;
+          const maxAttempts = 20; // Maximum 20 attempts (10 seconds)
+          
+          while (!window.mswReady && attempt < maxAttempts) {
+            await new Promise(resolve => setTimeout(resolve, 500)); // Wait 500ms between checks
+            attempt++;
+          }
+          
+          if (!window.mswReady) {
+            console.warn('MSW initialization is taking too long, proceeding with fetch anyway');
+          } else {
+            console.log('MSW is ready, proceeding with fetch');
+          }
+        }
+
+        // For testing purposes, we'll force loading the beppu-story data
+        const data = await fetchClientInfo('beppu-story');
+        setClientInfo(data);
+        
+        // Check for passcode in URL after data is loaded
+        const queryParams = new URLSearchParams(location.search);
+        const passcode = queryParams.get('passcode');
+        
+        if (data.suites && passcode) {
+          const matchingSuite = data.suites.find(suite => suite.passcode === passcode);
+          if (matchingSuite) {
+            setSuiteInfo(matchingSuite);
+          }
+        }
+
+        setLoading(false);
+      } catch (err) {
+        console.error("Failed to load client info:", err);
+        setError("Failed to load client information. Please try again later.");
+        setLoading(false);
+      }
+    };
+
+    // If no initial client info was provided, fetch it
+    if (!initialClientInfo) {
+      loadClientInfo();
+    }
+  }, [initialClientInfo, location.search]);
+
+  // Extract passcode from URL query parameters
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const passcode = queryParams.get('passcode');
+    
+    if (clientInfo && clientInfo.suites && passcode) {
+      const matchingSuite = clientInfo.suites.find(suite => suite.passcode === passcode);
+      if (matchingSuite) {
+        setSuiteInfo(matchingSuite);
+      }
+    }
+  }, [location.search, clientInfo]);
+
+  // Check if we need to show passcode form once data is loaded
+  useEffect(() => {
+    // If client info is loaded, no suite is selected, and there are suites available
+    if (clientInfo && !suiteInfo && clientInfo.suites && clientInfo.suites.length > 0) {
+      const queryParams = new URLSearchParams(location.search);
+      const passcode = queryParams.get('passcode');
+      
+      // Only show form if no passcode in URL or passcode is invalid
+      if (!passcode) {
+        setShowPasscodeForm(true);
+      }
+    }
+  }, [clientInfo, suiteInfo, location.search]);
+
+  const handlePasscodeSubmit = (e) => {
+    e.preventDefault();
+    if (!passcodeInput.trim()) {
+      setPasscodeError(translations[currentLanguage].passcodeErrorEmpty);
+      return;
+    }
+
+    if (clientInfo && clientInfo.suites) {
+      const matchingSuite = clientInfo.suites.find(suite => suite.passcode === passcodeInput);
+      
+      if (matchingSuite) {
+        setSuiteInfo(matchingSuite);
+        setShowPasscodeForm(false);
+        
+        // Update URL with the passcode (optional)
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set('passcode', passcodeInput);
+        window.history.replaceState({}, '', newUrl.toString());
+      } else {
+        setPasscodeError(translations[currentLanguage].passcodeErrorInvalid);
+      }
+    }
+  };
+
+  // Navigation handlers for the new routes
+  const handleStayInfoClick = () => {
+    // Preserve query parameters from current URL
+    const currentSearchParams = new URLSearchParams(location.search);
+    navigate({
+      pathname: '/stay-info',
+      search: currentSearchParams.toString(),
+      state: { stayInfo: suiteInfo?.stayInfo, clientInfo }
+    });
+  };
   
-  // Functions to handle expanding/collapsing sections
-  const handleSectionToggle = (section) => {
-    setExpandedSection(expandedSection === section ? null : section);
+  const handleRestaurantsClick = () => {
+    // Preserve query parameters from current URL
+    const currentSearchParams = new URLSearchParams(location.search);
+    navigate({
+      pathname: '/featured-restaurants',
+      search: currentSearchParams.toString(),
+      state: { restaurants: clientInfo.restaurantList, clientInfo }
+    });
+  };
+  
+  const handleAttractionsClick = () => {
+    // Preserve query parameters from current URL
+    const currentSearchParams = new URLSearchParams(location.search);
+    navigate({
+      pathname: '/featured-places',
+      search: currentSearchParams.toString(),
+      state: { places: clientInfo.featuredPlaces, clientInfo }
+    });
+  };
+  
+  const handleToursClick = () => {
+    // Preserve query parameters from current URL
+    const currentSearchParams = new URLSearchParams(location.search);
+    navigate({
+      pathname: '/featured-tours',
+      search: currentSearchParams.toString(),
+      state: { tours: clientInfo.featuredTours, clientInfo }
+    });
   };
   
   // Handle language menu
@@ -146,20 +301,34 @@ const HubLanding = ({ clientInfo = {
     // Navigate to the tour guide page
     navigate(`/join/${tourId}`);
   };
-  
-  // Handle attraction selection
-  const handleAttractionSelect = (placeId) => {
-    // Navigate to the place landing page
-    navigate(`/go/${placeId}`);
-  };
+
+  // Show loading state while fetching client info
+  if (loading) {
+    return (
+      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Container>
+    );
+  }
+
+  // Show error state if client info failed to load
+  if (error) {
+    return (
+      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Typography color="error">{error}</Typography>
+      </Container>
+    );
+  }
 
   // Render the appropriate header based on client info
   const renderHeader = () => {
+    const displayTitle = suiteInfo ? suiteInfo.name : clientInfo.title;
+    
     return (
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box>
           <Typography variant="h5" component="h1" fontWeight="bold">
-            {clientInfo.title}
+            {displayTitle}
           </Typography>
           <Typography variant="subtitle2" color="text.secondary">
             {clientInfo.subtitle} <span style={{ fontSize: '0.8rem' }}>Powered by Laxy</span>
@@ -207,510 +376,307 @@ const HubLanding = ({ clientInfo = {
     );
   };
 
-  // Get the appropriate section labels based on client variant
-  const getSectionLabels = () => {
-    if (clientInfo.variant === 'beppu-story') {
-      return {
-        infoLabel: 'Airbnb Information',
-        restaurantsLabel: 'Restaurant List',
-        attractionsLabel: 'Attraction List',
-        toursLabel: 'Tour List',
-        popularToursLabel: 'Popular Tours'
-      };
-    }
-    
-    return {
-      infoLabel: 'Local Information',
-      restaurantsLabel: 'Dining Options',
-      attractionsLabel: 'Points of Interest',
-      toursLabel: 'Available Tours',
-      popularToursLabel: 'Featured Experiences'
-    };
-  };
+  // Get section labels from translations based on current language
+  const sectionLabels = translations[currentLanguage];
+
+  // Get room images from suite info or nothing
+  const roomImages = suiteInfo ? suiteInfo.roomImages : [];
+
+  // Get featured tours from client info or use defaults
+  const featuredTours = clientInfo.featuredTours || [];
   
-  const sectionLabels = getSectionLabels();
+  // Get featured places from client info or use defaults
+  const featuredPlaces = clientInfo.featuredPlaces || [];
+  
+  // Get restaurant list from client info or use empty array
+  const restaurantList = clientInfo.restaurantList || [];
+  
+  // Get carousel title based on suite info
+  const carouselTitle = suiteInfo ? suiteInfo.name : clientInfo.carouselTitle || 'Discover Local Experiences';
 
   return (
-    <Container sx={{ pb: 4 }}>
-      {/* Header Section */}
+    <Container sx={{ pb: 4, px: { xs: 2, sm: 3 }, pt: 2 }}>
+      {/* Always show header with language selector */}
       <Paper elevation={0} sx={{ mb: 1, pt: 2, pb: 1, px: 2, position: 'relative', borderRadius: '0 0 16px 16px' }}>
         {renderHeader()}
-        
-        {/* Search bar - non-functional in this mockup */}
-        <Paper
-          elevation={1}
-          sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            mt: 2, 
-            mb: 1, 
-            px: 2, 
-            py: 1, 
-            borderRadius: 4 
-          }}
-        >
-          <input 
-            type="text" 
-            placeholder="Search" 
-            style={{ 
-              border: 'none', 
-              outline: 'none', 
-              width: '100%', 
-              background: 'transparent',
-              fontFamily: 'inherit',
-              fontSize: '1rem'
-            }} 
-          />
-        </Paper>
       </Paper>
       
-      {/* Main Image Banner (Slideshow) */}
-      <Box sx={{ mb: 2 }}>
-        <Carousel 
-          animation="slide"
-          navButtonsAlwaysVisible
-          autoPlay
-          interval={5000}
-          indicators={true}
-          sx={{ borderRadius: 2, overflow: 'hidden' }}
-        >
-          {roomImages.map((item) => (
-            <Box 
-              key={item.id}
-              sx={{ 
-                height: 250, 
-                backgroundImage: `url(${item.src})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: 2
+      {/* Show only passcode form when showPasscodeForm is true */}
+      {showPasscodeForm ? (
+        <Paper elevation={3} sx={{ mb: 3, p: 3, borderRadius: 2, position: 'relative' }}>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            {sectionLabels.enterRoomPasscodeTitle}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {sectionLabels.enterRoomPasscodeDescription}
+          </Typography>
+          <form onSubmit={handlePasscodeSubmit}>
+            <TextField
+              autoFocus
+              margin="dense"
+              label={sectionLabels.passcodeLabel}
+              type="text"
+              fullWidth
+              value={passcodeInput}
+              onChange={(e) => {
+                setPasscodeInput(e.target.value);
+                if (passcodeError) setPasscodeError('');
               }}
-              aria-label={item.alt}
+              error={!!passcodeError}
+              helperText={passcodeError}
+              variant="outlined"
+              sx={{ mb: 2 }}
             />
-          ))}
-        </Carousel>
-        <Box sx={{ 
-          mt: -4, 
-          ml: 2, 
-          mb: 2, 
-          position: 'relative', 
-          zIndex: 10, 
-          display: 'inline-flex',
-          bgcolor: 'rgba(0, 0, 0, 0.7)',
-          color: 'white',
-          px: 2,
-          py: 1,
-          borderRadius: 1
-        }}>
-          <Typography variant="h6" component="h2">
-            {clientInfo.variant === 'beppu-story' ? 'Premium Suite 1' : 'Discover Local Experiences'}
-          </Typography>
-        </Box>
-      </Box>
-      
-      {/* Navigation Icons */}
-      <Grid container spacing={2} sx={{ mb: 2 }}>
-        <Grid item xs={3} sx={{ textAlign: 'center' }}>
-          <Paper 
-            elevation={1} 
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+              <Button 
+                type="submit" 
+                color="primary" 
+                variant="contained"
+                fullWidth
+              >
+                {sectionLabels.submit}
+              </Button>
+            </Box>
+          </form>
+        </Paper>
+      ) : (
+        /* Main content when not showing passcode form */
+        <>
+          {/* Search bar - non-functional in this mockup */}
+          <Paper
+            elevation={1}
             sx={{ 
               display: 'flex', 
-              flexDirection: 'column', 
               alignItems: 'center', 
-              justifyContent: 'center', 
-              p: 2,
-              borderRadius: '50%',
-              width: 64,
-              height: 64,
-              mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-              cursor: 'pointer'
+              mb: 2, 
+              px: 2, 
+              py: 1, 
+              borderRadius: 4 
             }}
-            onClick={() => handleSectionToggle('info')}
           >
-            <InfoIcon fontSize="large" color="primary" />
+            <input 
+              type="text" 
+              placeholder={sectionLabels.searchPlaceholder} 
+              style={{ 
+                border: 'none', 
+                outline: 'none', 
+                width: '100%', 
+                background: 'transparent',
+                fontFamily: 'inherit',
+                fontSize: '1rem'
+              }} 
+            />
           </Paper>
-          <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-            Info
-          </Typography>
-        </Grid>
-        <Grid item xs={3} sx={{ textAlign: 'center' }}>
-          <Paper 
-            elevation={1} 
-            sx={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              p: 2,
-              borderRadius: '50%',
-              width: 64,
-              height: 64,
-              mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-              cursor: 'pointer'
-            }}
-            onClick={() => handleSectionToggle('restaurants')}
-          >
-            <RestaurantIcon fontSize="large" color="primary" />
-          </Paper>
-          <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-            {clientInfo.variant === 'beppu-story' ? 'Restaurants' : 'Dining'}
-          </Typography>
-        </Grid>
-        <Grid item xs={3} sx={{ textAlign: 'center' }}>
-          <Paper 
-            elevation={1} 
-            sx={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              p: 2,
-              borderRadius: '50%',
-              width: 64,
-              height: 64,
-              mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-              cursor: 'pointer'
-            }}
-            onClick={() => handleSectionToggle('attractions')}
-          >
-            <AttractionsTwoToneIcon fontSize="large" color="primary" />
-          </Paper>
-          <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-            {clientInfo.variant === 'beppu-story' ? 'Attractions' : 'Sights'}
-          </Typography>
-        </Grid>
-        <Grid item xs={3} sx={{ textAlign: 'center' }}>
-          <Paper 
-            elevation={1} 
-            sx={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              p: 2,
-              borderRadius: '50%',
-              width: 64,
-              height: 64,
-              mx: 'auto',
-              boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-              cursor: 'pointer'
-            }}
-            onClick={() => handleSectionToggle('tours')}
-          >
-            <TourIcon fontSize="large" color="primary" />
-          </Paper>
-          <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-            Tours
-          </Typography>
-        </Grid>
-      </Grid>
-      
-      {/* Subsection Navigation Tiles (Expandable) */}
-      <List sx={{ mb: 2 }}>
-        {/* Information Section */}
-        <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-          <ListItem 
-            button 
-            onClick={() => handleSectionToggle('info')}
-            sx={{ px: 2, py: 1.5 }}
-          >
-            <ListItemIcon>
-              <InfoIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary={sectionLabels.infoLabel} />
-            {expandedSection === 'info' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItem>
-          <Collapse in={expandedSection === 'info'} timeout="auto" unmountOnExit>
-            {clientInfo.variant === 'beppu-story' ? (
-              <List component="div" disablePadding>
-                <ListItem sx={{ pl: 4 }}>
-                  <ListItemText 
-                    primary="Check-in: 3:00 PM" 
-                    secondary="Self check-in with building staff" 
+          
+          {/* Main Image Banner (Slideshow) - Only show if roomImages exist */}
+          {roomImages.length > 0 && (
+            <Box sx={{ mb: 2 }}>
+              <Carousel 
+                animation="slide"
+                navButtonsAlwaysVisible
+                autoPlay
+                interval={5000}
+                indicators={true}
+                sx={{ borderRadius: 2, overflow: 'hidden' }}
+              >
+                {roomImages.map((item) => (
+                  <Box 
+                    key={item.id}
+                    sx={{ 
+                      height: 250, 
+                      backgroundImage: `url(${item.src})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      borderRadius: 2
+                    }}
+                    aria-label={item.alt}
                   />
-                </ListItem>
-                <ListItem sx={{ pl: 4 }}>
-                  <ListItemText 
-                    primary="Check-out: 11:00 AM" 
-                  />
-                </ListItem>
-                <ListItem sx={{ pl: 4 }}>
-                  <ListItemText 
-                    primary="WiFi" 
-                    secondary="LaxyHub-WiFi (Password: laxy2025)" 
-                  />
-                </ListItem>
-              </List>
-            ) : (
-              <List component="div" disablePadding>
-                <ListItem sx={{ pl: 4 }}>
-                  <ListItemText 
-                    primary="Tourist Information Center" 
-                    secondary="Open daily: 9:00 AM - 6:00 PM" 
-                  />
-                </ListItem>
-                <ListItem sx={{ pl: 4 }}>
-                  <ListItemText 
-                    primary="Emergency Contacts" 
-                    secondary="Police: 110 | Ambulance: 119" 
-                  />
-                </ListItem>
-                <ListItem sx={{ pl: 4 }}>
-                  <ListItemText 
-                    primary="Public WiFi" 
-                    secondary="Available in most public areas" 
-                  />
-                </ListItem>
-              </List>
-            )}
-          </Collapse>
-        </Paper>
-        
-        {/* Restaurant List Section */}
-        <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-          <ListItem 
-            button 
-            onClick={() => handleSectionToggle('restaurants')}
-            sx={{ px: 2, py: 1.5 }}
-          >
-            <ListItemIcon>
-              <RestaurantIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary={sectionLabels.restaurantsLabel} />
-            {expandedSection === 'restaurants' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItem>
-          <Collapse in={expandedSection === 'restaurants'} timeout="auto" unmountOnExit>
-            {clientInfo.variant === 'beppu-story' ? (
-              <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Toyotsune Sushi" secondary="Traditional sushi • 5 min walk" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Oita Ramen Shop" secondary="Local ramen • 8 min walk" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Sunset Café" secondary="Coffee & cakes • 3 min walk" />
-                </ListItem>
-              </List>
-            ) : (
-              <List component="div" disablePadding>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Local Bistro" secondary="Regional cuisine • Highly rated" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Street Food Market" secondary="Various options • Budget friendly" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Waterfront Dining" secondary="Seafood & views • Premium experience" />
-                </ListItem>
-              </List>
-            )}
-          </Collapse>
-        </Paper>
-        
-        {/* Attraction List Section */}
-        <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-          <ListItem 
-            button 
-            onClick={() => handleSectionToggle('attractions')}
-            sx={{ px: 2, py: 1.5 }}
-          >
-            <ListItemIcon>
-              <AttractionsTwoToneIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary={sectionLabels.attractionsLabel} />
-            {expandedSection === 'attractions' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItem>
-          <Collapse in={expandedSection === 'attractions'} timeout="auto" unmountOnExit>
-            {clientInfo.variant === 'beppu-story' ? (
-              <List component="div" disablePadding>
-                <ListItem 
-                  button 
-                  sx={{ pl: 4 }}
-                  onClick={() => handleAttractionSelect('beppu-tower')}
-                >
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Beppu Tower" secondary="Landmark • 15 min by bus" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Takegawara Onsen" secondary="Traditional public bath • 10 min walk" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Kintetsu Ropeway" secondary="Mountain view • 20 min by bus" />
-                </ListItem>
-              </List>
-            ) : (
-              <List component="div" disablePadding>
-                <ListItem 
-                  button 
-                  sx={{ pl: 4 }}
-                  onClick={() => handleAttractionSelect('tokyo-tower')}
-                >
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Tokyo Tower" secondary="Iconic landmark • Central location" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Historical Center" secondary="Cultural landmarks • Walking distance" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Arts District" secondary="Galleries & cafes • Central location" />
-                </ListItem>
-              </List>
-            )}
-          </Collapse>
-        </Paper>
-        
-        {/* Tour List Section */}
-        <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-          <ListItem 
-            button 
-            onClick={() => handleSectionToggle('tours')}
-            sx={{ px: 2, py: 1.5 }}
-          >
-            <ListItemIcon>
-              <TourIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText primary={sectionLabels.toursLabel} />
-            {expandedSection === 'tours' ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </ListItem>
-          <Collapse in={expandedSection === 'tours'} timeout="auto" unmountOnExit>
-            {clientInfo.variant === 'beppu-story' ? (
-              <List component="div" disablePadding>
-                <ListItem 
-                  button 
-                  sx={{ pl: 4 }}
-                  onClick={() => handleTourSelect('jpn-bepu-tur-001')}
-                >
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Beppu Hot Springs Tour" secondary="3 hours • English guide available" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="City Bus Tour" secondary="4 hours • Includes lunch" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Mount Tsurumi Hiking Tour" secondary="6 hours • Advanced level" />
-                </ListItem>
-              </List>
-            ) : (
-              <List component="div" disablePadding>
-                <ListItem 
-                  button 
-                  sx={{ pl: 4 }}
-                  onClick={() => handleTourSelect('jpn-bepu-tur-001')}
-                >
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Tokyo City Explorer" secondary="4 hours • Perfect introduction" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Culinary Adventure" secondary="3 hours • Food tasting included" />
-                </ListItem>
-                <ListItem button sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <ChevronRightIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Photography Walk" secondary="4 hours • All skill levels" />
-                </ListItem>
-              </List>
-            )}
-          </Collapse>
-        </Paper>
-      </List>
-      
-      {/* Tour Slideshow Section */}
-      <Box sx={{ mb: 3, mt: 4 }}>
-        <Typography variant="h6" component="h2" sx={{ mb: 2, fontWeight: 'bold' }}>
-          {sectionLabels.popularToursLabel}
-        </Typography>
-        
-        <Box sx={{ overflowX: 'auto', display: 'flex', pb: 2 }}>
-          {tourOptions.map((tour) => (
-            <Paper
-              key={tour.id}
-              elevation={2}
-              sx={{
-                minWidth: 200,
-                mr: 2,
-                borderRadius: 2,
-                overflow: 'hidden',
-                cursor: 'pointer',
-                transition: 'transform 0.2s',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                }
-              }}
-              onClick={() => {
-                const tourId = clientInfo.variant === 'beppu-story' 
-                  ? 'jpn-bepu-tur-001' 
-                  : 'jpn-bepu-tur-001';
-                handleTourSelect(tourId);
-              }}
-            >
-              <Box
-                sx={{ 
-                  height: 120, 
-                  backgroundImage: `url(${tour.image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
-              <Box sx={{ p: 2 }}>
-                <Typography variant="subtitle1" fontWeight="medium">
-                  {tour.name}
+                ))}
+              </Carousel>
+              <Box sx={{ 
+                mt: -4, 
+                ml: 2, 
+                mb: 2, 
+                position: 'relative', 
+                zIndex: 10, 
+                display: 'inline-flex',
+                bgcolor: 'rgba(0, 0, 0, 0.7)',
+                color: 'white',
+                px: 2,
+                py: 1,
+                borderRadius: 1
+              }}>
+                <Typography variant="h6" component="h2">
+                  {carouselTitle}
                 </Typography>
               </Box>
-            </Paper>
-          ))}
-        </Box>
-      </Box>
+            </Box>
+          )}
+          
+          {/* Navigation Icons - Updated to use navigation routes instead of expanding sections */}
+          <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
+            {/* Info icon - Always show as it has default content */}
+            <Grid item xs={3} sx={{ textAlign: 'center' }}>
+              <Paper 
+                elevation={1} 
+                sx={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  p: { xs: 1.5, sm: 2 },
+                  borderRadius: '50%',
+                  width: { xs: 56, sm: 64 },
+                  height: { xs: 56, sm: 64 },
+                  mx: 'auto',
+                  boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+                  cursor: 'pointer'
+                }}
+                onClick={handleStayInfoClick}
+              >
+                <InfoIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
+              </Paper>
+              <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+                {sectionLabels.infoLabel}
+              </Typography>
+            </Grid>
+            
+            {/* Restaurant icon - Only show if restaurant data exists */}
+            {restaurantList.length > 0 && (
+              <Grid item xs={3} sx={{ textAlign: 'center' }}>
+                <Paper 
+                  elevation={1} 
+                  sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    p: { xs: 1.5, sm: 2 },
+                    borderRadius: '50%',
+                    width: { xs: 56, sm: 64 },
+                    height: { xs: 56, sm: 64 },
+                    mx: 'auto',
+                    boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+                    cursor: 'pointer'
+                  }}
+                  onClick={handleRestaurantsClick}
+                >
+                  <RestaurantIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
+                </Paper>
+                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+                  {sectionLabels.restaurantsShortLabel}
+                </Typography>
+              </Grid>
+            )}
+            
+            {/* Attractions icon - Only show if featured places exist */}
+            {featuredPlaces.length > 0 && (
+              <Grid item xs={3} sx={{ textAlign: 'center' }}>
+                <Paper 
+                  elevation={1} 
+                  sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    p: { xs: 1.5, sm: 2 },
+                    borderRadius: '50%',
+                    width: { xs: 56, sm: 64 },
+                    height: { xs: 56, sm: 64 },
+                    mx: 'auto',
+                    boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+                    cursor: 'pointer'
+                  }}
+                  onClick={handleAttractionsClick}
+                >
+                  <AttractionsTwoToneIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
+                </Paper>
+                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+                  {sectionLabels.attractionsShortLabel}
+                </Typography>
+              </Grid>
+            )}
+            
+            {/* Tours icon - Only show if featured tours exist */}
+            {featuredTours.length > 0 && (
+              <Grid item xs={3} sx={{ textAlign: 'center' }}>
+                <Paper 
+                  elevation={1} 
+                  sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    p: { xs: 1.5, sm: 2 },
+                    borderRadius: '50%',
+                    width: { xs: 56, sm: 64 },
+                    height: { xs: 56, sm: 64 },
+                    mx: 'auto',
+                    boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+                    cursor: 'pointer'
+                  }}
+                  onClick={handleToursClick}
+                >
+                  <TourIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
+                </Paper>
+                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+                  {sectionLabels.toursLabel}
+                </Typography>
+              </Grid>
+            )}
+          </Grid>
+          
+          {/* Tour Slideshow Section - Only show if featured tours exist */}
+          {featuredTours.length > 0 && (
+            <Box sx={{ mb: 3, mt: 4 }}>
+              <Typography variant="h6" component="h2" sx={{ mb: 2, fontWeight: 'bold', fontSize: { xs: '1.125rem', sm: '1.25rem' } }}>
+                {sectionLabels.popularToursLabel}
+              </Typography>
+              
+              <Box sx={{ overflowX: 'auto', display: 'flex', pb: 2 }}>
+                {featuredTours.map((tour) => (
+                  <Paper
+                    key={tour.id}
+                    elevation={2}
+                    sx={{
+                      minWidth: { xs: 150, sm: 200 },
+                      width: { xs: 150, sm: 200 },
+                      mr: 2,
+                      borderRadius: 2,
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      transition: 'transform 0.2s',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                      }
+                    }}
+                    onClick={() => handleTourSelect(tour.id)}
+                  >
+                    <Box
+                      sx={{ 
+                        height: { xs: 100, sm: 120 }, 
+                        backgroundImage: `url(${tour.image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }}
+                    />
+                    <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
+                      <Typography variant="subtitle1" fontWeight="medium" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
+                        {tour.name}
+                      </Typography>
+                      {tour.duration && (
+                        <Typography variant="caption" color="text.secondary">
+                          {tour.duration}
+                        </Typography>
+                      )}
+                    </Box>
+                  </Paper>
+                ))}
+              </Box>
+            </Box>
+          )}
+        </>
+      )}
     </Container>
   );
 };

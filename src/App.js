@@ -6,6 +6,10 @@ import { BrowserRouter, Routes, Route, useParams, useLocation } from 'react-rout
 import HubLanding from './components/HubLanding';
 import TourLanding from './components/TourLanding';
 import PlaceLanding from './components/PlaceLanding';
+import StayInfo from './components/hub/StayInfo';
+import FeaturedRestaurants from './components/hub/FeaturedRestaurants';
+import FeaturedPlaces from './components/hub/FeaturedPlaces';
+import FeaturedTours from './components/hub/FeaturedTours';
 import { getHubClientInfo, getTourClientInfo, getPlaceClientInfo } from './config/clients';
 
 // ScrollToTop component to handle scrolling to top on route changes
@@ -95,6 +99,45 @@ function PlaceWrapper() {
   return <PlaceLanding clientInfo={getPlaceClientInfo(hostname, pathname, placeId)} />;
 }
 
+// Wrapper components for new hub routes
+function StayInfoWrapper() {
+  const location = useLocation();
+  const clientInfo = getHubClientInfo(window.location.hostname, location.pathname);
+  
+  // Extract passcode from URL query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const passcode = queryParams.get('passcode');
+  
+  // Find suite info if passcode is present
+  let suiteInfo = null;
+  if (passcode && clientInfo && clientInfo.suites) {
+    suiteInfo = clientInfo.suites.find(suite => suite.passcode === passcode);
+  }
+  
+  return <StayInfo initialState={{ stayInfo: suiteInfo?.stayInfo, clientInfo }} />;
+}
+
+function RestaurantsWrapper() {
+  const location = useLocation();
+  const clientInfo = getHubClientInfo(window.location.hostname, location.pathname);
+  
+  return <FeaturedRestaurants initialState={{ restaurants: clientInfo.restaurantList, clientInfo }} />;
+}
+
+function PlacesWrapper() {
+  const location = useLocation();
+  const clientInfo = getHubClientInfo(window.location.hostname, location.pathname);
+  
+  return <FeaturedPlaces initialState={{ places: clientInfo.featuredPlaces, clientInfo }} />;
+}
+
+function ToursWrapper() {
+  const location = useLocation();
+  const clientInfo = getHubClientInfo(window.location.hostname, location.pathname);
+  
+  return <FeaturedTours initialState={{ tours: clientInfo.featuredTours, clientInfo }} />;
+}
+
 function App() {
   const hostname = window.location.hostname;
   
@@ -107,6 +150,10 @@ function App() {
           <Route path="/" element={<HubWrapper />} />
           <Route path="/join/:tourId" element={<TourWrapper />} />
           <Route path="/go/:placeId" element={<PlaceWrapper />} />
+          <Route path="/stay-info" element={<StayInfoWrapper />} />
+          <Route path="/featured-restaurants" element={<RestaurantsWrapper />} />
+          <Route path="/featured-places" element={<PlacesWrapper />} />
+          <Route path="/featured-tours" element={<ToursWrapper />} />
           <Route path="*" element={<HubWrapper />} />
         </Routes>
       );
@@ -137,6 +184,10 @@ function App() {
           <Route path="/" element={<HubWrapper />} />
           <Route path="/join/:tourId" element={<TourWrapper />} />
           <Route path="/go/:placeId" element={<PlaceWrapper />} />
+          <Route path="/stay-info" element={<StayInfoWrapper />} />
+          <Route path="/featured-restaurants" element={<RestaurantsWrapper />} />
+          <Route path="/featured-places" element={<PlacesWrapper />} />
+          <Route path="/featured-tours" element={<ToursWrapper />} />
           <Route path="*" element={<HubWrapper />} />
         </Routes>
       );
