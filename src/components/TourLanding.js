@@ -25,6 +25,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
+import LanguageSelector from './common/LanguageSelector';
 
 // Mock data for the tour content
 const mockTourImages = {
@@ -101,6 +102,7 @@ function TourLanding({ clientInfo }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { tourId } = useParams();
+  // Access language from context
   
   // Default to 'default' if variant is not specified
   const variant = clientInfo?.variant || 'default';
@@ -169,7 +171,11 @@ function TourLanding({ clientInfo }) {
         <IconButton edge="start" aria-label="back" onClick={handleBack}>
           <ArrowBackIosNewIcon />
         </IconButton>
-        <Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {/* Language selector */}
+          <Box sx={{ mr: 1 }}>
+            <LanguageSelector />
+          </Box>
           <IconButton aria-label="share" onClick={handleShare}>
             <ShareIcon />
           </IconButton>

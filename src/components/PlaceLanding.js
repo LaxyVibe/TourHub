@@ -29,6 +29,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import HotelIcon from '@mui/icons-material/Hotel';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import LanguageSelector from './common/LanguageSelector';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import PublicIcon from '@mui/icons-material/Public';
 
@@ -151,6 +152,7 @@ function PlaceLanding({ clientInfo }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { tourId } = useParams();
+  // Access language from context
   
   // Default to 'default' if variant is not specified
   const variant = clientInfo?.variant || 'default';
@@ -218,7 +220,11 @@ function PlaceLanding({ clientInfo }) {
         <IconButton edge="start" aria-label="back" onClick={handleBack}>
           <ArrowBackIosNewIcon />
         </IconButton>
-        <Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {/* Language selector */}
+          <Box sx={{ mr: 1 }}>
+            <LanguageSelector />
+          </Box>
           <IconButton aria-label="share" onClick={handleShare}>
             <ShareIcon />
           </IconButton>
