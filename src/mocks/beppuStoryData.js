@@ -8,6 +8,15 @@ export const beppuStoryData = {
   subtitle: 'Audio Guide',
   location: 'Beppu, Japan',
   variant: 'beppu-story',
+  defaultStayInfo: {
+    checkin: 'After 3:00 PM',
+    checkout: 'Before 11:00 AM',
+    wifi: {
+      ssid: 'LaxyHub-Guest',
+      password: 'laxy2025guest'
+    },
+    rules: 'No smoking. No parties. Quiet hours after 10pm.'
+  },
   suites: [
     {
       id: 'suite-1',
@@ -31,13 +40,11 @@ export const beppuStoryData = {
         }
       ],
       stayInfo: {
-        checkin: 'After 3:00 PM',
-        checkout: 'Before 11:00 AM',
+        // Only override the wifi settings for Suite 1 
         wifi: {
           ssid: 'LaxyHub-Suite1',
           password: 'laxy2025s1'
-        },
-        rules: 'No smoking. No parties. Quiet hours after 10pm.'
+        }
       }
     },
     {
@@ -62,13 +69,11 @@ export const beppuStoryData = {
         }
       ],
       stayInfo: {
-        checkin: 'After 3:00 PM',
-        checkout: 'Before 11:00 AM',
+        // Only override the wifi settings for Suite 2
         wifi: {
           ssid: 'LaxyHub-Suite2',
           password: 'laxy2025s2'
-        },
-        rules: 'No smoking. No parties. Quiet hours after 10pm.'
+        }
       }
     },
     {
@@ -93,6 +98,7 @@ export const beppuStoryData = {
         }
       ],
       stayInfo: {
+        // Override checkin, checkout, wifi and rules
         checkin: 'After 2:00 PM',
         checkout: 'Before 12:00 PM',
         wifi: {
@@ -124,8 +130,8 @@ export const beppuStoryData = {
         }
       ],
       stayInfo: {
+        // Override checkin, wifi and rules
         checkin: 'After 2:00 PM',
-        checkout: 'Before 11:00 AM',
         wifi: {
           ssid: 'LaxyHub-Family',
           password: 'laxy2025fam'
@@ -155,6 +161,7 @@ export const beppuStoryData = {
         }
       ],
       stayInfo: {
+        // Override checkin, checkout, wifi and rules
         checkin: 'After 2:00 PM',
         checkout: 'Before 12:00 PM',
         wifi: {
@@ -186,7 +193,7 @@ export const beppuStoryData = {
         }
       ],
       stayInfo: {
-        checkin: 'After 3:00 PM',
+        // Override checkout, wifi and rules
         checkout: 'Before 12:00 PM',
         wifi: {
           ssid: 'LaxyHub-Penthouse',
