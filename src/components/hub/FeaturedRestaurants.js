@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  Container, 
-  Paper, 
-  Typography, 
-  Box, 
-  List, 
-  ListItem, 
+  Container,
+  Paper,
+  Typography,
+  Box,
+  List,
+  ListItem,
   ListItemText,
   ListItemIcon,
   IconButton,
@@ -14,7 +14,7 @@ import {
   Divider,
   CircularProgress
 } from '@mui/material';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -23,7 +23,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useLanguage } from '../../context/LanguageContext';
-import { fetchRestaurantsPageContent } from '../../config/clients/hubClients'; // Import the new function
+import { getRestaurantsData } from '../../utils/dataFetcher';
 
 const translations = {
   en: {
@@ -69,24 +69,22 @@ const FeaturedRestaurants = ({ initialState }) => {
       setLoading(true);
       setError(null);
       try {
-        // Assuming 'beppu-story' is the relevant clientId for this page
-        // The language from context is passed here
-        const data = await fetchRestaurantsPageContent('beppu-story', language);
-        setPageTitle(data.title); // This comes from API, potentially already translated
-        setPageSubtitle(data.subtitle); // This comes from API, potentially already translated
-        setRestaurants(data.restaurants);
+        // Get restaurant data with fallback to mock data
+        const data = await getRestaurantsData('beppu-story', language);
+        setPageTitle(data.title || currentTranslations.pageTitleFallback);
+        setPageSubtitle(data.subtitle || '');
+        setRestaurants(data.restaurants || []);
       } catch (err) {
         console.error("Failed to load restaurant data for FeaturedRestaurants page:", err);
         setError(currentTranslations.errorMessage);
         setPageTitle(currentTranslations.errorTitle);
-        setPageSubtitle(currentTranslations.errorSubtitle);
-        setRestaurants([]);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     loadRestaurantData();
-  }, [language, currentTranslations.errorMessage, currentTranslations.errorTitle, currentTranslations.errorSubtitle]); // Added translation dependencies
+  }, [language, currentTranslations]);
   
   const handleBack = () => {
     // Preserve query parameters when navigating back and include language code
