@@ -9,6 +9,34 @@ import { getPlacesByLanguage } from '../mocks/places';
 const dataCache = new Map();
 
 /**
+ * Get restaurants data with language support
+ */
+export const getRestaurantsData = async (clientId, language = 'en') => {
+  const url = `https://s3.ap-northeast-1.amazonaws.com/laxy.hub.dev/stay/${clientId}/restaurants.json?lang=${language}`;
+  const data = await fetchWithCache(url, `restaurants_${clientId}_${language}`);
+  
+  // If API fails, use mock data
+  if (!data) {
+    const mockData = getRestaurantsByLanguage(language);
+    if (!mockData || !mockData.restaurants) {
+      throw new Error(`No restaurant data available for language: ${language}`);
+    }
+    return mockData;
+  }
+  
+  // If we have API data, ensure it has the expected structure
+  return {
+    restaurants: data.restaurants || data || [],
+    title: data.title || beppuStoryData.restaurantTitle || 'Dining Options',
+    subtitle: data.subtitle || beppuStoryData.restaurantSubtitle || 'Local Restaurants'
+  };port { beppuStoryData } from '../mocks/beppuStoryData';
+import { getRestaurantsByLanguage } from '../mocks/restaurants';
+import { getPlacesByLanguage } from '../mocks/places';
+
+// Cache for data
+const dataCache = new Map();
+
+/**
  * Fetch data with caching and mock fallback
  */
 const fetchWithCache = async (url, cacheKey) => {
@@ -88,7 +116,7 @@ export const getPlacesData = async (clientId, language = 'en') => {
     return {
       places: mockData.places || [],
       title: 'Points of Interest',
-      subtitle: "Discover Beppu's attractions"
+      subtitle: 'Discover Beppu\'s attractions'
     };
   }
   

@@ -85,7 +85,8 @@ const RestaurantDetail = ({ initialState }) => {
       try {
         const data = await getRestaurantsData('beppu-story', language);
 
-        const foundRestaurant = data.find(r => r.id === restaurantId);
+        // Check if data has restaurants array
+        const foundRestaurant = data.restaurants?.find(r => r.id === restaurantId);
         if (foundRestaurant) {
           setRestaurant(foundRestaurant);
         } else {
