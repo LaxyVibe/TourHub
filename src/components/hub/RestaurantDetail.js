@@ -24,7 +24,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LanguageIcon from '@mui/icons-material/Language';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import { useLanguage } from '../../context/LanguageContext';
-import { fetchRestaurantsPageContent } from '../../config/clients/hubClients';
+import { getRestaurantsData } from '../../utils/dataFetcher';
 
 const translations = {
   en: {
@@ -83,9 +83,9 @@ const RestaurantDetail = ({ initialState }) => {
       setLoading(true);
       setError(null);
       try {
-        const data = await fetchRestaurantsPageContent('beppu-story', language);
+        const data = await getRestaurantsData('beppu-story', language);
 
-        const foundRestaurant = data.restaurants.find(r => r.id === restaurantId);
+        const foundRestaurant = data.find(r => r.id === restaurantId);
         if (foundRestaurant) {
           setRestaurant(foundRestaurant);
         } else {
