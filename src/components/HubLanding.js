@@ -5,29 +5,38 @@ import {
   Typography, 
   IconButton, 
   Paper, 
-  Menu, 
-  MenuItem,
   Grid,
   CircularProgress,
   TextField,
   Button
 } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import LanguageIcon from '@mui/icons-material/Language';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import InfoIcon from '@mui/icons-material/Info';
+import WifiIcon from '@mui/icons-material/Wifi';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AttractionsTwoToneIcon from '@mui/icons-material/AttractionsTwoTone';
 import TourIcon from '@mui/icons-material/Tour';
+import { useLanguage } from '../context/LanguageContext';
+import LanguageSelector from './common/LanguageSelector';
+import { setCookie, getCookie, removeCookie } from '../utils/cookieUtils';
 
 import Carousel from 'react-material-ui-carousel';
 import { fetchClientInfo } from '../config/clients/hubClients';
 
-const languages = ["English", "日本語", "한국어", "繁體中文", "简体中文"];
+// ISO language codes to display names mapping for backward compatibility
+const languageCodeToName = {
+  "en": "English",
+  "ja": "日本語",
+  "ko": "한국어",
+  "zh-Hant": "繁體中文",
+  "zh": "简体中文"
+};
 
 // Translations for UI text
 const translations = {
   "English": {
+    wifiLabel: 'WiFi',
     infoLabel: 'Local Information',
     restaurantsLabel: 'Dining Options',
     attractionsLabel: 'Points of Interest',
@@ -43,8 +52,29 @@ const translations = {
     passcodeErrorInvalid: 'Invalid passcode. Please try again.',
     skip: 'Skip',
     submit: 'Submit',
+    checkout: 'Checkout',
+    // WiFi Info page translations
+    wifiInformation: 'WiFi Information',
+    network: 'Network',
+    password: 'Password',
+    additionalNetworks: 'Additional Networks',
+    location: 'Location',
+    wifiQrCode: 'WiFi QR Code',
+    scanToConnect: 'Scan to connect to',
+    noWifiInfo: 'No WiFi information available.',
+    // Stay Info page translations
+    noStayInfo: 'No stay information available.',
+    checkIn: 'Check-in',
+    checkOut: 'Check-out',
+    roomInfo: 'Room Information',
+    amenities: 'Amenities',
+    houseRules: 'House Rules',
+    contactUs: 'Contact Us',
+    hotelInfo: 'Hotel Information',
+    localInfo: 'Local Information',
   },
   "日本語": {
+    wifiLabel: 'WiFi',
     infoLabel: '地域情報',
     restaurantsLabel: '飲食店',
     attractionsLabel: '観光名所',
@@ -60,8 +90,29 @@ const translations = {
     passcodeErrorInvalid: '無効なパスコードです。もう一度お試しください。',
     skip: 'スキップ',
     submit: '送信',
+    checkout: 'チェックアウト',
+    // WiFi Info page translations
+    wifiInformation: 'WiFi情報',
+    network: 'ネットワーク',
+    password: 'パスワード',
+    additionalNetworks: '追加ネットワーク',
+    location: '場所',
+    wifiQrCode: 'WiFi QRコード',
+    scanToConnect: 'スキャンして接続',
+    noWifiInfo: 'WiFi情報は利用できません。',
+    // Stay Info page translations
+    noStayInfo: '宿泊情報は利用できません。',
+    checkIn: 'チェックイン',
+    checkOut: 'チェックアウト',
+    roomInfo: '客室情報',
+    amenities: 'アメニティ',
+    houseRules: '館内規則',
+    contactUs: 'お問い合わせ',
+    hotelInfo: 'ホテル情報',
+    localInfo: '地域情報',
   },
   "한국어": {
+    wifiLabel: '와이파이',
     infoLabel: '지역 정보',
     restaurantsLabel: '식당 옵션',
     attractionsLabel: '관광 명소',
@@ -77,8 +128,29 @@ const translations = {
     passcodeErrorInvalid: '유효하지 않은 패스코드입니다. 다시 시도하세요.',
     skip: '건너뛰기',
     submit: '제출',
+    checkout: '체크아웃',
+    // WiFi Info page translations
+    wifiInformation: '와이파이 정보',
+    network: '네트워크',
+    password: '비밀번호',
+    additionalNetworks: '추가 네트워크',
+    location: '위치',
+    wifiQrCode: '와이파이 QR 코드',
+    scanToConnect: '스캔하여 연결',
+    noWifiInfo: '와이파이 정보가 없습니다.',
+    // Stay Info page translations
+    noStayInfo: '숙박 정보가 없습니다.',
+    checkIn: '체크인',
+    checkOut: '체크아웃',
+    roomInfo: '객실 정보',
+    amenities: '편의 시설',
+    houseRules: '이용 규칙',
+    contactUs: '문의하기',
+    hotelInfo: '호텔 정보',
+    localInfo: '지역 정보',
   },
   "繁體中文": {
+    wifiLabel: '無線網絡',
     infoLabel: '當地資訊',
     restaurantsLabel: '餐飲選擇',
     attractionsLabel: '景點',
@@ -94,8 +166,29 @@ const translations = {
     passcodeErrorInvalid: '密碼無效。請重試。',
     skip: '跳過',
     submit: '提交',
+    checkout: '退房',
+    // WiFi Info page translations
+    wifiInformation: '無線網絡資訊',
+    network: '網絡',
+    password: '密碼',
+    additionalNetworks: '額外網絡',
+    location: '位置',
+    wifiQrCode: '無線網絡二維碼',
+    scanToConnect: '掃描連接至',
+    noWifiInfo: '無可用的無線網絡資訊。',
+    // Stay Info page translations
+    noStayInfo: '無可用的住宿資訊。',
+    checkIn: '入住',
+    checkOut: '退房',
+    roomInfo: '房間資訊',
+    amenities: '設施',
+    houseRules: '住宿規則',
+    contactUs: '聯繫我們',
+    hotelInfo: '酒店資訊',
+    localInfo: '當地資訊',
   },
   "简体中文": {
+    wifiLabel: '无线网络',
     infoLabel: '当地信息',
     restaurantsLabel: '餐饮选择',
     attractionsLabel: '景点',
@@ -111,13 +204,35 @@ const translations = {
     passcodeErrorInvalid: '密码无效。请重试。',
     skip: '跳过',
     submit: '提交',
+    checkout: '退房',
+    // WiFi Info page translations
+    wifiInformation: '无线网络信息',
+    network: '网络',
+    password: '密码',
+    additionalNetworks: '额外网络',
+    location: '位置',
+    wifiQrCode: '无线网络二维码',
+    scanToConnect: '扫描连接至',
+    noWifiInfo: '无可用的无线网络信息。',
+    // Stay Info page translations
+    noStayInfo: '无可用的住宿信息。',
+    checkIn: '入住',
+    checkOut: '退房',
+    roomInfo: '房间信息',
+    amenities: '设施',
+    houseRules: '住宿规则',
+    contactUs: '联系我们',
+    hotelInfo: '酒店信息',
+    localInfo: '当地信息',
   }
 };
 
 const HubLanding = ({ initialClientInfo }) => {
-  // State for language and UI
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [currentLanguage, setCurrentLanguage] = useState('English');
+  // Get language from context
+  const { language } = useLanguage();
+  
+  // Convert ISO language code to display name for backwards compatibility
+  const currentLanguage = languageCodeToName[language] || "English";
   const [clientInfo, setClientInfo] = useState(initialClientInfo);
   const [loading, setLoading] = useState(!initialClientInfo);
   const [error, setError] = useState(null);
@@ -126,7 +241,6 @@ const HubLanding = ({ initialClientInfo }) => {
   const [passcodeInput, setPasscodeInput] = useState('');
   const [passcodeError, setPasscodeError] = useState('');
   
-  const openLanguageMenu = Boolean(anchorEl);
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -145,20 +259,24 @@ const HubLanding = ({ initialClientInfo }) => {
             attempt++;
           }
           
-          if (!window.mswReady) {
-            console.warn('MSW initialization is taking too long, proceeding with fetch anyway');
-          } else {
-            console.log('MSW is ready, proceeding with fetch');
-          }
         }
 
-        // For testing purposes, we'll force loading the beppu-story data
-        const data = await fetchClientInfo('beppu-story');
+        const data = await fetchClientInfo('beppu-story', language);
         setClientInfo(data);
         
-        // Check for passcode in URL after data is loaded
-        const queryParams = new URLSearchParams(location.search);
-        const passcode = queryParams.get('passcode');
+        // First check for passcode in cookie
+        let passcode = getCookie('roomPasscode');
+        
+        // Fall back to URL if no cookie found
+        if (!passcode) {
+          const queryParams = new URLSearchParams(location.search);
+          passcode = queryParams.get('passcode');
+          
+          // If found in query parameters but not in cookie, save to cookie
+          if (passcode) {
+            setCookie('roomPasscode', passcode, 30); // Store for 30 days
+          }
+        }
         
         if (data.suites && passcode) {
           const matchingSuite = data.suites.find(suite => suite.passcode === passcode);
@@ -179,12 +297,18 @@ const HubLanding = ({ initialClientInfo }) => {
     if (!initialClientInfo) {
       loadClientInfo();
     }
-  }, [initialClientInfo, location.search]);
+  }, [initialClientInfo, location.search, language]);
 
-  // Extract passcode from URL query parameters
+  // Extract passcode from URL query parameters or cookies
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const passcode = queryParams.get('passcode');
+    // First check for passcode in cookie
+    let passcode = getCookie('roomPasscode');
+    
+    // Fall back to URL if no cookie found
+    if (!passcode) {
+      const queryParams = new URLSearchParams(location.search);
+      passcode = queryParams.get('passcode');
+    }
     
     if (clientInfo && clientInfo.suites && passcode) {
       const matchingSuite = clientInfo.suites.find(suite => suite.passcode === passcode);
@@ -208,6 +332,15 @@ const HubLanding = ({ initialClientInfo }) => {
     }
   }, [clientInfo, suiteInfo, location.search]);
 
+  const handlePasscodeInputChange = (e) => {
+    const value = e.target.value;
+    // Only allow numeric input
+    if (value === '' || /^\d+$/.test(value)) {
+      setPasscodeInput(value);
+      if (passcodeError) setPasscodeError('');
+    }
+  };
+
   const handlePasscodeSubmit = (e) => {
     e.preventDefault();
     if (!passcodeInput.trim()) {
@@ -219,13 +352,13 @@ const HubLanding = ({ initialClientInfo }) => {
       const matchingSuite = clientInfo.suites.find(suite => suite.passcode === passcodeInput);
       
       if (matchingSuite) {
+        // Save passcode to cookie
+        setCookie('roomPasscode', passcodeInput, 30); // Store for 30 days
+        
         setSuiteInfo(matchingSuite);
         setShowPasscodeForm(false);
         
-        // Update URL with the passcode (optional)
-        const newUrl = new URL(window.location.href);
-        newUrl.searchParams.set('passcode', passcodeInput);
-        window.history.replaceState({}, '', newUrl.toString());
+        // No longer updating URL with passcode since we're using cookies
       } else {
         setPasscodeError(translations[currentLanguage].passcodeErrorInvalid);
       }
@@ -233,61 +366,59 @@ const HubLanding = ({ initialClientInfo }) => {
   };
 
   // Navigation handlers for the new routes
-  const handleStayInfoClick = () => {
-    // Preserve query parameters from current URL
-    const currentSearchParams = new URLSearchParams(location.search);
+  const handleWifiInfoClick = () => {
+    // Cookie has already been set with passcode, no need to include in URL anymore
+    // Just navigate to the route with the language code
     navigate({
-      pathname: '/stay-info',
-      search: currentSearchParams.toString(),
+      pathname: `/${language}/wifi-info`,
+      state: { stayInfo: suiteInfo?.stayInfo, clientInfo }
+    });
+  };
+
+  const handleStayInfoClick = () => {
+    // Cookie has already been set with passcode, no need to include in URL anymore
+    // Just navigate to the route with the language code
+    navigate({
+      pathname: `/${language}/stay-info`,
       state: { stayInfo: suiteInfo?.stayInfo, clientInfo }
     });
   };
   
   const handleRestaurantsClick = () => {
-    // Preserve query parameters from current URL
-    const currentSearchParams = new URLSearchParams(location.search);
+    // No need to include passcode in URL anymore
     navigate({
-      pathname: '/featured-restaurants',
-      search: currentSearchParams.toString(),
-      state: { restaurants: clientInfo.restaurantList, clientInfo }
+      pathname: `/${language}/featured-restaurants`,
+      state: { 
+        restaurants: clientInfo.restaurantList, 
+        clientInfo: {
+          ...clientInfo,
+          sectionLabels: {
+            ...sectionLabels,
+            restaurantTitle: clientInfo.restaurantTitle,
+            restaurantSubtitle: clientInfo.restaurantSubtitle
+          }
+        } 
+      }
     });
   };
   
   const handleAttractionsClick = () => {
-    // Preserve query parameters from current URL
-    const currentSearchParams = new URLSearchParams(location.search);
+    // No need to include passcode in URL anymore
     navigate({
-      pathname: '/featured-places',
-      search: currentSearchParams.toString(),
+      pathname: `/${language}/featured-places`,
       state: { places: clientInfo.featuredPlaces, clientInfo }
     });
   };
   
   const handleToursClick = () => {
-    // Preserve query parameters from current URL
-    const currentSearchParams = new URLSearchParams(location.search);
+    // No need to include passcode in URL anymore
     navigate({
-      pathname: '/featured-tours',
-      search: currentSearchParams.toString(),
+      pathname: `/${language}/featured-tours`,
       state: { tours: clientInfo.featuredTours, clientInfo }
     });
   };
   
-  // Handle language menu
-  const handleLanguageClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  
-  const handleLanguageClose = () => {
-    setAnchorEl(null);
-  };
-  
-  const handleLanguageSelect = (language) => {
-    setCurrentLanguage(language);
-    setAnchorEl(null);
-    // In a real app, this would trigger language change across the app
-    // For example: i18n.changeLanguage(language)
-  };
+  // We no longer need language menu handling as we'll use the LanguageSelector component
   
   // Handle QR code scanner
   const handleQRScan = () => {
@@ -298,8 +429,24 @@ const HubLanding = ({ initialClientInfo }) => {
 
   // Handle tour selection
   const handleTourSelect = (tourId) => {
-    // Navigate to the tour guide page
-    navigate(`/join/${tourId}`);
+    // Navigate to the tour guide page with language code
+    navigate(`/${language}/join/${tourId}`);
+  };
+
+  // Handler for clearing passcode cookie and redirecting to landing page
+  const handleCheckout = () => {
+    // Clear the passcode cookie
+    removeCookie('roomPasscode');
+    
+    // Clear the suite info in the component state
+    setSuiteInfo(null);
+    
+    // If passcode form was hidden, show it again
+    setShowPasscodeForm(true);
+    
+    // Refresh the current page to reload without the passcode (optional)
+    // Or navigate to the home page
+    navigate(`/${language}/`);
   };
 
   // Show loading state while fetching client info
@@ -340,34 +487,10 @@ const HubLanding = ({ initialClientInfo }) => {
           )}
         </Box>
         <Box>
-          <IconButton 
-            aria-label="Change language" 
-            onClick={handleLanguageClick}
-            aria-controls={openLanguageMenu ? 'language-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={openLanguageMenu ? 'true' : undefined}
-          >
-            <LanguageIcon />
-          </IconButton>
-          <Menu
-            id="language-menu"
-            anchorEl={anchorEl}
-            open={openLanguageMenu}
-            onClose={handleLanguageClose}
-            MenuListProps={{
-              'aria-labelledby': 'language-button',
-            }}
-          >
-            {languages.map((language) => (
-              <MenuItem 
-                key={language} 
-                onClick={() => handleLanguageSelect(language)}
-                selected={language === currentLanguage}
-              >
-                {language}
-              </MenuItem>
-            ))}
-          </Menu>
+          {/* Use our new LanguageSelector component */}
+          <Box sx={{ display: 'inline-block', mx: 1 }}>
+            <LanguageSelector />
+          </Box>
           <IconButton aria-label="Scan QR code" onClick={handleQRScan}>
             <QrCodeScannerIcon />
           </IconButton>
@@ -415,13 +538,11 @@ const HubLanding = ({ initialClientInfo }) => {
               autoFocus
               margin="dense"
               label={sectionLabels.passcodeLabel}
-              type="text"
+              type="number"
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
               fullWidth
               value={passcodeInput}
-              onChange={(e) => {
-                setPasscodeInput(e.target.value);
-                if (passcodeError) setPasscodeError('');
-              }}
+              onChange={handlePasscodeInputChange}
               error={!!passcodeError}
               helperText={passcodeError}
               variant="outlined"
@@ -513,10 +634,10 @@ const HubLanding = ({ initialClientInfo }) => {
             </Box>
           )}
           
-          {/* Navigation Icons - Updated to use navigation routes instead of expanding sections */}
-          <Grid container spacing={2} sx={{ mb: 2, mt: 1 }}>
-            {/* Info icon - Always show as it has default content */}
-            <Grid item xs={3} sx={{ textAlign: 'center' }}>
+          {/* Navigation Icons - 5 icons in a single row */}
+          <Grid container spacing={0.5} justifyContent="space-between" sx={{ mb: 2, mt: 1 }}>
+            {/* WiFi icon - As first item */}
+            <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
               <Paper 
                 elevation={1} 
                 sx={{ 
@@ -524,10 +645,36 @@ const HubLanding = ({ initialClientInfo }) => {
                   flexDirection: 'column', 
                   alignItems: 'center', 
                   justifyContent: 'center', 
-                  p: { xs: 1.5, sm: 2 },
+                  p: { xs: 1, sm: 1.5 },
                   borderRadius: '50%',
-                  width: { xs: 56, sm: 64 },
-                  height: { xs: 56, sm: 64 },
+                  width: { xs: 52, sm: 60 },
+                  height: { xs: 52, sm: 60 },
+                  mx: 'auto',
+                  boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
+                  cursor: 'pointer'
+                }}
+                onClick={handleWifiInfoClick}
+              >
+                <WifiIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
+              </Paper>
+              <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+                {sectionLabels.wifiLabel}
+              </Typography>
+            </Grid>
+            
+            {/* Info icon - Always show as it has default content */}
+            <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
+              <Paper 
+                elevation={1} 
+                sx={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  p: { xs: 1, sm: 1.5 },
+                  borderRadius: '50%',
+                  width: { xs: 52, sm: 60 },
+                  height: { xs: 52, sm: 60 },
                   mx: 'auto',
                   boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
                   cursor: 'pointer'
@@ -543,7 +690,7 @@ const HubLanding = ({ initialClientInfo }) => {
             
             {/* Restaurant icon - Only show if restaurant data exists */}
             {restaurantList.length > 0 && (
-              <Grid item xs={3} sx={{ textAlign: 'center' }}>
+              <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
                 <Paper 
                   elevation={1} 
                   sx={{ 
@@ -551,10 +698,10 @@ const HubLanding = ({ initialClientInfo }) => {
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     justifyContent: 'center', 
-                    p: { xs: 1.5, sm: 2 },
+                    p: { xs: 1, sm: 1.5 },
                     borderRadius: '50%',
-                    width: { xs: 56, sm: 64 },
-                    height: { xs: 56, sm: 64 },
+                    width: { xs: 52, sm: 60 },
+                    height: { xs: 52, sm: 60 },
                     mx: 'auto',
                     boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
                     cursor: 'pointer'
@@ -571,7 +718,7 @@ const HubLanding = ({ initialClientInfo }) => {
             
             {/* Attractions icon - Only show if featured places exist */}
             {featuredPlaces.length > 0 && (
-              <Grid item xs={3} sx={{ textAlign: 'center' }}>
+              <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
                 <Paper 
                   elevation={1} 
                   sx={{ 
@@ -579,10 +726,10 @@ const HubLanding = ({ initialClientInfo }) => {
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     justifyContent: 'center', 
-                    p: { xs: 1.5, sm: 2 },
+                    p: { xs: 1, sm: 1.5 },
                     borderRadius: '50%',
-                    width: { xs: 56, sm: 64 },
-                    height: { xs: 56, sm: 64 },
+                    width: { xs: 52, sm: 60 },
+                    height: { xs: 52, sm: 60 },
                     mx: 'auto',
                     boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
                     cursor: 'pointer'
@@ -599,7 +746,7 @@ const HubLanding = ({ initialClientInfo }) => {
             
             {/* Tours icon - Only show if featured tours exist */}
             {featuredTours.length > 0 && (
-              <Grid item xs={3} sx={{ textAlign: 'center' }}>
+              <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
                 <Paper 
                   elevation={1} 
                   sx={{ 
@@ -607,10 +754,10 @@ const HubLanding = ({ initialClientInfo }) => {
                     flexDirection: 'column', 
                     alignItems: 'center', 
                     justifyContent: 'center', 
-                    p: { xs: 1.5, sm: 2 },
+                    p: { xs: 1, sm: 1.5 },
                     borderRadius: '50%',
-                    width: { xs: 56, sm: 64 },
-                    height: { xs: 56, sm: 64 },
+                    width: { xs: 52, sm: 60 },
+                    height: { xs: 52, sm: 60 },
                     mx: 'auto',
                     boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
                     cursor: 'pointer'
@@ -675,6 +822,33 @@ const HubLanding = ({ initialClientInfo }) => {
               </Box>
             </Box>
           )}
+          
+          {/* Footer with Checkout option */}
+          <Box sx={{ 
+            mt: 4, 
+            py: 2, 
+            borderTop: '1px solid #eee',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                '&:hover': {
+                  color: 'text.primary',
+                  textDecoration: 'underline'
+                }
+              }}
+              onClick={handleCheckout}
+            >
+              {sectionLabels.checkout}
+            </Typography>
+          </Box>
         </>
       )}
     </Container>

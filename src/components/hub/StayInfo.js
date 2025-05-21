@@ -1,282 +1,545 @@
-import React from 'react';
-import { 
-  Container, 
-  Paper, 
-  Typography, 
-  Box, 
-  List, 
-  ListItem, 
+import React, { useState } from 'react';
+import {
+  Container,
+  Paper,
+  Typography,
+  Box,
+  List,
+  ListItem,
   ListItemText,
   ListItemIcon,
   IconButton,
-  Divider
+  Divider,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Button,
+  Grid,
+  Card,
+  CardContent,
+  TextField,
+  Alert // Added Alert
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import WifiIcon from '@mui/icons-material/Wifi';
 import CheckIcon from '@mui/icons-material/Check';
 import EventIcon from '@mui/icons-material/Event';
 import InfoIcon from '@mui/icons-material/Info';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import BathtubIcon from '@mui/icons-material/Bathtub';
+import BedIcon from '@mui/icons-material/Bed';
+
+import MessageIcon from '@mui/icons-material/Message';
+import HelpIcon from '@mui/icons-material/Help';
+import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import SmokingRoomsIcon from '@mui/icons-material/SmokingRooms';
+import PetsIcon from '@mui/icons-material/Pets';
+import { useLanguage } from '../../context/LanguageContext';
+
+// ISO language codes to display names mapping
+const languageCodeToName = {
+  "en": "English",
+  "ja": "日本語",
+  "ko": "한국어",
+  "zh-Hant": "繁體中文",
+  "zh": "简体中文"
+};
+
+// Helper function for deep merging (won't merge arrays, concatenates them if you want that behavior later)
+const deepMerge = (target, source) => {
+  const output = { ...target };
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach(key => {
+      if (isObject(source[key])) {
+        if (!(key in target)) {
+          Object.assign(output, { [key]: source[key] });
+        } else {
+          output[key] = deepMerge(target[key], source[key]);
+        }
+      } else {
+        Object.assign(output, { [key]: source[key] });
+      }
+    });
+  }
+  return output;
+};
+
+const isObject = (item) => {
+  return (item && typeof item === 'object' && !Array.isArray(item));
+};
+
+// Translations for UI text
+const translations = {
+  "English": {
+    noStayInfo: 'No stay information available.',
+    address: 'Address',
+    checkInOutTimes: 'Check-in/out Times',
+    checkIn: 'Check-in',
+    checkOut: 'Check-out',
+    houseRules: 'House Rules',
+    quietHours: 'Quiet Hours',
+    amenities: 'Amenities',
+    bathroom: 'Bathroom',
+    bedroom: 'Bedroom',
+    laundry: 'Laundry',
+    general: 'General',
+    faq: 'FAQ',
+    messageHost: 'Message Host',
+    contactHost: 'Contact the host at',
+    noContactInfo: 'No contact info',
+    yourMessage: 'Your Message',
+    sendMessage: 'Send Message'
+  },
+  "日本語": {
+    noStayInfo: '宿泊情報は利用できません。',
+    address: '住所',
+    checkInOutTimes: 'チェックイン/アウト時間',
+    checkIn: 'チェックイン',
+    checkOut: 'チェックアウト',
+    houseRules: '館内規則',
+    quietHours: '静かな時間',
+    amenities: 'アメニティ',
+    bathroom: 'バスルーム',
+    bedroom: '寝室',
+    laundry: 'ランドリー',
+    general: '一般',
+    faq: 'よくある質問',
+    messageHost: 'ホストにメッセージ',
+    contactHost: 'ホストの連絡先',
+    noContactInfo: '連絡先情報なし',
+    yourMessage: 'あなたのメッセージ',
+    sendMessage: 'メッセージを送信'
+  },
+  "한국어": {
+    noStayInfo: '숙박 정보가 없습니다.',
+    address: '주소',
+    checkInOutTimes: '체크인/아웃 시간',
+    checkIn: '체크인',
+    checkOut: '체크아웃',
+    houseRules: '이용 규칙',
+    quietHours: '정숙 시간',
+    amenities: '편의 시설',
+    bathroom: '욕실',
+    bedroom: '침실',
+    laundry: '세탁',
+    general: '일반',
+    faq: '자주 묻는 질문',
+    messageHost: '호스트에게 메시지',
+    contactHost: '호스트 연락처',
+    noContactInfo: '연락처 정보 없음',
+    yourMessage: '메시지 내용',
+    sendMessage: '메시지 보내기'
+  },
+  "繁體中文": {
+    noStayInfo: '無可用的住宿資訊。',
+    address: '地址',
+    checkInOutTimes: '入住/退房時間',
+    checkIn: '入住',
+    checkOut: '退房',
+    houseRules: '住宿規則',
+    quietHours: '安靜時段',
+    amenities: '設施',
+    bathroom: '浴室',
+    bedroom: '臥室',
+    laundry: '洗衣',
+    general: '一般',
+    faq: '常見問題',
+    messageHost: '給房東留言',
+    contactHost: '聯繫房東',
+    noContactInfo: '無聯繫資訊',
+    yourMessage: '您的留言',
+    sendMessage: '發送留言'
+  },
+  "简体中文": {
+    noStayInfo: '无可用的住宿信息。',
+    address: '地址',
+    checkInOutTimes: '入住/退房时间',
+    checkIn: '入住',
+    checkOut: '退房',
+    houseRules: '住宿规则',
+    quietHours: '安静时段',
+    amenities: '设施',
+    bathroom: '浴室',
+    bedroom: '卧室',
+    laundry: '洗衣',
+    general: '一般',
+    faq: '常见问题',
+    messageHost: '给房东留言',
+    contactHost: '联系房东',
+    noContactInfo: '无联系信息',
+    yourMessage: '您的留言',
+    sendMessage: '发送留言'
+  }
+};
+
+// Get translations based on language code
+const getTranslations = (language) => {
+  const displayLanguage = languageCodeToName[language] || "English";
+  return translations[displayLanguage] || translations["English"];
+};
 
 const StayInfo = ({ initialState }) => {
-  const location = useLocation();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [activeDialog, setActiveDialog] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [messageText, setMessageText] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const { language } = useLanguage();
   
-  // Use initial state if provided, otherwise extract from location
-  const { stayInfo, clientInfo } = initialState || location.state || {};
-  
+  // Get translations for the current language
+  const langCode = language || 'en';
+  const text = getTranslations(langCode);
+
+  const { stayInfo: suiteSpecificStayInfo = null, clientInfo = {} } = initialState || location.state || {};
+  const defaultStayInfoFromClient = clientInfo?.defaultStayInfo || null;
+
+  let effectiveStayInfo = null;
+  if (suiteSpecificStayInfo && defaultStayInfoFromClient) {
+    effectiveStayInfo = deepMerge(defaultStayInfoFromClient, suiteSpecificStayInfo);
+  } else if (suiteSpecificStayInfo) {
+    effectiveStayInfo = suiteSpecificStayInfo;
+  } else {
+    effectiveStayInfo = defaultStayInfoFromClient;
+  }
 
   const handleBack = () => {
-    // Preserve query parameters when navigating back
-    navigate({
-      pathname: '/',
-      search: location.search
-    });
+    navigate(-1);
   };
 
-  // If no stay info was provided, show generic tourist information
-  const defaultStayInfo = {
-    checkin: 'Standard check-in: 3:00 PM',
-    checkout: 'Standard check-out: 11:00 AM',
-    wifi: {
-      ssid: 'Public WiFi Available',
-      password: 'See reception desk'
-    },
-    rules: 'Please respect local customs and regulations.',
-    emergencyInfo: {
-      police: '110',
-      ambulance: '119',
-      fire: '119',
-      touristHelp: '+81-3-3816-3200'
-    },
-    touristCenter: {
-      location: 'City Center Tourist Information Office',
-      hours: 'Open daily: 9:00 AM - 6:00 PM',
-      phone: '+81-977-21-1128'
-    }
+  const handleDialog = (dialogType) => {
+    setActiveDialog(dialogType);
+    setDialogOpen(true);
   };
 
-  const currentStayInfo = stayInfo || defaultStayInfo;
-  
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setActiveDialog(null);
+    setMessageText("");
+  };
+
+  const playAudio = (audioUrl) => {
+    if (!audioUrl) return;
+    const audio = new Audio(audioUrl);
+    setIsPlaying(true);
+    audio.play();
+    audio.onended = () => setIsPlaying(false);
+  };
+
+  // Handle copy was moved to WifiInfo.js
+
+  if (!effectiveStayInfo || Object.keys(effectiveStayInfo).length === 0) {
+    return (
+      <Container maxWidth="md">
+        <Box sx={{ my: 4 }}>
+          <IconButton onClick={handleBack} sx={{ mb: 2 }}>
+            <ArrowBackIcon />
+          </IconButton>
+          <Alert severity="info">{text.noStayInfo}</Alert>
+        </Box>
+      </Container>
+    );
+  }
+
   return (
-    <Container maxWidth="sm" sx={{ py: 2, px: { xs: 2, sm: 3 }, pt: { xs: 2, sm: 3 } }}>
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-        <IconButton 
-          edge="start" 
-          onClick={handleBack} 
-          sx={{ mr: 2 }}
-          aria-label="back"
-        >
+    <Container maxWidth="md">
+      <Box sx={{ my: 4 }}>
+        <IconButton onClick={handleBack} sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>
-        <Typography variant="h5" component="h1" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          {stayInfo ? 'Your Stay Information' : 'Local Information'}
-        </Typography>
-      </Box>
 
-      {stayInfo ? (
-        // Show personalized stay information
-        <>
-          <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-            <Box sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'primary.main', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>Check-in & Check-out</Typography>
-            </Box>
-            <List sx={{ py: 0 }}>
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-                <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-                  <EventIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={`Check-in: ${currentStayInfo.checkin}`} 
-                  secondary="Self check-in with building staff"
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-                <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-                  <EventIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={`Check-out: ${currentStayInfo.checkout}`}
-                  secondary="Please return your keys to reception"
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-            </List>
-          </Paper>
+        <Paper elevation={3}>
+          <List>
+            {/* Address Section */}
+            {effectiveStayInfo.address && (
+              <>
+                <ListItem>
+                  <ListItemIcon>
+                    <LocationOnIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={text.address}
+                    secondary={
+                      <Box>
+                        {effectiveStayInfo.address.english && <Typography variant="body1">{effectiveStayInfo.address.english}</Typography>}
+                        {effectiveStayInfo.address.japanese && <Typography variant="body2">{effectiveStayInfo.address.japanese}</Typography>}
+                        <Box sx={{ mt: 1 }}>
+                          {effectiveStayInfo.address.audioUrl && (
+                            <IconButton
+                              onClick={() => playAudio(effectiveStayInfo.address.audioUrl)}
+                              disabled={isPlaying}
+                            >
+                              <VolumeUpIcon />
+                            </IconButton>
+                          )}
+                          {effectiveStayInfo.address.mapUrl && (
+                            <IconButton
+                              onClick={() => window.open(effectiveStayInfo.address.mapUrl, '_blank')}
+                            >
+                              <LocationOnIcon />
+                            </IconButton>
+                          )}
+                        </Box>
+                      </Box>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </>
+            )}
 
-          <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-            <Box sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'primary.main', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>WiFi</Typography>
-            </Box>
-            <List sx={{ py: 0 }}>
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-                <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-                  <WifiIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={currentStayInfo.wifi.ssid} 
-                  secondary={`Password: ${currentStayInfo.wifi.password}`}
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-            </List>
-          </Paper>
+            {/* Check-in/out Section */}
+            {(effectiveStayInfo.checkin || effectiveStayInfo.checkout || effectiveStayInfo.checkInOut) && (
+              <>
+                <ListItem>
+                  <ListItemIcon>
+                    <EventIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={text.checkInOutTimes}
+                    secondary={
+                      <Box>
+                        {(effectiveStayInfo.checkin || effectiveStayInfo.checkInOut?.checkIn) && (
+                          <Typography variant="body2">
+                            {text.checkIn}: {effectiveStayInfo.checkin || effectiveStayInfo.checkInOut?.checkIn}
+                          </Typography>
+                        )}
+                        {(effectiveStayInfo.checkout || effectiveStayInfo.checkInOut?.checkOut) && (
+                          <Typography variant="body2">
+                            {text.checkOut}: {effectiveStayInfo.checkout || effectiveStayInfo.checkInOut?.checkOut}
+                          </Typography>
+                        )}
+                        {effectiveStayInfo.checkInOut?.instructions && (
+                          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                            {effectiveStayInfo.checkInOut.instructions}
+                          </Typography>
+                        )}
+                        {effectiveStayInfo.checkInOut?.hostContact && (
+                           <Button
+                             startIcon={<MessageIcon />}
+                             onClick={() => handleDialog('message')}
+                             sx={{ mt: 1 }}
+                           >
+                             {text.messageHost}
+                           </Button>
+                        )}
+                      </Box>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </>
+            )}
 
-          {currentStayInfo.rules && (
-            <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-              <Box sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'primary.main', color: 'white' }}>
-                <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>House Rules</Typography>
-              </Box>
-              <Box sx={{ p: { xs: 2, sm: 3 } }}>
-                <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                  {currentStayInfo.rules}
+            {/* WiFi Section moved to WifiInfo.js */}
+
+            {/* House Rules Section */}
+            {(effectiveStayInfo.rules || effectiveStayInfo.houseRules) && (
+              <>
+                <ListItem>
+                  <ListItemIcon>
+                    <NightsStayIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={text.houseRules}
+                    secondary={
+                      <Box>
+                        {typeof effectiveStayInfo.rules === 'string' && (
+                          <Typography variant="body2">
+                            {effectiveStayInfo.rules}
+                          </Typography>
+                        )}
+                        {typeof effectiveStayInfo.rules !== 'string' && typeof effectiveStayInfo.houseRules === 'object' && (
+                          <>
+                            {effectiveStayInfo.houseRules.quietHours && (
+                              <Typography variant="body2">
+                                {text.quietHours}: {effectiveStayInfo.houseRules.quietHours}
+                              </Typography>
+                            )}
+                            {effectiveStayInfo.houseRules.restrictions && effectiveStayInfo.houseRules.restrictions.length > 0 && (
+                              <List dense sx={{ mt: 1 }}>
+                                {effectiveStayInfo.houseRules.restrictions.map((rule, index) => (
+                                  <ListItem key={index} dense>
+                                    <ListItemIcon sx={{ minWidth: 36 }}>
+                                      {rule.toLowerCase().includes('smoking') ? <SmokingRoomsIcon color="error" /> :
+                                       rule.toLowerCase().includes('pet') ? <PetsIcon color="error" /> :
+                                       <InfoIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText primary={rule} />
+                                  </ListItem>
+                                ))}
+                              </List>
+                            )}
+                          </>
+                        )}
+                      </Box>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </>
+            )}
+
+            {/* Amenities Section */}
+            {effectiveStayInfo.amenities && (
+              <>
+                <ListItem>
+                  <ListItemIcon>
+                    <BedIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={text.amenities}
+                    secondary={
+                      <Grid container spacing={2} sx={{ mt: 1 }}>
+                        {effectiveStayInfo.amenities.bathroom && effectiveStayInfo.amenities.bathroom.length > 0 && (
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant="subtitle2" gutterBottom>
+                              {text.bathroom}
+                            </Typography>
+                            <List dense>
+                              {effectiveStayInfo.amenities.bathroom.map((item, index) => (
+                                <ListItem key={index} dense>
+                                  <ListItemIcon sx={{ minWidth: 36 }}>
+                                    <BathtubIcon fontSize="small" />
+                                  </ListItemIcon>
+                                  <ListItemText primary={item} />
+                                </ListItem>
+                              ))}
+                            </List>
+                          </Grid>
+                        )}
+                        {effectiveStayInfo.amenities.bedroom && effectiveStayInfo.amenities.bedroom.length > 0 && (
+                          <Grid item xs={12} sm={6}>
+                            <Typography variant="subtitle2" gutterBottom>
+                              {text.bedroom}
+                            </Typography>
+                            <List dense>
+                              {effectiveStayInfo.amenities.bedroom.map((item, index) => (
+                                <ListItem key={index} dense>
+                                  <ListItemIcon sx={{ minWidth: 36 }}>
+                                    <CheckIcon fontSize="small" />
+                                  </ListItemIcon>
+                                  <ListItemText primary={item} />
+                                </ListItem>
+                              ))}
+                            </List>
+                          </Grid>
+                        )}
+                        {effectiveStayInfo.amenities.laundry && effectiveStayInfo.amenities.laundry.length > 0 && (
+                            <Grid item xs={12} sm={6}>
+                                <Typography variant="subtitle2" gutterBottom>
+                                    {text.laundry}
+                                </Typography>
+                                <List dense>
+                                    {effectiveStayInfo.amenities.laundry.map((item, index) => (
+                                    <ListItem key={index} dense>
+                                        <ListItemIcon sx={{ minWidth: 36 }}>
+                                        <LocalLaundryServiceIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        <ListItemText primary={item} />
+                                    </ListItem>
+                                    ))}
+                                </List>
+                            </Grid>
+                        )}
+                         {effectiveStayInfo.amenities.general && effectiveStayInfo.amenities.general.length > 0 && (
+                          <Grid item xs={12}>
+                            <Typography variant="subtitle2" gutterBottom>
+                              {text.general}
+                            </Typography>
+                            <List dense>
+                              {effectiveStayInfo.amenities.general.map((item, index) => (
+                                <ListItem key={index} dense>
+                                  <ListItemIcon sx={{ minWidth: 36 }}>
+                                    <CheckIcon fontSize="small" />
+                                  </ListItemIcon>
+                                  <ListItemText primary={item} />
+                                </ListItem>
+                              ))}
+                            </List>
+                          </Grid>
+                        )}
+                      </Grid>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </>
+            )}
+
+            {/* FAQ Section */}
+            {effectiveStayInfo.faq && effectiveStayInfo.faq.length > 0 && (
+              <>
+                <ListItem>
+                  <ListItemIcon>
+                    <HelpIcon />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={text.faq}
+                    secondary={
+                      <List dense>
+                        {effectiveStayInfo.faq.map((item, index) => (
+                          <Card key={index} variant="outlined" sx={{ mb: 1 }}>
+                            <CardContent>
+                              <Typography variant="subtitle2">{item.question}</Typography>
+                              <Typography variant="body2" color="text.secondary">{item.answer}</Typography>
+                              {item.imageUrl && (
+                                <Box
+                                  component="img"
+                                  src={item.imageUrl}
+                                  alt={item.question}
+                                  sx={{ width: '100%', maxHeight: 200, objectFit: 'cover', mt: 1, borderRadius: 1 }}
+                                />
+                              )}
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </List>
+                    }
+                  />
+                </ListItem>
+              </>
+            )}
+          </List>
+        </Paper>
+
+        {/* Dialog for Message Host */}
+        <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="xs" fullWidth>
+          <DialogTitle>
+            {activeDialog === 'message' && text.messageHost}
+          </DialogTitle>
+          <DialogContent>
+            {activeDialog === 'message' && (
+              <Box>
+                <Typography variant="body1" gutterBottom>
+                  {text.contactHost}: {effectiveStayInfo.checkInOut?.hostContact || text.noContactInfo}
                 </Typography>
+                <TextField
+                  label={text.yourMessage}
+                  multiline
+                  rows={4}
+                  fullWidth
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                  variant="outlined"
+                  sx={{ mt: 2 }}
+                />
+                <Button 
+                  variant="contained" 
+                  onClick={() => {
+                    handleCloseDialog();
+                  }} 
+                  sx={{ mt: 2 }}
+                  disabled={!messageText.trim()}
+                >
+                  {text.sendMessage}
+                </Button>
               </Box>
-            </Paper>
-          )}
-        </>
-      ) : (
-        // Show general tourist information
-        <>
-          <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-            <Box sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'primary.main', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>Tourist Information</Typography>
-            </Box>
-            <List sx={{ py: 0 }}>
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-                <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-                  <InfoIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={currentStayInfo.touristCenter.location} 
-                  secondary={currentStayInfo.touristCenter.hours}
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-                <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-                  <InfoIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary="Contact" 
-                  secondary={currentStayInfo.touristCenter.phone}
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-            </List>
-          </Paper>
-
-          <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-            <Box sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'primary.main', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>Emergency Contacts</Typography>
-            </Box>
-            <List sx={{ py: 0 }}>
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 1.5 } }}>
-                <ListItemText 
-                  primary="Police" 
-                  secondary={currentStayInfo.emergencyInfo.police}
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 1.5 } }}>
-                <ListItemText 
-                  primary="Ambulance / Fire" 
-                  secondary={currentStayInfo.emergencyInfo.ambulance}
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-              <Divider component="li" />
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 1.5 } }}>
-                <ListItemText 
-                  primary="Tourist Emergency Helpline" 
-                  secondary={currentStayInfo.emergencyInfo.touristHelp}
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-            </List>
-          </Paper>
-
-          <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-            <Box sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'primary.main', color: 'white' }}>
-              <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>Public WiFi</Typography>
-            </Box>
-            <List sx={{ py: 0 }}>
-              <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-                <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-                  <WifiIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary="Available in most public areas" 
-                  secondary="Look for 'Japan Free Wi-Fi' access points"
-                  primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-                />
-              </ListItem>
-            </List>
-          </Paper>
-        </>
-      )}
-
-      {/* General Information Section - Always show */}
-      <Paper elevation={2} sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}>
-        <Box sx={{ p: { xs: 1.5, sm: 2 }, bgcolor: 'primary.main', color: 'white' }}>
-          <Typography variant="h6" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}>Local Tips</Typography>
-        </Box>
-        <List sx={{ py: 0 }}>
-          <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-            <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-              <CheckIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Currency" 
-              secondary="Major credit cards are accepted in most places, but it's good to have some cash."
-              primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-              secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-            <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-              <CheckIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Transportation" 
-              secondary="Public transportation is reliable and efficient. Consider getting a day pass."
-              primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-              secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-          <ListItem sx={{ px: { xs: 2, sm: 3 }, py: { xs: 1.5, sm: 2 } }}>
-            <ListItemIcon sx={{ minWidth: { xs: 40, sm: 56 } }}>
-              <CheckIcon color="primary" />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Local Etiquette" 
-              secondary="Remove shoes when entering homes and some traditional restaurants."
-              primaryTypographyProps={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-              secondaryTypographyProps={{ fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
-            />
-          </ListItem>
-        </List>
-      </Paper>
-
-      <Box sx={{ mt: 3, mb: 2, textAlign: 'center' }}>
-        <Typography variant="caption" color="text.secondary">
-          {clientInfo?.subtitle || 'Powered by Laxy'} • {new Date().getFullYear()}
-        </Typography>
+            )}
+          </DialogContent>
+        </Dialog>
       </Box>
     </Container>
   );

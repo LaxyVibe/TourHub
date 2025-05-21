@@ -19,7 +19,6 @@ import {
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import PublicIcon from '@mui/icons-material/Public';
@@ -45,7 +44,7 @@ const FeaturedPlaces = ({ initialState }) => {
   const handlePlaceSelect = (placeId) => {
     // Preserve query parameters when navigating to place detail
     navigate({
-      pathname: `/go/${placeId}`,
+      pathname: `/place/${placeId}`,
       search: location.search
     });
   };
@@ -82,11 +81,11 @@ const FeaturedPlaces = ({ initialState }) => {
               elevation={2} 
               sx={{ mb: 2, borderRadius: 2, overflow: 'hidden' }}
             >
-              {place.image && (
+              {place.thumbnail && (
                 <CardMedia
                   component="img"
-                  height={{ xs: 150, sm: 200 }}
-                  image={place.image}
+                  height={200}
+                  image={place.thumbnail}
                   alt={place.name}
                   sx={{ height: { xs: 150, sm: 200 } }}
                 />
@@ -98,116 +97,97 @@ const FeaturedPlaces = ({ initialState }) => {
 
                 {place.category && (
                   <Box sx={{ mb: 1.5 }}>
-                    <Chip 
-                      label={place.category} 
-                      size="small" 
-                      color="primary" 
-                      variant="outlined"
-                      sx={{ height: { xs: 24, sm: 28 }, '& .MuiChip-label': { fontSize: { xs: '0.7rem', sm: '0.75rem' } } }}
+                    <Chip
+                      size="small"
+                      label={place.category}
+                      color="primary"
+                      sx={{ mr: 1 }}
                     />
+                    {place.detail?.rating && (
+                      <Chip
+                        size="small"
+                        label={`${place.detail.rating} ★`}
+                        color="secondary"
+                      />
+                    )}
                   </Box>
                 )}
-                
-                <Typography 
-                  variant="body2" 
-                  color="text.secondary" 
-                  paragraph
-                  sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' }, mt: 1 }}
-                >
+
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                   {place.description}
                 </Typography>
-                
-                <Divider sx={{ my: 1.5 }} />
-                
-                <List dense sx={{ py: 0 }}>
-                  {place.location && (
-                    <ListItem sx={{ px: 0, py: { xs: 0.5, sm: 0.75 } }}>
-                      <ListItemIcon sx={{ minWidth: { xs: 32, sm: 36 } }}>
-                        <LocationOnIcon color="primary" fontSize="small" />
+
+                <List dense disablePadding>
+                  {place.transportation && (
+                    <ListItem disableGutters sx={{ px: 0 }}>
+                      <ListItemIcon sx={{ minWidth: 36 }}>
+                        <AccessTimeIcon color="action" fontSize="small" />
                       </ListItemIcon>
                       <ListItemText 
-                        primary={place.location}
-                        primaryTypographyProps={{ 
-                          variant: 'body2',
-                          fontSize: { xs: '0.8rem', sm: '0.85rem' } 
-                        }}
+                        primary={`${place.transportation.totalTime} min total`}
+                        secondary={`Bus: ${place.transportation.bus.duration} min • Walk: ${place.transportation.walk.duration} min`}
                       />
                     </ListItem>
                   )}
 
-                  {place.hours && (
-                    <ListItem sx={{ px: 0, py: { xs: 0.5, sm: 0.75 } }}>
-                      <ListItemIcon sx={{ minWidth: { xs: 32, sm: 36 } }}>
-                        <AccessTimeIcon color="primary" fontSize="small" />
+                  {place.detail?.openingHours && (
+                    <ListItem disableGutters sx={{ px: 0 }}>
+                      <ListItemIcon sx={{ minWidth: 36 }}>
+                        <AccessTimeIcon color="action" fontSize="small" />
                       </ListItemIcon>
-                      <ListItemText 
-                        primary={place.hours}
-                        primaryTypographyProps={{ 
-                          variant: 'body2',
-                          fontSize: { xs: '0.8rem', sm: '0.85rem' } 
-                        }}
-                      />
+                      <ListItemText primary={place.detail.openingHours} />
                     </ListItem>
                   )}
 
-                  {place.website && (
-                    <ListItem sx={{ px: 0, py: { xs: 0.5, sm: 0.75 } }}>
-                      <ListItemIcon sx={{ minWidth: { xs: 32, sm: 36 } }}>
-                        <PublicIcon color="primary" fontSize="small" />
+                  {place.detail?.phone && (
+                    <ListItem disableGutters sx={{ px: 0 }}>
+                      <ListItemIcon sx={{ minWidth: 36 }}>
+                        <InfoIcon color="action" fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText primary={place.detail.phone} />
+                    </ListItem>
+                  )}
+
+                  {place.detail?.website && (
+                    <ListItem disableGutters sx={{ px: 0 }}>
+                      <ListItemIcon sx={{ minWidth: 36 }}>
+                        <PublicIcon color="action" fontSize="small" />
+                      </ListItemIcon>
+                      <ListItemText primary={place.detail.website} />
+                    </ListItem>
+                  )}
+
+                  {place.accessibility && (
+                    <ListItem disableGutters sx={{ px: 0 }}>
+                      <ListItemIcon sx={{ minWidth: 36 }}>
+                        <InfoIcon color="action" fontSize="small" />
                       </ListItemIcon>
                       <ListItemText 
-                        primary={place.website}
-                        primaryTypographyProps={{ 
-                          variant: 'body2',
-                          fontSize: { xs: '0.8rem', sm: '0.85rem' } 
-                        }}
+                        primary="Accessibility"
+                        secondary={place.accessibility}
                       />
                     </ListItem>
                   )}
                 </List>
-
-                {place.tips && (
-                  <Box sx={{ mt: 1.5 }}>
-                    <Typography 
-                      variant="subtitle2" 
-                      fontWeight="bold"
-                      sx={{ fontSize: { xs: '0.85rem', sm: '0.9rem' } }}
-                    >
-                      Visitor Tips
-                    </Typography>
-                    <Typography 
-                      variant="body2"
-                      sx={{ fontSize: { xs: '0.8rem', sm: '0.85rem' } }}
-                    >
-                      {place.tips}
-                    </Typography>
-                  </Box>
-                )}
               </CardContent>
-              <CardActions sx={{ p: { xs: 1.5, sm: 2 }, pt: 0 }}>
-                <Button 
-                  variant="outlined" 
-                  size="small" 
-                  startIcon={<InfoIcon fontSize="small" />}
+
+              <Divider />
+
+              <CardActions sx={{ px: { xs: 2, sm: 3 }, py: 1.5, justifyContent: 'space-between' }}>
+                <Button
+                  size="small"
+                  startIcon={<DirectionsIcon />}
+                  onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${place.detail?.coordinates?.lat},${place.detail?.coordinates?.lng}`)}
+                >
+                  Directions
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
                   onClick={() => handlePlaceSelect(place.id)}
-                  sx={{ fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
                 >
                   More Info
                 </Button>
-                {place.directions && (
-                  <Button 
-                    variant="outlined" 
-                    size="small" 
-                    startIcon={<DirectionsIcon fontSize="small" />}
-                    sx={{ ml: 1, fontSize: { xs: '0.75rem', sm: '0.8rem' } }}
-                    component="a"
-                    href={place.directions}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Directions
-                  </Button>
-                )}
               </CardActions>
             </Card>
           ))}
