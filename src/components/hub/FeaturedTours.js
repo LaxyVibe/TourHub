@@ -22,13 +22,19 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import GroupIcon from '@mui/icons-material/Group';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import { useLanguage } from '../../context/LanguageContext';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 
 const FeaturedTours = ({ initialState }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  
+  // Get hub configuration for current language
+  const hubConfig = getHubConfigByLanguage(language);
   
   // Use initial state if provided, otherwise extract from location
-  const { tours = [], clientInfo } = initialState || location.state || {};
+  const { tours = [] } = initialState || location.state || {};
   
   const handleBack = () => {
     // Preserve query parameters when navigating back
@@ -58,14 +64,14 @@ const FeaturedTours = ({ initialState }) => {
           <ArrowBackIcon />
         </IconButton>
         <Typography variant="h5" component="h1" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          {clientInfo?.sectionLabels?.toursLabel || 'Available Tours'}
+          {hubConfig.pageLanding.naviagtion[4].label}
         </Typography>
       </Box>
 
       {tours.length === 0 ? (
         <Paper elevation={2} sx={{ p: 3, borderRadius: 2, textAlign: 'center' }}>
           <TourIcon sx={{ fontSize: 60, color: 'primary.light', mb: 2 }} />
-          <Typography variant="h6">No Tours Available</Typography>
+          <Typography variant="h6">No {hubConfig.pageLanding.naviagtion[4].label} Available</Typography>
           <Typography variant="body2" color="text.secondary">
             We're currently updating our tour offerings. Please check back later.
           </Typography>

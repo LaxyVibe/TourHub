@@ -1,0 +1,103 @@
+{
+    "data": [
+        {
+            "id": 3,
+            "documentId": "ic3asy9zfn3rwqqr257xa3d4",
+            "name": "family-room-2",
+            "label": "Family Room 2",
+            "headline": "Enjoy your stay in Family Room 2",
+            "address": "2 Chome-6-6 Kitahama, Beppu, Oita 874-0920",
+            "addressURL": "https://maps.app.goo.gl/pPU1S249newreBXW7",
+            "checkInOut": "<p>**Check-in** From 15:00 to 00:00 You'll need to let the property know in advance what time you'll arrive. **Check-out** Until 10:00 Pick the key from key box ![general-01-beppu-airbnb.jpg](https://ethical-novelty-0c204c906b.media.strapiapp.com/general_01_beppu_airbnb_292baefeff.jpg)</p>",
+            "amenities": null,
+            "houseRules": "<p>**Child policies** Children of any age are welcome. To see correct prices and occupancy information, please add the number of children in your group and their ages to your search. **Cot and extra bed policies** Cots and extra beds are not available at this property.</p>",
+            "slider": null,
+            "faq": [
+                {
+                    "id": 78,
+                    "question": "how to turn washing machine on?",
+                    "answer": "<p>Use ....&nbsp;</p>"
+                },
+                {
+                    "id": 79,
+                    "question": "how to turn TV on?",
+                    "answer": "<p>turn on TV</p>"
+                }
+            ],
+            "wifi": [
+                {
+                    "id": 1,
+                    "network": "ssid1",
+                    "password": null
+                },
+                {
+                    "id": 2,
+                    "network": "ssid2",
+                    "password": null
+                }
+            ],
+            "ownedBy": {
+                "id": 14,
+                "documentId": "nh91l7ks7t9s37xczk3mkcwx",
+                "slug": "beppu-story",
+                "label": "Beppu Story",
+                "greeting": "Welcome to Beppu Story!",
+                "nativeLanguageCode": "ja",
+                "avatar": {
+                    "id": 74,
+                    "documentId": "ngd1lu76k9let98wuc513r1o",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118322/Mask_group_b70e56516b.png"
+                },
+                "pickedPOIs": [
+                    {
+                        "id": 2,
+                        "documentId": "r1uqyjjbzgjqktzwueqejcy5",
+                        "slug": "beppu-park",
+                        "label": "Beppu Park",
+                        "address": null,
+                        "highlight": null,
+                        "externalURL": null,
+                        "type": "attraction",
+                        "tag_labels": [
+                            {
+                                "id": 21,
+                                "documentId": "k9qdrsbmhsvv20nvux36rnem",
+                                "name": "Observatories",
+                                "color": null
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 76,
+                            "documentId": "spo0g3bwst5u1yfm3t93u2r9",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118404/image_5_f053229552.png"
+                        }
+                    },
+                    {
+                        "id": 1,
+                        "documentId": "ur2n04pispa1eh5eqo70cx5s",
+                        "slug": "kaimonji-onsen",
+                        "label": "Kaimonji Onsen",
+                        "address": "2 Chome-3-2 Kitahama, Beppu, Oita 874-0920, Japan",
+                        "highlight": "Just a 3-minute walk from Beppu Station and less than 10 minutes from our property, Kaimonji Onsen is a charming, traveler-friendly public bath perfect for an authentic Japanese hot spring experience. This sodium",
+                        "externalURL": "https://city.beppu.oita.jp",
+                        "type": "attraction",
+                        "tag_labels": [],
+                        "coverPhoto": {
+                            "id": 73,
+                            "documentId": "po95t4nb66qtib8ngyr7zgoo",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748855039/image_55_bea0bc0831.jpg"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}
