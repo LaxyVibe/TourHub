@@ -4,18 +4,26 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Routes, Route, useParams, useLocation, Navigate } from 'react-router-dom';
 import HubLanding from './components/HubLanding';
+import SuiteLanding from './components/SuiteLanding';
 import TourLanding from './components/TourLanding';
 import PlaceLanding from './components/PlaceLanding';
 import StayInfo from './components/hub/StayInfo';
 import WifiInfo from './components/hub/WifiInfo';
-import FeaturedRestaurants from './components/hub/FeaturedRestaurants';
+import AddressInfo from './components/hub/AddressInfo';
+import CheckInOutInfo from './components/hub/CheckInOutInfo';
+import HouseRulesInfo from './components/hub/HouseRulesInfo';
+import AmenitiesInfo from './components/hub/AmenitiesInfo';
+import FAQInfo from './components/hub/FAQInfo';
 import RestaurantDetail from './components/hub/RestaurantDetail';
-import FeaturedPlaces from './components/hub/FeaturedPlaces';
+import POIDetail from './components/hub/POIDetail';
+import POIList from './components/common/POIList';
 import FeaturedTours from './components/hub/FeaturedTours';
+import SearchPage from './components/SearchPage';
+import LanguagePage from './components/LanguagePage';
 import { getHubClientInfo, getTourClientInfo, getPlaceClientInfo } from './config/clients';
+import { getPOIsByType } from './utils/dataFetcher';
 import { LanguageProvider } from './context/LanguageContext';
 import { DEFAULT_LANGUAGE, extractLanguageFromPath } from './utils/languageUtils';
-import { getCookie, setCookie } from './utils/cookieUtils';
 
 // ScrollToTop component to handle scrolling to top on route changes
 function ScrollToTop() {
@@ -68,25 +76,6 @@ const theme = createTheme({
   },
 });
 
-// Helper function to get passcode from cookies or URL
-const getPasscode = (location) => {
-  // First check for passcode in cookies
-  let passcode = getCookie('roomPasscode');
-  
-  // Fall back to query parameters for backward compatibility
-  if (!passcode) {
-    const queryParams = new URLSearchParams(location.search);
-    passcode = queryParams.get('passcode');
-    
-    // If found in query params but not in cookie, save it to cookie for future use
-    if (passcode) {
-      setCookie('roomPasscode', passcode, 30); // Store for 30 days
-    }
-  }
-  
-  return passcode;
-};
-
 // Wrapper components to handle nested routes
 function HubWrapper() {
   const { langCode } = useParams();
@@ -99,6 +88,21 @@ function HubWrapper() {
   return <HubLanding clientInfo={{
     ...getHubClientInfo(hostname, cleanedPathname),
     language: langCode
+  }} />;
+}
+
+function SuiteWrapper() {
+  const { suiteId, langCode } = useParams();
+  const { pathname } = useLocation();
+  const hostname = window.location.hostname;
+  
+  // Extract the cleaned pathname without the language code and suiteId for client info
+  const { cleanedPathname } = extractLanguageFromPath(pathname.replace(`/${suiteId}`, ''));
+  
+  return <SuiteLanding clientInfo={{
+    ...getHubClientInfo(hostname, cleanedPathname),
+    language: langCode,
+    suiteId
   }} />;
 }
 
@@ -142,187 +146,89 @@ function PlaceWrapper() {
 
 // Wrapper components for new hub routes
 function WifiInfoWrapper() {
-  const { langCode } = useParams();
-  const location = useLocation();
-  const [initialState, setInitialState] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    const { cleanedPathname } = extractLanguageFromPath(location.pathname);
-    const hostname = window.location.hostname;
-
-    const fetchData = async () => {
-      try {
-        const clientInfoData = await getHubClientInfo(hostname, cleanedPathname);
-        
-        // Get passcode from cookie or query parameter
-        const passcode = getPasscode(location);
-        
-        let suiteInfo = null;
-        if (passcode && clientInfoData && clientInfoData.suites) {
-          suiteInfo = clientInfoData.suites.find(suite => suite.passcode === passcode);
-        }
-        
-        setInitialState({ 
-          stayInfo: suiteInfo?.stayInfo, 
-          clientInfo: {
-            ...clientInfoData,
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
-      } catch (error) {
-        console.error("Failed to fetch client info for WifiInfoWrapper:", error);
-        // Optionally, set a default or error state
-        const fallbackClientInfo = getHubClientInfo(hostname, cleanedPathname); // Attempt to get synchronous fallback if any
-         setInitialState({ 
-          stayInfo: null, 
-          clientInfo: {
-            ...(fallbackClientInfo instanceof Promise ? {} : fallbackClientInfo), // Handle if fallback is also a promise initially
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [langCode, location]);
-
-  if (loading) {
-    return <div>Loading wifi information...</div>; // Or a spinner component
-  }
-
-  if (!initialState) {
-    // This case might occur if fetchData fails and doesn't set a fallback
-    return <div>Error loading information.</div>;
-  }
-  
-  return <WifiInfo initialState={initialState} />;
+  // The WifiInfo component now reads data directly from the URL params and suite config
+  return <WifiInfo />;
 }
 
 function StayInfoWrapper() {
-  const { langCode } = useParams();
-  const location = useLocation();
-  const [initialState, setInitialState] = React.useState(null); // Changed to useState
-  const [loading, setLoading] = React.useState(true); // Added loading state
+  // The StayInfo component now reads data directly from the URL params and hub config
+  return <StayInfo />;
+}
 
-  React.useEffect(() => {
-    const { cleanedPathname } = extractLanguageFromPath(location.pathname);
-    const hostname = window.location.hostname;
+function AddressInfoWrapper() {
+  return <AddressInfo />;
+}
 
-    const fetchData = async () => {
-      try {
-        const clientInfoData = await getHubClientInfo(hostname, cleanedPathname);
-        
-        // Get passcode from cookie or query parameter
-        const passcode = getPasscode(location);
-        
-        let suiteInfo = null;
-        if (passcode && clientInfoData && clientInfoData.suites) {
-          suiteInfo = clientInfoData.suites.find(suite => suite.passcode === passcode);
-        }
-        
-        setInitialState({ 
-          stayInfo: suiteInfo?.stayInfo, 
-          clientInfo: {
-            ...clientInfoData,
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
-      } catch (error) {
-        console.error("Failed to fetch client info for StayInfoWrapper:", error);
-        // Optionally, set a default or error state
-        const fallbackClientInfo = getHubClientInfo(hostname, cleanedPathname); // Attempt to get synchronous fallback if any
-         setInitialState({ 
-          stayInfo: null, 
-          clientInfo: {
-            ...(fallbackClientInfo instanceof Promise ? {} : fallbackClientInfo), // Handle if fallback is also a promise initially
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
+function CheckInOutInfoWrapper() {
+  return <CheckInOutInfo />;
+}
 
-    fetchData();
-  }, [langCode, location]);
+function HouseRulesInfoWrapper() {
+  return <HouseRulesInfo />;
+}
 
-  if (loading) {
-    return <div>Loading stay information...</div>; // Or a spinner component
-  }
+function AmenitiesInfoWrapper() {
+  return <AmenitiesInfo />;
+}
 
-  if (!initialState) {
-    // This case might occur if fetchData fails and doesn't set a fallback
-    return <div>Error loading information.</div>;
-  }
-  
-  return <StayInfo initialState={initialState} />;
+function FAQInfoWrapper() {
+  return <FAQInfo />;
+}
+
+function SearchWrapper() {
+  return <SearchPage />;
 }
 
 function RestaurantsWrapper() {
-  const { langCode } = useParams();
+  const { suiteId: urlSuiteId, langCode } = useParams();
   const location = useLocation();
-  const [initialState, setInitialState] = React.useState(null);
+  // Get suiteId from either URL params or from navigation state (for the new route structure)
+  const suiteId = urlSuiteId || (location.state && location.state.suiteId);
+  const [pois, setPois] = React.useState([]);
+  const [title, setTitle] = React.useState('Nearby Restaurants');
+  const [subtitle, setSubtitle] = React.useState('Discover local dining options');
   const [loading, setLoading] = React.useState(true);
   
-  // Extract the cleaned pathname without the language code for client info
-  const { cleanedPathname } = extractLanguageFromPath(location.pathname);
-  
   React.useEffect(() => {
-    const hostname = window.location.hostname;
-    
-    const fetchData = async () => {
+    const fetchPOIs = async () => {
       try {
-        const clientInfoData = await getHubClientInfo(hostname, cleanedPathname);
-        
-        setInitialState({ 
-          restaurants: clientInfoData.restaurantList || [], 
-          clientInfo: {
-            ...clientInfoData,
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
+        const result = await getPOIsByType('beppu-story', suiteId || 'family-room-1', 'restaurant', langCode || DEFAULT_LANGUAGE);
+        setPois(result.pois);
+        setTitle(result.title);
+        setSubtitle(result.subtitle);
       } catch (error) {
-        console.error("Failed to fetch client info for RestaurantsWrapper:", error);
-        // Optionally, set a default or error state
-        const fallbackClientInfo = getHubClientInfo(hostname, cleanedPathname); // Attempt to get synchronous fallback if any
-        setInitialState({ 
-          restaurants: [], 
-          clientInfo: {
-            ...(fallbackClientInfo instanceof Promise ? {} : fallbackClientInfo), // Handle if fallback is also a promise initially
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
+        console.error("Failed to fetch restaurant POIs:", error);
+        setPois([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [langCode, location, cleanedPathname]);
+    fetchPOIs();
+  }, [langCode, suiteId]);
 
   if (loading) {
-    return <div>Loading restaurant information...</div>; // Or a spinner component
-  }
-
-  if (!initialState) {
-    // This case might occur if fetchData fails and doesn't set a fallback
-    return <div>Error loading restaurant information.</div>;
+    return <div>Loading restaurants...</div>;
   }
   
-  return <FeaturedRestaurants initialState={initialState} />;
+  return (
+    <POIList 
+      pois={pois}
+      title={title}
+      subtitle={subtitle}
+      type="restaurant"
+      suiteId={suiteId}
+    />
+  );
 }
 
 function RestaurantDetailWrapper() {
-  const { langCode, restaurantId } = useParams();
+  const { suiteId, langCode, restaurantId } = useParams();
   const location = useLocation();
   const [initialState, setInitialState] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   
-  // Extract the cleaned pathname without the language code for client info
-  const { cleanedPathname } = extractLanguageFromPath(location.pathname);
+  const { cleanedPathname } = extractLanguageFromPath(location.pathname.replace(`/${suiteId}`, ''));
   
   React.useEffect(() => {
     const hostname = window.location.hostname;
@@ -335,18 +241,19 @@ function RestaurantDetailWrapper() {
           restaurants: clientInfoData.restaurantList || [], 
           clientInfo: {
             ...clientInfoData,
-            language: langCode || DEFAULT_LANGUAGE
+            language: langCode || DEFAULT_LANGUAGE,
+            suiteId
           }
         });
       } catch (error) {
         console.error("Failed to fetch client info for RestaurantDetailWrapper:", error);
-        // Optionally, set a default or error state
         const fallbackClientInfo = getHubClientInfo(hostname, cleanedPathname);
         setInitialState({ 
           restaurants: [], 
           clientInfo: {
             ...(fallbackClientInfo instanceof Promise ? {} : fallbackClientInfo),
-            language: langCode || DEFAULT_LANGUAGE
+            language: langCode || DEFAULT_LANGUAGE,
+            suiteId
           }
         });
       } finally {
@@ -355,10 +262,10 @@ function RestaurantDetailWrapper() {
     };
 
     fetchData();
-  }, [langCode, restaurantId, location, cleanedPathname]);
+  }, [langCode, restaurantId, location, cleanedPathname, suiteId]);
 
   if (loading) {
-    return <div>Loading restaurant details...</div>; // Or a spinner component
+    return <div>Loading restaurant details...</div>;
   }
 
   if (!initialState) {
@@ -368,93 +275,100 @@ function RestaurantDetailWrapper() {
   return <RestaurantDetail initialState={initialState} />;
 }
 
+function POIDetailWrapper() {
+  return <POIDetail />;
+}
+
 function PlacesWrapper() {
-  const { langCode } = useParams();
+  const { suiteId: urlSuiteId, langCode } = useParams();
   const location = useLocation();
-  const [initialState, setInitialState] = React.useState(null);
+  // Get suiteId from either URL params or from navigation state (for the new route structure)
+  const suiteId = urlSuiteId || (location.state && location.state.suiteId);
+  const [pois, setPois] = React.useState([]);
+  const [title, setTitle] = React.useState('Nearby Attractions');
+  const [subtitle, setSubtitle] = React.useState('Explore local attractions');
   const [loading, setLoading] = React.useState(true);
   
-  // Extract the cleaned pathname without the language code for client info
-  const { cleanedPathname } = extractLanguageFromPath(location.pathname);
-  
   React.useEffect(() => {
-    const hostname = window.location.hostname;
-    
-    const fetchData = async () => {
+    const fetchPOIs = async () => {
       try {
-        const clientInfoData = await getHubClientInfo(hostname, cleanedPathname);
-        
-        setInitialState({ 
-          places: clientInfoData.placesList || [], 
-          clientInfo: {
-            ...clientInfoData,
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
+        const result = await getPOIsByType('beppu-story', suiteId || 'family-room-1', 'attraction', langCode || DEFAULT_LANGUAGE);
+        setPois(result.pois);
+        setTitle(result.title);
+        setSubtitle(result.subtitle);
       } catch (error) {
-        console.error("Failed to fetch client info for PlacesWrapper:", error);
-        // Optionally, set a default or error state
-        const fallbackClientInfo = getHubClientInfo(hostname, cleanedPathname);
-        setInitialState({ 
-          places: [], 
-          clientInfo: {
-            ...(fallbackClientInfo instanceof Promise ? {} : fallbackClientInfo),
-            language: langCode || DEFAULT_LANGUAGE
-          }
-        });
+        console.error("Failed to fetch attraction POIs:", error);
+        setPois([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [langCode, location, cleanedPathname]);
+    fetchPOIs();
+  }, [langCode, suiteId]);
 
   if (loading) {
-    return <div>Loading places...</div>;
-  }
-
-  if (!initialState) {
-    return <div>Error loading places.</div>;
+    return <div>Loading attractions...</div>;
   }
   
-  return <FeaturedPlaces initialState={initialState} />;
+  return (
+    <POIList 
+      pois={pois}
+      title={title}
+      subtitle={subtitle}
+      type="attraction"
+      suiteId={suiteId}
+    />
+  );
 }
 
 function ToursWrapper() {
-  const { langCode } = useParams();
+  const { suiteId: urlSuiteId, langCode } = useParams();
   const location = useLocation();
+  // Get suiteId from either URL params or from navigation state (for the new route structure)
+  const suiteId = urlSuiteId || (location.state && location.state.suiteId);
   
-  // Extract the cleaned pathname without the language code for client info
-  const { cleanedPathname } = extractLanguageFromPath(location.pathname);
+  const { cleanedPathname } = extractLanguageFromPath(location.pathname.replace(`/${suiteId}`, ''));
   
   const clientInfo = {
     ...getHubClientInfo(window.location.hostname, cleanedPathname),
-    language: langCode
+    language: langCode,
+    suiteId
   };
   
   return <FeaturedTours initialState={{ tours: clientInfo.featuredTours, clientInfo }} />;
 }
 
+// Language Page wrapper component
+function LanguagePageWrapper() {
+  return <LanguagePage />;
+}
+
 // Language redirect component to handle default routing
 function DefaultLanguageRedirect() {
   const { pathname, search } = useLocation();
-  
-  // Handle special cases for nested paths like /:tourId/go/:placeId
-  // First, extract any language code that might be in the path already
   const { langCode: currentLangCode, cleanedPathname } = extractLanguageFromPath(pathname);
   
-  // For handling nested paths in special domains like join.* or go.*
-  // Remove any potential language code part from the URL path segments
+  // Get path segments to analyze the URL structure
   const pathSegments = pathname.split('/').filter(Boolean);
-  const hasPotentialLanguageCode = pathSegments.length > 0 && 
-                                  /^[a-z]{2}(-[A-Z]{2})?$/.test(pathSegments[0]);
+  const firstSegment = pathSegments[0];
   
-  // Use extracted language code if available, otherwise use default
+  // Check if the first segment is one of the known hub navigation routes
+  const isHubNavigationRoute = [
+    "info", "nearby-restaurants", "nearby-attractions", "tours"
+  ].includes(firstSegment);
+
   const langToUse = currentLangCode || DEFAULT_LANGUAGE;
+
+  // If it's a hub navigation route, we need to insert the language code at the beginning
+  if (isHubNavigationRoute) {
+    return <Navigate to={`/${langToUse}${pathname}`} replace />;
+  }
   
-  // Build the new path - if we have a cleaned path, use it, otherwise keep the original path
-  // but avoid double-adding the language code
+  // Otherwise use the traditional language-based routing
+  const hasPotentialLanguageCode = pathSegments.length > 0 && 
+                                  /^[a-z]{2}(-[A-Z]{2})?$/.test(firstSegment);
+  
   const redirectPath = cleanedPathname !== pathname
     ? `/${langToUse}${cleanedPathname}`
     : hasPotentialLanguageCode
@@ -467,29 +381,43 @@ function DefaultLanguageRedirect() {
 function App() {
   const hostname = window.location.hostname;
   
-  // Determine which routes to render based on hostname
-  const getRouteConfig = () => {      // Stay domains (HubLanding as root)
+  const getRouteConfig = () => {
     if (hostname.startsWith('stay-') || hostname.startsWith('uat-stay-')) {
       return (
         <Routes>
-          {/* Default route redirects to language-specific route */}
           <Route path="/" element={<DefaultLanguageRedirect />} />
           
-          {/* Language-specific routes */}
           <Route path="/:langCode">
             <Route index element={<HubWrapper />} />
-            <Route path="join/:tourId" element={<TourWrapper />} />
-            <Route path="go/:placeId" element={<PlaceWrapper />} />
-            <Route path="wifi-info" element={<WifiInfoWrapper />} />
-            <Route path="stay-info" element={<StayInfoWrapper />} />
-            <Route path="featured-restaurants" element={<RestaurantsWrapper />} />
-            <Route path="restaurant/:restaurantId" element={<RestaurantDetailWrapper />} />
-            <Route path="featured-places" element={<PlacesWrapper />} />
-            <Route path="featured-tours" element={<ToursWrapper />} />
-            <Route path="*" element={<HubWrapper />} />
+            <Route path="language" element={<LanguagePageWrapper />} />
+            <Route path=":suiteId">
+              <Route index element={<SuiteWrapper />} />
+              <Route path="language" element={<LanguagePageWrapper />} />
+              <Route path="poi/:poiSlug" element={<POIDetailWrapper />} />
+              {/* Routes based on hub-application-config navigation */}
+              <Route path="info">
+                <Route index element={<StayInfoWrapper />} />
+                <Route path="wifi" element={<WifiInfoWrapper />} />
+                <Route path="address" element={<AddressInfoWrapper />} />
+                <Route path="check-in-out" element={<CheckInOutInfoWrapper />} />
+                <Route path="house-rules" element={<HouseRulesInfoWrapper />} />
+                <Route path="amenities" element={<AmenitiesInfoWrapper />} />
+                <Route path="faq" element={<FAQInfoWrapper />} />
+              </Route>
+              <Route path="nearby-restaurants" element={<RestaurantsWrapper />} />
+              <Route path="nearby-attractions" element={<PlacesWrapper />} />
+              <Route path="tours" element={<ToursWrapper />} />
+              <Route path="search" element={<SearchWrapper />} />
+              
+              {/* Legacy routes for backward compatibility */}
+              <Route path="join/:tourId" element={<TourWrapper />} />
+              <Route path="go/:placeId" element={<PlaceWrapper />} />
+              <Route path="wifi-info" element={<WifiInfoWrapper />} />
+              <Route path="stay-info" element={<StayInfoWrapper />} />
+              <Route path="*" element={<SuiteWrapper />} />
+            </Route>
           </Route>
-          
-          {/* Legacy routes for backward compatibility */}
+          <Route path="/:suiteId/*" element={<DefaultLanguageRedirect />} />
           <Route path="/join/:tourId" element={<DefaultLanguageRedirect />} />
           <Route path="/go/:placeId" element={<DefaultLanguageRedirect />} />
           <Route path="/stay-info" element={<DefaultLanguageRedirect />} />
@@ -501,59 +429,84 @@ function App() {
         </Routes>
       );
     }
-    // Join domains (TourLanding as root)
     else if (hostname.includes('join.') || hostname.includes('join--')) {
       return (
         <Routes>
-          {/* Default tour route redirects to language-specific route */}
+          <Route path="/" element={<DefaultLanguageRedirect />} />
           <Route path="/:tourId" element={<DefaultLanguageRedirect />} />
-          
-          {/* Language-specific routes */}
-          <Route path="/:langCode/:tourId" element={<TourWrapper />} />
-          <Route path="/:langCode/:tourId/go/:placeId" element={<PlaceWrapper />} />
-          
-          {/* Legacy routes for backward compatibility */}
-          <Route path="/:tourId/go/:placeId" element={<DefaultLanguageRedirect />} />
+          <Route path="/:langCode">
+            <Route index element={<DefaultLanguageRedirect />} />
+            <Route path=":tourId" element={<TourWrapper />} />
+            <Route path=":tourId/go/:placeId" element={<PlaceWrapper />} />
+          </Route>
           <Route path="*" element={<h1>Tour not found</h1>} />
         </Routes>
       );
     }
-    // Go domains (PlaceLanding as root)
     else if (hostname.includes('go.') || hostname.includes('go--')) {
       return (
         <Routes>
-          {/* Default place route redirects to language-specific route */}
+          <Route path="/" element={<DefaultLanguageRedirect />} />
           <Route path="/:placeId" element={<DefaultLanguageRedirect />} />
-          
-          {/* Language-specific routes */}
           <Route path="/:langCode/:placeId" element={<PlaceWrapper />} />
-          
           <Route path="*" element={<h1>Place not found</h1>} />
         </Routes>
       );
     }
-    // Default routes for any other domain
     else {
       return (
         <Routes>
-          {/* Default route redirects to language-specific route */}
           <Route path="/" element={<DefaultLanguageRedirect />} />
           
-          {/* Language-specific routes */}
+          {/* Direct routes for hub navigation with language redirect */}
+          <Route path="/info" element={<DefaultLanguageRedirect />} />
+          <Route path="/info/wifi" element={<DefaultLanguageRedirect />} />
+          <Route path="/info/address" element={<DefaultLanguageRedirect />} />
+          <Route path="/info/check-in-out" element={<DefaultLanguageRedirect />} />
+          <Route path="/info/house-rules" element={<DefaultLanguageRedirect />} />
+          <Route path="/info/amenities" element={<DefaultLanguageRedirect />} />
+          <Route path="/info/faq" element={<DefaultLanguageRedirect />} />
+          <Route path="/nearby-restaurants" element={<DefaultLanguageRedirect />} />
+          <Route path="/nearby-attractions" element={<DefaultLanguageRedirect />} />
+          <Route path="/tours" element={<DefaultLanguageRedirect />} />
+          <Route path="/tours/*" element={<DefaultLanguageRedirect />} />
+          <Route path="/search" element={<DefaultLanguageRedirect />} />
+          
           <Route path="/:langCode">
             <Route index element={<HubWrapper />} />
-            <Route path="join/:tourId" element={<TourWrapper />} />
-            <Route path="go/:placeId" element={<PlaceWrapper />} />
-            <Route path="wifi-info" element={<WifiInfoWrapper />} />
-            <Route path="stay-info" element={<StayInfoWrapper />} />
-            <Route path="featured-restaurants" element={<RestaurantsWrapper />} />
-            <Route path="restaurant/:restaurantId" element={<RestaurantDetailWrapper />} />
-            <Route path="featured-places" element={<PlacesWrapper />} />
-            <Route path="featured-tours" element={<ToursWrapper />} />
-            <Route path="*" element={<HubWrapper />} />
+            <Route path="language" element={<LanguagePageWrapper />} />
+            <Route path=":suiteId">
+              <Route index element={<SuiteWrapper />} />
+              <Route path="language" element={<LanguagePageWrapper />} />
+              <Route path="poi/:poiSlug" element={<POIDetailWrapper />} />
+              {/* Routes based on hub-application-config navigation */}
+              <Route path="info">
+                <Route index element={<StayInfoWrapper />} />
+                <Route path="wifi" element={<WifiInfoWrapper />} />
+                <Route path="address" element={<AddressInfoWrapper />} />
+                <Route path="check-in-out" element={<CheckInOutInfoWrapper />} />
+                <Route path="house-rules" element={<HouseRulesInfoWrapper />} />
+                <Route path="amenities" element={<AmenitiesInfoWrapper />} />
+                <Route path="faq" element={<FAQInfoWrapper />} />
+              </Route>
+              <Route path="nearby-restaurants" element={<RestaurantsWrapper />} />
+              <Route path="nearby-attractions" element={<PlacesWrapper />} />
+              <Route path="tours" element={<ToursWrapper />} />
+              <Route path="search" element={<SearchWrapper />} />
+              
+              {/* Legacy routes for backward compatibility */}
+              <Route path="join/:tourId" element={<TourWrapper />} />
+              <Route path="go/:placeId" element={<PlaceWrapper />} />
+              <Route path="wifi-info" element={<WifiInfoWrapper />} />
+              <Route path="stay-info" element={<StayInfoWrapper />} />
+              <Route path="featured-restaurants" element={<RestaurantsWrapper />} />
+              <Route path="restaurant/:restaurantId" element={<RestaurantDetailWrapper />} />
+              <Route path="featured-places" element={<PlacesWrapper />} />
+              <Route path="featured-tours" element={<ToursWrapper />} />
+              <Route path="*" element={<SuiteWrapper />} />
+            </Route>
           </Route>
-          
-          {/* Legacy routes for backward compatibility */}
+          <Route path="/:suiteId/*" element={<DefaultLanguageRedirect />} />
           <Route path="/join/:tourId" element={<DefaultLanguageRedirect />} />
           <Route path="/go/:placeId" element={<DefaultLanguageRedirect />} />
           <Route path="/stay-info" element={<DefaultLanguageRedirect />} />

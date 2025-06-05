@@ -15,7 +15,7 @@ export async function fetchFlatInfo() {
   };
 }
 
-// Fetch config.json from S3 (replace URL with your S3 bucket URL)
+// Fetch config - returns default config only (no API calls)
 let configCache = null;
 const DEFAULT_CONFIG = {
   wifi_ssid: 'LaxyHub-WiFi',
@@ -26,18 +26,12 @@ const DEFAULT_CONFIG = {
 
 export async function fetchConfig(setConfigError) {
   if (configCache) return configCache;
-  try {
-    const res = await fetch('https://YOUR_S3_BUCKET.s3.amazonaws.com/config.json');
-    if (!res.ok) throw new Error('Network response was not ok');
-    const config = await res.json();
-    configCache = config;
-    return config;
-  } catch (err) {
-    if (setConfigError) setConfigError('Unable to load configuration');
-    await new Promise(res => setTimeout(res, 2000));
-    configCache = DEFAULT_CONFIG;
-    return DEFAULT_CONFIG;
-  }
+  
+  // Simulate network delay and return default config
+  console.log('Mock mode: Using default configuration');
+  await new Promise(res => setTimeout(res, 500));
+  configCache = DEFAULT_CONFIG;
+  return DEFAULT_CONFIG;
 }
 
 // --- Restore this when @aws-sdk/client-s3 is installed ---

@@ -24,35 +24,15 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useLanguage } from '../../context/LanguageContext';
 import { getRestaurantsData } from '../../utils/dataFetcher';
-
-const translations = {
-  en: {
-    pageTitleFallback: 'Dining Options',
-    errorTitle: 'Restaurant Info Error',
-    errorSubtitle: 'Could not load content.',
-    errorHeader: 'Error',
-    errorMessage: 'Failed to load restaurant information. Please try again later.',
-    noRestaurantsTitle: 'No Restaurants Found',
-    noRestaurantsMessage: "We're currently updating our restaurant listings. Please check back later.",
-    backButtonAriaLabel: "back",
-  },
-  ja: {
-    pageTitleFallback: 'ダイニングオプション',
-    errorTitle: 'レストラン情報エラー',
-    errorSubtitle: 'コンテンツを読み込めませんでした。',
-    errorHeader: 'エラー',
-    errorMessage: 'レストラン情報の読み込みに失敗しました。後でもう一度お試しください。',
-    noRestaurantsTitle: 'レストランが見つかりません',
-    noRestaurantsMessage: '現在レストラン情報を更新中です。後でもう一度ご確認ください。',
-    backButtonAriaLabel: "戻る",
-  }
-};
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 
 const FeaturedRestaurants = ({ initialState }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { language } = useLanguage(); // This is the current language from context
-  const currentTranslations = translations[language] || translations.en;
+  const { language } = useLanguage();
+  
+  // Get hub configuration for current language
+  const hubConfig = getHubConfigByLanguage(language);
 
   // State for this component's specific data
   const [pageTitle, setPageTitle] = useState('');
@@ -71,20 +51,20 @@ const FeaturedRestaurants = ({ initialState }) => {
       try {
         // Get restaurant data with fallback to mock data
         const data = await getRestaurantsData('beppu-story', language);
-        setPageTitle(data.title || currentTranslations.pageTitleFallback);
+        setPageTitle(data.title || hubConfig.pageLanding.naviagtion[3].label);
         setPageSubtitle(data.subtitle || '');
         setRestaurants(data.restaurants || []);
       } catch (err) {
         console.error("Failed to load restaurant data for FeaturedRestaurants page:", err);
-        setError(currentTranslations.errorMessage);
-        setPageTitle(currentTranslations.errorTitle);
+        setError('Failed to load restaurant information. Please try again later.');
+        setPageTitle('Restaurant Info Error');
       } finally {
         setLoading(false);
       }
     };
 
     loadRestaurantData();
-  }, [language, currentTranslations]);
+  }, [language, hubConfig.pageLanding.naviagtion]);
   
   const handleBack = () => {
     // Preserve query parameters when navigating back and include language code
@@ -101,12 +81,12 @@ const FeaturedRestaurants = ({ initialState }) => {
           edge="start" 
           onClick={handleBack} 
           sx={{ mr: 2 }}
-          aria-label={currentTranslations.backButtonAriaLabel}
+          aria-label="back"
         >
           <ArrowBackIcon />
         </IconButton>
         <Typography variant="h5" component="h1" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          {pageTitle || currentTranslations.pageTitleFallback}
+          {pageTitle || hubConfig.pageLanding.naviagtion[3].label}
         </Typography>
       </Box>
       
@@ -128,7 +108,7 @@ const FeaturedRestaurants = ({ initialState }) => {
         <Paper elevation={2} sx={{ p: 3, borderRadius: 2, textAlign: 'center', backgroundColor: 'error.light' }}>
           <RestaurantIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
           <Typography variant="h6" color="error.contrastText">
-            {currentTranslations.errorHeader}
+            Error
           </Typography>
           <Typography variant="body2" color="error.contrastText">
             {error} 
@@ -138,10 +118,10 @@ const FeaturedRestaurants = ({ initialState }) => {
         <Paper elevation={2} sx={{ p: 3, borderRadius: 2, textAlign: 'center' }}>
           <RestaurantIcon sx={{ fontSize: 60, color: 'primary.light', mb: 2 }} />
           <Typography variant="h6">
-            {currentTranslations.noRestaurantsTitle}
+            No Restaurants Found
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {currentTranslations.noRestaurantsMessage}
+            We're currently updating our restaurant listings. Please check back later.
           </Typography>
         </Paper>
       ) : (

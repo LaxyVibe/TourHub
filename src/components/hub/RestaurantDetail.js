@@ -25,6 +25,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import { useLanguage } from '../../context/LanguageContext';
 import { getRestaurantsData } from '../../utils/dataFetcher';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 
 const translations = {
   en: {
@@ -70,6 +71,9 @@ const RestaurantDetail = ({ initialState }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { language } = useLanguage();
+  
+  // Get hub configuration for current language
+  const hubConfig = getHubConfigByLanguage(language);
   const currentTranslations = translations[language] || translations.en;
 
   const [restaurant, setRestaurant] = useState(null);
@@ -85,7 +89,8 @@ const RestaurantDetail = ({ initialState }) => {
       try {
         const data = await getRestaurantsData('beppu-story', language);
 
-        const foundRestaurant = data.find(r => r.id === restaurantId);
+        // Check if data has restaurants array
+        const foundRestaurant = data.restaurants?.find(r => r.id === restaurantId);
         if (foundRestaurant) {
           setRestaurant(foundRestaurant);
         } else {
@@ -218,7 +223,7 @@ const RestaurantDetail = ({ initialState }) => {
           {displayHostMessage && (
             <Box sx={{ mb: 3 }}>
               <Typography variant="h6" sx={{ mb: 1, fontSize: { xs: '1.1rem', sm: '1.2rem' } }}>
-                {currentTranslations.hostMessageTitle}
+                {hubConfig?.pagPoiDetail?.recommendationHeading || currentTranslations.hostMessageTitle}
               </Typography>
               <Typography variant="body1" sx={{ whiteSpace: 'pre-line', fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                 {displayHostMessage}
@@ -303,7 +308,7 @@ const RestaurantDetail = ({ initialState }) => {
           {restaurant.detail?.highlights && restaurant.detail.highlights.length > 0 && (
             <Box sx={{ mt: 3, mb: 2 }}>
               <Typography variant="h6" sx={{ mb: 1, fontSize: { xs: '1.1rem', sm: '1.2rem' } }}>
-                {currentTranslations.highlightsTitle}
+                {hubConfig?.pagPoiDetail?.highlightHeading || currentTranslations.highlightsTitle}
               </Typography>
               <List dense>
                 {restaurant.detail.highlights.map((highlight, index) => (

@@ -1,0 +1,37 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "documentId": "l0j6t3g5qq5iqqlphmfq4c7u",
+            "recommendation": "Very nice!",
+            "kmFromStay": 0,
+            "weightInNearbyRestaurants": -1,
+            "weightInNearbyAttractions": -1,
+            "weightInHighlight": -1,
+            "poi": {
+                "id": 1,
+                "documentId": "ur2n04pispa1eh5eqo70cx5s",
+                "slug": "kaimonji-onsen",
+                "label": "Kaimonji Onsen",
+                "address": "2 Chome-3-2 Kitahama, Beppu, Oita 874-0920, Japan",
+                "highlight": "Just a 3-minute walk from Beppu Station and less than 10 minutes from our property, Kaimonji Onsen is a charming, traveler-friendly public bath perfect for an authentic Japanese hot spring experience. This sodium",
+                "externalURL": "https://city.beppu.oita.jp",
+                "type": "attraction",
+                "tag_labels": [],
+                "coverPhoto": {
+                    "id": 73,
+                    "documentId": "po95t4nb66qtib8ngyr7zgoo",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748855039/image_55_bea0bc0831.jpg"
+                }
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 10000,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}
