@@ -24,10 +24,16 @@ import DirectionsIcon from '@mui/icons-material/Directions';
 import PublicIcon from '@mui/icons-material/Public';
 import InfoIcon from '@mui/icons-material/Info';
 import AttractionsIcon from '@mui/icons-material/Attractions';
+import { useLanguage } from '../../context/LanguageContext';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 
 const FeaturedPlaces = ({ initialState }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { language } = useLanguage();
+  
+  // Get hub configuration for current language
+  const hubConfig = getHubConfigByLanguage(language);
   
   // Use initial state if provided, otherwise extract from location
   const { places = [], clientInfo } = initialState || location.state || {};
@@ -61,14 +67,14 @@ const FeaturedPlaces = ({ initialState }) => {
           <ArrowBackIcon />
         </IconButton>
         <Typography variant="h5" component="h1" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          {clientInfo?.sectionLabels?.attractionsLabel || 'Points of Interest'}
+          {hubConfig.pageLanding.naviagtion[2].label}
         </Typography>
       </Box>
 
       {places.length === 0 ? (
         <Paper elevation={2} sx={{ p: 3, borderRadius: 2, textAlign: 'center' }}>
           <AttractionsIcon sx={{ fontSize: 60, color: 'primary.light', mb: 2 }} />
-          <Typography variant="h6">No Points of Interest Found</Typography>
+          <Typography variant="h6">No {hubConfig.pageLanding.naviagtion[2].label} Found</Typography>
           <Typography variant="body2" color="text.secondary">
             We're currently updating our attractions. Please check back later.
           </Typography>

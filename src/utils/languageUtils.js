@@ -7,8 +7,8 @@ export const SUPPORTED_LANGUAGES = [
   'en', // English
   'ja', // Japanese
   'ko', // Korean
-  'zh-TW', // Traditional Chinese
-  'zh-CN', // Simplified Chinese
+  'zh-Hant', // Traditional Chinese
+  'zh-Hans', // Simplified Chinese
 ];
 
 // Default language to use when no language is specified
@@ -29,12 +29,13 @@ export const detectBrowserLanguage = () => {
   
   // Handle special cases for Chinese
   if (browserLang.startsWith('zh')) {
-    // Check if it's Traditional Chinese
-    if (browserLang.includes('TW') || browserLang.includes('HK') || browserLang.includes('MO')) {
-      return 'zh-TW';
+    // Check if it's Traditional Chinese (Taiwan, Hong Kong, Macau use Traditional)
+    if (browserLang.includes('TW') || browserLang.includes('HK') || browserLang.includes('MO') || 
+        browserLang.includes('Hant')) {
+      return 'zh-Hant';
     }
-    // Default to Simplified Chinese for other Chinese variants
-    return 'zh-CN';
+    // Default to Simplified Chinese for other Chinese variants (including zh-Hans, zh-CN)
+    return 'zh-Hans';
   }
   
   // Try just the language part without region code
@@ -60,9 +61,13 @@ export const isLanguageSupported = (langCode) => {
     return true;
   }
   
-  // For backward compatibility - map old 'zh' code to 'zh-CN' (Simplified Chinese)
-  if (langCode === 'zh') {
-    return true;
+  // For backward compatibility - handle legacy Chinese codes
+  if (langCode === 'zh' || langCode === 'zh-CN') {
+    return true; // Map to zh-Hans
+  }
+  
+  if (langCode === 'zh-TW') {
+    return true; // Map to zh-Hant
   }
   
   return false;
@@ -79,9 +84,13 @@ export const getValidLanguageCode = (langCode) => {
     return DEFAULT_LANGUAGE;
   }
   
-  // Handle legacy 'zh' code - map to 'zh-CN' (Simplified Chinese)
-  if (langCode === 'zh') {
-    return 'zh-CN';
+  // Handle legacy Chinese codes
+  if (langCode === 'zh' || langCode === 'zh-CN') {
+    return 'zh-Hans'; // Map to Simplified Chinese
+  }
+  
+  if (langCode === 'zh-TW') {
+    return 'zh-Hant'; // Map to Traditional Chinese
   }
   
   if (isLanguageSupported(langCode)) {
