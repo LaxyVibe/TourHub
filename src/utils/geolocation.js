@@ -12,7 +12,7 @@ export function getDistanceMeters(lat1, lon1, lat2, lon2) {
   return R * c;
 }
 
-// Get user location (GPS first, fallback to IP)
+// Get user location (GPS only, no API fallback)
 export async function getUserLocation() {
   return new Promise((resolve, reject) => {
     if (navigator.geolocation) {
@@ -22,21 +22,25 @@ export async function getUserLocation() {
           lon: pos.coords.longitude,
           source: 'gps',
         }),
-        () => {
-          // Fallback to IP-based geolocation
-          fetch('https://ipapi.co/json/')
-            .then(res => res.json())
-            .then(data => resolve({ lat: data.latitude, lon: data.longitude, source: 'ip' }))
-            .catch(reject);
+        (error) => {
+          // No API fallback - use default Beppu location
+          console.log('GPS unavailable, using default Beppu location');
+          resolve({ 
+            lat: 33.2845, 
+            lon: 131.4920, 
+            source: 'default' 
+          });
         },
         { enableHighAccuracy: true, timeout: 5000 }
       );
     } else {
-      // No geolocation API, fallback to IP
-      fetch('https://ipapi.co/json/')
-        .then(res => res.json())
-        .then(data => resolve({ lat: data.latitude, lon: data.longitude, source: 'ip' }))
-        .catch(reject);
+      // No geolocation API, use default Beppu location
+      console.log('Geolocation API not available, using default Beppu location');
+      resolve({ 
+        lat: 33.2845, 
+        lon: 131.4920, 
+        source: 'default' 
+      });
     }
   });
 }

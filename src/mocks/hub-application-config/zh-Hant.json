@@ -1,0 +1,163 @@
+{
+    "data": {
+        "id": 2,
+        "documentId": "oimsqqqznrilynkiyascc7ox",
+        "createdAt": "2025-06-01T07:01:43.169Z",
+        "updatedAt": "2025-06-01T15:10:42.416Z",
+        "publishedAt": "2025-06-01T07:10:59.698Z",
+        "locale": "zh-TW",
+        "universalConfig": {
+            "id": 11,
+            "releasedLanguages": [
+                {
+                    "id": 53,
+                    "label": "English",
+                    "value": "en"
+                },
+                {
+                    "id": 54,
+                    "label": "简体中文",
+                    "value": "zh-Hans"
+                },
+                {
+                    "id": 55,
+                    "label": "日本語",
+                    "value": "ja"
+                }
+            ]
+        },
+        "globalComponent": {
+            "id": 2,
+            "readMoreLabel": "閱讀更多",
+            "speechButton": {
+                "id": 49,
+                "label": "使用日文閱讀",
+                "icon": null
+            }
+        },
+        "header": {
+            "id": 2,
+            "leftRoute": "/language",
+            "rightRoute": "/search",
+            "leftIcon": null,
+            "rightIcon": null
+        },
+        "pageLanding": {
+            "id": 2,
+            "recommendationHeading": "探索房東推介",
+            "naviagtion": [
+                {
+                    "id": 20,
+                    "label": "資訊",
+                    "route": "/info",
+                    "icon": null
+                },
+                {
+                    "id": 21,
+                    "label": "網絡",
+                    "route": "/info/wifi",
+                    "icon": null
+                },
+                {
+                    "id": 22,
+                    "label": "景點",
+                    "route": "/nearby-attractions",
+                    "icon": null
+                },
+                {
+                    "id": 23,
+                    "label": "餐廳",
+                    "route": "/nearby-restaurants",
+                    "icon": null
+                },
+                {
+                    "id": 24,
+                    "label": "行程",
+                    "route": "/tours",
+                    "icon": null
+                }
+            ]
+        },
+        "pageLanguage": {
+            "id": 2,
+            "heading": "語言設定",
+            "applyButton": {
+                "id": 25,
+                "label": "套用"
+            }
+        },
+        "pageSearch": {
+            "id": 7,
+            "searchInputPlaceholder": "搜尋附近",
+            "defaultListHeading": "最多搜尋",
+            "highlightedListHeading": "探索更多",
+            "defaultList": [
+                {
+                    "id": 64,
+                    "label": "温泉",
+                    "value": "温泉"
+                }
+            ]
+        },
+        "pageInfo": {
+            "id": 6,
+            "heading": "房間資訊",
+            "navigation": [
+                {
+                    "id": 65,
+                    "label": "地址",
+                    "route": "/info/address",
+                    "icon": null
+                },
+                {
+                    "id": 66,
+                    "label": "簽到/簽出",
+                    "route": "/info/check-in-out",
+                    "icon": null
+                },
+                {
+                    "id": 67,
+                    "label": "房間規定",
+                    "route": "/info/house-rules",
+                    "icon": null
+                },
+                {
+                    "id": 68,
+                    "label": "設備",
+                    "route": "/info/amenities",
+                    "icon": null
+                },
+                {
+                    "id": 69,
+                    "label": "FAQ",
+                    "route": "/info/faq",
+                    "icon": null
+                }
+            ]
+        },
+        "pageWiFi": {
+            "id": 4,
+            "scanQRButton": {
+                "id": 70,
+                "label": "掃描二維碼連結"
+            },
+            "clipboardButton": {
+                "id": 71,
+                "label": "複製密碼"
+            },
+            "showQRButton": {
+                "id": 72,
+                "label": "分享二維碼"
+            }
+        },
+        "pagPoiDetail": {
+            "id": 5,
+            "recommendationHeading": "房東推薦",
+            "highlightHeading": "特點",
+            "addressIcon": null,
+            "urlIcon": null,
+            "dialIcon": null
+        }
+    },
+    "meta": {}
+}
