@@ -1,0 +1,165 @@
+{
+    "data": [
+        {
+            "id": 10,
+            "documentId": "o91y8s8d4k6996mn5m47qkm8",
+            "name": "family-room-01",
+            "label": "Family Room 1",
+            "headline": null,
+            "address": "〒874-0920 오이타현 벳푸시 키타하마 2가 6-6",
+            "addressURL": "https://maps.app.goo.gl/z3LNWA1QGYsV4t7h9",
+            "checkInOut": "<p>체크인: 오후 3:00 이후<br>체크아웃: 오전 10:00 이전</p>\n<p>고객님의 편의를 위해 얼리 체크인 및 레이트 체크아웃 옵션을 제공하게 되어 기쁩니다. 객실 이용 가능 여부와 점유율에 따라 얼리 체크인은 최소 3시간, 레이트 체크아웃은 최대 3시간까지 이용하실 수 있습니다. 이 서비스에는 시간당 1,000엔의 추가 요금이 부과됩니다. 필요한 준비를 기꺼이 도와드리겠습니다. :)</p>",
+            "amenities": null,
+            "houseRules": "<p>- 최대 숙박 인원 5명<br>- 반려동물 동반 불가<br>- 파티 또는 이벤트 금지<br>- 상업적 사진 촬영 금지<br>- 금연</p>",
+            "slider": [
+                {
+                    "id": 85,
+                    "documentId": "b6zuxzo6m462oy5j63chiblr",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749211215/familyroom01_beppu_airbnb_e691d8ac4a.webp"
+                }
+            ],
+            "faq": [
+                {
+                    "id": 97,
+                    "question": "몇 명까지 숙박할 수 있나요?",
+                    "answer": "<p>최대 5명</p>"
+                },
+                {
+                    "id": 98,
+                    "question": "체크인과 체크아웃 시간은 어떻게 되나요?",
+                    "answer": "<p>체크인: 오후 3:00 이후<br>체크아웃: 오전 10:00 이전</p>\n<p>고객님의 편의를 위해 얼리 체크인 및 레이트 체크아웃 옵션을 제공하게 되어 기쁩니다. 객실 이용 가능 여부와 점유율에 따라 얼리 체크인은 최소 3시간, 레이트 체크아웃은 최대 3시간까지 이용하실 수 있습니다. 이 서비스에는 시간당 1,000엔의 추가 요금이 부과됩니다. 필요한 준비를 기꺼이 도와드리겠습니다. :)</p>"
+                },
+                {
+                    "id": 99,
+                    "question": "레스토랑이 있나요?",
+                    "answer": "<p>죄송하지만 레스토랑은 없습니다.</p>"
+                },
+                {
+                    "id": 100,
+                    "question": "주차할 수 있나요?",
+                    "answer": "<p>인근에 무료 전용 주차장이 있습니다(예약 불필요).</p>"
+                }
+            ],
+            "wifi": [],
+            "ownedBy": {
+                "id": 7,
+                "documentId": "nh91l7ks7t9s37xczk3mkcwx",
+                "slug": "beppu-story",
+                "label": "Beppu Story",
+                "greeting": "Beppu Story에 오신 것을 환영합니다!",
+                "nativeLanguageCode": "ja",
+                "avatar": {
+                    "id": 79,
+                    "documentId": "rvf8uwz2ob1djwacq8pntj7c",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749201884/beppu_airbnb_logo_786f756142.png"
+                },
+                "pickedPOIs": [
+                    {
+                        "id": 23,
+                        "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                        "slug": "First-week-of-April-Beppu",
+                        "label": "4월 첫째주",
+                        "address": null,
+                        "highlight": "벳푸 핫토 온천 축제는 현지에서 가장 큰 온천 축제로, 보통 3월 말부터 4월 초까지 5일간 진행됩니다. 이 기간 동안 많은 시영 온천이 무료로 개방되며, 도시 전체가 즐거운 분위기로 가득합니다. 축제에는 퍼레이드, 전통 공연, 그리고 참가자들이 온천수를 사람들에게 뿌리는 독특한 \"\"유카케 마츠리(물 뿌리기 축제)\"\"가 포함되어 있어 매우 활기찬 모습을 보여줍니다.\n\n또 다른 독특한 행사는 오기야마 불 축제로, 이는 오기야마 산에 불을 놓는 의식으로, 한 해의 건강, 장수, 사업 번창을 기원합니다. 다만, 이 불 축제는 보통 2월 초에 열리며 온천 축제와는 날짜가 다르니 유의하시기 바랍니다. 벳푸 겨울만의 장관입니다.",
+                        "externalURL": null,
+                        "type": null,
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 27,
+                                "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                                "name": "이벤트",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 96,
+                            "documentId": "qopeocz4ldj51tz7ip26vanx",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                        }
+                    },
+                    {
+                        "id": 8,
+                        "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                        "slug": "Kaimonji-Onsen",
+                        "label": "海門寺温泉",
+                        "address": "〒874-0920 오이타현 벳푸시 기타하마 2초메 3-2",
+                        "highlight": "카이몬지 온천은 일본 오이타현 벳푸시에 위치한 유서 깊은 공중 온천으로, 합리적인 가격에 현지 주민과 여행객 모두에게 사랑받고 있습니다. 진정한 일본식 온천 문화를 경험하고 싶은 분들에게 이상적인 선택입니다.\n\n온천 자체는 전통적이고 소박한 스타일을 유지하고 있으며, 화려하지는 않지만 따뜻함과 향수를 불러일으킵니다. 소박한 시설은 조용하고 순수한 온천 경험을 선호하는 여행객에게 적합합니다. 벳푸 시내와 가깝고 역에서 도보로 갈 수 있어 교통이 매우 편리합니다.\n\n벳푸의 일상과 온천 문화를 깊이 느끼고 싶다면 카이몬지 온천은 일정에 포함할 가치가 있는 좋은 선택입니다.",
+                        "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 2,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "온천",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 101,
+                            "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                        }
+                    },
+                    {
+                        "id": 18,
+                        "documentId": "nyk1nox195rwz864vhirbq4u",
+                        "slug": "Suginoi-Hotel-Aqua-Garden",
+                        "label": "杉乃井ホテル 棚湯・ザ アクアガーデン  ",
+                        "address": "〒874-0822 오이타현 벳푸시 칸카이지 1",
+                        "highlight": "아쿠아 가든은 벳푸 스기노이 호텔 내에 위치한 유명한 스파 및 워터파크로, 온천 치유와 리조트 분위기를 결합하여 여행객에게 최고의 휴식 경험을 제공합니다. 노천 온천 풀, 빛나는 분수, 폭포 벽, 시각 효과 등을 포함한 시설은 커플과 가족뿐만 아니라 낭만적인 밤의 분위기를 좋아하는 여행객에게도 매우 적합합니다.\n\n방문객은 스기노이 호텔에 숙박하지 않아도 단독으로 티켓을 구매하여 입장할 수 있어 당일치기 여행객들에게 인기가 많습니다. 특히 밤에는 조명과 수상 쇼가 배경 음악과 어우러져 벳푸에서 보기 드문 환상적인 풍경을 연출하며, 사진 촬영과 몸과 마음의 휴식을 위한 인기 있는 선택지입니다.",
+                        "externalURL": "https://www.suginoi-hotel.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 2,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "온천",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 103,
+                            "documentId": "tdzqknqthwr3dwv5kha3kwkb",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218519/Suginoi_Hotel_Aqua_Garden_9b37b7daf3.jpg"
+                        }
+                    },
+                    {
+                        "id": 13,
+                        "documentId": "htmjfrmp84tbio8un21wx15r",
+                        "slug": "Takegawara-Onsen",
+                        "label": "竹瓦温泉",
+                        "address": "〒874-0944 오이타현 벳푸시 모토마치 16-23",
+                        "highlight": "타케가와라 온천은 벳푸 시를 대표하는 전통 공중 온천 중 하나로, 유서 깊은 고풍스러운 건물 안에 자리하고 있습니다. 건물 자체는 100년 이상의 역사를 가지고 있으며, 벳푸 온천 문화의 상징이자 도시의 랜드마크로 여겨집니다.\n\n전통적인 일본식 온천탕 외에도, 이곳에서 가장 유명한 특징은 '모래찜질(스나유)'입니다. 방문객들은 따뜻한 모래 더미에 누워 천연 지열 증기로 몸을 데우며 일반 온천과는 다른 치유 효과를 경험할 수 있어 국내외 여행객들에게 큰 사랑을 받고 있습니다.\n\n역사와 문화가 교차하는 곳으로서, 타케가와라 온천은 단순히 목욕하는 장소를 넘어 시간 여행의 경험을 선사하므로 벳푸를 처음 방문하는 여행객에게 강력히 추천합니다.",
+                        "externalURL": "https://www.takegawara-onsen.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 2,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "온천",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 107,
+                            "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}

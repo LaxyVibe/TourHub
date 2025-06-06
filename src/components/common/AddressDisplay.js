@@ -21,6 +21,7 @@ const AddressDisplay = ({
   address, 
   nativeLanguageCode, 
   addressURL,
+  addressEmbedHTML, // Custom embed HTML for Google Maps
   showMap = false,
   showMapButton = false,
   poiSlug = null, // For POI-specific address lookup
@@ -302,16 +303,33 @@ const AddressDisplay = ({
               border: '1px solid #e0e0e0'
             }}
           >
-            <iframe
-              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAoc4RCOPkN2-oZt5OVt9lC7mJzmcaeV1Y&q=${encodeURIComponent(address)}`}
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Location Map"
-            />
+            {addressEmbedHTML ? (
+              // Use custom embed HTML if available
+              <Box
+                dangerouslySetInnerHTML={{ __html: addressEmbedHTML }}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  '& iframe': {
+                    width: '100% !important',
+                    height: '100% !important',
+                    border: 'none !important'
+                  }
+                }}
+              />
+            ) : (
+              // Fallback to generic Google Maps embed
+              <iframe
+                src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAoc4RCOPkN2-oZt5OVt9lC7mJzmcaeV1Y&q=${encodeURIComponent(address)}`}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Location Map"
+              />
+            )}
           </Box>
         </Box>
       )}

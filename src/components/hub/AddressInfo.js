@@ -68,6 +68,7 @@ const AddressInfo = () => {
             address={suite.address}
             nativeLanguageCode={nativeLanguageCode}
             addressURL={suite.addressURL}
+            addressEmbedHTML={suite.addressEmbedHTML}
             showMap={true}
             showMapButton={true}
           />

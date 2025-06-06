@@ -1,0 +1,165 @@
+{
+    "data": [
+        {
+            "id": 12,
+            "documentId": "o91y8s8d4k6996mn5m47qkm8",
+            "name": "family-room-01",
+            "label": "Family Room 1",
+            "headline": null,
+            "address": "大分縣別府市北濱 2 丁目 6-6 郵編 874-0920",
+            "addressURL": "https://maps.app.goo.gl/z3LNWA1QGYsV4t7h9",
+            "checkInOut": "<p>入住: 下午 3:00 後<br>退房: 上午 10:00 前</p>\n<p>我們很高興提供便捷的提早入住和延遲退房選擇。根據客房供應情況和入住率，我們可提供最少三小時的提早入住和最多三小時的延遲退房。請注意，這些服務每小時將收取 1,000 日圓的額外費用。我們將很樂意協助您進行必要的安排。 :)</p>",
+            "amenities": null,
+            "houseRules": "<div class=\"ewa-rteLine\">-最多 5 位房客<br>- 禁止攜帶寵物<br>- 禁止舉辦派對或活動<br>- 禁止商業攝影<br>- 禁止吸煙</div>",
+            "slider": [
+                {
+                    "id": 85,
+                    "documentId": "b6zuxzo6m462oy5j63chiblr",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749211215/familyroom01_beppu_airbnb_e691d8ac4a.webp"
+                }
+            ],
+            "faq": [
+                {
+                    "id": 89,
+                    "question": "可容納多少位住客？",
+                    "answer": "<p>5 位住客</p>"
+                },
+                {
+                    "id": 90,
+                    "question": "入住和退房時間是什麼？",
+                    "answer": "<p>入住: 下午 3:00 後<br>退房: 上午 10:00 前</p>\n<p>我們很高興提供便捷的提早入住和延遲退房選擇。根據客房供應情況和入住率，我們可提供最少三小時的提早入住和最多三小時的延遲退房。請注意，這些服務每小時將收取 1,000 日圓的額外費用。我們將很樂意協助您進行必要的安排。 :)</p>"
+                },
+                {
+                    "id": 91,
+                    "question": "是否有餐廳？",
+                    "answer": "<p>很抱歉，沒有餐廳。</p>"
+                },
+                {
+                    "id": 92,
+                    "question": "我可以停車嗎？",
+                    "answer": "<p>附近有免費私人停車位（無需預約）。</p>"
+                }
+            ],
+            "wifi": [],
+            "ownedBy": {
+                "id": 23,
+                "documentId": "nh91l7ks7t9s37xczk3mkcwx",
+                "slug": "beppu-story",
+                "label": "Beppu Story",
+                "greeting": "歡迎來到Beppu Story！",
+                "nativeLanguageCode": "ja",
+                "avatar": {
+                    "id": 79,
+                    "documentId": "rvf8uwz2ob1djwacq8pntj7c",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749201884/beppu_airbnb_logo_786f756142.png"
+                },
+                "pickedPOIs": [
+                    {
+                        "id": 21,
+                        "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                        "slug": "First-week-of-April-Beppu",
+                        "label": "4月的第一週",
+                        "address": null,
+                        "highlight": "別府八湯溫泉祭是當地最大的溫泉節慶，通常在三月底至四月初為期五天。期間，許多市營溫泉免費開放，整個城鎮洋溢著歡樂氣氛。慶典包含遊行、傳統表演，以及獨特的「潑湯祭」，參與者將溫泉水潑灑向人群，場面熱鬧非凡。\n\n另一獨特活動是扇山火祭，這是在扇山上放火的儀式，旨在祈求一年的健康、長壽與生意興旺。然而，請注意此火祭通常在二月初舉行，與溫泉祭的日期不同，是別府冬季獨有的壯觀景象。",
+                        "externalURL": null,
+                        "type": null,
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 30,
+                                "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                                "name": "活動／盛事",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 96,
+                            "documentId": "qopeocz4ldj51tz7ip26vanx",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                        }
+                    },
+                    {
+                        "id": 6,
+                        "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                        "slug": "Kaimonji-Onsen",
+                        "label": "海門寺溫泉",
+                        "address": "〒874-0920 大分縣別府市北濱2丁目3番2號",
+                        "highlight": "海門寺溫泉是位於日本大分縣別府市的一間歷史悠久的公共溫泉，價格親民，深受當地居民與旅客的喜愛。對於想體驗地道日式泡湯文化的人來說，是非常理想的選擇。\n\n溫泉本身保留了傳統簡約的風格，雖不豪華，卻充滿溫馨與懷舊感。設施樸實，適合喜歡安靜、純粹泡湯體驗的旅人。由於地點鄰近別府市中心，從車站步行即可到達，交通相當便利。\n\n若您想要深入感受別府的日常與溫泉文化，海門寺溫泉是一個值得納入行程的好選擇。",
+                        "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 34,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "溫泉",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 101,
+                            "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                        }
+                    },
+                    {
+                        "id": 16,
+                        "documentId": "nyk1nox195rwz864vhirbq4u",
+                        "slug": "Suginoi-Hotel-Aqua-Garden",
+                        "label": "杉乃井飯店 棚湯・水上樂園",
+                        "address": "〒874-0822 大分縣別府市觀海寺1",
+                        "highlight": "The Aqua Garden 是位於別府杉乃井飯店內的著名水療樂園，結合了溫泉療癒與度假風情，為旅客帶來絕佳的放鬆體驗。設施包含露天溫泉水池、發光噴泉、瀑布牆與視覺特效等，不僅適合情侶與家庭同遊，也非常適合喜愛夜間浪漫氛圍的旅人。\n\n遊客不需住宿杉乃井飯店也可單獨購票入場，因此深受一日遊旅客喜愛。尤其夜晚點燈與水上表演搭配背景音樂，營造出別府難得一見的幻想景色，是拍照與放鬆身心的熱門選擇。",
+                        "externalURL": "https://www.suginoi-hotel.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 34,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "溫泉",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 103,
+                            "documentId": "tdzqknqthwr3dwv5kha3kwkb",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218519/Suginoi_Hotel_Aqua_Garden_9b37b7daf3.jpg"
+                        }
+                    },
+                    {
+                        "id": 11,
+                        "documentId": "htmjfrmp84tbio8un21wx15r",
+                        "slug": "Takegawara-Onsen",
+                        "label": "竹瓦溫泉",
+                        "address": "〒874-0944 大分縣別府市元町16番23號",
+                        "highlight": "竹瓦溫泉是別府市最具代表性的傳統公共溫泉之一，位於一棟極具歷史風情的老式建築內。建築本身已有百年以上歷史，是別府溫泉文化的象徵之一，也被視為市內的地標。\n\n除了經典的日式溫泉浴池之外，這裡最著名的特色是「砂湯」——旅客可躺入溫熱的砂堆中，由天然地熱蒸氣加熱身體，體驗不同於一般泡湯的療癒效果，深受海內外旅客喜愛。\n\n作為歷史與文化交會之地，竹瓦溫泉不僅是泡湯場所，更是一場時光旅行的體驗，極推薦給第一次造訪別府的旅人。",
+                        "externalURL": "https://www.takegawara-onsen.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 34,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "溫泉",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 107,
+                            "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}
