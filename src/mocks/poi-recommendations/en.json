@@ -4,10 +4,6 @@
             "id": 1,
             "documentId": "l0j6t3g5qq5iqqlphmfq4c7u",
             "recommendation": "Very nice!",
-            "kmFromStay": 0,
-            "weightInNearbyRestaurants": -1,
-            "weightInNearbyAttractions": -1,
-            "weightInHighlight": -1,
             "poi": {
                 "id": 1,
                 "documentId": "ur2n04pispa1eh5eqo70cx5s",
