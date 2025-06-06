@@ -18,51 +18,35 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LanguageIcon from '@mui/icons-material/Language';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import AttractionIcon from '@mui/icons-material/Place';
 import { useLanguage } from '../../context/LanguageContext';
 import { getPOIsByType } from '../../utils/dataFetcher';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
+import AddressDisplay from '../common/AddressDisplay';
+import poiRecommendationsData from '../../mocks/poi-recommendations/en.json';
 
-const translations = {
-  en: {
-    loadingMessage: 'Loading details...',
-    errorTitle: 'Error',
-    errorMessageDefault: 'Failed to load information. Please try again later.',
-    poiNotFoundTitle: 'Not Found',
-    poiNotFoundMessage: 'The location you are looking for is not available.',
-    backButtonAriaLabel: 'back',
-    hostMessageTitle: 'Message from Host',
-    addressLabel: 'Address',
-    phoneLabel: 'Phone',
-    openingHoursLabel: 'Opening Hours',
-    websiteLabel: 'Website',
-    highlightsTitle: 'Highlights',
-    audioTourPlay: 'Listen to Audio Tour',
-    audioTourStop: 'Stop Audio',
-    reviewCountLabel: 'reviews',
-    getPOINotFoundError: (id, lang) => `Location with ID "${id}" not found in ${lang} data.`,
-  },
-  ja: {
-    loadingMessage: '詳細を読み込み中...',
-    errorTitle: 'エラー',
-    errorMessageDefault: '情報の読み込みに失敗しました。後でもう一度お試しください。',
-    poiNotFoundTitle: '見つかりません',
-    poiNotFoundMessage: 'お探しの場所は利用できません。',
-    backButtonAriaLabel: '戻る',
-    hostMessageTitle: 'ホストからのメッセージ',
-    addressLabel: '住所',
-    phoneLabel: '電話番号',
-    openingHoursLabel: '営業時間',
-    websiteLabel: 'ウェブサイト',
-    highlightsTitle: 'ハイライト',
-    audioTourPlay: 'オーディオツアーを聞く',
-    audioTourStop: 'オーディオを停止',
-    reviewCountLabel: 'レビュー',
-    getPOINotFoundError: (id, lang) => `ID "${id}" の場所が ${lang} データで見つかりません。`,
+// Function to dynamically load suite data for native language POI details
+const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
+  if (!nativeLanguageCode || nativeLanguageCode === 'en') {
+    return null; // No native language data needed
+  }
+  
+  try {
+    const nativeModule = await import(`../../mocks/suites/beppu-story/${suiteId}/${nativeLanguageCode}.json`);
+    const nativeData = nativeModule.default;
+    
+    // Find the POI in the native language data
+    const suite = nativeData.data?.[0];
+    if (suite?.ownedBy?.pickedPOIs) {
+      const nativePOI = suite.ownedBy.pickedPOIs.find(poi => poi.slug === poiSlug);
+      return nativePOI;
+    }
+    
+    return null;
+  } catch (error) {
+    console.warn(`Failed to load native language data for ${nativeLanguageCode}:`, error);
+    return null;
   }
 };
 
@@ -72,11 +56,22 @@ const POIDetail = () => {
   const { poiSlug, suiteId } = useParams();
   
   const [poi, setPOI] = useState(null);
+  const [nativePOI, setNativePOI] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [recommendation, setRecommendation] = useState(null);
   
-  const currentTranslations = translations[language] || translations.en;
-  
+  const hubConfig = getHubConfigByLanguage(language);
+  const pageConfig = hubConfig?.data?.pagPoiDetail;
+
+  // Function to get POI recommendation
+  const getPOIRecommendation = (poiSlug) => {
+    const recommendationItem = poiRecommendationsData.data.find(
+      item => item.poi.slug === poiSlug
+    );
+    return recommendationItem ? recommendationItem.recommendation : null;
+  };
+
   useEffect(() => {
     const loadPOIDetails = async () => {
       setLoading(true);
@@ -102,14 +97,24 @@ const POIDetail = () => {
         }
         
         if (!foundPOI) {
-          setError(currentTranslations.getPOINotFoundError(poiSlug, language));
+          setError(`Location with ID "${poiSlug}" not found in ${language} data.`);
           setPOI(null);
         } else {
           setPOI(foundPOI);
+          
+          // Load native language POI data if available
+          if (foundPOI.nativeLanguageCode && foundPOI.nativeLanguageCode !== language) {
+            const nativeLanguagePOI = await loadNativeLanguagePOI(poiSlug, foundPOI.nativeLanguageCode, suiteId);
+            setNativePOI(nativeLanguagePOI);
+          }
+          
+          // Check for host recommendation
+          const hostRecommendation = getPOIRecommendation(poiSlug);
+          setRecommendation(hostRecommendation);
         }
       } catch (err) {
         console.error(`Failed to load POI details for slug ${poiSlug} in suite ${suiteId} (lang: ${language}):`, err);
-        setError(currentTranslations.errorMessageDefault);
+        setError('Failed to load information. Please try again later.');
         setPOI(null);
       }
       setLoading(false);
@@ -118,7 +123,7 @@ const POIDetail = () => {
     if (poiSlug && suiteId) {
       loadPOIDetails();
     }
-  }, [language, poiSlug, suiteId, currentTranslations]);
+  }, [language, poiSlug, suiteId]);
 
   const [isPlayingAudio, setIsPlayingAudio] = React.useState(false);
   const audioRef = React.useRef(null);
@@ -150,12 +155,12 @@ const POIDetail = () => {
   if (error) {
     return (
       <Container maxWidth="md" sx={{ py: 3 }}>
-        <IconButton onClick={handleBack} aria-label={currentTranslations.backButtonAriaLabel} sx={{ mb: 2 }}>
+        <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>
         <Paper elevation={3} sx={{ p: 3, textAlign: 'center', backgroundColor: 'error.light' }}>
           <RestaurantIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
-          <Typography variant="h6" color="error.contrastText">{currentTranslations.errorTitle}</Typography>
+          <Typography variant="h6" color="error.contrastText">Error</Typography>
           <Typography color="error.contrastText">{error}</Typography>
         </Paper>
       </Container>
@@ -165,13 +170,13 @@ const POIDetail = () => {
   if (!poi) {
     return (
       <Container maxWidth="md" sx={{ py: 3 }}>
-        <IconButton onClick={handleBack} aria-label={currentTranslations.backButtonAriaLabel} sx={{ mb: 2 }}>
+        <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>
         <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
           <RestaurantIcon sx={{ fontSize: 60, color: 'text.secondary', mb: 2 }} />
-          <Typography variant="h6">{currentTranslations.poiNotFoundTitle}</Typography>
-          <Typography color="text.secondary">{currentTranslations.poiNotFoundMessage}</Typography>
+          <Typography variant="h6">Not Found</Typography>
+          <Typography color="text.secondary">The location you are looking for is not available.</Typography>
         </Paper>
       </Container>
     );
@@ -179,11 +184,12 @@ const POIDetail = () => {
 
   return (
     <Container maxWidth="md" sx={{ py: 3 }}>
-      <IconButton onClick={handleBack} aria-label={currentTranslations.backButtonAriaLabel} sx={{ mb: 2 }}>
+      <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
         <ArrowBackIcon />
       </IconButton>
 
       <Paper elevation={3} sx={{ borderRadius: 2, overflow: 'hidden' }}>
+        {/* Cover Photo */}
         {poi.coverPhoto && (
           <Box
             component="img"
@@ -198,6 +204,7 @@ const POIDetail = () => {
         )}
         
         <Box sx={{ p: 3 }}>
+          {/* POI Label */}
           <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 2 }}>
             <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', flex: 1 }}>
               {poi.label}
@@ -209,86 +216,16 @@ const POIDetail = () => {
             )}
           </Box>
 
-          {poi.rating && (
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Rating value={poi.rating} precision={0.1} readOnly />
-              <Typography variant="body2" sx={{ ml: 1 }}>
-                {poi.rating} ({poi.reviewCount || 0} {currentTranslations.reviewCountLabel})
-              </Typography>
-            </Box>
-          )}
-
-          {poi.highlight && (
-            <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.6 }}>
-              {poi.highlight}
+          {/* Native Label */}
+          {nativePOI && nativePOI.label && nativePOI.label !== poi.label && (
+            <Typography variant="h5" sx={{ mb: 2, color: 'text.secondary', fontStyle: 'italic' }}>
+              {nativePOI.label}
             </Typography>
           )}
 
-          <Divider sx={{ my: 3 }} />
-
-          <List sx={{ py: 0 }}>
-            {poi.address && (
-              <ListItem sx={{ px: 0 }}>
-                <ListItemIcon>
-                  <LocationOnIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={currentTranslations.addressLabel}
-                  secondary={poi.address}
-                />
-              </ListItem>
-            )}
-
-            {poi.phone && (
-              <ListItem sx={{ px: 0 }}>
-                <ListItemIcon>
-                  <PhoneIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={currentTranslations.phoneLabel}
-                  secondary={poi.phone}
-                />
-              </ListItem>
-            )}
-
-            {poi.openingHours && (
-              <ListItem sx={{ px: 0 }}>
-                <ListItemIcon>
-                  <AccessTimeIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={currentTranslations.openingHoursLabel}
-                  secondary={poi.openingHours}
-                />
-              </ListItem>
-            )}
-
-            {poi.website && (
-              <ListItem sx={{ px: 0 }}>
-                <ListItemIcon>
-                  <LanguageIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary={currentTranslations.websiteLabel}
-                  secondary={
-                    <Button 
-                      variant="text" 
-                      href={poi.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      sx={{ p: 0, textAlign: 'left', justifyContent: 'flex-start' }}
-                    >
-                      {poi.website}
-                    </Button>
-                  }
-                />
-              </ListItem>
-            )}
-          </List>
-
+          {/* Tag Labels */}
           {poi.tag_labels && poi.tag_labels.length > 0 && (
-            <Box sx={{ mt: 3 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>{currentTranslations.highlightsTitle}</Typography>
+            <Box sx={{ mb: 3 }}>
               <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                 {poi.tag_labels.map((tag) => (
                   <Chip 
@@ -306,6 +243,121 @@ const POIDetail = () => {
             </Box>
           )}
 
+          {/* Address and Native Address */}
+          {poi.address && (
+            <List sx={{ py: 0, mb: 2 }}>
+              <ListItem sx={{ px: 0, alignItems: 'flex-start' }}>
+                <ListItemIcon sx={{ mt: 0.5 }}>
+                  {pageConfig?.addressIcon ? (
+                    <Box
+                      component="img"
+                      src={pageConfig.addressIcon.url}
+                      alt="Address"
+                      sx={{ width: 24, height: 24 }}
+                    />
+                  ) : (
+                    <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%' }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Address"
+                  primaryTypographyProps={{ fontWeight: 'medium', mb: 1 }}
+                  secondary={
+                    <AddressDisplay
+                      suiteId={suiteId}
+                      address={poi.address}
+                      nativeLanguageCode={poi.nativeLanguageCode}
+                      addressURL={poi.externalURL}
+                      showMap={false}
+                      showMapButton={false}
+                      poiSlug={poi.slug}
+                      isCompact={true}
+                    />
+                  }
+                />
+              </ListItem>
+            </List>
+          )}
+
+          {/* External URL */}
+          {poi.externalURL && (
+            <List sx={{ py: 0, mb: 2 }}>
+              <ListItem sx={{ px: 0 }}>
+                <ListItemIcon>
+                  {pageConfig?.urlIcon ? (
+                    <Box
+                      component="img"
+                      src={pageConfig.urlIcon.url}
+                      alt="Website"
+                      sx={{ width: 24, height: 24 }}
+                    />
+                  ) : (
+                    <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%' }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Website"
+                  secondary={
+                    <Button 
+                      variant="text" 
+                      href={poi.externalURL} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      sx={{ p: 0, textAlign: 'left', justifyContent: 'flex-start' }}
+                    >
+                      {poi.externalURL}
+                    </Button>
+                  }
+                />
+              </ListItem>
+            </List>
+          )}
+
+          <Divider sx={{ my: 3 }} />
+
+          {/* Host Recommendation Section */}
+          {recommendation && (
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+                {pageConfig?.recommendationHeading || 'Host Recommendation'}
+              </Typography>
+              <Paper 
+                elevation={1} 
+                sx={{ 
+                  p: 2, 
+                  backgroundColor: 'primary.50',
+                  borderLeft: 4,
+                  borderColor: 'primary.main'
+                }}
+              >
+                <Typography variant="body1" sx={{ fontStyle: 'italic' }}>
+                  {recommendation}
+                </Typography>
+              </Paper>
+            </Box>
+          )}
+
+          {/* Highlight Content */}
+          {poi.highlight && (
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+                {pageConfig?.highlightHeading || 'Highlight'}
+              </Typography>
+              <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
+                {poi.highlight}
+              </Typography>
+            </Box>
+          )}
+
+          {poi.rating && (
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
+              <Rating value={poi.rating} precision={0.1} readOnly />
+              <Typography variant="body2" sx={{ ml: 1 }}>
+                {poi.rating} ({poi.reviewCount || 0} reviews)
+              </Typography>
+            </Box>
+          )}
+
           {poi.audioGuide && (
             <Box sx={{ mt: 3 }}>
               <Button
@@ -315,7 +367,7 @@ const POIDetail = () => {
                 fullWidth
                 sx={{ py: 1.5 }}
               >
-                {isPlayingAudio ? currentTranslations.audioTourStop : currentTranslations.audioTourPlay}
+                {isPlayingAudio ? 'Stop Audio' : 'Listen to Audio Tour'}
               </Button>
               <audio ref={audioRef} src={poi.audioGuide} style={{ display: 'none' }} />
             </Box>
