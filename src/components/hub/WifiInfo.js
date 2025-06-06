@@ -4,22 +4,20 @@ import {
   Paper,
   Typography,
   Box,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
   IconButton,
   Dialog,
   DialogContent,
   DialogTitle,
   Alert,
-  Snackbar
+  Snackbar,
+  Button
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import WifiIcon from '@mui/icons-material/Wifi';
 import QrCodeIcon from '@mui/icons-material/QrCode2';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
@@ -27,6 +25,7 @@ import { getSuiteData } from '../../utils/suiteUtils';
 const WifiInfo = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
+  const [selectedNetwork, setSelectedNetwork] = useState(null);
   const navigate = useNavigate();
   const params = useParams();
   const { language } = useLanguage();
@@ -43,19 +42,26 @@ const WifiInfo = () => {
     navigate(`/${language}/${suiteId}/info`);
   };
 
-  const handleDialog = () => {
+  const handleShowQR = (network) => {
+    setSelectedNetwork(network);
     setDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
+    setSelectedNetwork(null);
   };
 
-  const handleCopy = (text) => {
-    if (!text) return;
-    navigator.clipboard.writeText(text);
+  const handleCopyPassword = (password) => {
+    if (!password) return;
+    navigator.clipboard.writeText(password);
     setCopyAlert(true);
-    setTimeout(() => setCopyAlert(false), 2000);
+  };
+
+  const handleScanQR = () => {
+    // This would typically open camera for QR scanning
+    // For now, just show an alert as camera access requires additional setup
+    alert(hubConfig?.data?.pageWiFi?.scanQRButton?.label || "Scan QR Code to connect");
   };
 
   // If we don't have any wifi info, display a message
@@ -72,9 +78,6 @@ const WifiInfo = () => {
     );
   }
 
-  const primaryNetwork = wifiNetworks[0];
-  const additionalNetworks = wifiNetworks.slice(1);
-
   return (
     <Container maxWidth="md">
       <Box sx={{ my: 4 }}>
@@ -82,69 +85,66 @@ const WifiInfo = () => {
           <ArrowBackIcon />
         </IconButton>
 
-        <Paper elevation={3}>
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <WifiIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={hubConfig?.data?.pageLanding?.naviagtion?.find(nav => nav.route === "/info/wifi")?.label || "WiFi"}
-                secondary={
-                  <Box>
-                    <Typography variant="body2" sx={{ fontWeight: 'bold', my: 1 }}>
-                      Network: {primaryNetwork.network}
-                    </Typography>
-                    {primaryNetwork.password && 
-                      <Typography variant="body2" sx={{ mt: 1 }}>
-                        Password: {primaryNetwork.password}
-                        <IconButton 
-                          size="small" 
-                          onClick={() => handleCopy(primaryNetwork.password)}
-                          sx={{ ml: 1 }}
-                        >
-                          <ContentCopyIcon fontSize="small" />
-                        </IconButton>
-                        <IconButton 
-                          size="small" 
-                          onClick={handleDialog}
-                          sx={{ ml: 1 }}
-                        >
-                          <QrCodeIcon fontSize="small" />
-                        </IconButton>
-                      </Typography>
-                    }
-                    
-                    {additionalNetworks.length > 0 && (
-                      <Box sx={{ mt: 3 }}>
-                        <Typography variant="subtitle2" sx={{ mb: 1 }}>Additional Networks:</Typography>
-                        {additionalNetworks.map((network, index) => (
-                          <Box key={index} sx={{ mb: 2 }}>
-                            <Typography variant="body2">
-                              <strong>Network:</strong> {network.network}
-                            </Typography>
-                            {network.password && (
-                              <Typography variant="body2">
-                                <strong>Password:</strong> {network.password}
-                                <IconButton 
-                                  size="small" 
-                                  onClick={() => handleCopy(network.password)}
-                                  sx={{ ml: 1 }}
-                                >
-                                  <ContentCopyIcon fontSize="small" />
-                                </IconButton>
-                              </Typography>
-                            )}
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-                  </Box>
-                }
-              />
-            </ListItem>
-          </List>
-        </Paper>
+        {/* WiFi Networks Display */}
+        {wifiNetworks.map((network, index) => (
+          <Paper key={index} elevation={3} sx={{ mb: 2, p: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <WifiIcon sx={{ mr: 2, color: 'primary.main' }} />
+              <Typography variant="h6">
+                {index === 0 ? (hubConfig?.data?.pageLanding?.naviagtion?.find(nav => nav.route === "/info/wifi")?.label || "WiFi") : `WiFi Network ${index + 1}`}
+              </Typography>
+            </Box>
+
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="body1" sx={{ fontWeight: 'bold', mb: 1 }}>
+                Network: {network.network}
+              </Typography>
+              {network.password && (
+                <Typography variant="body1" sx={{ mb: 2 }}>
+                  Password: {network.password}
+                </Typography>
+              )}
+            </Box>
+
+            {/* Action Buttons */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              {/* Scan QR Code Button */}
+              <Button
+                variant="outlined"
+                startIcon={<QrCodeScannerIcon />}
+                onClick={handleScanQR}
+                fullWidth
+                sx={{ justifyContent: 'flex-start' }}
+              >
+                {hubConfig?.data?.pageWiFi?.scanQRButton?.label || "Scan QR Code to connect"}
+              </Button>
+
+              {/* Copy Password Button */}
+              {network.password && (
+                <Button
+                  variant="outlined"
+                  startIcon={<ContentCopyIcon />}
+                  onClick={() => handleCopyPassword(network.password)}
+                  fullWidth
+                  sx={{ justifyContent: 'flex-start' }}
+                >
+                  {hubConfig?.data?.pageWiFi?.clipboardButton?.label || "Copy Password"}
+                </Button>
+              )}
+
+              {/* Show QR Code Button */}
+              <Button
+                variant="outlined"
+                startIcon={<QrCodeIcon />}
+                onClick={() => handleShowQR(network)}
+                fullWidth
+                sx={{ justifyContent: 'flex-start' }}
+              >
+                {hubConfig?.data?.pageWiFi?.showQRButton?.label || "Show QR Code to share"}
+              </Button>
+            </Box>
+          </Paper>
+        ))}
 
         {/* Dialog for WiFi QR */}
         <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="xs" fullWidth>
@@ -152,9 +152,19 @@ const WifiInfo = () => {
             {hubConfig?.data?.pageWiFi?.showQRButton?.label || "Show QR Code"}
           </DialogTitle>
           <DialogContent>
-            <Box textAlign="center">
-              <QrCodeIcon sx={{ fontSize: 150 }} />
-              <Typography>{hubConfig?.data?.pageWiFi?.scanQRButton?.label || "Scan QR Code to connect"} {primaryNetwork.network}</Typography>
+            <Box textAlign="center" sx={{ py: 2 }}>
+              <QrCodeIcon sx={{ fontSize: 150, color: 'primary.main', mb: 2 }} />
+              <Typography variant="body1" sx={{ mb: 1 }}>
+                Network: {selectedNetwork?.network}
+              </Typography>
+              {selectedNetwork?.password && (
+                <Typography variant="body2" color="textSecondary">
+                  Password: {selectedNetwork.password}
+                </Typography>
+              )}
+              <Typography variant="body2" sx={{ mt: 2 }}>
+                {hubConfig?.data?.pageWiFi?.scanQRButton?.label || "Scan QR Code to connect"}
+              </Typography>
             </Box>
           </DialogContent>
         </Dialog>
@@ -163,6 +173,7 @@ const WifiInfo = () => {
         <Snackbar
           open={copyAlert}
           autoHideDuration={2000}
+          onClose={() => setCopyAlert(false)}
           message={hubConfig?.data?.pageWiFi?.clipboardButton?.label || "Password copied"}
         />
       </Box>

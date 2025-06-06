@@ -12,7 +12,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import WifiIcon from '@mui/icons-material/Wifi';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AttractionsTwoToneIcon from '@mui/icons-material/AttractionsTwoTone';
-import TourIcon from '@mui/icons-material/Tour';
+// import TourIcon from '@mui/icons-material/Tour'; // Temporarily disabled
 import { useLanguage } from '../context/LanguageContext';
 import Carousel from 'react-material-ui-carousel';
 import { fetchClientInfo } from '../config/clients/hubClients';
@@ -252,7 +252,8 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
     }
   };
 
-  const handleToursClick = () => {
+  // Tours functionality temporarily disabled
+  /* const handleToursClick = () => {
     const toursNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/tours");
     if (toursNav) {
       navigate(`/${language}/${suiteId}${toursNav.route}`, {
@@ -277,7 +278,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
         }
       });
     }
-  };
+  }; */
 
   const handleTourSelect = (tourId) => {
     // Check if there's a specific route for individual tours in the hub config
@@ -604,7 +605,8 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
               </Grid>
             )}
             
-            {sectionLabels.toursLabel && (
+            {/* Tours button temporarily disabled - not ready yet */}
+            {/* {sectionLabels.toursLabel && (
               <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
                 <Paper 
                   elevation={1} 
@@ -642,7 +644,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
                   {sectionLabels.toursLabel}
                 </Typography>
               </Grid>
-            )}
+            )} */}
           </Grid>
           {featuredTours.length > 0 && (
             <Box sx={{ mb: 3, mt: 4 }}>
@@ -737,8 +739,6 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
                 }))
             }
             suiteId={suiteId}
-            clientInfo={clientInfo}
-            sectionLabels={sectionLabels}
           />
         </>
       </Box>

@@ -135,9 +135,14 @@
             "highlightedListHeading": "Explore More",
             "defaultList": [
                 {
-                    "id": 54,
+                    "id": 51,
                     "label": "Onsen",
                     "value": "onsen"
+                },
+                {
+                    "id": 54,
+                    "label": "Beppu",
+                    "value": "Beppu"
                 }
             ]
         },

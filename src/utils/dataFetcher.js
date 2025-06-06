@@ -224,6 +224,7 @@ export const getPOIsByType = async (clientId, suiteId, type, language = 'en') =>
       highlight: poi.highlight,
       externalURL: poi.externalURL,
       type: poi.type,
+      nativeLanguageCode: poi.nativeLanguageCode, // Add native language code
       tag_labels: poi.tag_labels || [],
       coverPhoto: poi.coverPhoto
     })) || [];

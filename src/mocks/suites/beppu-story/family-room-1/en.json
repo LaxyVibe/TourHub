@@ -11,7 +11,13 @@
             "checkInOut": "<p>**Check-in** From 15:00 to 00:00 You'll need to let the property know in advance what time you'll arrive. **Check-out** Until 10:00 Pick the key from key box ![general-01-beppu-airbnb.jpg](https://ethical-novelty-0c204c906b.media.strapiapp.com/general_01_beppu_airbnb_292baefeff.jpg)</p>",
             "amenities": null,
             "houseRules": "<p>**Child policies** Children of any age are welcome. To see correct prices and occupancy information, please add the number of children in your group and their ages to your search. **Cot and extra bed policies** Cots and extra beds are not available at this property.</p>",
-            "slider": null,
+            "slider": [
+                {
+                    "id": 77,
+                    "documentId": "no5ygp9ko3awcvg4kb9so17b",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118508/image_4_87aac7b0f3.png"
+                }
+            ],
             "faq": [
                 {
                     "id": 82,
@@ -24,7 +30,19 @@
                     "answer": "<p>turn on TV</p>\n<p>&nbsp;</p>\n<p><img src=\"https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118564/image_61_e737a9d271.jpg\" alt=\"image 61.jpg\"></p>"
                 }
             ],
-            "wifi": [],
+            
+            "wifi": [
+                {
+                    "id": 3,
+                    "network": "ssid1",
+                    "password": "12345678"
+                },
+                {
+                    "id": 4,
+                    "network": "ssid2",
+                    "password": "abcdefg"
+                }
+            ],
             "ownedBy": {
                 "id": 14,
                 "documentId": "nh91l7ks7t9s37xczk3mkcwx",

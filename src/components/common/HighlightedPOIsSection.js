@@ -11,16 +11,12 @@ import { useLanguage } from '../../context/LanguageContext';
  * @param {string} props.heading - The section heading text (from pageSearch.highlightedListHeading)
  * @param {Array} props.pois - Array of POI objects to display
  * @param {string} props.suiteId - The suite ID for navigation
- * @param {Object} props.clientInfo - Client information for navigation state
- * @param {Object} props.sectionLabels - Section labels for navigation state
  * @returns {JSX.Element} The highlighted POIs section component
  */
 const HighlightedPOIsSection = ({ 
   heading = 'Explore More', 
   pois = [], 
-  suiteId, 
-  clientInfo, 
-  sectionLabels 
+  suiteId
 }) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
@@ -31,29 +27,9 @@ const HighlightedPOIsSection = ({
   }
 
   const handlePOIClick = (poi) => {
-    // Navigate to POI detail page using the same logic as SearchPage
-    if (poi.type === 'tour') {
-      navigate(`/${language}/join/${poi.slug}`);
-    } else if (poi.type === 'attraction' || poi.type === 'place') {
-      navigate(`/${language}/go/${poi.slug}`);
-    } else {
-      // For other types, show more info or navigate to external URL
-      if (poi.externalURL) {
-        window.open(poi.externalURL, '_blank');
-      } else {
-        // Fallback to generic POI detail route
-        navigate(`/${language}/${suiteId}/poi/${poi.id}`, {
-          state: { 
-            poi,
-            suiteId,
-            clientInfo: {
-              ...clientInfo,
-              sectionLabels
-            }
-          }
-        });
-      }
-    }
+    // Navigate to POI detail page using the correct route pattern
+    // Pattern: /{language}/{suiteId}/poi/{poi.slug}
+    navigate(`/${language}/${suiteId}/poi/${poi.slug}`);
   };
 
   return (
