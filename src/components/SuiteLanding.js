@@ -17,6 +17,7 @@ import { useLanguage } from '../context/LanguageContext';
 import Carousel from 'react-material-ui-carousel';
 import { fetchClientInfo } from '../config/clients/hubClients';
 import GlobalHeader from './common/GlobalHeader';
+import NavigationButton from './common/NavigationButton';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import { getSuiteData } from '../utils/suiteUtils';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
@@ -61,8 +62,6 @@ const getTranslations = (langCode, hubConfig) => {
   // Extract navigation items from hub config
   if (hubConfig.data.pageLanding?.naviagtion) {
     const navItems = hubConfig.data.pageLanding.naviagtion;
-    console.log('navItems')
-    console.log(navItems)
     const wifiNav = navItems.find(item => item.route === "/info/wifi");
     const infoNav = navItems.find(item => item.route === "/info");
     const spotsNav = navItems.find(item => item.route === "/nearby-attractions");
@@ -325,7 +324,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
 
   return (
     <Container sx={{ pb: 4, px: { xs: 0, sm: 0 }, pt: 0 }}>
-      <GlobalHeader title={suiteInfo ? suiteInfo.name : clientInfo.title || 'Suite Information'} suiteId={suiteId} />
+      <GlobalHeader title={suiteData?.details?.data?.[0]?.ownedBy?.label} suiteId={suiteId} />
       
       <Box sx={{ px: { xs: 2, sm: 3 }, pt: 2 }}>
         <>
@@ -346,7 +345,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
                 <Box 
                   component="img" 
                   src={suiteData.details.data[0].ownedBy.avatar.url}
-                  alt={suiteData.details.data[0].ownedBy.label || "Host"}
+                  alt={suiteData.details.data[0].ownedBy.label}
                   sx={{ 
                     width: 60, 
                     height: 60, 
@@ -360,10 +359,10 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
               )}
               <Box>
                 <Typography variant="h6" component="h3" sx={{ fontWeight: 'medium', mb: 0.5 }}>
-                  {suiteData.details.data[0].ownedBy.label || "Your Host"}
+                  {suiteData.details.data[0].ownedBy.label}
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                  {suiteData.details.data[0].ownedBy.greeting || "Welcome!"}
+                  {suiteData.details.data[0].ownedBy.greeting}
                 </Typography>
               </Box>
             </Box>
@@ -446,163 +445,47 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
           
           <Grid container spacing={0.5} justifyContent="space-between" sx={{ mb: 2, mt: 1 }}>
             {sectionLabels.wifiLabel && (
-              <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
-                <Paper 
-                  elevation={1} 
-                  sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    p: { xs: 1, sm: 1.5 },
-                    borderRadius: '50%',
-                    width: { xs: 52, sm: 60 },
-                    height: { xs: 52, sm: 60 },
-                    mx: 'auto',
-                    boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-                    cursor: 'pointer'
-                  }}
-                  onClick={handleWifiInfoClick}
-                >
-                  {sectionLabels.wifiIcon ? (
-                    <Box 
-                      component="img" 
-                      src={sectionLabels.wifiIcon} 
-                      alt="WiFi"
-                      sx={{ 
-                        width: { xs: 24, sm: 28 }, 
-                        height: { xs: 24, sm: 28 },
-                        color: 'primary.main'
-                      }}
-                    />
-                  ) : (
-                    <WifiIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
-                  )}
-                </Paper>
-                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                  {sectionLabels.wifiLabel}
-                </Typography>
-              </Grid>
+              <NavigationButton
+                iconUrl={sectionLabels.wifiIcon}
+                icon={!sectionLabels.wifiIcon && <WifiIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />}
+                iconAlt="WiFi"
+                label={sectionLabels.wifiLabel}
+                onClick={handleWifiInfoClick}
+                gridProps={{ xs: 2.4 }}
+              />
             )}
             
             {sectionLabels.infoLabel && (
-              <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
-                <Paper 
-                  elevation={1} 
-                  sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    p: { xs: 1, sm: 1.5 },
-                    borderRadius: '50%',
-                    width: { xs: 52, sm: 60 },
-                    height: { xs: 52, sm: 60 },
-                    mx: 'auto',
-                    boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-                    cursor: 'pointer'
-                  }}
-                  onClick={handleStayInfoClick}
-                >
-                  {sectionLabels.infoIcon ? (
-                    <Box 
-                      component="img" 
-                      src={sectionLabels.infoIcon} 
-                      alt="Info"
-                      sx={{ 
-                        width: { xs: 24, sm: 28 }, 
-                        height: { xs: 24, sm: 28 },
-                        color: 'primary.main'
-                      }}
-                    />
-                  ) : (
-                    <InfoIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
-                  )}
-                </Paper>
-                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                  {sectionLabels.infoLabel}
-                </Typography>
-              </Grid>
+              <NavigationButton
+                iconUrl={sectionLabels.infoIcon}
+                icon={!sectionLabels.infoIcon && <InfoIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />}
+                iconAlt="Info"
+                label={sectionLabels.infoLabel}
+                onClick={handleStayInfoClick}
+                gridProps={{ xs: 2.4 }}
+              />
             )}
             
             {sectionLabels.restaurantsLabel && (
-              <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
-                <Paper 
-                  elevation={1} 
-                  sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    p: { xs: 1, sm: 1.5 },
-                    borderRadius: '50%',
-                    width: { xs: 52, sm: 60 },
-                    height: { xs: 52, sm: 60 },
-                    mx: 'auto',
-                    boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-                    cursor: 'pointer'
-                  }}
-                  onClick={handleRestaurantsClick}
-                >
-                  {sectionLabels.restaurantsIcon ? (
-                    <Box 
-                      component="img" 
-                      src={sectionLabels.restaurantsIcon} 
-                      alt="Restaurants"
-                      sx={{ 
-                        width: { xs: 24, sm: 28 }, 
-                        height: { xs: 24, sm: 28 },
-                        color: 'primary.main'
-                      }}
-                    />
-                  ) : (
-                    <RestaurantIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
-                  )}
-                </Paper>
-                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                  {sectionLabels.restaurantsShortLabel}
-                </Typography>
-              </Grid>
+              <NavigationButton
+                iconUrl={sectionLabels.restaurantsIcon}
+                icon={!sectionLabels.restaurantsIcon && <RestaurantIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />}
+                iconAlt="Restaurants"
+                label={sectionLabels.restaurantsShortLabel}
+                onClick={handleRestaurantsClick}
+                gridProps={{ xs: 2.4 }}
+              />
             )}
             
             {sectionLabels.attractionsLabel && (
-              <Grid item xs={2.4} sx={{ textAlign: 'center' }}>
-                <Paper 
-                  elevation={1} 
-                  sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    p: { xs: 1, sm: 1.5 },
-                    borderRadius: '50%',
-                    width: { xs: 52, sm: 60 },
-                    height: { xs: 52, sm: 60 },
-                    mx: 'auto',
-                    boxShadow: '0 3px 6px rgba(0,0,0,0.1)',
-                    cursor: 'pointer'
-                  }}
-                  onClick={handleAttractionsClick}
-                >
-                  {sectionLabels.attractionsIcon ? (
-                    <Box 
-                      component="img" 
-                      src={sectionLabels.attractionsIcon} 
-                      alt="Attractions"
-                      sx={{ 
-                        width: { xs: 24, sm: 28 }, 
-                        height: { xs: 24, sm: 28 },
-                        color: 'primary.main'
-                      }}
-                    />
-                  ) : (
-                    <AttractionsTwoToneIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />
-                  )}
-                </Paper>
-                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-                  {sectionLabels.attractionsShortLabel}
-                </Typography>
-              </Grid>
+              <NavigationButton
+                iconUrl={sectionLabels.attractionsIcon}
+                icon={!sectionLabels.attractionsIcon && <AttractionsTwoToneIcon fontSize={window.innerWidth < 600 ? "medium" : "large"} color="primary" />}
+                iconAlt="Attractions"
+                label={sectionLabels.attractionsShortLabel}
+                onClick={handleAttractionsClick}
+                gridProps={{ xs: 2.4 }}
+              />
             )}
             
             {/* Tours button temporarily disabled - not ready yet */}

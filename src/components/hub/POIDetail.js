@@ -268,6 +268,7 @@ const POIDetail = () => {
                       address={poi.address}
                       nativeLanguageCode={poi.nativeLanguageCode}
                       addressURL={poi.externalURL}
+                      addressEmbedHTML={poi.addressEmbedHTML}
                       showMap={false}
                       showMapButton={false}
                       poiSlug={poi.slug}

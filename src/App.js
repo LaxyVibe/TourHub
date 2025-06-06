@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Routes, Route, useParams, useLocation, Navigate } from 'react-router-dom';
 import HubLanding from './components/HubLanding';
@@ -14,7 +14,6 @@ import CheckInOutInfo from './components/hub/CheckInOutInfo';
 import HouseRulesInfo from './components/hub/HouseRulesInfo';
 import AmenitiesInfo from './components/hub/AmenitiesInfo';
 import FAQInfo from './components/hub/FAQInfo';
-import RestaurantDetail from './components/hub/RestaurantDetail';
 import POIDetail from './components/hub/POIDetail';
 import POIList from './components/common/POIList';
 import FeaturedTours from './components/hub/FeaturedTours';
@@ -24,6 +23,7 @@ import { getHubClientInfo, getTourClientInfo, getPlaceClientInfo } from './confi
 import { getPOIsByType } from './utils/dataFetcher';
 import { LanguageProvider } from './context/LanguageContext';
 import { DEFAULT_LANGUAGE, extractLanguageFromPath } from './utils/languageUtils';
+import { theme } from './config/theme';
 
 // ScrollToTop component to handle scrolling to top on route changes
 function ScrollToTop() {
@@ -35,46 +35,6 @@ function ScrollToTop() {
   
   return null;
 }
-
-// Custom theme for the Laxy Hub application
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#a39ddd',
-      main: '#5fbcc4',
-      dark: '#215458',
-    },
-    secondary: {
-      light: '#fc6dcd',
-      main: '#f57c5f',
-      dark: '#cb310c',
-    },
-    background: {
-      default: '#f5f5f7',
-    },
-  },
-  typography: {
-    fontFamily: '"Segoe UI", "Roboto", "Helvetica Neue", sans-serif',
-    h5: {
-      fontWeight: 700,
-    },
-    h6: {
-      fontWeight: 600,
-    },
-  },
-  components: {
-    MuiPaper: {
-      defaultProps: {
-        elevation: 0,
-      },
-      styleOverrides: {
-        root: {
-          borderRadius: 8,
-        },
-      },
-    },
-  },
-});
 
 // Wrapper components to handle nested routes
 function HubWrapper() {
@@ -222,58 +182,6 @@ function RestaurantsWrapper() {
   );
 }
 
-function RestaurantDetailWrapper() {
-  const { suiteId, langCode, restaurantId } = useParams();
-  const location = useLocation();
-  const [initialState, setInitialState] = React.useState(null);
-  const [loading, setLoading] = React.useState(true);
-  
-  const { cleanedPathname } = extractLanguageFromPath(location.pathname.replace(`/${suiteId}`, ''));
-  
-  React.useEffect(() => {
-    const hostname = window.location.hostname;
-    
-    const fetchData = async () => {
-      try {
-        const clientInfoData = await getHubClientInfo(hostname, cleanedPathname);
-        
-        setInitialState({ 
-          restaurants: clientInfoData.restaurantList || [], 
-          clientInfo: {
-            ...clientInfoData,
-            language: langCode || DEFAULT_LANGUAGE,
-            suiteId
-          }
-        });
-      } catch (error) {
-        console.error("Failed to fetch client info for RestaurantDetailWrapper:", error);
-        const fallbackClientInfo = getHubClientInfo(hostname, cleanedPathname);
-        setInitialState({ 
-          restaurants: [], 
-          clientInfo: {
-            ...(fallbackClientInfo instanceof Promise ? {} : fallbackClientInfo),
-            language: langCode || DEFAULT_LANGUAGE,
-            suiteId
-          }
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [langCode, restaurantId, location, cleanedPathname, suiteId]);
-
-  if (loading) {
-    return <div>Loading restaurant details...</div>;
-  }
-
-  if (!initialState) {
-    return <div>Error loading restaurant information.</div>;
-  }
-  
-  return <RestaurantDetail initialState={initialState} />;
-}
 
 function POIDetailWrapper() {
   return <POIDetail />;
@@ -418,13 +326,6 @@ function App() {
             </Route>
           </Route>
           <Route path="/:suiteId/*" element={<DefaultLanguageRedirect />} />
-          <Route path="/join/:tourId" element={<DefaultLanguageRedirect />} />
-          <Route path="/go/:placeId" element={<DefaultLanguageRedirect />} />
-          <Route path="/stay-info" element={<DefaultLanguageRedirect />} />
-          <Route path="/featured-restaurants" element={<DefaultLanguageRedirect />} />
-          <Route path="/restaurant/:restaurantId" element={<DefaultLanguageRedirect />} />
-          <Route path="/featured-places" element={<DefaultLanguageRedirect />} />
-          <Route path="/featured-tours" element={<DefaultLanguageRedirect />} />
           <Route path="*" element={<DefaultLanguageRedirect />} />
         </Routes>
       );
@@ -495,25 +396,10 @@ function App() {
               <Route path="search" element={<SearchWrapper />} />
               
               {/* Legacy routes for backward compatibility */}
-              <Route path="join/:tourId" element={<TourWrapper />} />
-              <Route path="go/:placeId" element={<PlaceWrapper />} />
-              <Route path="wifi-info" element={<WifiInfoWrapper />} />
-              <Route path="stay-info" element={<StayInfoWrapper />} />
-              <Route path="featured-restaurants" element={<RestaurantsWrapper />} />
-              <Route path="restaurant/:restaurantId" element={<RestaurantDetailWrapper />} />
-              <Route path="featured-places" element={<PlacesWrapper />} />
-              <Route path="featured-tours" element={<ToursWrapper />} />
               <Route path="*" element={<SuiteWrapper />} />
             </Route>
           </Route>
           <Route path="/:suiteId/*" element={<DefaultLanguageRedirect />} />
-          <Route path="/join/:tourId" element={<DefaultLanguageRedirect />} />
-          <Route path="/go/:placeId" element={<DefaultLanguageRedirect />} />
-          <Route path="/stay-info" element={<DefaultLanguageRedirect />} />
-          <Route path="/featured-restaurants" element={<DefaultLanguageRedirect />} />
-          <Route path="/restaurant/:restaurantId" element={<DefaultLanguageRedirect />} />
-          <Route path="/featured-places" element={<DefaultLanguageRedirect />} />
-          <Route path="/featured-tours" element={<DefaultLanguageRedirect />} />
           <Route path="*" element={<DefaultLanguageRedirect />} />
         </Routes>
       );

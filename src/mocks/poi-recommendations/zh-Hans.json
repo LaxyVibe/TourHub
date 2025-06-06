@@ -1,0 +1,108 @@
+{
+    "data": [
+        {
+            "id": 5,
+            "documentId": "ixrwzmabp2i9fss2jxm42d39",
+            "recommendation": "这是别府一年一度最大的温泉节庆活动。\n通常在 3月30日至4月3日 左右举办，为期5天（具体日期每年可能有所变动），在别府各地都能感受到热烈的节日气氛。\n\n活动最大的亮点是：所有市营温泉免费开放！\n还有一个非常特别的仪式——焚烧整座山丘，以祈愿一年平安健康、长寿与事业兴旺，非常壮观",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 1,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 22,
+                "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                "slug": "First-week-of-April-Beppu",
+                "label": "4月的第一周",
+                "address": null,
+                "highlight": "别府八汤温泉祭是当地最大的温泉节庆，通常在三月底至四月初为期五天。期间，许多市营温泉免费开放，整个城镇洋溢着欢乐气氛。庆典包含游行、传统表演，以及独特的“泼汤祭”，参与者将温泉水泼洒向人群，场面热闹非凡。\n\n另一独特活动是扇山火祭，这是在扇山上放火的仪式，旨在祈求一年的健康、长寿与生意兴旺。然而，请注意此火祭通常在二月初举行，与温泉祭的日期不同，是别府冬季独有的壮观景象。",
+                "externalURL": null,
+                "type": null,
+                "tag_labels": [
+                    {
+                        "id": 31,
+                        "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                        "name": "活动／盛会",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 96,
+                    "documentId": "qopeocz4ldj51tz7ip26vanx",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                }
+            }
+        },
+        {
+            "id": 10,
+            "documentId": "ihhlq18wlop7kppmo5w2gp07",
+            "recommendation": "这是一家距离住宿地步行仅需3分钟的温泉。只需250日元即可入场。\n\n别府的在地温泉不提供毛巾、香皂、洗发水等用品，建议您从住宿处自行携带。\n（可以参考别府 Airbnb 博客）\nhttps://blog.naver.com/beppu-airbnb/221190748570",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 7,
+                "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                "slug": "Kaimonji-Onsen",
+                "label": "海门寺温泉",
+                "address": "〒874-0920 大分县别府市北滨2丁目3番2号",
+                "highlight": "海门寺温泉是位于日本大分县别府市的一间历史悠久的公共温泉，价格亲民，深受当地居民与旅客的喜爱。对于想体验地道日式泡汤文化的人来说，是非常理想的选择。\n\n温泉本身保留了传统简约的风格，虽不豪华，却充满温馨与怀旧感。设施朴实，适合喜欢安静、纯粹泡汤体验的旅人。由于地点邻近别府市中心，从车站步行即可到达，交通相当便利。\n\n若您想要深入感受别府的日常与温泉文化，海门寺温泉是一个值得纳入行程的好选择。",
+                "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                "type": "attraction",
+                "tag_labels": [
+                    {
+                        "id": 35,
+                        "documentId": "h60byd410zus966b96j4rkwy",
+                        "name": "温泉",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 101,
+                    "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                }
+            }
+        },
+        {
+            "id": 15,
+            "documentId": "q47vkze4xt49x3x7mxy5ufg1",
+            "recommendation": "这是一家从住宿地步行不到10分钟就能到的温泉，门票也只需100日元。\n\n它有着百年以上的历史，被认为是别府最美丽的温泉建筑之一。\n\n但可惜内部设施相当老旧，虽然深受当地居民喜爱，但对韩国游客来说可能会有点文化冲击。\n\n不过外观真的非常漂亮，无论白天还是晚上都非常适合拍照。",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 12,
+                "documentId": "htmjfrmp84tbio8un21wx15r",
+                "slug": "Takegawara-Onsen",
+                "label": "竹瓦温泉",
+                "address": "〒874-0944 大分县别府市元町16番23号",
+                "highlight": "竹瓦温泉是别府市最具代表性的传统公共温泉之一，位于一栋极具历史风情的老式建筑内。建筑本身已有百年以上历史，是别府温泉文化的象征之一，也被视为市内的地标。\n\n除了经典的日式温泉浴池之外，这里最著名的特色是“砂汤”——旅客可躺入温热的沙堆中，由天然地热蒸汽加热身体，体验不同于一般泡汤的疗愈效果，深受海内外旅客喜爱。\n\n作为历史与文化交会之地，竹瓦温泉不仅是泡汤场所，更是一场时光旅行的体验，极推荐给第一次造访别府的旅人。",
+                "externalURL": "https://www.takegawara-onsen.com/",
+                "type": "attraction",
+                "tag_labels": [
+                    {
+                        "id": 35,
+                        "documentId": "h60byd410zus966b96j4rkwy",
+                        "name": "温泉",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 107,
+                    "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                }
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 10000,
+            "pageCount": 1,
+            "total": 3
+        }
+    }
+}

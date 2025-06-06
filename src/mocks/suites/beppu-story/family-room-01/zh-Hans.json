@@ -1,0 +1,165 @@
+{
+    "data": [
+        {
+            "id": 13,
+            "documentId": "o91y8s8d4k6996mn5m47qkm8",
+            "name": "family-room-01",
+            "label": "Family Room 1",
+            "headline": null,
+            "address": "大分县别府市北滨 2 丁目 6-6 邮编 874-0920",
+            "addressURL": "https://maps.app.goo.gl/z3LNWA1QGYsV4t7h9",
+            "checkInOut": "<p>入住: 下午 3:00 後<br>退房: 上午 10:00 前</p>\n<p>我們很高興提供便捷的提早入住和延遲退房選擇。根據客房供應情況和入住率，我們可提供最少三小時的提早入住和最多三小時的延遲退房。請注意，這些服務每小時將收取 1,000 日圓的額外費用。我們將很樂意協助您進行必要的安排。 :)</p>",
+            "amenities": null,
+            "houseRules": "<p>-最多 5 位房客<br>- 禁止攜帶寵物<br>- 禁止舉辦派對或活動<br>- 禁止商業攝影<br>- 禁止吸煙</p>",
+            "slider": [
+                {
+                    "id": 85,
+                    "documentId": "b6zuxzo6m462oy5j63chiblr",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749211215/familyroom01_beppu_airbnb_e691d8ac4a.webp"
+                }
+            ],
+            "faq": [
+                {
+                    "id": 93,
+                    "question": "可容纳多少位住客？",
+                    "answer": "<p>5 位住客</p>"
+                },
+                {
+                    "id": 94,
+                    "question": "入住和退房时间是什么？",
+                    "answer": "<p>入住: 下午 3:00 后<br>退房: 上午 10:00 前</p>\n<p>我们很高兴提供便捷的提前入住和延迟退房选择。根据客房供应情况和入住率，我们可提供最少三小时的提前入住和最多三小时的延迟退房。请注意，这些服务每小时将收取 1,000 日元的额外费用。我们将很乐意协助您进行必要的安排。 :)</p>"
+                },
+                {
+                    "id": 95,
+                    "question": "是否有餐厅？",
+                    "answer": "<p>很抱歉，没有餐厅。</p>"
+                },
+                {
+                    "id": 96,
+                    "question": "我可以停车吗？",
+                    "answer": "<p>附近有免费私人停车位（无需预约）。</p>"
+                }
+            ],
+            "wifi": [],
+            "ownedBy": {
+                "id": 24,
+                "documentId": "nh91l7ks7t9s37xczk3mkcwx",
+                "slug": "beppu-story",
+                "label": "Beppu Story",
+                "greeting": "欢迎来到Beppu Sotry！",
+                "nativeLanguageCode": "ja",
+                "avatar": {
+                    "id": 79,
+                    "documentId": "rvf8uwz2ob1djwacq8pntj7c",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749201884/beppu_airbnb_logo_786f756142.png"
+                },
+                "pickedPOIs": [
+                    {
+                        "id": 22,
+                        "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                        "slug": "First-week-of-April-Beppu",
+                        "label": "4月的第一周",
+                        "address": null,
+                        "highlight": "别府八汤温泉祭是当地最大的温泉节庆，通常在三月底至四月初为期五天。期间，许多市营温泉免费开放，整个城镇洋溢着欢乐气氛。庆典包含游行、传统表演，以及独特的“泼汤祭”，参与者将温泉水泼洒向人群，场面热闹非凡。\n\n另一独特活动是扇山火祭，这是在扇山上放火的仪式，旨在祈求一年的健康、长寿与生意兴旺。然而，请注意此火祭通常在二月初举行，与温泉祭的日期不同，是别府冬季独有的壮观景象。",
+                        "externalURL": null,
+                        "type": null,
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 31,
+                                "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                                "name": "活动／盛会",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 96,
+                            "documentId": "qopeocz4ldj51tz7ip26vanx",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                        }
+                    },
+                    {
+                        "id": 7,
+                        "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                        "slug": "Kaimonji-Onsen",
+                        "label": "海门寺温泉",
+                        "address": "〒874-0920 大分县别府市北滨2丁目3番2号",
+                        "highlight": "海门寺温泉是位于日本大分县别府市的一间历史悠久的公共温泉，价格亲民，深受当地居民与旅客的喜爱。对于想体验地道日式泡汤文化的人来说，是非常理想的选择。\n\n温泉本身保留了传统简约的风格，虽不豪华，却充满温馨与怀旧感。设施朴实，适合喜欢安静、纯粹泡汤体验的旅人。由于地点邻近别府市中心，从车站步行即可到达，交通相当便利。\n\n若您想要深入感受别府的日常与温泉文化，海门寺温泉是一个值得纳入行程的好选择。",
+                        "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 35,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "温泉",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 101,
+                            "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                        }
+                    },
+                    {
+                        "id": 17,
+                        "documentId": "nyk1nox195rwz864vhirbq4u",
+                        "slug": "Suginoi-Hotel-Aqua-Garden",
+                        "label": "杉乃井酒店 棚汤・水上乐园",
+                        "address": "〒874-0822 大分县别府市观海寺1",
+                        "highlight": "The Aqua Garden 是位于别府杉乃井酒店内的著名水疗乐园，结合了温泉疗愈与度假风情，为旅客带来绝佳的放松体验。设施包含露天温泉水池、发光喷泉、瀑布墙与视觉特效等，不仅适合情侣与家庭同游，也非常适合喜爱夜间浪漫氛围的旅人。\n\n游客无需住宿杉乃井酒店也可单独购票入场，因此深受一日游旅客喜爱。尤其夜晚点灯与水上表演搭配背景音乐，营造出别府难得一见的幻想景色，是拍照与放松身心的热门选择。",
+                        "externalURL": "https://www.suginoi-hotel.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 35,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "温泉",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 103,
+                            "documentId": "tdzqknqthwr3dwv5kha3kwkb",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218519/Suginoi_Hotel_Aqua_Garden_9b37b7daf3.jpg"
+                        }
+                    },
+                    {
+                        "id": 12,
+                        "documentId": "htmjfrmp84tbio8un21wx15r",
+                        "slug": "Takegawara-Onsen",
+                        "label": "竹瓦温泉",
+                        "address": "〒874-0944 大分县别府市元町16番23号",
+                        "highlight": "竹瓦温泉是别府市最具代表性的传统公共温泉之一，位于一栋极具历史风情的老式建筑内。建筑本身已有百年以上历史，是别府温泉文化的象征之一，也被视为市内的地标。\n\n除了经典的日式温泉浴池之外，这里最著名的特色是“砂汤”——旅客可躺入温热的沙堆中，由天然地热蒸汽加热身体，体验不同于一般泡汤的疗愈效果，深受海内外旅客喜爱。\n\n作为历史与文化交会之地，竹瓦温泉不仅是泡汤场所，更是一场时光旅行的体验，极推荐给第一次造访别府的旅人。",
+                        "externalURL": "https://www.takegawara-onsen.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 35,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": "温泉",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 107,
+                            "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}
