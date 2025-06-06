@@ -77,11 +77,11 @@ const SearchPage = () => {
   };
 
   const handleHighlightedItemClick = (poi) => {
-    // Navigate to POI detail page based on type
+    // Navigate to suite-specific POI detail page
     if (poi.type === 'tour') {
-      navigate(`/${language}/join/${poi.slug}`);
-    } else if (poi.type === 'attraction' || poi.type === 'place') {
-      navigate(`/${language}/go/${poi.slug}`);
+      navigate(`/${language}/${suiteId}/tour/${poi.slug}`);
+    } else if (poi.type === 'attraction' || poi.type === 'place' || poi.type === 'restaurant') {
+      navigate(`/${language}/${suiteId}/poi/${poi.slug}`);
     } else {
       // For other types, show more info or navigate to external URL
       if (poi.externalURL) {
@@ -315,9 +315,9 @@ const SearchPage = () => {
                       />
                       {item.poi.tag_labels?.map((tag) => (
                         <Chip 
-                          key={tag}
+                          key={tag.id || tag.documentId}
                           size="small" 
-                          label={tag} 
+                          label={tag.name} 
                           variant="outlined"
                         />
                       ))}

@@ -1,23 +1,98 @@
 {
     "data": [
         {
-            "id": 1,
-            "documentId": "l0j6t3g5qq5iqqlphmfq4c7u",
-            "recommendation": "Very nice!",
+            "id": 7,
+            "documentId": "ixrwzmabp2i9fss2jxm42d39",
+            "recommendation": "This is the time when Beppu's largest hot spring festival is held. Annually, it takes place over five days, usually from around March 30th to April 3rd (the exact dates may vary slightly each year). During this period, you can enjoy a festive atmosphere in various parts of Beppu City.\n\nThe biggest highlight is that all municipal hot springs are opened to the public for free! Additionally, there's a \"mountain burning\" event where an entire mountain is set ablaze, praying for good health and prosperity throughout the year.",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 1,
+            "weightInHighlight": 0,
             "poi": {
-                "id": 1,
-                "documentId": "ur2n04pispa1eh5eqo70cx5s",
-                "slug": "kaimonji-onsen",
-                "label": "Kaimonji Onsen",
-                "address": "2 Chome-3-2 Kitahama, Beppu, Oita 874-0920, Japan",
-                "highlight": "Just a 3-minute walk from Beppu Station and less than 10 minutes from our property, Kaimonji Onsen is a charming, traveler-friendly public bath perfect for an authentic Japanese hot spring experience. This sodium",
-                "externalURL": "https://city.beppu.oita.jp",
-                "type": "attraction",
-                "tag_labels": [],
+                "id": 20,
+                "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                "slug": "First-week-of-April-Beppu",
+                "label": "First week of April",
+                "address": null,
+                "highlight": "The Beppu Hatto Onsen Festival is the largest hot spring festival in the area, typically lasting five days from late March to early April. During this period, many municipal hot springs offer free admission, and the entire town is filled with a joyous atmosphere. The festivities include parades, traditional performances, and the unique \"\"Yu-Kake Matsuri\"\" (Hot Water Splashing Festival), where participants splash hot spring water onto the crowd, creating an incredibly lively scene.\n\nAnother unique event is the Ogiyama Fire Festival, a ceremony where fires are set on Mount Ogiyama to pray for health, longevity, and prosperity throughout the year. However, please note that this fire festival usually takes place in early February, on a different date from the Onsen Festival, and is a spectacular sight unique to Beppu's winter.",
+                "externalURL": null,
+                "type": null,
+                "tag_labels": [
+                    {
+                        "id": 26,
+                        "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                        "name": "Event",
+                        "color": "GREY"
+                    }
+                ],
                 "coverPhoto": {
-                    "id": 73,
-                    "documentId": "po95t4nb66qtib8ngyr7zgoo",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748855039/image_55_bea0bc0831.jpg"
+                    "id": 96,
+                    "documentId": "qopeocz4ldj51tz7ip26vanx",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                }
+            }
+        },
+        {
+            "id": 12,
+            "documentId": "ihhlq18wlop7kppmo5w2gp07",
+            "recommendation": "This is one of the best onsens we have in downtown Beppu. It's only 3 minutes walking distance from your place and costs you only 250 yen. There are nothing prepared in the onsen so you have to bring the towel, shampoo, etc from our apartment. :) Please try the yogurt drink they sell after onsen, because it's the best, lol. (Please don't forget to bring the towel back). ",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 5,
+                "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                "slug": "Kaimonji-Onsen",
+                "label": "Kaimonji Onsen",
+                "address": "2-3-2 Kitahama, Beppu-shi, Oita 874-0920, Japan",
+                "highlight": "Kaimonji Onsen is a historic public hot spring in Beppu City, Oita Prefecture, Japan. It's affordable and popular among locals and tourists, making it an ideal choice for those who want to experience authentic Japanese bathing culture.\n\nThe onsen retains a traditional and simple style, not luxurious but full of warmth and nostalgia. The facilities are modest, suitable for travelers who prefer a quiet and pure hot spring experience. Its central location near Beppu Station makes it easily accessible on foot.\n\nIf you want to delve into Beppu's daily life and hot spring culture, Kaimonji Onsen is a worthwhile addition to your itinerary.",
+                "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                "type": "attraction",
+                "tag_labels": [
+                    {
+                        "id": 1,
+                        "documentId": "h60byd410zus966b96j4rkwy",
+                        "name": " Onsen (Hot Spring)",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 101,
+                    "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                }
+            }
+        },
+        {
+            "id": 13,
+            "documentId": "q47vkze4xt49x3x7mxy5ufg1",
+            "recommendation": "This Meiji-era onsen offers a retro atmosphere and a unique sand bath experience. Staff gently cover you with warm sand, providing a pleasantly warm sensation. It's a memorable and traditional Japanese bathing experience. ",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 10,
+                "documentId": "htmjfrmp84tbio8un21wx15r",
+                "slug": "Takegawara-Onsen",
+                "label": "Takegawara Onsen",
+                "address": "16-23 Motomachi, Beppu-shi, Oita 874-0944, Japan",
+                "highlight": "Takegawara Onsen is one of Beppu City's most iconic traditional public hot springs, housed in a highly historic old building. The building itself is over a hundred years old, serving as a symbol of Beppu's hot spring culture and considered a city landmark.\n\nBeyond classic Japanese hot spring baths, its most famous feature is the \"\"sand bath\"\" (sunayu) – where visitors lie in warm sand heated by natural geothermal steam, experiencing a healing effect different from regular bathing. It's deeply loved by both domestic and international travelers.\n\nAs a place where history and culture intersect, Takegawara Onsen is not just a bathing spot but also a journey through time, highly recommended for first-time visitors to Beppu.",
+                "externalURL": "https://www.takegawara-onsen.com/",
+                "type": "attraction",
+                "tag_labels": [
+                    {
+                        "id": 1,
+                        "documentId": "h60byd410zus966b96j4rkwy",
+                        "name": " Onsen (Hot Spring)",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 107,
+                    "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
                 }
             }
         }
@@ -27,7 +102,7 @@
             "page": 1,
             "pageSize": 10000,
             "pageCount": 1,
-            "total": 1
+            "total": 3
         }
     }
 }

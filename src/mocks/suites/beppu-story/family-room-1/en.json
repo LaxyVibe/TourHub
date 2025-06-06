@@ -11,13 +11,7 @@
             "checkInOut": "<p>**Check-in** From 15:00 to 00:00 You'll need to let the property know in advance what time you'll arrive. **Check-out** Until 10:00 Pick the key from key box ![general-01-beppu-airbnb.jpg](https://ethical-novelty-0c204c906b.media.strapiapp.com/general_01_beppu_airbnb_292baefeff.jpg)</p>",
             "amenities": null,
             "houseRules": "<p>**Child policies** Children of any age are welcome. To see correct prices and occupancy information, please add the number of children in your group and their ages to your search. **Cot and extra bed policies** Cots and extra beds are not available at this property.</p>",
-            "slider": [
-                {
-                    "id": 77,
-                    "documentId": "no5ygp9ko3awcvg4kb9so17b",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118508/image_4_87aac7b0f3.png"
-                }
-            ],
+            "slider": null,
             "faq": [
                 {
                     "id": 82,
@@ -30,19 +24,7 @@
                     "answer": "<p>turn on TV</p>\n<p>&nbsp;</p>\n<p><img src=\"https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118564/image_61_e737a9d271.jpg\" alt=\"image 61.jpg\"></p>"
                 }
             ],
-            
-            "wifi": [
-                {
-                    "id": 3,
-                    "network": "ssid1",
-                    "password": "12345678"
-                },
-                {
-                    "id": 4,
-                    "network": "ssid2",
-                    "password": "abcdefg"
-                }
-            ],
+            "wifi": [],
             "ownedBy": {
                 "id": 14,
                 "documentId": "nh91l7ks7t9s37xczk3mkcwx",
@@ -51,53 +33,11 @@
                 "greeting": "Welcome to Beppu Story!",
                 "nativeLanguageCode": "ja",
                 "avatar": {
-                    "id": 74,
-                    "documentId": "ngd1lu76k9let98wuc513r1o",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118322/Mask_group_b70e56516b.png"
+                    "id": 79,
+                    "documentId": "rvf8uwz2ob1djwacq8pntj7c",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749201884/beppu_airbnb_logo_786f756142.png"
                 },
-                "pickedPOIs": [
-                    {
-                        "id": 2,
-                        "documentId": "r1uqyjjbzgjqktzwueqejcy5",
-                        "slug": "beppu-park",
-                        "label": "Beppu Park",
-                        "address": "3018-1 Beppu, Oita 874-0903 Japan",
-                        "highlight": "Springtime features blooming cherry blossoms and plum blossoms, ideal for strolling among colorful flower gardens, bamboo groves, and pine forests.",
-                        "externalURL": null,
-                        "type": "attraction",
-                        "nativeLanguageCode": "ja",
-                        "tag_labels": [
-                            {
-                                "id": 21,
-                                "documentId": "k9qdrsbmhsvv20nvux36rnem",
-                                "name": "Observatories",
-                                "color": null
-                            }
-                        ],
-                        "coverPhoto": {
-                            "id": 76,
-                            "documentId": "spo0g3bwst5u1yfm3t93u2r9",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749118404/image_5_f053229552.png"
-                        }
-                    },
-                    {
-                        "id": 1,
-                        "documentId": "ur2n04pispa1eh5eqo70cx5s",
-                        "slug": "kaimonji-onsen",
-                        "label": "Kaimonji Onsen",
-                        "address": "2 Chome-3-2 Kitahama, Beppu, Oita 874-0920, Japan",
-                        "highlight": "Just a 3-minute walk from Beppu Station and less than 10 minutes from our property, Kaimonji Onsen is a charming, traveler-friendly public bath perfect for an authentic Japanese hot spring experience. This sodium",
-                        "externalURL": "https://city.beppu.oita.jp",
-                        "type": "attraction",
-                        "nativeLanguageCode": "ja",
-                        "tag_labels": [],
-                        "coverPhoto": {
-                            "id": 73,
-                            "documentId": "po95t4nb66qtib8ngyr7zgoo",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748855039/image_55_bea0bc0831.jpg"
-                        }
-                    }
-                ]
+                "pickedPOIs": []
             }
         }
     ],

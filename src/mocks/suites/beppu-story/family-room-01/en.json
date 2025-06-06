@@ -1,0 +1,170 @@
+{
+    "data": [
+        {
+            "id": 11,
+            "documentId": "o91y8s8d4k6996mn5m47qkm8",
+            "name": "family-room-01",
+            "label": "Family Room 1",
+            "headline": null,
+            "address": "2 Chome-6-6 Kitahama, Beppu, Oita 874-0920",
+            "addressURL": "https://maps.app.goo.gl/z3LNWA1QGYsV4t7h9",
+            "checkInOut": "<p>- Check-in: After 3:00 PM<br>- Check-out: Before 10:00 AM</p>\n<p>We are pleased to offer convenient options for early check-in and late check-out. Depending on the availability and occupancy, we can provide a minimum of three hours for early check-in and up to three hours for late check-out. Kindly note that additional charges of 1,000 yen per hour apply for these services. We will gladly assist you in making the necessary arrangements. :)</p>",
+            "amenities": null,
+            "houseRules": "<div class=\"ewa-rteLine\">- 5 guests maximum</div>\n<div class=\"ewa-rteLine\">- No pets</div>\n<div class=\"ewa-rteLine\">- No parties or events</div>\n<div class=\"ewa-rteLine\">- No commercial photography</div>\n<div class=\"ewa-rteLine\">- No smoking</div>",
+            "slider": [
+                {
+                    "id": 85,
+                    "documentId": "b6zuxzo6m462oy5j63chiblr",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749211215/familyroom01_beppu_airbnb_e691d8ac4a.webp"
+                }
+            ],
+            "faq": [
+                {
+                    "id": 84,
+                    "question": null,
+                    "answer": null
+                },
+                {
+                    "id": 85,
+                    "question": "How many guests can stay?",
+                    "answer": "<p>5 guests</p>"
+                },
+                {
+                    "id": 86,
+                    "question": "What are the check-in and check-out times?",
+                    "answer": "<p>Check-in after 3:00 PM<br>Check-out before 10:00 AM</p>\n<p>We are pleased to offer convenient options for early check-in and late check-out. Depending on the availability and occupancy, we can provide a minimum of three hours for early check-in and up to three hours for late check-out. Kindly note that additional charges of 1,000 yen per hour apply for these services. We will gladly assist you in making the necessary arrangements. :)</p>"
+                },
+                {
+                    "id": 87,
+                    "question": "Is there a restaurant?",
+                    "answer": "<p>Unfortunately, there is no restaurant.</p>"
+                },
+                {
+                    "id": 88,
+                    "question": "Can I park there?",
+                    "answer": "<p>Free private parking is possible at a location nearby (reservation is not needed).</p>"
+                }
+            ],
+            "wifi": [],
+            "ownedBy": {
+                "id": 14,
+                "documentId": "nh91l7ks7t9s37xczk3mkcwx",
+                "slug": "beppu-story",
+                "label": "Beppu Story",
+                "greeting": "Welcome to Beppu Story!",
+                "nativeLanguageCode": "ja",
+                "avatar": {
+                    "id": 79,
+                    "documentId": "rvf8uwz2ob1djwacq8pntj7c",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749201884/beppu_airbnb_logo_786f756142.png"
+                },
+                "pickedPOIs": [
+                    {
+                        "id": 20,
+                        "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                        "slug": "First-week-of-April-Beppu",
+                        "label": "First week of April",
+                        "address": null,
+                        "highlight": "The Beppu Hatto Onsen Festival is the largest hot spring festival in the area, typically lasting five days from late March to early April. During this period, many municipal hot springs offer free admission, and the entire town is filled with a joyous atmosphere. The festivities include parades, traditional performances, and the unique \"\"Yu-Kake Matsuri\"\" (Hot Water Splashing Festival), where participants splash hot spring water onto the crowd, creating an incredibly lively scene.\n\nAnother unique event is the Ogiyama Fire Festival, a ceremony where fires are set on Mount Ogiyama to pray for health, longevity, and prosperity throughout the year. However, please note that this fire festival usually takes place in early February, on a different date from the Onsen Festival, and is a spectacular sight unique to Beppu's winter.",
+                        "externalURL": null,
+                        "type": null,
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 26,
+                                "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                                "name": "Event",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 96,
+                            "documentId": "qopeocz4ldj51tz7ip26vanx",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                        "slug": "Kaimonji-Onsen",
+                        "label": "Kaimonji Onsen",
+                        "address": "2-3-2 Kitahama, Beppu-shi, Oita 874-0920, Japan",
+                        "highlight": "Kaimonji Onsen is a historic public hot spring in Beppu City, Oita Prefecture, Japan. It's affordable and popular among locals and tourists, making it an ideal choice for those who want to experience authentic Japanese bathing culture.\n\nThe onsen retains a traditional and simple style, not luxurious but full of warmth and nostalgia. The facilities are modest, suitable for travelers who prefer a quiet and pure hot spring experience. Its central location near Beppu Station makes it easily accessible on foot.\n\nIf you want to delve into Beppu's daily life and hot spring culture, Kaimonji Onsen is a worthwhile addition to your itinerary.",
+                        "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 1,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": " Onsen (Hot Spring)",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 101,
+                            "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                        }
+                    },
+                    {
+                        "id": 15,
+                        "documentId": "nyk1nox195rwz864vhirbq4u",
+                        "slug": "Suginoi-Hotel-Aqua-Garden",
+                        "label": "Suginoi Hotel, Aqua Garden",
+                        "address": "1 Kankaiji, Beppu-shi, Oita 874-0822, Japan",
+                        "highlight": "The Aqua Garden is a renowned spa and water park located within Beppu Suginoi Hotel, combining hot spring therapy with a resort atmosphere to offer guests an excellent relaxation experience. Facilities include open-air hot spring pools, illuminated fountains, waterfall walls, and visual effects, making it ideal for couples and families, as well as travelers who enjoy a romantic nighttime ambiance.\n\nVisitors don't need to stay at Suginoi Hotel to purchase tickets for entry, making it popular among day-trippers. Especially at night, the illuminations and water performances, accompanied by background music, create a rare and fantastical scene in Beppu, making it a popular choice for photography and unwinding.",
+                        "externalURL": "https://www.suginoi-hotel.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 1,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": " Onsen (Hot Spring)",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 103,
+                            "documentId": "tdzqknqthwr3dwv5kha3kwkb",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218519/Suginoi_Hotel_Aqua_Garden_9b37b7daf3.jpg"
+                        }
+                    },
+                    {
+                        "id": 10,
+                        "documentId": "htmjfrmp84tbio8un21wx15r",
+                        "slug": "Takegawara-Onsen",
+                        "label": "Takegawara Onsen",
+                        "address": "16-23 Motomachi, Beppu-shi, Oita 874-0944, Japan",
+                        "highlight": "Takegawara Onsen is one of Beppu City's most iconic traditional public hot springs, housed in a highly historic old building. The building itself is over a hundred years old, serving as a symbol of Beppu's hot spring culture and considered a city landmark.\n\nBeyond classic Japanese hot spring baths, its most famous feature is the \"\"sand bath\"\" (sunayu) – where visitors lie in warm sand heated by natural geothermal steam, experiencing a healing effect different from regular bathing. It's deeply loved by both domestic and international travelers.\n\nAs a place where history and culture intersect, Takegawara Onsen is not just a bathing spot but also a journey through time, highly recommended for first-time visitors to Beppu.",
+                        "externalURL": "https://www.takegawara-onsen.com/",
+                        "type": "attraction",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 1,
+                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "name": " Onsen (Hot Spring)",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 107,
+                            "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}
