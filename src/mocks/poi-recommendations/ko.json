@@ -1,0 +1,108 @@
+{
+    "data": [
+        {
+            "id": 4,
+            "documentId": "ixrwzmabp2i9fss2jxm42d39",
+            "recommendation": "벳푸 최대의 온천 마츠리가 있는 기간입니다. 3월 30일부터 4월 3일 정도 (날짜는 유동적입니다) 5일동안 벳푸의 여러곳에서 마츠리 분위기를 즐기실 수 있어요. 이 기간의 최고 특징은, 시에서 운영하는 시영 온천이 전부 무료로 개방된다는 것, 그리고 산 하나를 일부러 다 태우며 일년간의 무병장수와 사업번영을 기원하는 이벤트가 있다는 것입니다. :)",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 1,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 23,
+                "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                "slug": "First-week-of-April-Beppu",
+                "label": "4월 첫째주",
+                "address": null,
+                "highlight": "벳푸 핫토 온천 축제는 현지에서 가장 큰 온천 축제로, 보통 3월 말부터 4월 초까지 5일간 진행됩니다. 이 기간 동안 많은 시영 온천이 무료로 개방되며, 도시 전체가 즐거운 분위기로 가득합니다. 축제에는 퍼레이드, 전통 공연, 그리고 참가자들이 온천수를 사람들에게 뿌리는 독특한 \"\"유카케 마츠리(물 뿌리기 축제)\"\"가 포함되어 있어 매우 활기찬 모습을 보여줍니다.\n\n또 다른 독특한 행사는 오기야마 불 축제로, 이는 오기야마 산에 불을 놓는 의식으로, 한 해의 건강, 장수, 사업 번창을 기원합니다. 다만, 이 불 축제는 보통 2월 초에 열리며 온천 축제와는 날짜가 다르니 유의하시기 바랍니다. 벳푸 겨울만의 장관입니다.",
+                "externalURL": null,
+                "type": null,
+                "tag_labels": [
+                    {
+                        "id": 27,
+                        "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                        "name": "이벤트",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 96,
+                    "documentId": "qopeocz4ldj51tz7ip26vanx",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                }
+            }
+        },
+        {
+            "id": 8,
+            "documentId": "ihhlq18wlop7kppmo5w2gp07",
+            "recommendation": "숙소에서 3분이면 걸어 가실 수 있는 온천입니다. 단돈 250엔에 들어 가실 수 있습니다. 벳푸 온천은 수건, 비누, 샴푸 등 아무것도 없으니 숙소에서 챙겨서 가시면 됩니다. :) \n\n(벳푸 에어비앤비 블로그에서 한 번 확인해 보세요 ^^) \nhttps://blog.naver.com/beppu-airbnb/221190748570",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 8,
+                "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                "slug": "Kaimonji-Onsen",
+                "label": "海門寺温泉",
+                "address": "〒874-0920 오이타현 벳푸시 기타하마 2초메 3-2",
+                "highlight": "카이몬지 온천은 일본 오이타현 벳푸시에 위치한 유서 깊은 공중 온천으로, 합리적인 가격에 현지 주민과 여행객 모두에게 사랑받고 있습니다. 진정한 일본식 온천 문화를 경험하고 싶은 분들에게 이상적인 선택입니다.\n\n온천 자체는 전통적이고 소박한 스타일을 유지하고 있으며, 화려하지는 않지만 따뜻함과 향수를 불러일으킵니다. 소박한 시설은 조용하고 순수한 온천 경험을 선호하는 여행객에게 적합합니다. 벳푸 시내와 가깝고 역에서 도보로 갈 수 있어 교통이 매우 편리합니다.\n\n벳푸의 일상과 온천 문화를 깊이 느끼고 싶다면 카이몬지 온천은 일정에 포함할 가치가 있는 좋은 선택입니다.",
+                "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                "type": "attraction",
+                "tag_labels": [
+                    {
+                        "id": 2,
+                        "documentId": "h60byd410zus966b96j4rkwy",
+                        "name": "온천",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 101,
+                    "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                }
+            }
+        },
+        {
+            "id": 16,
+            "documentId": "q47vkze4xt49x3x7mxy5ufg1",
+            "recommendation": "숙소에서 걸어서 10분 미만으로 가실 수 있는 온천입니다. 역시 단돈 100엔에 이용 가능합니다. 100년 이상의 역사를 가진 벳푸에서 가장 아름다운 건물을 자랑하는 온천인데요, 아쉽게도 내부는 너무 낡아 벳푸 지역인들은 애용하는 온천이지만 한국분들은 문화적 충격을 받으실 수도 있습니다. ㅎㅎㅎ 바깥 건물이 아름다우니 낮, 밤, 모두 사진이 정말 예쁘게 나오는 곳입니다. :)",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 13,
+                "documentId": "htmjfrmp84tbio8un21wx15r",
+                "slug": "Takegawara-Onsen",
+                "label": "竹瓦温泉",
+                "address": "〒874-0944 오이타현 벳푸시 모토마치 16-23",
+                "highlight": "타케가와라 온천은 벳푸 시를 대표하는 전통 공중 온천 중 하나로, 유서 깊은 고풍스러운 건물 안에 자리하고 있습니다. 건물 자체는 100년 이상의 역사를 가지고 있으며, 벳푸 온천 문화의 상징이자 도시의 랜드마크로 여겨집니다.\n\n전통적인 일본식 온천탕 외에도, 이곳에서 가장 유명한 특징은 '모래찜질(스나유)'입니다. 방문객들은 따뜻한 모래 더미에 누워 천연 지열 증기로 몸을 데우며 일반 온천과는 다른 치유 효과를 경험할 수 있어 국내외 여행객들에게 큰 사랑을 받고 있습니다.\n\n역사와 문화가 교차하는 곳으로서, 타케가와라 온천은 단순히 목욕하는 장소를 넘어 시간 여행의 경험을 선사하므로 벳푸를 처음 방문하는 여행객에게 강력히 추천합니다.",
+                "externalURL": "https://www.takegawara-onsen.com/",
+                "type": "attraction",
+                "tag_labels": [
+                    {
+                        "id": 2,
+                        "documentId": "h60byd410zus966b96j4rkwy",
+                        "name": "온천",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 107,
+                    "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                }
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 10000,
+            "pageCount": 1,
+            "total": 3
+        }
+    }
+}

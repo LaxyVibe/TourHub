@@ -1,0 +1,101 @@
+{
+    "data": [
+        {
+            "id": 3,
+            "documentId": "ixrwzmabp2i9fss2jxm42d39",
+            "recommendation": "これは別府最大の温泉祭りの開催時期です。\n例年、3月30日から4月3日ごろの5日間にわたって開催されます（開催日は年によって多少前後します）。\n期間中は別府市内の各所でお祭りムードを楽しめます。\n\n最大の特徴は、市営温泉がすべて無料開放されること！\nさらに、山全体を焼き払う「山焼き」イベントも行われ、一年間の無病息災や商売繁盛を祈願します。",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 1,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 24,
+                "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                "slug": "First-week-of-April-Beppu",
+                "label": "4月の最初の週",
+                "address": null,
+                "highlight": "別府八湯温泉まつりは、地元最大の温泉祭りであり、通常3月末から4月初旬にかけて5日間開催されます。期間中は、多くの市営温泉が無料開放され、街全体が楽しい雰囲気に包まれます。祭典にはパレード、伝統芸能、そして参加者が温泉水を群衆にかけ合うユニークな「湯かけまつり」が含まれ、会場は大変賑わいます。\n\nもう一つの特別な行事は扇山火まつりで、これは扇山に火を放つ儀式であり、一年間の健康、長寿、商売繁盛を祈願するものです。ただし、この火まつりは通常2月初旬に開催され、温泉祭りの日程とは異なります。別府の冬ならではの壮大な光景です。",
+                "externalURL": null,
+                "type": null,
+                "tag_labels": [
+                    {
+                        "id": 28,
+                        "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                        "name": "イベント",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 96,
+                    "documentId": "qopeocz4ldj51tz7ip26vanx",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                }
+            }
+        },
+        {
+            "id": 9,
+            "documentId": "ihhlq18wlop7kppmo5w2gp07",
+            "recommendation": "宿泊先から徒歩3分ほどで行ける温泉です。たったの250円で入浴できます。\n\n別府の温泉はタオル・石鹸・シャンプーなどの備品が一切ありませんので、宿から持って行くのをお忘れなく。\n（別府Airbnbブログもぜひご覧ください）\nhttps://blog.naver.com/beppu-airbnb/221190748570",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 9,
+                "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                "slug": "Kaimonji-Onsen",
+                "label": "海門寺温泉",
+                "address": "〒874-0920 大分県別府市北浜2丁目3番2号",
+                "highlight": "海門寺温泉は、大分県別府市にある歴史ある公衆温泉で、手頃な価格で地元住民や観光客に親しまれています。本格的な日本の入浴文化を体験したい方には理想的な選択肢です。\n\n温泉自体は伝統的なシンプルなスタイルを保っており、豪華さはありませんが、温かみと懐かしさに満ちています。素朴な設備は、静かで純粋な入浴体験を好む旅行者に適しています。別府市中心部に近く、駅から徒歩圏内と交通アクセスも非常に便利です。\n\n別府の日常と温泉文化を深く感じたいなら、海門寺温泉は旅程に加える価値のある良い選択肢です。",
+                "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
+                "type": "attraction",
+                "tag_labels": [],
+                "coverPhoto": {
+                    "id": 101,
+                    "documentId": "bvcba6r7fyrr8qd5pzset6xk",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                }
+            }
+        },
+        {
+            "id": 17,
+            "documentId": "q47vkze4xt49x3x7mxy5ufg1",
+            "recommendation": "宿泊先から徒歩10分以内で行ける温泉です。利用料金もたったの100円。\n\n100年以上の歴史を持ち、別府で最も美しい建物のひとつといわれています。\n\nただし内部はかなり老朽化していて、地元の方には親しまれているものの、韓国の方にはちょっとカルチャーショックかもしれません。\n\nとはいえ外観は本当に美しく、昼も夜も写真映えするスポットです。",
+            "kmFromStay": null,
+            "weightInNearbyRestaurants": 0,
+            "weightInNearbyAttractions": 0,
+            "weightInHighlight": 0,
+            "poi": {
+                "id": 14,
+                "documentId": "htmjfrmp84tbio8un21wx15r",
+                "slug": "Takegawara-Onsen",
+                "label": "竹瓦温泉",
+                "address": "〒874-0944 大分県別府市元町16番23号",
+                "highlight": "竹瓦温泉は、別府市を代表する伝統的な公衆温泉の一つで、歴史情緒あふれる古い建物の中にあります。建物自体は築百年以上で、別府温泉文化の象徴の一つであり、市内のランドマークとしても知られています。\n\n古典的な日本の温泉浴槽に加え、ここでは「砂湯（すなゆ）」が最も有名です。温泉客は温かい砂の中に横たわり、天然の地熱蒸気で体を温め、通常の入浴とは異なる癒しの効果を体験でき、国内外の観光客に大変人気があります。\n\n歴史と文化が交差する場所として、竹瓦温泉はただの入浴施設ではなく、タイムトラベルのような体験を提供します。別府を初めて訪れる旅行者に強くお勧めします。",
+                "externalURL": "https://www.takegawara-onsen.com/",
+                "type": "attraction",
+                "tag_labels": [
+                    {
+                        "id": 3,
+                        "documentId": "h60byd410zus966b96j4rkwy",
+                        "name": "おんせん",
+                        "color": "GREY"
+                    }
+                ],
+                "coverPhoto": {
+                    "id": 107,
+                    "documentId": "ei1h9j1eah08akaicbqfn2uz",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                }
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 10000,
+            "pageCount": 1,
+            "total": 3
+        }
+    }
+}
