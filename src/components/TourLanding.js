@@ -26,6 +26,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import LanguageSelector from './common/LanguageSelector';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 
 // Mock data for the tour content
 const mockTourImages = {
@@ -165,9 +166,10 @@ function TourLanding({ clientInfo }) {
   };
 
   return (
-    <Container maxWidth="md" sx={{ pb: 6 }}>
-      {/* Header with back button and actions */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, pb: 1 }}>
+    <Container {...PAGE_LAYOUTS.TourLanding}>
+      <Box sx={{ ...CONTENT_PADDING.standard, pb: 6 }}>
+        {/* Header with back button and actions */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, pb: 1 }}>
         <IconButton edge="start" aria-label="back" onClick={handleBack}>
           <ArrowBackIosNewIcon />
         </IconButton>
@@ -544,6 +546,7 @@ function TourLanding({ clientInfo }) {
             Book This Tour
           </Button>
         </Container>
+      </Box>
       </Box>
     </Container>
   );

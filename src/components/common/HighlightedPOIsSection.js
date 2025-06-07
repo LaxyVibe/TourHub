@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Paper, Grid } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -46,104 +46,75 @@ const HighlightedPOIsSection = ({
         {heading}
       </Typography>
       
-      <Grid container spacing={2}>
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          gap: 2, 
+          overflowX: 'auto',
+          pb: 1,
+          '&::-webkit-scrollbar': {
+            height: 8,
+          },
+          '&::-webkit-scrollbar-track': {
+            background: '#f1f1f1',
+            borderRadius: 4,
+          },
+          '&::-webkit-scrollbar-thumb': {
+            background: '#c1c1c1',
+            borderRadius: 4,
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            background: '#a1a1a1',
+          },
+        }}
+      >
         {pois.map((poi) => (
-          <Grid item xs={12} sm={6} md={4} key={poi.id}>
-            <Paper
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                p: 2,
-                borderRadius: 2,
-                cursor: 'pointer',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                }
-              }}
-              onClick={() => handlePOIClick(poi)}
-            >
-              {poi.imageUrl && (
-                <Box 
-                  component="img" 
-                  src={poi.imageUrl} 
-                  alt={poi.name || poi.title} 
-                  sx={{ 
-                    width: '100%', 
-                    height: 140, 
-                    objectFit: 'cover',
-                    borderRadius: 1,
-                    mb: 1
-                  }} 
-                />
-              )}
-              
-              <Typography 
-                variant="subtitle1" 
+          <Box
+            key={poi.id}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              minWidth: 200,
+              maxWidth: 200,
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+              }
+            }}
+            onClick={() => handlePOIClick(poi)}
+          >
+            {poi.imageUrl && (
+              <Box 
+                component="img" 
+                src={poi.imageUrl} 
+                alt={poi.name || poi.title} 
                 sx={{ 
-                  fontWeight: 'medium', 
-                  mb: 0.5,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                {poi.name || poi.title}
-              </Typography>
-              
-              {poi.description && (
-                <Typography 
-                  variant="body2" 
-                  color="text.secondary" 
-                  sx={{ 
-                    mb: 1,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    '-webkit-line-clamp': 2,
-                    '-webkit-box-orient': 'vertical'
-                  }}
-                >
-                  {poi.description}
-                </Typography>
-              )}
-              
-              {(poi.category || poi.distance) && (
-                <Box sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  mt: 'auto'
-                }}>
-                  {poi.category && (
-                    <Typography 
-                      variant="caption" 
-                      sx={{ 
-                        bgcolor: 'primary.light',
-                        color: 'primary.contrastText',
-                        px: 1,
-                        py: 0.5,
-                        borderRadius: 1,
-                        fontSize: '0.75rem'
-                      }}
-                    >
-                      {poi.category}
-                    </Typography>
-                  )}
-                  
-                  {poi.distance && (
-                    <Typography variant="caption" color="text.secondary">
-                      {poi.distance}
-                    </Typography>
-                  )}
-                </Box>
-              )}
-            </Paper>
-          </Grid>
+                  width: '100%', 
+                  height: 150, 
+                  objectFit: 'cover',
+                  borderRadius: 2,
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                  mb: 1
+                }} 
+              />
+            )}
+            
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                fontWeight: 'medium', 
+                textAlign: 'center',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {poi.name || poi.title}
+            </Typography>
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 };

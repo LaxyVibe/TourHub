@@ -16,6 +16,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const CheckInOutInfo = () => {
   const navigate = useNavigate();
@@ -34,8 +35,8 @@ const CheckInOutInfo = () => {
 
   if (!suite) {
     return (
-      <Container maxWidth="md">
-        <Box sx={{ my: 4 }}>
+      <Container {...PAGE_LAYOUTS.CheckInOutInfo}>
+        <Box sx={{ ...CONTENT_PADDING.standard }}>
           <IconButton onClick={handleBack} sx={{ mb: 2 }}>
             <ArrowBackIcon />
           </IconButton>
@@ -46,8 +47,8 @@ const CheckInOutInfo = () => {
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4 }}>
+    <Container {...PAGE_LAYOUTS.CheckInOutInfo}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
         <IconButton onClick={handleBack} sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>

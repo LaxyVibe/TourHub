@@ -12,6 +12,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
 import AddressDisplay from '../common/AddressDisplay';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const AddressInfo = () => {
   const navigate = useNavigate();
@@ -33,8 +34,8 @@ const AddressInfo = () => {
 
   if (!suite) {
     return (
-      <Container maxWidth="md">
-        <Box sx={{ my: 4 }}>
+      <Container {...PAGE_LAYOUTS.AddressInfo}>
+        <Box sx={{ ...CONTENT_PADDING.standard }}>
           <IconButton onClick={handleBack} sx={{ mb: 2 }}>
             <ArrowBackIcon />
           </IconButton>
@@ -45,8 +46,8 @@ const AddressInfo = () => {
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4 }}>
+    <Container {...PAGE_LAYOUTS.AddressInfo}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
         <IconButton onClick={handleBack} sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>
