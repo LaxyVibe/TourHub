@@ -27,6 +27,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import LanguageSelector from './common/LanguageSelector';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
+import { trackButtonClick, trackNavigation, trackShare, trackEngagement } from '../utils/analytics';
 
 // Mock data for the tour content
 const mockTourImages = {
@@ -115,6 +116,9 @@ function TourLanding({ clientInfo }) {
   
   // Handle back button
   const handleBack = () => {
+    trackButtonClick('back_button', 'tour_landing');
+    trackNavigation('tour_landing', 'previous_page', 'back_button');
+    
     // If coming from a hub (like /join/tourId), go back to the hub root
     if (location.pathname.includes('/join/')) {
       // Extract domain parts to determine proper navigation
@@ -135,6 +139,9 @@ function TourLanding({ clientInfo }) {
   
   // Handle navigation to a place
   const handlePlaceNavigation = (placeId) => {
+    trackButtonClick(`place_${placeId}`, 'tour_landing');
+    trackNavigation('tour_landing', 'place_detail', 'place_card_click');
+    
     // If we're on a join.laxy.travel domain, navigate to /:tourId/go/:placeId
     const hostname = window.location.hostname;
     
@@ -148,11 +155,24 @@ function TourLanding({ clientInfo }) {
   
   // Handle favorite toggle
   const handleFavoriteToggle = () => {
-    setFavorite(!favorite);
+    const newFavoriteState = !favorite;
+    setFavorite(newFavoriteState);
+    
+    trackEngagement('favorite', 'tour_landing', {
+      action: newFavoriteState ? 'add' : 'remove',
+      item_id: tourId,
+      item_name: clientInfo?.title
+    });
   };
   
   // Handle share action
   const handleShare = () => {
+    trackShare('tour', {
+      content_type: 'tour',
+      item_id: tourId,
+      item_name: clientInfo?.title
+    });
+    
     if (navigator.share) {
       navigator.share({
         title: clientInfo?.title || 'Laxy Travel Tour Tour',
@@ -541,6 +561,15 @@ function TourLanding({ clientInfo }) {
               py: 1.5, 
               fontWeight: 'bold',
               fontSize: '1.1rem'
+            }}
+            onClick={() => {
+              trackButtonClick('book_tour', 'tour_landing');
+              trackEngagement('tour_booking_attempt', 'tour_landing', {
+                item_id: tourId,
+                item_name: clientInfo?.title,
+                value: clientInfo?.price || 0
+              });
+              // Add actual booking logic here
             }}
           >
             Book This Tour

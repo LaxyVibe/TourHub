@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useLanguage } from '../../context/LanguageContext';
 import { SUPPORTED_LANGUAGES } from '../../utils/languageUtils';
+import { trackLanguageChange } from '../../utils/analytics';
 
 // Language name mapping
 const LANGUAGE_NAMES = {
@@ -22,7 +23,13 @@ const LanguageSelector = ({ sx = {} }) => {
   const { language, setLanguage } = useLanguage();
 
   const handleChange = (event) => {
-    setLanguage(event.target.value);
+    const newLanguage = event.target.value;
+    const currentLanguage = language;
+    
+    // Track language change
+    trackLanguageChange(currentLanguage, newLanguage);
+    
+    setLanguage(newLanguage);
   };
 
   return (

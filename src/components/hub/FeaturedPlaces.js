@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   Container, 
   Paper, 
@@ -27,6 +27,7 @@ import AttractionsIcon from '@mui/icons-material/Attractions';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
+import { trackButtonClick, trackNavigation, trackPOIView } from '../../utils/analytics';
 
 const FeaturedPlaces = ({ initialState }) => {
   const location = useLocation();
@@ -39,8 +40,15 @@ const FeaturedPlaces = ({ initialState }) => {
   // Use initial state if provided, otherwise extract from location
   const { places = [], clientInfo } = initialState || location.state || {};
   
+  useEffect(() => {
+    // Track page view
+    trackNavigation(location.pathname);
+  }, [location.pathname]);
 
   const handleBack = () => {
+    trackButtonClick('back_button', 'featured_places');
+    trackNavigation('featured_places', 'hub_landing', 'back_button');
+    
     // Preserve query parameters when navigating back
     navigate({
       pathname: '/',
@@ -49,6 +57,9 @@ const FeaturedPlaces = ({ initialState }) => {
   };
 
   const handlePlaceSelect = (placeId) => {
+    trackPOIView(placeId, 'place', language);
+    trackNavigation('featured_places', 'place_detail', 'place_click');
+    
     // Preserve query parameters when navigating to place detail
     navigate({
       pathname: `/place/${placeId}`,

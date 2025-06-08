@@ -25,6 +25,7 @@ import HighlightedPOIsSection from './common/HighlightedPOIsSection';
 import POIList from './common/POIList';
 import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
+import { trackSearch, trackButtonClick, trackNavigation } from '../utils/analytics';
 
 // Function to highlight matching text
 const highlightText = (text, searchQuery) => {
@@ -111,6 +112,8 @@ const SearchPage = () => {
   }, [urlSearchQuery, highlightedPOIs]);
 
   const handleBack = () => {
+    trackButtonClick('back_button', 'search_page');
+    trackNavigation('search_page', 'suite', 'back_button');
     navigate(`/${language}/${suiteId}`);
   };
 
@@ -126,6 +129,9 @@ const SearchPage = () => {
       return;
     }
     
+    // Track search
+    trackSearch(query, filteredResults.length);
+    
     // Update URL with search query
     setSearchParams({ q: query });
     setShowDropdown(false);
@@ -136,6 +142,9 @@ const SearchPage = () => {
       poi.poi.highlight.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredResults(results);
+    
+    // Track search results count
+    trackSearch(query, results.length);
   };
 
   const handleSearchInputChange = (newQuery) => {
@@ -157,6 +166,9 @@ const SearchPage = () => {
   };
 
   const handleDropdownItemClick = (poi) => {
+    trackButtonClick(`poi_${poi.poi.slug}`, 'search_dropdown');
+    trackNavigation('search_dropdown', 'poi_detail', 'poi_click');
+    
     setSearchQuery(poi.poi.label);
     setShowDropdown(false);
     // Navigate to POI detail page
@@ -168,6 +180,8 @@ const SearchPage = () => {
   };
 
   const handleDefaultListItemClick = (item) => {
+    trackButtonClick(`default_search_${item.value}`, 'search_page');
+    
     setSearchQuery(item.value);
     setShowDropdown(false);
     
@@ -182,10 +196,14 @@ const SearchPage = () => {
         poi.poi.highlight.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredResults(results);
+      
+      // Track search
+      trackSearch(query, results.length);
     }
   };
 
   const handleQRCodeClick = () => {
+    trackButtonClick('qr_code_scanner', 'search_page');
     // Handle QR code functionality
     // For now, show a simple alert. In future, this could integrate with a QR code scanner
     alert('QR Code Scanner functionality would be implemented here. This could open the device camera to scan QR codes for tours, places, or special offers.');

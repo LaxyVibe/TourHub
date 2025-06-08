@@ -17,6 +17,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
+import { trackButtonClick, trackNavigation } from '../../utils/analytics';
 
 const StayInfo = () => {
   const navigate = useNavigate();
@@ -33,10 +34,14 @@ const StayInfo = () => {
   const suiteLabel = suiteData?.details?.data?.[0]?.label;
   
   const handleBack = () => {
+    trackButtonClick('back_button', 'stay_info');
+    trackNavigation('stay_info', 'suite_landing', 'back_button');
     navigate(`/${language}/${suiteId}`);
   };
 
   const handleNavigationClick = (route) => {
+    trackButtonClick(`info_${route.replace('/', '_')}`, 'stay_info');
+    trackNavigation('stay_info', 'info_detail', 'info_navigation');
     // Navigate to the specific info page
     navigate(`/${language}/${suiteId}${route}`);
   };

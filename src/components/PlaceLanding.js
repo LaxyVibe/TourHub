@@ -29,6 +29,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import HotelIcon from '@mui/icons-material/Hotel';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import { trackButtonClick, trackNavigation, trackShare, trackEngagement } from '../utils/analytics';
 import LanguageSelector from './common/LanguageSelector';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import PublicIcon from '@mui/icons-material/Public';
@@ -165,6 +166,9 @@ function PlaceLanding({ clientInfo }) {
   
   // Handle back button navigation
   const handleBack = () => {
+    trackButtonClick('back_button', 'place_landing');
+    trackNavigation('place_landing', 'previous_page', 'back_button');
+    
     // Determine where to go back to based on the current URL pattern
     const hostname = window.location.hostname;
     const pathname = location.pathname;
@@ -191,11 +195,24 @@ function PlaceLanding({ clientInfo }) {
   
   // Handle favorite toggle
   const handleFavoriteToggle = () => {
-    setFavorite(!favorite);
+    const newFavoriteState = !favorite;
+    setFavorite(newFavoriteState);
+    
+    trackEngagement('favorite', 'place_landing', {
+      action: newFavoriteState ? 'add' : 'remove',
+      item_id: clientInfo?.id || 'unknown',
+      item_name: clientInfo?.title
+    });
   };
   
   // Handle share action
   const handleShare = () => {
+    trackShare('place', {
+      content_type: 'place',
+      item_id: clientInfo?.id || 'unknown',
+      item_name: clientInfo?.title
+    });
+    
     if (navigator.share) {
       navigator.share({
         title: clientInfo?.title || 'Laxy Travel Place',
@@ -210,6 +227,7 @@ function PlaceLanding({ clientInfo }) {
   
   // Handle directions button
   const handleDirections = () => {
+    trackButtonClick('directions', 'place_landing');
     // In a real app, this would launch maps navigation
     window.open(`https://www.google.com/maps/search/?api=1&query=${clientInfo?.title}+${clientInfo?.location}`, '_blank');
   };
@@ -517,6 +535,13 @@ function PlaceLanding({ clientInfo }) {
               fontSize: '1.1rem'
             }}
             onClick={() => {
+              trackButtonClick('get_guided_tour', 'place_landing');
+              trackEngagement('tour_booking_interest', 'place_landing', {
+                source: 'place_detail',
+                place_id: clientInfo?.id || 'unknown',
+                place_name: clientInfo?.title
+              });
+              
               const recommendedTourId = variant === 'beppu-place' ? 'jpn-bepu-tur-001' : 'jpn-toky-tur-001';
               // Navigate to the appropriate tour based on the hostname
               const hostname = window.location.hostname;
