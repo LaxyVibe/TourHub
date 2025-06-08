@@ -7,6 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
+import { trackButtonClick, trackNavigation } from '../../utils/analytics';
 
 /**
  * Global Header component used across the application
@@ -25,18 +26,27 @@ const GlobalHeader = ({ title, showBackButton = false, suiteId = null }) => {
   const rightIcon = headerConfig?.rightIcon?.url;
 
   const handleLeftIconClick = () => {
+    trackButtonClick('header_left_icon', 'global_header');
+    trackNavigation('global_header', 'language_page', 'header_icon');
+    
     // Include suiteId in route if available
     const basePath = suiteId ? `/${language}/${suiteId}` : `/${language}`;
     navigate(`${basePath}${leftRoute}`);
   };
 
   const handleRightIconClick = () => {
+    trackButtonClick('header_right_icon', 'global_header');
+    trackNavigation('global_header', 'search_page', 'header_icon');
+    
     // Include suiteId in route if available
     const basePath = suiteId ? `/${language}/${suiteId}` : `/${language}`;
     navigate(`${basePath}${rightRoute}`);
   };
 
   const handleBackClick = () => {
+    trackButtonClick('header_back_button', 'global_header');
+    trackNavigation('global_header', 'previous_page', 'back_button');
+    
     // Check if we're coming from language page with a language change
     let languageChanged = false;
     try {

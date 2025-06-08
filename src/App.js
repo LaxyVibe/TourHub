@@ -24,10 +24,15 @@ import { getPOIsByType } from './utils/dataFetcher';
 import { LanguageProvider } from './context/LanguageContext';
 import { DEFAULT_LANGUAGE, extractLanguageFromPath } from './utils/languageUtils';
 import { theme } from './config/theme';
+import { initGA } from './utils/analytics';
+import usePageTracking from './hooks/usePageTracking';
 
-// ScrollToTop component to handle scrolling to top on route changes
+// ScrollToTop component to handle scrolling to top on route changes and GA tracking
 function ScrollToTop() {
   const { pathname } = useLocation();
+  
+  // Use the page tracking hook
+  usePageTracking();
   
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -288,6 +293,11 @@ function DefaultLanguageRedirect() {
 
 function App() {
   const hostname = window.location.hostname;
+  
+  // Initialize Google Analytics on app start
+  useEffect(() => {
+    initGA();
+  }, []);
   
   const getRouteConfig = () => {
     if (hostname.startsWith('stay-') || hostname.startsWith('uat-stay-')) {

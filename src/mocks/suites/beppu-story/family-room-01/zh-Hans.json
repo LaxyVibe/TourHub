@@ -40,7 +40,18 @@
                     "answer": "<p>附近有免费私人停车位（无需预约）。</p>"
                 }
             ],
-            "wifi": [],
+            "wifi": [
+                {
+                    "id": 29,
+                    "network": "Airbnb3",
+                    "password": "beppuairbnb"
+                },
+                {
+                    "id": 30,
+                    "network": "Airbnb4",
+                    "password": "beppuairbnb"
+                }
+            ],
             "ownedBy": {
                 "id": 24,
                 "documentId": "nh91l7ks7t9s37xczk3mkcwx",
@@ -60,7 +71,7 @@
                         "slug": "First-week-of-April-Beppu",
                         "label": "4月的第一周",
                         "address": null,
-                        "highlight": "别府八汤温泉祭是当地最大的温泉节庆，通常在三月底至四月初为期五天。期间，许多市营温泉免费开放，整个城镇洋溢着欢乐气氛。庆典包含游行、传统表演，���及独特的“泼汤祭”，参与者将温泉水泼洒向人群，场面热闹非凡。\n\n另一独特活动是扇山火祭，这是在扇山上放火的仪式，旨在祈求一年的健康、长寿与生意兴旺。然而，请注意此火祭通常在二月初举行，与温泉祭的日期不同，是别府冬季独有的壮观景象。",
+                        "highlight": "别府八汤温泉祭是当地最大的温泉节庆，通常在三月底至四月初为期五天。期间，许多市营温泉免费开放，整个城镇洋溢着欢乐气氛。庆典包含游行、传统表演，以及独特的“泼汤祭”，参与者将温泉水泼洒向人群，场面热闹非凡。\n\n另一独特活动是扇山火祭，这是在扇山上放火的仪式，旨在祈求一年的健康、长寿与生意兴旺。然而，请注意此火祭通常在二月初举行，与温泉祭的日期不同，是别府冬季独有的壮观景象。",
                         "externalURL": null,
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
@@ -84,7 +95,7 @@
                         "slug": "Kaimonji-Onsen",
                         "label": "海门寺温泉",
                         "address": "〒874-0920 大分县别府市北滨2丁目3番2号",
-                        "highlight": "海门寺温泉是位于日本大分县别府市的一间历史悠久的公共温泉，价格亲民，深受当地居民与旅客的喜爱。对于想体验地道日式泡汤文化的人来说，是非常理想的选择。\n\n温泉本身保留了传统简约的风格，虽不豪华，却充满温馨与怀旧感。设施朴实，适合喜欢安静、纯粹泡汤体验的旅人。由于地点邻近别府市中心，从车站步行即可到达，交通相当便利。\n\n若您想要深入感受别府的��常与温泉文化，海门寺温泉是一个值得纳入行程的好选择。",
+                        "highlight": "海门寺温泉是位于日本大分县别府市的一间历史悠久的公共温泉，价格亲民，深受当地居民与旅客的喜爱。对于想体验地道日式泡汤文化的人来说，是非常理想的选择。\n\n温泉本身保留了传统简约的风格，虽不豪华，却充满温馨与怀旧感。设施朴实，适合喜欢安静、纯粹泡汤体验的旅人。由于地点邻��别府市中心，从车站步行即可到达，交通相当便利。\n\n若您想要深入感受别府的日常与温泉文化，海门寺温泉是一个值得纳入行程的好选择。",
                         "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
@@ -148,6 +159,54 @@
                             "id": 107,
                             "documentId": "ei1h9j1eah08akaicbqfn2uz",
                             "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                        }
+                    },
+                    {
+                        "id": 32,
+                        "documentId": "molyzu13gr79s4fgj78qujdr",
+                        "slug": "Miyako",
+                        "label": "御好烧与家庭料理店",
+                        "address": "〒874-0944 大分县别府市元町7-4 Sol Paseo Ginza",
+                        "highlight": "“味Dining みやこ”是一家位于别府市中心的温馨居酒屋，以家庭料理与日式铁板烧风味著称。料理价格亲民，是享受美食与轻松聚会的绝佳选择。\n\n餐厅位于商业大楼“ソルパセオ銀座”内部，交通便利，内用环境整洁舒适，气氛轻松。餐点内容丰富，从经典日式小菜到现煎御好烧等应有尽有，特别适合想体验地道日式晚餐的旅人。",
+                        "externalURL": null,
+                        "type": "restaurant",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 43,
+                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "name": "美食",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 110,
+                            "documentId": "y69bm7ss1jstmshzpima4vjg",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Miyako_c067dfaa2a.jpg"
+                        }
+                    },
+                    {
+                        "id": 27,
+                        "documentId": "d4mfo8qjqzeeg8zq84hrzb51",
+                        "slug": "Robata-Jin",
+                        "label": "炉端烧 仁",
+                        "address": "〒874-0920 大分县别府市北滨1丁目15-7",
+                        "highlight": "\"ろばた仁”是一间位于别府市北滨的温馨日式居酒屋，以亲切的服务与温暖氛围深受在地人与旅客喜爱。��内提供多样酒类，包括啤酒、日本酒与烧酌，并搭配各式美味下酒菜。\n\n料理以天妇罗与新鲜海鲜料理为主，无论是想小酌几杯，还是与朋友家人共度一段悠闲时光，都非常适合。这里仅提供内用服务，不支持外送，是一处适合坐下来慢慢享受的居酒屋空间。",
+                        "externalURL": "http://robata-jin.com/",
+                        "type": "restaurant",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 43,
+                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "name": "美食",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 108,
+                            "documentId": "r0qf8vv496p9orpds12sjaaz",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Robata_Jin_2b5b537da0.jpg"
                         }
                     }
                 ]

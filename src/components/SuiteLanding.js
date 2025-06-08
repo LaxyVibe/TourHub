@@ -23,6 +23,7 @@ import { getSuiteData } from '../utils/suiteUtils';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
+import { trackButtonClick, trackNavigation, trackPOIView } from '../utils/analytics';
 
 /**
  * Gets translations and configuration for the SuiteLanding component using hub application config
@@ -155,6 +156,9 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
 
   // Get route from hub config or fall back to legacy route
   const handleWifiInfoClick = () => {
+    trackButtonClick('wifi_info', 'suite_landing');
+    trackNavigation('suite_landing', 'wifi_info', 'navigation_button');
+    
     const wifiNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/info/wifi");
     if (wifiNav) {
       navigate(`/${language}/${suiteId}${wifiNav.route}`, { 
@@ -173,6 +177,9 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   };
 
   const handleStayInfoClick = () => {
+    trackButtonClick('stay_info', 'suite_landing');
+    trackNavigation('suite_landing', 'stay_info', 'navigation_button');
+    
     const infoNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/info");
     if (infoNav) {
       navigate(`/${language}/${suiteId}${infoNav.route}`, {
@@ -191,6 +198,9 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   };
 
   const handleRestaurantsClick = () => {
+    trackButtonClick('restaurants', 'suite_landing');
+    trackNavigation('suite_landing', 'restaurants', 'navigation_button');
+    
     const restaurantsNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/nearby-restaurants");
     if (restaurantsNav) {
       navigate(`/${language}/${suiteId}${restaurantsNav.route}`, {
@@ -226,6 +236,9 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   };
 
   const handleAttractionsClick = () => {
+    trackButtonClick('attractions', 'suite_landing');
+    trackNavigation('suite_landing', 'attractions', 'navigation_button');
+    
     const attractionsNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/nearby-attractions");
     if (attractionsNav) {
       navigate(`/${language}/${suiteId}${attractionsNav.route}`, {
@@ -281,6 +294,9 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   }; */
 
   const handleTourSelect = (tourId) => {
+    trackButtonClick(`tour_${tourId}`, 'suite_landing');
+    trackNavigation('suite_landing', 'tour_detail', 'featured_tour_click');
+    
     // Check if there's a specific route for individual tours in the hub config
     // For now, navigate to a nested route under tours
     const toursNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/tours");

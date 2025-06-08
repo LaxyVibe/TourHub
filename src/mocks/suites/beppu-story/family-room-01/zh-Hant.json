@@ -40,7 +40,18 @@
                     "answer": "<p>附近有免費私人停車位（無需預約）。</p>"
                 }
             ],
-            "wifi": [],
+            "wifi": [
+                {
+                    "id": 35,
+                    "network": "Airbnb3",
+                    "password": "beppuairbnb"
+                },
+                {
+                    "id": 36,
+                    "network": "Airbnb4",
+                    "password": "beppuairbnb"
+                }
+            ],
             "ownedBy": {
                 "id": 23,
                 "documentId": "nh91l7ks7t9s37xczk3mkcwx",
@@ -60,7 +71,7 @@
                         "slug": "First-week-of-April-Beppu",
                         "label": "4月的第一週",
                         "address": null,
-                        "highlight": "別府八湯溫泉祭是當地最大的溫泉節慶，通常在三月底至四月初為期五天。期間，許多市營溫泉免費開放，整個城鎮洋溢著歡樂氣氛。慶典包��遊行、傳統表演，以及獨特的「潑湯祭」，參與者將溫泉水潑灑向人群，場面熱鬧非凡。\n\n另一獨特活動是扇山火祭，這是在扇山上放火的儀式，旨在祈求一年的健康、長壽與生意興旺。然而，請注意此火祭通常在二月初舉行，與溫泉祭的日期不同，是別府冬季獨有的壯觀景象。",
+                        "highlight": "別府八湯溫泉祭是當地最大的溫泉節慶，通常在三月底至四���初為期五天。期間，許多市營溫泉免費開放，整個城鎮洋溢著歡樂氣氛。慶典包含遊行、傳統表演，以及獨特的「潑湯祭」，參與者將溫泉水潑灑向人群，場面熱鬧非凡。\n\n另一獨特活動是扇山火祭，這是在扇山上放火的儀式，旨在祈求一年的健康、長壽與生意興旺。然而，請注意此火祭通常在二月初舉行，與溫泉祭的日期不同，是別府冬季獨有的壯觀景象。",
                         "externalURL": null,
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
@@ -148,6 +159,54 @@
                             "id": 107,
                             "documentId": "ei1h9j1eah08akaicbqfn2uz",
                             "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                        }
+                    },
+                    {
+                        "id": 31,
+                        "documentId": "molyzu13gr79s4fgj78qujdr",
+                        "slug": "Miyako",
+                        "label": "御好燒與家庭料理店",
+                        "address": "〒874-0944 大分縣別府市元町7-4 Sol Paseo Ginza",
+                        "highlight": "「味Dining みやこ」是一家位於別府市中心的溫馨居酒屋，以家庭料理與日式鐵板燒風味著稱。料理價格親民，是享受美食與輕鬆聚會的絕佳選擇。\n\n餐廳位於商業大樓「ソルパセオ銀座」內部，交通便利，內用環境整潔舒適，氣氛輕鬆。餐點內容豐富，從經典日式小菜到現煎御好燒等應有盡有，特別適合想體驗道地日式晚餐的旅人。",
+                        "externalURL": null,
+                        "type": "restaurant",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 42,
+                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "name": "美食",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 110,
+                            "documentId": "y69bm7ss1jstmshzpima4vjg",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Miyako_c067dfaa2a.jpg"
+                        }
+                    },
+                    {
+                        "id": 26,
+                        "documentId": "d4mfo8qjqzeeg8zq84hrzb51",
+                        "slug": "Robata-Jin",
+                        "label": "炉端燒 仁",
+                        "address": "〒874-0920 大分縣別府市北濱1丁目15-7",
+                        "highlight": "「ろばた仁」是一間位於別府市北濱的溫馨日式居酒屋，以親切的服務與溫暖氛圍深受��地人與旅客喜愛。店內提供多樣酒類，包括啤酒、日本酒與燒酌，並搭配各式美味下酒菜。\n\n料理以天婦羅與新鮮海鮮料理為主，無論是想小酌幾杯，還是與朋友家人共度一段悠閒時光，都非常適合。這裡僅提供內用服務，不支援外送，是一處適合坐下來慢慢享受的居酒屋空間。",
+                        "externalURL": "http://robata-jin.com/",
+                        "type": "restaurant",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 42,
+                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "name": "美食",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 108,
+                            "documentId": "r0qf8vv496p9orpds12sjaaz",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Robata_Jin_2b5b537da0.jpg"
                         }
                     }
                 ]

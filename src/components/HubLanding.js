@@ -13,6 +13,7 @@ import { fetchClientInfo } from '../config/clients/hubClients';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import { getAllSuites } from '../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
+import { trackSuiteView, trackButtonClick, trackNavigation } from '../utils/analytics';
 
 // ISO language codes to display names mapping for backward compatibility
 const languageCodeToName = {
@@ -89,6 +90,11 @@ const HubLanding = ({ clientInfo: initialClientInfo }) => {
   }, [initialClientInfo, language]);
 
   const handleSuiteSelect = (suiteId) => {
+    // Track suite selection
+    trackButtonClick(`suite_${suiteId}`, 'hub_landing');
+    trackNavigation('hub_landing', 'suite', 'suite_selection');
+    trackSuiteView(suiteId, language);
+    
     navigate(`/${language}/${suiteId}`);
   };
 

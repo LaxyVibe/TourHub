@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Paper,
@@ -22,6 +22,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
+import { trackButtonClick, trackNavigation, trackContentInteraction } from '../../utils/analytics';
 
 const WifiInfo = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -39,27 +40,47 @@ const WifiInfo = () => {
   const suiteData = getSuiteData(suiteId, language);
   const wifiNetworks = suiteData?.details?.data?.[0]?.wifi || [];
 
+  useEffect(() => {
+    // Track page view
+    trackNavigation('wifi_info', suiteId, 'info_access');
+  }, [suiteId]);
+
   const handleBack = () => {
+    trackButtonClick('back_button', 'wifi_info');
+    trackNavigation('wifi_info', 'suite_info', 'back_button');
+    
     navigate(`/${language}/${suiteId}/info`);
   };
 
   const handleShowQR = (network) => {
+    trackButtonClick('qr_code_view', 'wifi_info');
+    trackContentInteraction('qr_code_display', 'wifi_network', network.ssid);
+    
     setSelectedNetwork(network);
     setDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
+    trackButtonClick('close_qr_dialog', 'wifi_info');
+    
     setDialogOpen(false);
     setSelectedNetwork(null);
   };
 
   const handleCopyPassword = (password) => {
     if (!password) return;
+    
+    trackButtonClick('copy_password', 'wifi_info');
+    trackContentInteraction('password_copy', 'wifi_network', selectedNetwork?.ssid || 'unknown');
+    
     navigator.clipboard.writeText(password);
     setCopyAlert(true);
   };
 
   const handleScanQR = () => {
+    trackButtonClick('scan_qr_code', 'wifi_info');
+    trackContentInteraction('qr_scanner_attempt', 'wifi_network', selectedNetwork?.ssid || 'unknown');
+    
     // This would typically open camera for QR scanning
     // For now, just show an alert as camera access requires additional setup
     alert(hubConfig?.data?.pageWiFi?.scanQRButton?.label || "Scan QR Code to connect");

@@ -15,6 +15,7 @@ import { setCookie } from '../utils/cookieUtils';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import GlobalHeader from './common/GlobalHeader';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
+import { trackLanguageChange, trackButtonClick, trackNavigation } from '../utils/analytics';
 
 const LanguagePage = () => {
   const { language, setLanguage } = useLanguage();
@@ -36,10 +37,17 @@ const LanguagePage = () => {
   const releasedLanguages = hubConfig?.data?.universalConfig?.releasedLanguages || [];
   
   const handleLanguageChange = (event) => {
-    setSelectedLanguage(event.target.value);
+    const newLanguage = event.target.value;
+    trackLanguageChange(language, newLanguage);
+    trackButtonClick('language_selection', 'language_page');
+    
+    setSelectedLanguage(newLanguage);
   };
   
   const handleApply = () => {
+    trackButtonClick('apply_language', 'language_page');
+    trackNavigation('language_page', 'previous_page', 'language_apply');
+    
     // Store language preference in cookie (30-day expiry)
     setCookie('preferredLanguage', selectedLanguage, 30);
     

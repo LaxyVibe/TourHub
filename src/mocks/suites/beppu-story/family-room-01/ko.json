@@ -40,7 +40,18 @@
                     "answer": "<p>인근에 무료 전용 주차장이 있습니다(예약 불필요).</p>"
                 }
             ],
-            "wifi": [],
+            "wifi": [
+                {
+                    "id": 33,
+                    "network": "Airbnb3",
+                    "password": "beppuairbnb"
+                },
+                {
+                    "id": 34,
+                    "network": "Airbnb4",
+                    "password": "beppuairbnb"
+                }
+            ],
             "ownedBy": {
                 "id": 7,
                 "documentId": "nh91l7ks7t9s37xczk3mkcwx",
@@ -148,6 +159,54 @@
                             "id": 107,
                             "documentId": "ei1h9j1eah08akaicbqfn2uz",
                             "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                        }
+                    },
+                    {
+                        "id": 33,
+                        "documentId": "molyzu13gr79s4fgj78qujdr",
+                        "slug": "Miyako",
+                        "label": "[お好み焼きと家庭料理の店] 味Dining みやこ",
+                        "address": "일본 〒874-0944 오이타현 벳푸시 모토마치 7-4 솔파세오긴자",
+                        "highlight": "\"\"아지 다이닝 미야코\"는 벳푸 시 중심에 위치한 아늑한 이자카야로, 가정식 요리와 일본식 철판구이 스타일로 유명합니다. 합리적인 가격으로 맛있는 음식을 즐기고 편안한 모임을 가질 수 있는 훌륭한 선택입니다.\n\n레스토랑은 상업 건물 \"\"솔 파세오 긴자\"\" 내부에 위치하여 교통이 편리하며, 내부 식사 환경은 깨끗하고 쾌적하며 분위기는 편안합니다. 고전적인 일본식 반찬부터 갓 구운 오코노미야키까지 다양한 메뉴를 제공하며, 특히 정통 일본식 저녁 식사를 경험하고 싶은 여행객에게 적합합니다.",
+                        "externalURL": null,
+                        "type": "restaurant",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 6,
+                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "name": "드실 것",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 110,
+                            "documentId": "y69bm7ss1jstmshzpima4vjg",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Miyako_c067dfaa2a.jpg"
+                        }
+                    },
+                    {
+                        "id": 28,
+                        "documentId": "d4mfo8qjqzeeg8zq84hrzb51",
+                        "slug": "Robata-Jin",
+                        "label": "ろばた仁",
+                        "address": "일본 〒874-0920 오이타현 벳푸시 기타하마 1초메 15-7",
+                        "highlight": "\"로바타 진\"은 벳푸시 기타하마에 위치한 아늑한 일본식 이자카야로, 친절한 서비스와 따뜻한 분위기로 현지인과 여행객 모두에게 사랑받고 있습니다. 매장에서는 맥주, 사케, 소주를 포함한 다양한 주류와 함께 맛있는 안주들을 제공합니다.\n\n요리는 튀김과 신선한 해산물 요리가 주를 이루며, 간단히 술을 한잔하거나 친구 및 가족과 여유로운 시간을 보내기에 매우 적합합니다. 이곳은 내부 식사만 가능하며, 배달은 지원하지 않습니다. 앉아서 천천히 이자카야 경험을 즐기기에 좋은 공간입니다.",
+                        "externalURL": "http://robata-jin.com/",
+                        "type": "restaurant",
+                        "nativeLanguageCode": "ja",
+                        "tag_labels": [
+                            {
+                                "id": 6,
+                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "name": "드실 것",
+                                "color": "GREY"
+                            }
+                        ],
+                        "coverPhoto": {
+                            "id": 108,
+                            "documentId": "r0qf8vv496p9orpds12sjaaz",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Robata_Jin_2b5b537da0.jpg"
                         }
                     }
                 ]

@@ -26,6 +26,7 @@ import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import AddressDisplay from '../common/AddressDisplay';
 import poiRecommendationsData from '../../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
+import { trackButtonClick, trackNavigation, trackContentInteraction, trackExternalLink } from '../../utils/analytics';
 
 // Function to dynamically load suite data for native language POI details
 const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
@@ -103,6 +104,9 @@ const POIDetail = () => {
         } else {
           setPOI(foundPOI);
           
+          // Track POI view
+          trackNavigation(`poi_detail_${foundPOI.type}`, foundPOI.slug, 'direct_access');
+          
           // Load native language POI data if available
           if (foundPOI.nativeLanguageCode && foundPOI.nativeLanguageCode !== language) {
             const nativeLanguagePOI = await loadNativeLanguagePOI(poiSlug, foundPOI.nativeLanguageCode, suiteId);
@@ -130,9 +134,12 @@ const POIDetail = () => {
   const audioRef = React.useRef(null);
 
   const handlePlayAudio = () => {
+    trackContentInteraction('audio_play', poi?.type || 'poi', poi?.slug || poiSlug);
+    
     if (audioRef.current) {
       if (isPlayingAudio) {
         audioRef.current.pause();
+        trackContentInteraction('audio_pause', poi?.type || 'poi', poi?.slug || poiSlug);
       } else {
         audioRef.current.play();
       }
@@ -141,8 +148,17 @@ const POIDetail = () => {
   };
   
   const handleBack = () => {
+    trackButtonClick('back_button', 'poi_detail');
+    trackNavigation('poi_detail', 'suite_page', 'back_button');
+    
     // Navigate back to the suite page with suiteId
     navigate(`/${language}/${suiteId}`);
+  };
+
+  const handleExternalLink = (url, linkType = 'external_link') => {
+    trackExternalLink(url, poi?.type || 'poi', poi?.slug || poiSlug);
+    trackButtonClick(linkType, 'poi_detail');
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   if (loading) {
