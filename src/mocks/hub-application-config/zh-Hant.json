@@ -3,20 +3,35 @@
         "id": 2,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-01T07:01:43.169Z",
-        "updatedAt": "2025-06-05T14:22:29.787Z",
-        "publishedAt": "2025-06-01T07:10:59.698Z",
+        "updatedAt": "2025-06-08T10:19:28.893Z",
+        "publishedAt": "2025-06-08T10:19:28.175Z",
         "locale": "zh-Hant",
         "universalConfig": {
-            "id": 19,
+            "id": 60,
             "releasedLanguages": [
                 {
-                    "id": 100,
+                    "id": 229,
                     "label": "English",
-                    "value": "en"
+                    "value": null
                 },
                 {
-                    "id": 101,
-                    "label": null,
+                    "id": 230,
+                    "label": "繁體中文",
+                    "value": null
+                },
+                {
+                    "id": 231,
+                    "label": "简体中文",
+                    "value": null
+                },
+                {
+                    "id": 232,
+                    "label": "日本語",
+                    "value": null
+                },
+                {
+                    "id": 233,
+                    "label": "한국어",
                     "value": null
                 }
             ]
@@ -27,15 +42,27 @@
             "speechButton": {
                 "id": 49,
                 "label": "使用日文閱讀",
-                "icon": null
+                "icon": {
+                    "id": 63,
+                    "documentId": "w5hhfct4vzp7xr2j7qfsz052",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/volume_05_2ef55b9626.svg"
+                }
             }
         },
         "header": {
             "id": 2,
             "leftRoute": "/language",
             "rightRoute": "/search",
-            "leftIcon": null,
-            "rightIcon": null
+            "leftIcon": {
+                "id": 71,
+                "documentId": "cus9yi3ew8tbzrgo8kahnw1w",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/language_22b3130411.svg"
+            },
+            "rightIcon": {
+                "id": 72,
+                "documentId": "wa48s986jixukulj4wgw4ch8",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/Thin_f701b47deb.svg"
+            }
         },
         "pageLanding": {
             "id": 2,
@@ -45,25 +72,41 @@
                     "id": 20,
                     "label": "資訊",
                     "route": "/info",
-                    "icon": null
+                    "icon": {
+                        "id": 66,
+                        "documentId": "yl0sgdoax941x0d0u45d9vkx",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_43_f8dc38bc4f.svg"
+                    }
                 },
                 {
                     "id": 21,
                     "label": "網絡",
                     "route": "/info/wifi",
-                    "icon": null
+                    "icon": {
+                        "id": 69,
+                        "documentId": "dle3bydt73mugd09n5ojhfq9",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/wifi_02_73a29027af.svg"
+                    }
                 },
                 {
                     "id": 22,
                     "label": "景點",
                     "route": "/nearby-attractions",
-                    "icon": null
+                    "icon": {
+                        "id": 67,
+                        "documentId": "lwf61c4etel3lfotwdgdjgi0",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_09_eb4e0d6717.svg"
+                    }
                 },
                 {
                     "id": 23,
                     "label": "餐廳",
                     "route": "/nearby-restaurants",
-                    "icon": null
+                    "icon": {
+                        "id": 70,
+                        "documentId": "hyy0o5jdbx0822n8o1tjtong",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_24_4dc49182d3.svg"
+                    }
                 },
                 {
                     "id": 24,
@@ -75,10 +118,10 @@
         },
         "pageLanguage": {
             "id": 2,
-            "heading": "語言設定",
+            "heading": "語言",
             "applyButton": {
                 "id": 25,
-                "label": "套用"
+                "label": "選擇語言"
             }
         },
         "pageSearch": {
@@ -100,7 +143,7 @@
             "navigation": [
                 {
                     "id": 65,
-                    "label": "地址",
+                    "label": "��址",
                     "route": "/info/address",
                     "icon": null
                 },

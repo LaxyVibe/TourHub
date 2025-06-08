@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   Container, 
   Typography, 
@@ -25,11 +25,12 @@ import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
+import { trackButtonClick, trackNavigation, trackTourView } from '../../utils/analytics';
 
 const FeaturedTours = ({ initialState }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { language } = useLanguage();
+    const { language } = useLanguage();
   
   // Get hub configuration for current language
   const hubConfig = getHubConfigByLanguage(language);
@@ -37,7 +38,15 @@ const FeaturedTours = ({ initialState }) => {
   // Use initial state if provided, otherwise extract from location
   const { tours = [] } = initialState || location.state || {};
   
+  useEffect(() => {
+    // Track page view
+    trackNavigation(location.pathname);
+  }, [location.pathname]);
+  
   const handleBack = () => {
+    trackButtonClick('back_button', 'featured_tours');
+    trackNavigation('featured_tours', 'hub_landing', 'back_button');
+    
     // Preserve query parameters when navigating back
     navigate({
       pathname: '/',
@@ -46,6 +55,9 @@ const FeaturedTours = ({ initialState }) => {
   };
 
   const handleTourSelect = (tourId) => {
+    trackTourView(tourId, language);
+    trackNavigation('featured_tours', 'tour_detail', 'tour_select');
+    
     // Preserve query parameters when navigating to tour detail
     navigate({
       pathname: `/join/${tourId}`,

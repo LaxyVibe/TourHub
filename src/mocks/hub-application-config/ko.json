@@ -1,222 +1,178 @@
 {
     "data": {
-        "id": 1,
+        "id": 5,
         "documentId": "oimsqqqznrilynkiyascc7ox",
-        "createdAt": "2025-06-01T06:26:57.663Z",
-        "updatedAt": "2025-06-01T15:27:13.817Z",
-        "publishedAt": "2025-06-01T15:27:13.142Z",
+        "createdAt": "2025-06-08T05:24:13.896Z",
+        "updatedAt": "2025-06-08T10:19:30.449Z",
+        "publishedAt": "2025-06-08T09:57:45.392Z",
         "locale": "ko",
         "universalConfig": {
-            "id": 6,
+            "id": 64,
             "releasedLanguages": [
                 {
-                    "id": 53,
+                    "id": 249,
                     "label": "English",
-                    "value": "en"
+                    "value": null
                 },
                 {
-                    "id": 54,
+                    "id": 250,
+                    "label": "繁體中文",
+                    "value": null
+                },
+                {
+                    "id": 251,
                     "label": "简体中文",
-                    "value": "zh-Hans"
+                    "value": null
                 },
                 {
-                    "id": 55,
+                    "id": 252,
                     "label": "日本語",
-                    "value": "ja"
+                    "value": null
+                },
+                {
+                    "id": 253,
+                    "label": "한국어",
+                    "value": null
                 }
             ]
         },
         "globalComponent": {
-            "id": 1,
-            "readMoreLabel": "더 읽기",
+            "id": 4,
+            "readMoreLabel": "더 읽어보세요",
             "speechButton": {
-                "id": 16,
-                "label": "주소를 한국어로 읽기",
+                "id": 169,
+                "label": null,
                 "icon": null
             }
         },
         "header": {
-            "id": 1,
-            "leftRoute": "/language",
-            "rightRoute": "/search",
-            "leftIcon": {
-                "id": 71,
-                "documentId": "cus9yi3ew8tbzrgo8kahnw1w",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/language_22b3130411.svg"
-            },
-            "rightIcon": {
-                "id": 72,
-                "documentId": "wa48s986jixukulj4wgw4ch8",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/Thin_f701b47deb.svg"
-            }
+            "id": 4,
+            "leftRoute": null,
+            "rightRoute": null,
+            "leftIcon": null,
+            "rightIcon": null
         },
         "pageLanding": {
-            "id": 1,
-            "recommendationHeading": "호스트 추천 탐색",
+            "id": 4,
+            "recommendationHeading": null,
             "naviagtion": [
                 {
-                    "id": 1,
-                    "label": "정보",
-                    "route": "/info",
-                    "icon": {
-                        "id": 66,
-                        "documentId": "yl0sgdoax941x0d0u45d9vkx",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_43_f8dc38bc4f.svg"
-                    }
+                    "id": 156,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 2,
-                    "label": "WiFi",
-                    "route": "/info/wifi",
-                    "icon": {
-                        "id": 69,
-                        "documentId": "dle3bydt73mugd09n5ojhfq9",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/wifi_02_73a29027af.svg"
-                    }
+                    "id": 157,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 3,
-                    "label": "관광지",
-                    "route": "/nearby-attractions",
-                    "icon": {
-                        "id": 67,
-                        "documentId": "lwf61c4etel3lfotwdgdjgi0",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_09_eb4e0d6717.svg"
-                    }
+                    "id": 158,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 4,
-                    "label": "음식",
-                    "route": "/nearby-restaurants",
-                    "icon": {
-                        "id": 70,
-                        "documentId": "hyy0o5jdbx0822n8o1tjtong",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_24_4dc49182d3.svg"
-                    }
+                    "id": 159,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 5,
-                    "label": "투어",
-                    "route": "/tours",
-                    "icon": {
-                        "id": 61,
-                        "documentId": "fw71ynh7zgqf3bilpqnv1xqp",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/map_02_18df8327cb.svg"
-                    }
+                    "id": 160,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 }
             ]
         },
         "pageLanguage": {
-            "id": 1,
-            "heading": "언어 설정",
+            "id": 4,
+            "heading": null,
             "applyButton": {
-                "id": 6,
-                "label": "적용"
+                "id": 161,
+                "label": null
             }
         },
         "pageSearch": {
-            "id": 6,
-            "searchInputPlaceholder": "다음 모험 찾기",
-            "defaultListHeading": "인기 검색",
-            "highlightedListHeading": "더 많이 탐색",
+            "id": 9,
+            "searchInputPlaceholder": null,
+            "defaultListHeading": null,
+            "highlightedListHeading": null,
             "defaultList": [
                 {
-                    "id": 54,
-                    "label": "온천",
-                    "value": "onsen"
+                    "id": 162,
+                    "label": null,
+                    "value": null
                 }
             ]
         },
         "pageInfo": {
-            "id": 5,
-            "heading": "객실 정보",
+            "id": 8,
+            "heading": null,
             "navigation": [
                 {
-                    "id": 55,
-                    "label": "주소",
-                    "route": "/info/address",
-                    "icon": {
-                        "id": 58,
-                        "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
-                    }
+                    "id": 163,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 56,
-                    "label": "체크인/아웃",
-                    "route": "/info/check-in-out",
-                    "icon": {
-                        "id": 65,
-                        "documentId": "dl1idjts06zs4qnnii4f5be9",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/clock_01_9052f2670b.svg"
-                    }
+                    "id": 164,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 57,
-                    "label": "하우스 룰",
-                    "route": "/info/house-rules",
-                    "icon": {
-                        "id": 62,
-                        "documentId": "m14shdcw32422vw3nyp4dny0",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/book_03_22c6b5ad3e.svg"
-                    }
+                    "id": 165,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 58,
-                    "label": "편의시설",
-                    "route": "/info/amenities",
-                    "icon": {
-                        "id": 59,
-                        "documentId": "jcq574qfdexe1lqxdsjq9f47",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Group_e68ebd5f71.svg"
-                    }
+                    "id": 166,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 },
                 {
-                    "id": 59,
-                    "label": "자주 묻는 질문",
-                    "route": "/info/faq",
-                    "icon": {
-                        "id": 68,
-                        "documentId": "pupmn6p3u0wt8szrlecxj93x",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/interface_help_question_circle_circle_faq_frame_help_info_mark_more_query_question_Streamline_Core_965885ab4b.svg"
-                    }
+                    "id": 167,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 168,
+                    "label": null,
+                    "route": null,
+                    "icon": null
                 }
             ]
         },
         "pageWiFi": {
-            "id": 3,
+            "id": 6,
             "scanQRButton": {
-                "id": 60,
-                "label": "QR 코드를 스캔하여 연결"
+                "id": 170,
+                "label": null
             },
             "clipboardButton": {
-                "id": 61,
-                "label": "비밀번호 복사"
+                "id": 171,
+                "label": null
             },
             "showQRButton": {
-                "id": 62,
-                "label": "QR 코드를 표시하여 공유"
+                "id": 172,
+                "label": null
             }
         },
         "pagPoiDetail": {
-            "id": 4,
-            "recommendationHeading": "호스트 추천",
-            "highlightHeading": "하이라이트",
-            "addressIcon": {
-                "id": 58,
-                "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
-            },
-            "urlIcon": {
-                "id": 56,
-                "documentId": "ooea7o2z2dixe3xym0r3j7m4",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791018/globe_03_e1437b2ed1.svg"
-            },
-            "dialIcon": {
-                "id": 60,
-                "documentId": "t6ezztx2wxerlwrfsxwua9kn",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/phone_124278a2aa.svg"
-            }
+            "id": 7,
+            "recommendationHeading": null,
+            "highlightHeading": null,
+            "addressIcon": null,
+            "urlIcon": null,
+            "dialIcon": null
         }
     },
     "meta": {}
