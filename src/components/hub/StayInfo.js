@@ -16,6 +16,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const StayInfo = () => {
   const navigate = useNavigate();
@@ -45,8 +46,8 @@ const StayInfo = () => {
   
   if (!pageInfo) {
     return (
-      <Container maxWidth="md">
-        <Box sx={{ my: 4 }}>
+      <Container {...PAGE_LAYOUTS.StayInfo}>
+        <Box sx={{ ...CONTENT_PADDING.standard }}>
           <IconButton onClick={handleBack} sx={{ mb: 2 }}>
             <ArrowBackIcon />
           </IconButton>
@@ -57,8 +58,8 @@ const StayInfo = () => {
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4 }}>
+    <Container {...PAGE_LAYOUTS.StayInfo}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
         <IconButton onClick={handleBack} sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>

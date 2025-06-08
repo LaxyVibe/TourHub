@@ -11,6 +11,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import GavelIcon from '@mui/icons-material/Gavel';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const HouseRulesInfo = () => {
   const navigate = useNavigate();
@@ -29,8 +30,8 @@ const HouseRulesInfo = () => {
 
   if (!suite) {
     return (
-      <Container maxWidth="md">
-        <Box sx={{ my: 4 }}>
+      <Container {...PAGE_LAYOUTS.HouseRulesInfo}>
+        <Box sx={{ ...CONTENT_PADDING.standard }}>
           <IconButton onClick={handleBack} sx={{ mb: 2 }}>
             <ArrowBackIcon />
           </IconButton>
@@ -41,8 +42,8 @@ const HouseRulesInfo = () => {
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4 }}>
+    <Container {...PAGE_LAYOUTS.HouseRulesInfo}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
         <IconButton onClick={handleBack} sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>

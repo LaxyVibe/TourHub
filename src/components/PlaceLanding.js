@@ -32,6 +32,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import LanguageSelector from './common/LanguageSelector';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import PublicIcon from '@mui/icons-material/Public';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 
 // Mock data for the place information
 const mockPlaceImages = {
@@ -214,9 +215,10 @@ function PlaceLanding({ clientInfo }) {
   };
 
   return (
-    <Container maxWidth="md" sx={{ pb: 8 }}>
-      {/* Header with back button and actions */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, pb: 1 }}>
+    <Container {...PAGE_LAYOUTS.PlaceLanding}>
+      <Box sx={{ ...CONTENT_PADDING.standard, pb: 8 }}>
+        {/* Header with back button and actions */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, pb: 1 }}>
         <IconButton edge="start" aria-label="back" onClick={handleBack}>
           <ArrowBackIosNewIcon />
         </IconButton>
@@ -531,6 +533,7 @@ function PlaceLanding({ clientInfo }) {
             Get Guided Tour
           </Button>
         </Container>
+      </Box>
       </Box>
     </Container>
   );

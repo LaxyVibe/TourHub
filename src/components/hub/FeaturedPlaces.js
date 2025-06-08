@@ -26,6 +26,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import AttractionsIcon from '@mui/icons-material/Attractions';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const FeaturedPlaces = ({ initialState }) => {
   const location = useLocation();
@@ -56,8 +57,9 @@ const FeaturedPlaces = ({ initialState }) => {
   };
   
   return (
-    <Container maxWidth="sm" sx={{ py: 2, px: { xs: 2, sm: 3 }, pt: { xs: 2, sm: 3 } }}>
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
+    <Container {...PAGE_LAYOUTS.FeaturedPlaces}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
+        <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
         <IconButton 
           edge="start" 
           onClick={handleBack} 
@@ -208,6 +210,7 @@ const FeaturedPlaces = ({ initialState }) => {
         >
           {clientInfo?.subtitle || 'Powered by Laxy'} • {new Date().getFullYear()}
         </Typography>
+      </Box>
       </Box>
     </Container>
   );

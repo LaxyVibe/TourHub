@@ -3,36 +3,21 @@
         "id": 1,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-01T06:26:57.663Z",
-        "updatedAt": "2025-06-02T13:24:35.438Z",
+        "updatedAt": "2025-06-05T14:22:29.768Z",
         "publishedAt": "2025-06-02T13:24:34.791Z",
         "locale": "en",
         "universalConfig": {
-            "id": 6,
+            "id": 18,
             "releasedLanguages": [
                 {
-                    "id": 53,
+                    "id": 98,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 79,
-                    "label": "日本語",
-                    "value": "ja"
-                },
-                {
-                    "id": 80,
-                    "label": "한국어",
-                    "value": "ko"
-                },
-                {
-                    "id": 84,
-                    "label": "繁體中文",
-                    "value": "zh-Hant"
-                },
-                {
-                    "id": 85,
-                    "label": "简体中文",
-                    "value": "zh-Hans"
+                    "id": 99,
+                    "label": null,
+                    "value": null
                 }
             ]
         },
@@ -135,14 +120,9 @@
             "highlightedListHeading": "Explore More",
             "defaultList": [
                 {
-                    "id": 51,
+                    "id": 54,
                     "label": "Onsen",
                     "value": "onsen"
-                },
-                {
-                    "id": 54,
-                    "label": "Beppu",
-                    "value": "Beppu"
                 }
             ]
         },

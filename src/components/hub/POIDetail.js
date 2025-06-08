@@ -25,6 +25,7 @@ import { getPOIsByType } from '../../utils/dataFetcher';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import AddressDisplay from '../common/AddressDisplay';
 import poiRecommendationsData from '../../mocks/poi-recommendations/en.json';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 // Function to dynamically load suite data for native language POI details
 const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
@@ -146,7 +147,7 @@ const POIDetail = () => {
 
   if (loading) {
     return (
-      <Container maxWidth="md" sx={{ py: 3, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+      <Container {...PAGE_LAYOUTS.POIDetail} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
         <CircularProgress />
       </Container>
     );
@@ -154,37 +155,42 @@ const POIDetail = () => {
 
   if (error) {
     return (
-      <Container maxWidth="md" sx={{ py: 3 }}>
-        <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
-        <Paper elevation={3} sx={{ p: 3, textAlign: 'center', backgroundColor: 'error.light' }}>
-          <RestaurantIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
-          <Typography variant="h6" color="error.contrastText">Error</Typography>
-          <Typography color="error.contrastText">{error}</Typography>
-        </Paper>
+      <Container {...PAGE_LAYOUTS.POIDetail}>
+        <Box sx={{ ...CONTENT_PADDING.standard }}>
+          <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
+            <ArrowBackIcon />
+          </IconButton>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center', backgroundColor: 'error.light' }}>
+            <RestaurantIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
+            <Typography variant="h6" color="error.contrastText">Error</Typography>
+            <Typography color="error.contrastText">{error}</Typography>
+          </Paper>
+        </Box>
       </Container>
     );
   }
 
   if (!poi) {
     return (
-      <Container maxWidth="md" sx={{ py: 3 }}>
-        <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
-        <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
-          <RestaurantIcon sx={{ fontSize: 60, color: 'text.secondary', mb: 2 }} />
-          <Typography variant="h6">Not Found</Typography>
-          <Typography color="text.secondary">The location you are looking for is not available.</Typography>
-        </Paper>
+      <Container {...PAGE_LAYOUTS.POIDetail}>
+        <Box sx={{ ...CONTENT_PADDING.standard }}>
+          <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
+            <ArrowBackIcon />
+          </IconButton>
+          <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
+            <RestaurantIcon sx={{ fontSize: 60, color: 'text.secondary', mb: 2 }} />
+            <Typography variant="h6">Not Found</Typography>
+            <Typography color="text.secondary">The location you are looking for is not available.</Typography>
+          </Paper>
+        </Box>
       </Container>
     );
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 3 }}>
-      <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
+    <Container {...PAGE_LAYOUTS.POIDetail}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
+        <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
         <ArrowBackIcon />
       </IconButton>
 
@@ -375,6 +381,7 @@ const POIDetail = () => {
           )}
         </Box>
       </Paper>
+      </Box>
     </Container>
   );
 };
