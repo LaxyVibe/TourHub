@@ -21,6 +21,7 @@ import NavigationButton from './common/NavigationButton';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import { getSuiteData } from '../utils/suiteUtils';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
 
 /**
@@ -323,10 +324,10 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   const featuredTours = clientInfo.featuredTours || [];
 
   return (
-    <Container sx={{ pb: 4, px: { xs: 0, sm: 0 }, pt: 0 }}>
+    <Container {...PAGE_LAYOUTS.SuiteLanding}>
       <GlobalHeader title={suiteData?.details?.data?.[0]?.ownedBy?.label} suiteId={suiteId} />
       
-      <Box sx={{ px: { xs: 2, sm: 3 }, pt: 2 }}>
+      <Box sx={{ ...CONTENT_PADDING.standard, pt: 2 }}>
         <>
           {/* Greeting Section */}
           {suiteData?.details?.data?.[0]?.ownedBy && (

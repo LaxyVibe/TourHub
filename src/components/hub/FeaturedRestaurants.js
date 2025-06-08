@@ -25,6 +25,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useLanguage } from '../../context/LanguageContext';
 import { getRestaurantsData } from '../../utils/dataFetcher';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const FeaturedRestaurants = ({ initialState }) => {
   const location = useLocation();
@@ -75,8 +76,9 @@ const FeaturedRestaurants = ({ initialState }) => {
   };
   
   return (
-    <Container maxWidth="sm" sx={{ py: 2, px: { xs: 2, sm: 3 }, pt: { xs: 2, sm: 3 } }}>
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
+    <Container {...PAGE_LAYOUTS.FeaturedRestaurants}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
+        <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
         <IconButton 
           edge="start" 
           onClick={handleBack} 
@@ -294,6 +296,7 @@ const FeaturedRestaurants = ({ initialState }) => {
         <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}>
           Restaurant information may change. We recommend confirming details before visiting.
         </Typography>
+      </Box>
       </Box>
     </Container>
   );
