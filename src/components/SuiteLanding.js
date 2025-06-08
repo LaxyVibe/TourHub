@@ -23,7 +23,7 @@ import { getSuiteData } from '../utils/suiteUtils';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
-import { trackButtonClick, trackNavigation, trackPOIView } from '../utils/analytics';
+import { trackButtonClick, trackNavigation } from '../utils/analytics';
 
 /**
  * Gets translations and configuration for the SuiteLanding component using hub application config
