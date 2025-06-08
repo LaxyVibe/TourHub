@@ -26,6 +26,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { getRestaurantsData } from '../../utils/dataFetcher';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
+import { trackButtonClick, trackNavigation, trackPOIView } from '../../utils/analytics';
 
 const FeaturedRestaurants = ({ initialState }) => {
   const location = useLocation();
@@ -68,6 +69,9 @@ const FeaturedRestaurants = ({ initialState }) => {
   }, [language, hubConfig.pageLanding.naviagtion]);
   
   const handleBack = () => {
+    trackButtonClick('back_button', 'featured_restaurants');
+    trackNavigation('featured_restaurants', 'hub_landing', 'back_button');
+    
     // Preserve query parameters when navigating back and include language code
     navigate({
       pathname: `/${language}`,
@@ -144,6 +148,10 @@ const FeaturedRestaurants = ({ initialState }) => {
                 }
               }}
               onClick={() => {
+                // Track restaurant view before navigation
+                trackPOIView(restaurant.id, 'restaurant', language);
+                trackNavigation('featured_restaurants', 'restaurant_detail', 'restaurant_click');
+                
                 navigate(`/${language}/restaurant/${restaurant.id}`, {
                   state: { restaurants, clientInfo: passedClientInfo } // Pass the original clientInfo if needed by detail page
                 });

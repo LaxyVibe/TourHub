@@ -3,32 +3,192 @@
         "id": 3,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-05T14:22:29.368Z",
-        "updatedAt": "2025-06-05T14:22:29.368Z",
-        "publishedAt": "2025-06-05T14:22:29.288Z",
+        "updatedAt": "2025-06-08T10:19:30.447Z",
+        "publishedAt": "2025-06-08T10:03:11.290Z",
         "locale": "ja",
         "universalConfig": {
-            "id": 17,
+            "id": 63,
             "releasedLanguages": [
                 {
-                    "id": 96,
+                    "id": 244,
                     "label": "English",
-                    "value": "en"
+                    "value": null
                 },
                 {
-                    "id": 97,
+                    "id": 245,
+                    "label": "繁體中文",
+                    "value": null
+                },
+                {
+                    "id": 246,
+                    "label": "简体中文",
+                    "value": null
+                },
+                {
+                    "id": 247,
+                    "label": "日本語",
+                    "value": null
+                },
+                {
+                    "id": 248,
+                    "label": "한국어",
+                    "value": null
+                }
+            ]
+        },
+        "globalComponent": {
+            "id": 5,
+            "readMoreLabel": "続きを読む",
+            "speechButton": {
+                "id": 192,
+                "label": null,
+                "icon": {
+                    "id": 63,
+                    "documentId": "w5hhfct4vzp7xr2j7qfsz052",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/volume_05_2ef55b9626.svg"
+                }
+            }
+        },
+        "header": {
+            "id": 5,
+            "leftRoute": null,
+            "rightRoute": null,
+            "leftIcon": null,
+            "rightIcon": null
+        },
+        "pageLanding": {
+            "id": 5,
+            "recommendationHeading": null,
+            "naviagtion": [
+                {
+                    "id": 177,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 178,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 179,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 180,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 181,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 182,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                }
+            ]
+        },
+        "pageLanguage": {
+            "id": 5,
+            "heading": null,
+            "applyButton": {
+                "id": 183,
+                "label": null
+            }
+        },
+        "pageSearch": {
+            "id": 10,
+            "searchInputPlaceholder": null,
+            "defaultListHeading": null,
+            "highlightedListHeading": "もっと",
+            "defaultList": [
+                {
+                    "id": 184,
+                    "label": "温泉",
+                    "value": null
+                },
+                {
+                    "id": 185,
                     "label": null,
                     "value": null
                 }
             ]
         },
-        "globalComponent": null,
-        "header": null,
-        "pageLanding": null,
-        "pageLanguage": null,
-        "pageSearch": null,
-        "pageInfo": null,
-        "pageWiFi": null,
-        "pagPoiDetail": null
+        "pageInfo": {
+            "id": 9,
+            "heading": null,
+            "navigation": [
+                {
+                    "id": 186,
+                    "label": "住所",
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 187,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 188,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 189,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 190,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                },
+                {
+                    "id": 191,
+                    "label": null,
+                    "route": null,
+                    "icon": null
+                }
+            ]
+        },
+        "pageWiFi": {
+            "id": 7,
+            "scanQRButton": {
+                "id": 193,
+                "label": null
+            },
+            "clipboardButton": {
+                "id": 194,
+                "label": null
+            },
+            "showQRButton": {
+                "id": 195,
+                "label": null
+            }
+        },
+        "pagPoiDetail": {
+            "id": 8,
+            "recommendationHeading": null,
+            "highlightHeading": null,
+            "addressIcon": null,
+            "urlIcon": null,
+            "dialIcon": null
+        }
     },
     "meta": {}
 }

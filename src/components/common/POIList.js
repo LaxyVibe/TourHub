@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useLanguage } from '../../context/LanguageContext';
 import GlobalHeader from '../common/GlobalHeader';
+import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/analytics';
 
 /**
  * Reusable POI List component for displaying restaurants, attractions, search results, etc.
@@ -41,6 +42,9 @@ const POIList = ({
   const navigate = useNavigate();
 
   const handleBack = () => {
+    trackButtonClick('back_button', `poi_list_${type}`);
+    trackNavigation(`poi_list_${type}`, 'suite', 'back_button');
+    
     if (onBackClick) {
       onBackClick();
     } else {
@@ -49,13 +53,20 @@ const POIList = ({
   };
 
   const handlePOIClick = (poi) => {
+    // Track POI view
+    trackPOIView(poi.slug || poi.id, poi.type || type, language);
+    trackButtonClick(`poi_${poi.slug || poi.id}`, `poi_list_${type}`);
+    
     // Navigate based on POI type
     if (poi.type === 'tour') {
+      trackNavigation(`poi_list_${type}`, 'tour', 'poi_click');
       navigate(`/${language}/join/${poi.slug}`);
     } else if (poi.slug) {
       // Navigate to POI detail page using suiteId and slug
+      trackNavigation(`poi_list_${type}`, 'poi_detail', 'poi_click');
       navigate(`/${language}/${suiteId}/poi/${poi.slug}`);
     } else if (poi.externalURL) {
+      trackButtonClick('external_link', `poi_${poi.slug || poi.id}`);
       window.open(poi.externalURL, '_blank');
     } else {
       console.log('POI details:', poi);
