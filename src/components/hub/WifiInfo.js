@@ -21,6 +21,7 @@ import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const WifiInfo = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -67,8 +68,8 @@ const WifiInfo = () => {
   // If we don't have any wifi info, display a message
   if (!wifiNetworks || wifiNetworks.length === 0) {
     return (
-      <Container maxWidth="md">
-        <Box sx={{ my: 4 }}>
+      <Container {...PAGE_LAYOUTS.WifiInfo}>
+        <Box sx={{ ...CONTENT_PADDING.standard }}>
           <IconButton onClick={handleBack} sx={{ mb: 2 }}>
             <ArrowBackIcon />
           </IconButton>
@@ -79,8 +80,8 @@ const WifiInfo = () => {
   }
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4 }}>
+    <Container {...PAGE_LAYOUTS.WifiInfo}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
         <IconButton onClick={handleBack} sx={{ mb: 2 }}>
           <ArrowBackIcon />
         </IconButton>

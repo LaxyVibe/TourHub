@@ -14,6 +14,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { setCookie } from '../utils/cookieUtils';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import GlobalHeader from './common/GlobalHeader';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 
 const LanguagePage = () => {
   const { language, setLanguage } = useLanguage();
@@ -58,13 +59,13 @@ const LanguagePage = () => {
   };
   
   return (
-    <Container sx={{ px: 0, pb: 4, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <Container {...PAGE_LAYOUTS.LanguagePage}>
       <GlobalHeader title={heading} showBackButton={true} />
       
       <Paper 
         elevation={0} 
         sx={{ 
-          p: 3, 
+          ...CONTENT_PADDING.standard,
           flexGrow: 1, 
           display: 'flex', 
           flexDirection: 'column' 

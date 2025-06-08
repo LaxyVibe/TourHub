@@ -24,6 +24,7 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const FeaturedTours = ({ initialState }) => {
   const location = useLocation();
@@ -53,8 +54,9 @@ const FeaturedTours = ({ initialState }) => {
   };
   
   return (
-    <Container maxWidth="sm" sx={{ py: 2, px: { xs: 2, sm: 3 }, pt: { xs: 2, sm: 3 } }}>
-      <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
+    <Container {...PAGE_LAYOUTS.FeaturedTours}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
+        <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
         <IconButton 
           edge="start" 
           onClick={handleBack} 
@@ -251,6 +253,7 @@ const FeaturedTours = ({ initialState }) => {
         >
           Tour schedules and availability are subject to change.
         </Typography>
+      </Box>
       </Box>
     </Container>
   );

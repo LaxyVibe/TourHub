@@ -12,6 +12,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { fetchClientInfo } from '../config/clients/hubClients';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import { getAllSuites } from '../utils/suiteUtils';
+import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 
 // ISO language codes to display names mapping for backward compatibility
 const languageCodeToName = {
@@ -110,18 +111,19 @@ const HubLanding = ({ clientInfo: initialClientInfo }) => {
   const sectionLabels = translations[currentLanguage];
 
   return (
-    <Container sx={{ pb: 4, px: { xs: 2, sm: 3 }, pt: 3 }}>
-      <Paper elevation={3} sx={{ mb: 3, p: 3, borderRadius: 2, position: 'relative' }}>
-        <Typography variant="h4" sx={{ mb: 1, textAlign: 'center' }}>
-          {hubConfig?.pageLanding?.title || clientInfo?.title || 'Suite Selection'}
-        </Typography>
-        <Typography variant="h6" sx={{ mb: 1 }}>
-          {sectionLabels.availableSuites}
-        </Typography>
-        <Typography variant="body2" sx={{ mb: 2 }}>
-          {sectionLabels.suiteDescription}
-        </Typography>
-      </Paper>
+    <Container {...PAGE_LAYOUTS.HubLanding}>
+      <Box sx={{ ...CONTENT_PADDING.standard }}>
+        <Paper elevation={3} sx={{ mb: 3, p: 3, borderRadius: 2, position: 'relative' }}>
+          <Typography variant="h4" sx={{ mb: 1, textAlign: 'center' }}>
+            {hubConfig?.pageLanding?.title || clientInfo?.title || 'Suite Selection'}
+          </Typography>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            {sectionLabels.availableSuites}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {sectionLabels.suiteDescription}
+          </Typography>
+        </Paper>
 
       <Box sx={{ mb: 3 }}>
         <Grid container spacing={2}>
@@ -164,6 +166,7 @@ const HubLanding = ({ clientInfo: initialClientInfo }) => {
             </Grid>
           ))}
         </Grid>
+      </Box>
       </Box>
     </Container>
   );
