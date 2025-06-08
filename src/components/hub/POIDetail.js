@@ -26,7 +26,7 @@ import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import AddressDisplay from '../common/AddressDisplay';
 import poiRecommendationsData from '../../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
-import { trackButtonClick, trackNavigation, trackContentInteraction, trackExternalLink } from '../../utils/analytics';
+import { trackButtonClick, trackNavigation, trackContentInteraction } from '../../utils/analytics';
 
 // Function to dynamically load suite data for native language POI details
 const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
@@ -155,11 +155,6 @@ const POIDetail = () => {
     navigate(`/${language}/${suiteId}`);
   };
 
-  const handleExternalLink = (url, linkType = 'external_link') => {
-    trackExternalLink(url, poi?.type || 'poi', poi?.slug || poiSlug);
-    trackButtonClick(linkType, 'poi_detail');
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
 
   if (loading) {
     return (
