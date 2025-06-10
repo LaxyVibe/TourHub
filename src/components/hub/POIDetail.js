@@ -8,25 +8,24 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  IconButton,
   Rating,
   Chip,
   Divider,
   Button,
   CircularProgress
 } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useParams } from 'react-router-dom';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import AttractionIcon from '@mui/icons-material/Place';
+import PageHeader from '../common/PageHeader';
 import { useLanguage } from '../../context/LanguageContext';
 import { getPOIsByType } from '../../utils/dataFetcher';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import AddressDisplay from '../common/AddressDisplay';
 import poiRecommendationsData from '../../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
-import { trackButtonClick, trackNavigation, trackContentInteraction } from '../../utils/analytics';
+import { trackNavigation, trackContentInteraction } from '../../utils/analytics';
 
 // Function to dynamically load suite data for native language POI details
 const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
@@ -54,7 +53,6 @@ const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
 
 const POIDetail = () => {
   const { language } = useLanguage();
-  const navigate = useNavigate();
   const { poiSlug, suiteId } = useParams();
   
   const [poi, setPOI] = useState(null);
@@ -144,16 +142,7 @@ const POIDetail = () => {
         audioRef.current.play();
       }
       setIsPlayingAudio(!isPlayingAudio);
-    }
-  };
-  
-  const handleBack = () => {
-    trackButtonClick('back_button', 'poi_detail');
-    trackNavigation('poi_detail', 'suite_page', 'back_button');
-    
-    // Navigate back to the suite page with suiteId
-    navigate(`/${language}/${suiteId}`);
-  };
+    }  };
 
 
   if (loading) {
@@ -167,10 +156,8 @@ const POIDetail = () => {
   if (error) {
     return (
       <Container {...PAGE_LAYOUTS.POIDetail}>
+        <PageHeader title="Error" />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
-            <ArrowBackIcon />
-          </IconButton>
           <Paper elevation={3} sx={{ p: 3, textAlign: 'center', backgroundColor: 'error.light' }}>
             <RestaurantIcon sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
             <Typography variant="h6" color="error.contrastText">Error</Typography>
@@ -184,10 +171,8 @@ const POIDetail = () => {
   if (!poi) {
     return (
       <Container {...PAGE_LAYOUTS.POIDetail}>
+        <PageHeader title="Not Found" />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
-            <ArrowBackIcon />
-          </IconButton>
           <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
             <RestaurantIcon sx={{ fontSize: 60, color: 'text.secondary', mb: 2 }} />
             <Typography variant="h6">Not Found</Typography>
@@ -200,11 +185,8 @@ const POIDetail = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.POIDetail}>
+      <PageHeader title={poi.label} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <IconButton onClick={handleBack} aria-label="back" sx={{ mb: 2 }}>
-        <ArrowBackIcon />
-      </IconButton>
-
       <Paper elevation={3} sx={{ borderRadius: 2, overflow: 'hidden' }}>
         {/* Cover Photo */}
         {poi.coverPhoto && (

@@ -32,12 +32,6 @@ const StayInfo = () => {
   const firstSlideImage = suiteData?.details?.data?.[0]?.slider?.[0]?.url;
   const suiteLabel = suiteData?.details?.data?.[0]?.label;
   
-  const handleBack = () => {
-    trackButtonClick('back_button', 'stay_info');
-    trackNavigation('stay_info', 'suite_landing', 'back_button');
-    navigate(`/${language}/${suiteId}`);
-  };
-
   const handleNavigationClick = (route) => {
     trackButtonClick(`info_${route.replace('/', '_')}`, 'stay_info');
     trackNavigation('stay_info', 'info_detail', 'info_navigation');
@@ -51,7 +45,7 @@ const StayInfo = () => {
   if (!pageInfo) {
     return (
       <Container {...PAGE_LAYOUTS.StayInfo}>
-        <PageHeader title="Stay Information" onBack={handleBack} />
+        <PageHeader title="Stay Information" />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
           <Typography variant="h6">Page configuration not found</Typography>
         </Box>
@@ -61,7 +55,7 @@ const StayInfo = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.StayInfo}>
-      <PageHeader title="Stay Information" onBack={handleBack} />
+      <PageHeader title="Stay Information" />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
 
         {/* Header section with background image */}

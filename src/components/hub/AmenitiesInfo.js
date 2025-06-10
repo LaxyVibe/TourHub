@@ -5,7 +5,7 @@ import {
   Typography,
   Box
 } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import PageHeader from '../common/PageHeader';
 import HotelIcon from '@mui/icons-material/Hotel';
 import { useLanguage } from '../../context/LanguageContext';
@@ -13,16 +13,11 @@ import { getSuiteData } from '../../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const AmenitiesInfo = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const { language } = useLanguage();
   
   const suiteId = params.suiteId;
   
-  const handleBack = () => {
-    navigate(`/${language}/${suiteId}/info`);
-  };
-
   // Get suite data
   const suiteData = getSuiteData(suiteId, language);
   const suite = suiteData?.details?.data?.[0];
@@ -30,7 +25,7 @@ const AmenitiesInfo = () => {
   if (!suite) {
     return (
       <Container {...PAGE_LAYOUTS.AmenitiesInfo}>
-        <PageHeader title="Amenities" onBack={handleBack} />
+        <PageHeader title="Amenities" />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
           <Typography variant="h6">Suite information not found</Typography>
         </Box>
@@ -40,7 +35,7 @@ const AmenitiesInfo = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.AmenitiesInfo}>
-      <PageHeader title="Amenities" onBack={handleBack} />
+      <PageHeader title="Amenities" />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
 
         <Typography variant="h4" component="h1" gutterBottom>

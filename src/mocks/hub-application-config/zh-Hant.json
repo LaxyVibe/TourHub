@@ -3,36 +3,36 @@
         "id": 2,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-01T07:01:43.169Z",
-        "updatedAt": "2025-06-10T05:25:23.293Z",
+        "updatedAt": "2025-06-10T06:49:31.089Z",
         "publishedAt": "2025-06-10T05:20:12.426Z",
         "locale": "zh-Hant",
         "universalConfig": {
-            "id": 262,
+            "id": 266,
             "releasedLanguages": [
                 {
-                    "id": 1239,
+                    "id": 1259,
                     "label": "English",
-                    "value": null
+                    "value": "en"
                 },
                 {
-                    "id": 1240,
+                    "id": 1260,
                     "label": "繁體中文",
-                    "value": null
+                    "value": "zh-Hant"
                 },
                 {
-                    "id": 1241,
+                    "id": 1261,
                     "label": "简体中文",
-                    "value": null
+                    "value": "zh-Hans"
                 },
                 {
-                    "id": 1242,
+                    "id": 1262,
                     "label": "日本語",
-                    "value": null
+                    "value": "ja"
                 },
                 {
-                    "id": 1243,
+                    "id": 1263,
                     "label": "한국어",
-                    "value": null
+                    "value": "ko"
                 }
             ]
         },

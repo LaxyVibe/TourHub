@@ -3,11 +3,10 @@ import {
   Container,
   Paper,
   Typography,
-  Box,
-  IconButton
+  Box
 } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useParams } from 'react-router-dom';
+import PageHeader from '../common/PageHeader';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
@@ -15,15 +14,10 @@ import AddressDisplay from '../common/AddressDisplay';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const AddressInfo = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const { language } = useLanguage();
   
   const suiteId = params.suiteId;
-
-  const handleBack = () => {
-    navigate(`/${language}/${suiteId}/info`);
-  };
 
   // Get suite data in current language
   const suiteData = getSuiteData(suiteId, language);
@@ -35,10 +29,8 @@ const AddressInfo = () => {
   if (!suite) {
     return (
       <Container {...PAGE_LAYOUTS.AddressInfo}>
+        <PageHeader title="Address" />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-            <ArrowBackIcon />
-          </IconButton>
           <Typography variant="h6">Suite information not found</Typography>
         </Box>
       </Container>
@@ -47,10 +39,8 @@ const AddressInfo = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.AddressInfo}>
+      <PageHeader title="Address" />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
 
         <Typography variant="h4" component="h1" gutterBottom>
           Address
