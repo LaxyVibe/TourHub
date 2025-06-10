@@ -21,7 +21,6 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PaidIcon from '@mui/icons-material/Paid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DirectionsIcon from '@mui/icons-material/Directions';
@@ -31,6 +30,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { trackButtonClick, trackNavigation, trackShare, trackEngagement } from '../utils/analytics';
 import LanguageSelector from './common/LanguageSelector';
+import PageHeader from './common/PageHeader';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import PublicIcon from '@mui/icons-material/Public';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
@@ -234,14 +234,11 @@ function PlaceLanding({ clientInfo }) {
 
   return (
     <Container {...PAGE_LAYOUTS.PlaceLanding}>
+      <PageHeader title={clientInfo?.title || 'Place Details'} onBack={handleBack} />
+      
       <Box sx={{ ...CONTENT_PADDING.standard, pb: 8 }}>
-        {/* Header with back button and actions */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, pb: 1 }}>
-        <IconButton edge="start" aria-label="back" onClick={handleBack}>
-          <ArrowBackIosNewIcon />
-        </IconButton>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Language selector */}
+        {/* Action buttons */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mb: 2 }}>
           <Box sx={{ mr: 1 }}>
             <LanguageSelector />
           </Box>
@@ -256,7 +253,6 @@ function PlaceLanding({ clientInfo }) {
             <FavoriteIcon />
           </IconButton>
         </Box>
-      </Box>
       
       {/* Main Image */}
       <Paper 

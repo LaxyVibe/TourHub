@@ -4,16 +4,17 @@ import {
   IconButton,
   Typography 
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { trackButtonClick, trackNavigation } from '../../utils/analytics';
 
 /**
- * Global Header component used across the application
- * Shows navigation icons and handles routing
+ * Suite Landing Header component used specifically for SuiteLanding page
+ * Shows navigation icons and handles routing for suite-specific functionality
  */
-const GlobalHeader = ({ title, showBackButton = false, suiteId = null }) => {
+const SuiteLandingHeader = ({ title, showBackButton = false, suiteId = null }) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const hubConfig = getHubConfigByLanguage(language);
@@ -104,15 +105,19 @@ const GlobalHeader = ({ title, showBackButton = false, suiteId = null }) => {
         sx={{ p: 1 }}
       >
         {showBackButton ? (
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="#333333"/>
-          </svg>
+          <ArrowBackIcon 
+            sx={{ 
+              width: 36, 
+              height: 36, 
+              color: '#333333' 
+            }} 
+          />
         ) : (
           <Box 
             component="img" 
             src={leftIcon} 
             alt="Language" 
-            sx={{ width: 24, height: 24 }} 
+            sx={{ width: 36, height: 36 }} 
           />
         )}
       </IconButton>
@@ -123,8 +128,9 @@ const GlobalHeader = ({ title, showBackButton = false, suiteId = null }) => {
           variant="h6" 
           component="h1"
           sx={{ 
-            fontFamily: 'serif', 
-            fontWeight: 500, 
+            fontFamily: '"Playfair Display", serif',
+            fontSize: '32px',
+            fontWeight: 900, 
             color: '#3B7B7B', 
             flexGrow: 1, 
             textAlign: 'center' 
@@ -143,11 +149,11 @@ const GlobalHeader = ({ title, showBackButton = false, suiteId = null }) => {
           component="img" 
           src={rightIcon} 
           alt="Search" 
-          sx={{ width: 24, height: 24 }} 
+          sx={{ width: 36, height: 36 }} 
         />
       </IconButton>
     </Box>
   );
 };
 
-export default GlobalHeader;
+export default SuiteLandingHeader;

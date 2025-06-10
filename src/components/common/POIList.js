@@ -13,7 +13,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useLanguage } from '../../context/LanguageContext';
-import GlobalHeader from '../common/GlobalHeader';
+import PageHeader from '../common/PageHeader';
 import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/analytics';
 
 /**
@@ -25,7 +25,7 @@ import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/ana
  * @param {string} props.subtitle - Page subtitle (optional)
  * @param {string} props.type - Type of POIs ('restaurant', 'attraction', 'result', etc.)
  * @param {string} props.suiteId - Suite ID for navigation
- * @param {boolean} props.showHeader - Whether to show the GlobalHeader (default: true)
+ * @param {boolean} props.showHeader - Whether to show the PageHeader (default: true)
  * @param {Function} props.onBackClick - Custom back click handler (optional)
  * @returns {JSX.Element} The POI list component
  */
@@ -40,17 +40,6 @@ const POIList = ({
 }) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
-
-  const handleBack = () => {
-    trackButtonClick('back_button', `poi_list_${type}`);
-    trackNavigation(`poi_list_${type}`, 'suite', 'back_button');
-    
-    if (onBackClick) {
-      onBackClick();
-    } else {
-      navigate(`/${language}/${suiteId}`);
-    }
-  };
 
   const handlePOIClick = (poi) => {
     // Track POI view
@@ -76,11 +65,8 @@ const POIList = ({
   return (
     <Container sx={{ pb: 4, px: { xs: 0, sm: 0 }, pt: 0 }}>
       {showHeader && (
-        <GlobalHeader 
-          title={title} 
-          suiteId={suiteId}
-          showBackButton={true}
-          onBackClick={handleBack}
+        <PageHeader 
+          title={title}
         />
       )}
       

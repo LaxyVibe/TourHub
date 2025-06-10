@@ -3,34 +3,34 @@
         "id": 4,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-08T05:22:12.357Z",
-        "updatedAt": "2025-06-08T10:19:30.463Z",
-        "publishedAt": "2025-06-08T09:56:09.473Z",
+        "updatedAt": "2025-06-10T05:25:23.259Z",
+        "publishedAt": "2025-06-10T05:25:08.360Z",
         "locale": "zh-Hans",
         "universalConfig": {
-            "id": 66,
+            "id": 259,
             "releasedLanguages": [
                 {
-                    "id": 259,
+                    "id": 1224,
                     "label": "English",
                     "value": null
                 },
                 {
-                    "id": 260,
+                    "id": 1225,
                     "label": "繁體中文",
                     "value": null
                 },
                 {
-                    "id": 261,
+                    "id": 1226,
                     "label": "简体中文",
                     "value": null
                 },
                 {
-                    "id": 262,
+                    "id": 1227,
                     "label": "日本語",
                     "value": null
                 },
                 {
-                    "id": 263,
+                    "id": 1228,
                     "label": "한국어",
                     "value": null
                 }
@@ -38,110 +38,158 @@
         },
         "globalComponent": {
             "id": 3,
-            "readMoreLabel": "更多",
+            "readMoreLabel": "阅读更多",
             "speechButton": {
                 "id": 138,
-                "label": null,
-                "icon": null
+                "label": "用当地语言朗读",
+                "icon": {
+                    "id": 63,
+                    "documentId": "w5hhfct4vzp7xr2j7qfsz052",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/volume_05_2ef55b9626.svg"
+                }
             }
         },
         "header": {
             "id": 3,
-            "leftRoute": null,
-            "rightRoute": null,
-            "leftIcon": null,
-            "rightIcon": null
+            "leftRoute": "/language",
+            "rightRoute": "/search",
+            "leftIcon": {
+                "id": 71,
+                "documentId": "cus9yi3ew8tbzrgo8kahnw1w",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/language_22b3130411.svg"
+            },
+            "rightIcon": {
+                "id": 72,
+                "documentId": "wa48s986jixukulj4wgw4ch8",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/Thin_f701b47deb.svg"
+            }
         },
         "pageLanding": {
             "id": 3,
-            "recommendationHeading": null,
+            "recommendationHeading": "我们的推荐",
             "naviagtion": [
                 {
                     "id": 132,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "资讯",
+                    "route": "/info",
+                    "icon": {
+                        "id": 66,
+                        "documentId": "yl0sgdoax941x0d0u45d9vkx",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_43_f8dc38bc4f.svg"
+                    }
                 },
                 {
                     "id": 133,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "Wi-Fi",
+                    "route": "/info/wifi",
+                    "icon": {
+                        "id": 69,
+                        "documentId": "dle3bydt73mugd09n5ojhfq9",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/wifi_02_73a29027af.svg"
+                    }
                 },
                 {
                     "id": 134,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "景点",
+                    "route": "/nearby-attractions",
+                    "icon": {
+                        "id": 67,
+                        "documentId": "lwf61c4etel3lfotwdgdjgi0",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_09_eb4e0d6717.svg"
+                    }
                 },
                 {
                     "id": 135,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "饮食",
+                    "route": "/nearby-restaurants",
+                    "icon": {
+                        "id": 70,
+                        "documentId": "hyy0o5jdbx0822n8o1tjtong",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_24_4dc49182d3.svg"
+                    }
                 },
                 {
                     "id": 136,
-                    "label": null,
-                    "route": null,
+                    "label": "导览团",
+                    "route": "/tours",
                     "icon": null
                 }
             ]
         },
         "pageLanguage": {
             "id": 3,
-            "heading": "Language Setting",
+            "heading": "语言",
             "applyButton": {
                 "id": 143,
-                "label": null
+                "label": "选择语言"
             }
         },
         "pageSearch": {
             "id": 8,
-            "searchInputPlaceholder": null,
-            "defaultListHeading": null,
-            "highlightedListHeading": "Explore More",
+            "searchInputPlaceholder": "发掘您的下一个体验",
+            "defaultListHeading": "最多搜索",
+            "highlightedListHeading": "我们的推荐",
             "defaultList": [
                 {
                     "id": 137,
-                    "label": null,
+                    "label": "温泉",
                     "value": null
                 }
             ]
         },
         "pageInfo": {
             "id": 7,
-            "heading": "Room Information",
+            "heading": "房间信息",
             "navigation": [
                 {
                     "id": 144,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "地址",
+                    "route": "/info/address",
+                    "icon": {
+                        "id": 58,
+                        "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
+                    }
                 },
                 {
                     "id": 145,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "入住 & 退房",
+                    "route": "/info/check-in-out",
+                    "icon": {
+                        "id": 65,
+                        "documentId": "dl1idjts06zs4qnnii4f5be9",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/clock_01_9052f2670b.svg"
+                    }
                 },
                 {
                     "id": 146,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "房间规则",
+                    "route": "/info/house-rules",
+                    "icon": {
+                        "id": 62,
+                        "documentId": "m14shdcw32422vw3nyp4dny0",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/book_03_22c6b5ad3e.svg"
+                    }
                 },
                 {
                     "id": 147,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "设施",
+                    "route": "/info/amenities",
+                    "icon": {
+                        "id": 59,
+                        "documentId": "jcq574qfdexe1lqxdsjq9f47",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Group_e68ebd5f71.svg"
+                    }
                 },
                 {
                     "id": 148,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "常见问题",
+                    "route": "/info/faq",
+                    "icon": {
+                        "id": 68,
+                        "documentId": "pupmn6p3u0wt8szrlecxj93x",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/interface_help_question_circle_circle_faq_frame_help_info_mark_more_query_question_Streamline_Core_965885ab4b.svg"
+                    }
                 }
             ]
         },
@@ -149,24 +197,36 @@
             "id": 5,
             "scanQRButton": {
                 "id": 149,
-                "label": null
+                "label": "扫描 QR 码连接"
             },
             "clipboardButton": {
                 "id": 150,
-                "label": null
+                "label": "复制密码"
             },
             "showQRButton": {
                 "id": 151,
-                "label": null
+                "label": "显示 QR 码以供分享"
             }
         },
         "pagPoiDetail": {
             "id": 6,
             "recommendationHeading": null,
-            "highlightHeading": null,
-            "addressIcon": null,
-            "urlIcon": null,
-            "dialIcon": null
+            "highlightHeading": "精选亮点",
+            "addressIcon": {
+                "id": 58,
+                "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
+            },
+            "urlIcon": {
+                "id": 56,
+                "documentId": "ooea7o2z2dixe3xym0r3j7m4",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791018/globe_03_e1437b2ed1.svg"
+            },
+            "dialIcon": {
+                "id": 60,
+                "documentId": "t6ezztx2wxerlwrfsxwua9kn",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/phone_124278a2aa.svg"
+            }
         }
     },
     "meta": {}

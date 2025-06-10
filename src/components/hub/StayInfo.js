@@ -8,11 +8,10 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  IconButton,
   Avatar
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PageHeader from '../common/PageHeader';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
@@ -52,10 +51,8 @@ const StayInfo = () => {
   if (!pageInfo) {
     return (
       <Container {...PAGE_LAYOUTS.StayInfo}>
+        <PageHeader title="Stay Information" onBack={handleBack} />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-            <ArrowBackIcon />
-          </IconButton>
           <Typography variant="h6">Page configuration not found</Typography>
         </Box>
       </Container>
@@ -64,10 +61,8 @@ const StayInfo = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.StayInfo}>
+      <PageHeader title="Stay Information" onBack={handleBack} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
 
         {/* Header section with background image */}
         <Paper 

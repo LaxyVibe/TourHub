@@ -20,12 +20,12 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LanguageIcon from '@mui/icons-material/Language';
 import StarIcon from '@mui/icons-material/Star';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ShareIcon from '@mui/icons-material/Share';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import LanguageSelector from './common/LanguageSelector';
+import PageHeader from './common/PageHeader';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackButtonClick, trackNavigation, trackShare, trackEngagement } from '../utils/analytics';
 
@@ -187,14 +187,11 @@ function TourLanding({ clientInfo }) {
 
   return (
     <Container {...PAGE_LAYOUTS.TourLanding}>
+      <PageHeader title={clientInfo?.title || 'Tour Details'} onBack={handleBack} />
+      
       <Box sx={{ ...CONTENT_PADDING.standard, pb: 6 }}>
-        {/* Header with back button and actions */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, pb: 1 }}>
-        <IconButton edge="start" aria-label="back" onClick={handleBack}>
-          <ArrowBackIosNewIcon />
-        </IconButton>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          {/* Language selector */}
+        {/* Action buttons */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', mb: 2 }}>
           <Box sx={{ mr: 1 }}>
             <LanguageSelector />
           </Box>
@@ -209,7 +206,6 @@ function TourLanding({ clientInfo }) {
             <FavoriteIcon />
           </IconButton>
         </Box>
-      </Box>
       
       {/* Hub Comment Alert - Only shown when there's a comment for this tour in the hubCommentsToTours */}
       {clientInfo.hubCommentsToTours && 

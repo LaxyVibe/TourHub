@@ -3,11 +3,10 @@ import {
   Container,
   Paper,
   Typography,
-  Box,
-  IconButton
+  Box
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PageHeader from '../common/PageHeader';
 import HotelIcon from '@mui/icons-material/Hotel';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
@@ -31,10 +30,8 @@ const AmenitiesInfo = () => {
   if (!suite) {
     return (
       <Container {...PAGE_LAYOUTS.AmenitiesInfo}>
+        <PageHeader title="Amenities" onBack={handleBack} />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-            <ArrowBackIcon />
-          </IconButton>
           <Typography variant="h6">Suite information not found</Typography>
         </Box>
       </Container>
@@ -43,10 +40,8 @@ const AmenitiesInfo = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.AmenitiesInfo}>
+      <PageHeader title="Amenities" onBack={handleBack} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
 
         <Typography variant="h4" component="h1" gutterBottom>
           Amenities

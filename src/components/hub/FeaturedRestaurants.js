@@ -8,14 +8,13 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
-  IconButton,
   Rating,
   Chip,
   Divider,
   CircularProgress
 } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PageHeader from '../common/PageHeader';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -81,26 +80,17 @@ const FeaturedRestaurants = ({ initialState }) => {
   
   return (
     <Container {...PAGE_LAYOUTS.FeaturedRestaurants}>
+      <PageHeader 
+        title={pageTitle || hubConfig.pageLanding.naviagtion[3].label} 
+        onBack={handleBack} 
+      />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-        <IconButton 
-          edge="start" 
-          onClick={handleBack} 
-          sx={{ mr: 2 }}
-          aria-label="back"
-        >
-          <ArrowBackIcon />
-        </IconButton>
-        <Typography variant="h5" component="h1" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          {pageTitle || hubConfig.pageLanding.naviagtion[3].label}
-        </Typography>
-      </Box>
       
       {pageSubtitle && (
         <Typography 
           variant="subtitle1" 
           color="text.secondary" 
-          sx={{ mb: 2, mt: -1 }}
+          sx={{ mb: 2 }}
         >
           {pageSubtitle}
         </Typography>

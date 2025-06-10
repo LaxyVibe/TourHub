@@ -3,34 +3,34 @@
         "id": 3,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-05T14:22:29.368Z",
-        "updatedAt": "2025-06-08T10:19:30.447Z",
-        "publishedAt": "2025-06-08T10:03:11.290Z",
+        "updatedAt": "2025-06-10T05:25:23.264Z",
+        "publishedAt": "2025-06-10T05:24:56.187Z",
         "locale": "ja",
         "universalConfig": {
-            "id": 63,
+            "id": 260,
             "releasedLanguages": [
                 {
-                    "id": 244,
+                    "id": 1234,
                     "label": "English",
                     "value": null
                 },
                 {
-                    "id": 245,
+                    "id": 1235,
                     "label": "繁體中文",
                     "value": null
                 },
                 {
-                    "id": 246,
+                    "id": 1236,
                     "label": "简体中文",
                     "value": null
                 },
                 {
-                    "id": 247,
+                    "id": 1237,
                     "label": "日本語",
                     "value": null
                 },
                 {
-                    "id": 248,
+                    "id": 1238,
                     "label": "한국어",
                     "value": null
                 }
@@ -38,10 +38,10 @@
         },
         "globalComponent": {
             "id": 5,
-            "readMoreLabel": "続きを読む",
+            "readMoreLabel": "もっと読む",
             "speechButton": {
                 "id": 192,
-                "label": null,
+                "label": "現地の言語で話す",
                 "icon": {
                     "id": 63,
                     "documentId": "w5hhfct4vzp7xr2j7qfsz052",
@@ -51,66 +51,84 @@
         },
         "header": {
             "id": 5,
-            "leftRoute": null,
-            "rightRoute": null,
-            "leftIcon": null,
-            "rightIcon": null
+            "leftRoute": "/language",
+            "rightRoute": "/search",
+            "leftIcon": {
+                "id": 71,
+                "documentId": "cus9yi3ew8tbzrgo8kahnw1w",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/language_22b3130411.svg"
+            },
+            "rightIcon": {
+                "id": 72,
+                "documentId": "wa48s986jixukulj4wgw4ch8",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/Thin_f701b47deb.svg"
+            }
         },
         "pageLanding": {
             "id": 5,
-            "recommendationHeading": null,
+            "recommendationHeading": "おすすめ",
             "naviagtion": [
                 {
                     "id": 177,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "情報",
+                    "route": "/info",
+                    "icon": {
+                        "id": 66,
+                        "documentId": "yl0sgdoax941x0d0u45d9vkx",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_43_f8dc38bc4f.svg"
+                    }
                 },
                 {
                     "id": 178,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "Wi-Fi",
+                    "route": "/info/wifi",
+                    "icon": {
+                        "id": 69,
+                        "documentId": "dle3bydt73mugd09n5ojhfq9",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/wifi_02_73a29027af.svg"
+                    }
                 },
                 {
                     "id": 179,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "観光スポット",
+                    "route": "/nearby-attractions",
+                    "icon": {
+                        "id": 67,
+                        "documentId": "lwf61c4etel3lfotwdgdjgi0",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_09_eb4e0d6717.svg"
+                    }
                 },
                 {
                     "id": 180,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "レストラン・カフェ",
+                    "route": "/nearby-restaurants",
+                    "icon": {
+                        "id": 70,
+                        "documentId": "hyy0o5jdbx0822n8o1tjtong",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_24_4dc49182d3.svg"
+                    }
                 },
                 {
                     "id": 181,
-                    "label": null,
-                    "route": null,
-                    "icon": null
-                },
-                {
-                    "id": 182,
-                    "label": null,
-                    "route": null,
+                    "label": "ツアー",
+                    "route": "/tours",
                     "icon": null
                 }
             ]
         },
         "pageLanguage": {
             "id": 5,
-            "heading": null,
+            "heading": "言語",
             "applyButton": {
                 "id": 183,
-                "label": null
+                "label": "言語を選択"
             }
         },
         "pageSearch": {
             "id": 10,
-            "searchInputPlaceholder": null,
-            "defaultListHeading": null,
-            "highlightedListHeading": "もっと",
+            "searchInputPlaceholder": "次の体験を見つけよう",
+            "defaultListHeading": "人気の検索",
+            "highlightedListHeading": "おすすめ",
             "defaultList": [
                 {
                     "id": 184,
@@ -126,43 +144,53 @@
         },
         "pageInfo": {
             "id": 9,
-            "heading": null,
+            "heading": "客室情報",
             "navigation": [
                 {
                     "id": 186,
                     "label": "住所",
-                    "route": null,
+                    "route": "/info/address",
                     "icon": null
                 },
                 {
                     "id": 187,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "チェックイン & チェックアウト",
+                    "route": "/info/check-in-out",
+                    "icon": {
+                        "id": 65,
+                        "documentId": "dl1idjts06zs4qnnii4f5be9",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/clock_01_9052f2670b.svg"
+                    }
                 },
                 {
                     "id": 188,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "ハウスルール",
+                    "route": "/info/house-rules",
+                    "icon": {
+                        "id": 62,
+                        "documentId": "m14shdcw32422vw3nyp4dny0",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/book_03_22c6b5ad3e.svg"
+                    }
                 },
                 {
                     "id": 189,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "アメニティ",
+                    "route": "/info/amenities",
+                    "icon": {
+                        "id": 59,
+                        "documentId": "jcq574qfdexe1lqxdsjq9f47",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Group_e68ebd5f71.svg"
+                    }
                 },
                 {
                     "id": 190,
-                    "label": null,
-                    "route": null,
-                    "icon": null
-                },
-                {
-                    "id": 191,
-                    "label": null,
-                    "route": null,
-                    "icon": null
+                    "label": "よくある質問",
+                    "route": "/info/faq",
+                    "icon": {
+                        "id": 68,
+                        "documentId": "pupmn6p3u0wt8szrlecxj93x",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/interface_help_question_circle_circle_faq_frame_help_info_mark_more_query_question_Streamline_Core_965885ab4b.svg"
+                    }
                 }
             ]
         },
@@ -170,24 +198,36 @@
             "id": 7,
             "scanQRButton": {
                 "id": 193,
-                "label": null
+                "label": "QRコードをスキャンして接続"
             },
             "clipboardButton": {
                 "id": 194,
-                "label": null
+                "label": "パスワードをコピー"
             },
             "showQRButton": {
                 "id": 195,
-                "label": null
+                "label": "共有用のQRコードを表示"
             }
         },
         "pagPoiDetail": {
             "id": 8,
             "recommendationHeading": null,
-            "highlightHeading": null,
-            "addressIcon": null,
-            "urlIcon": null,
-            "dialIcon": null
+            "highlightHeading": "ハイライト",
+            "addressIcon": {
+                "id": 58,
+                "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
+            },
+            "urlIcon": {
+                "id": 56,
+                "documentId": "ooea7o2z2dixe3xym0r3j7m4",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791018/globe_03_e1437b2ed1.svg"
+            },
+            "dialIcon": {
+                "id": 60,
+                "documentId": "t6ezztx2wxerlwrfsxwua9kn",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/phone_124278a2aa.svg"
+            }
         }
     },
     "meta": {}

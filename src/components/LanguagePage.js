@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { setCookie } from '../utils/cookieUtils';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
-import GlobalHeader from './common/GlobalHeader';
+import PageHeader from './common/PageHeader';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackLanguageChange, trackButtonClick, trackNavigation } from '../utils/analytics';
 
@@ -28,12 +28,13 @@ const LanguagePage = () => {
   // Get configuration data for current language
   const hubConfig = getHubConfigByLanguage(language);
   
-  // Extract language page configuration and released languages
+  // Extract language page configuration from current language
   const pageConfig = hubConfig?.data?.pageLanguage || {};
   const heading = pageConfig?.heading || 'Language Setting';
   const applyButtonLabel = pageConfig?.applyButton?.label || 'Apply';
   
   // Get the list of released languages from the universal config
+  // Use the current language's configuration to show the language names in the current language
   const releasedLanguages = hubConfig?.data?.universalConfig?.releasedLanguages || [];
   
   const handleLanguageChange = (event) => {
@@ -46,29 +47,47 @@ const LanguagePage = () => {
   
   const handleApply = () => {
     trackButtonClick('apply_language', 'language_page');
-    trackNavigation('language_page', 'previous_page', 'language_apply');
+    trackNavigation('language_page', 'suite_landing_direct', 'language_apply');
     
     // Store language preference in cookie (30-day expiry)
     setCookie('preferredLanguage', selectedLanguage, 30);
     
-    // Update language in context
-    setLanguage(selectedLanguage);
-    
-    // Signal to GlobalHeader that language has been changed
+    // Signal to PageHeader that language has been changed
     try {
       localStorage.setItem('languageChanged', 'true');
     } catch (e) {
       console.error('Failed to set language changed flag:', e);
     }
     
-    // We'll let the back button in GlobalHeader handle the navigation back
-    // Just to be safe, we'll call navigate(-1) here too
-    navigate(-1);
+    // Extract the suiteId from the current URL path
+    const pathParts = window.location.pathname.split('/');
+    let suiteId = null;
+    
+    // The URL pattern could be /:langCode/:suiteId/language
+    // Find position of current language code in URL
+    const langIndex = pathParts.findIndex(part => part === language);
+    if (langIndex >= 0 && langIndex + 1 < pathParts.length) {
+      // The part after language code should be suiteId
+      suiteId = pathParts[langIndex + 1];
+    }
+    
+    // If we found a suiteId in the URL, directly navigate to the suite landing with new language
+    if (suiteId) {
+      // Update language in context
+      setLanguage(selectedLanguage);
+      
+      // Explicitly navigate to the suite landing page with the new language
+      // Construct the URL as /:newLanguage/:suiteId/
+      navigate(`/${selectedLanguage}/${suiteId}`);
+    } else {
+      // If no suiteId was found, just update the language and let the normal navigation happen
+      setLanguage(selectedLanguage);
+    }
   };
   
   return (
     <Container {...PAGE_LAYOUTS.LanguagePage}>
-      <GlobalHeader title={heading} showBackButton={true} />
+      <PageHeader title={heading} />
       
       <Paper 
         elevation={0} 

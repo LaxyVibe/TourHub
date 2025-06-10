@@ -16,8 +16,9 @@ import AttractionsTwoToneIcon from '@mui/icons-material/AttractionsTwoTone';
 import { useLanguage } from '../context/LanguageContext';
 import Carousel from 'react-material-ui-carousel';
 import { fetchClientInfo } from '../config/clients/hubClients';
-import GlobalHeader from './common/GlobalHeader';
+import SuiteLandingHeader from './common/SuiteLandingHeader';
 import NavigationButton from './common/NavigationButton';
+import WifiDialog from './common/WifiDialog';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import { getSuiteData } from '../utils/suiteUtils';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
@@ -120,6 +121,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   const [loading, setLoading] = useState(!initialClientInfo);
   const [error, setError] = useState(null);
   const [suiteInfo, setSuiteInfo] = useState(null);
+  const [wifiDialogOpen, setWifiDialogOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -154,26 +156,12 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
     }
   }, [initialClientInfo, language, suiteId]);
 
-  // Get route from hub config or fall back to legacy route
+  // Open WiFi dialog instead of navigating to a page
   const handleWifiInfoClick = () => {
     trackButtonClick('wifi_info', 'suite_landing');
-    trackNavigation('suite_landing', 'wifi_info', 'navigation_button');
+    trackNavigation('suite_landing', 'wifi_dialog', 'navigation_button');
     
-    const wifiNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/info/wifi");
-    if (wifiNav) {
-      navigate(`/${language}/${suiteId}${wifiNav.route}`, { 
-        state: { 
-          suiteId,
-          clientInfo: {
-            ...clientInfo,
-            sectionLabels
-          }
-        }
-      });
-    } else {
-      // Fallback to legacy route
-      navigate(`/${suiteId}/${language}/wifi-info`);
-    }
+    setWifiDialogOpen(true);
   };
 
   const handleStayInfoClick = () => {
@@ -341,7 +329,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
 
   return (
     <Container {...PAGE_LAYOUTS.SuiteLanding}>
-      <GlobalHeader title={suiteData?.details?.data?.[0]?.ownedBy?.label} suiteId={suiteId} />
+      <SuiteLandingHeader title={suiteData?.details?.data?.[0]?.ownedBy?.label} suiteId={suiteId} />
       
       <Box sx={{ ...CONTENT_PADDING.standard, pt: 2 }}>
         <>
@@ -352,11 +340,6 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
               alignItems: 'center', 
               mb: 3,
               p: 2.5,
-              bgcolor: 'rgba(255, 255, 255, 0.9)',
-              borderRadius: 2,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              backgroundImage: 'linear-gradient(to right bottom, #f8f9fa, #f5f7f9)',
-              border: '1px solid rgba(0,0,0,0.05)',
             }}>
               {suiteData.details.data[0].ownedBy.avatar && (
                 <Box 
@@ -375,10 +358,14 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
                 />
               )}
               <Box>
-                <Typography variant="h6" component="h3" sx={{ fontWeight: 'medium', mb: 0.5 }}>
-                  {suiteData.details.data[0].ownedBy.label}
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
+                <Typography 
+                  color="text.secondary"
+                  sx={{ 
+                    fontFamily: 'Commissioner, sans-serif',
+                    fontWeight: 400,
+                    fontSize: '16px'
+                  }}
+                >
                   {suiteData.details.data[0].ownedBy.greeting}
                 </Typography>
               </Box>
@@ -389,10 +376,10 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
             <Box sx={{ mb: 2 }}>
               <Carousel 
                 animation="slide"
-                navButtonsAlwaysVisible
                 autoPlay
                 interval={5000}
-                indicators={true}
+                indicators={(sliderImages.length > 0 ? sliderImages.length : roomImages.length) > 1}
+                navButtonsAlwaysInvisible={(sliderImages.length > 0 ? sliderImages.length : roomImages.length) <= 1}
                 sx={{ borderRadius: 2, overflow: 'hidden' }}
               >
                 {(sliderImages.length > 0 ? sliderImages : roomImages).map((item, index) => (
@@ -409,55 +396,26 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
                   />
                 ))}
               </Carousel>
-              <Box sx={{ 
-                mt: -4, 
-                ml: 2, 
-                mb: 2, 
-                position: 'relative', 
-                zIndex: 10, 
-                display: 'inline-flex',
-                bgcolor: 'rgba(0, 0, 0, 0.7)',
-                color: 'white',
-                px: 2,
-                py: 1,
-                borderRadius: 1
-              }}>
-              </Box>
             </Box>
           )}
           
           {/* Headline Section */}
           {suiteData?.details?.data?.[0]?.headline && (
-            <Box sx={{ 
-              mb: 3,
-              mt: 2,
-              px: 2,
-              py: 2.5,
-              borderRadius: 2,
-              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-              color: 'primary.contrastText',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
-              <Box sx={{ 
-                position: 'absolute', 
-                width: '200px', 
-                height: '200px',
-                borderRadius: '50%',
-                bgcolor: 'primary.main',
-                opacity: 0.1,
-                right: '-100px',
-                top: '-100px'
-              }} />
-              <Typography variant="h5" component="h2" sx={{ 
-                fontWeight: 'medium', 
+            <Typography 
+              component="h2" 
+              sx={{ 
+                fontSize: '18px',
+                fontWeight: 600, 
+                fontFamily: 'Inter, sans-serif',
+                color: 'neutral.700',
                 mb: 0.5,
                 position: 'relative',
-                zIndex: 1
-              }}>
-                {suiteData.details.data[0].headline}
-              </Typography>
-            </Box>
+                zIndex: 1,
+                className: 'h-8'
+              }}
+            >
+              {suiteData.details.data[0].headline}
+            </Typography>
           )}
           
           <Grid container spacing={0.5} justifyContent="space-between" sx={{ mb: 2, mt: 1 }}>
@@ -618,7 +576,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
           
           {/* Highlighted POIs Section */}
           <HighlightedPOIsSection 
-            heading={hubConfig?.data?.pageSearch?.highlightedListHeading || 'Explore More'}
+            heading={hubConfig?.data?.pageSearch?.highlightedListHeading}
             pois={
               // Use POI recommendations data with weightInHighlight !== -1
               poiRecommendationsData.data
@@ -642,6 +600,13 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
           />
         </>
       </Box>
+      
+      {/* WiFi Dialog */}
+      <WifiDialog 
+        open={wifiDialogOpen} 
+        onClose={() => setWifiDialogOpen(false)} 
+        suiteId={suiteId} 
+      />
     </Container>
   );
 };
