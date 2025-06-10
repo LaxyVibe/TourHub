@@ -1,10 +1,10 @@
+// filepath: /Users/sunlau/Documents/creative/LaxyVibe/TourHub/src/components/hub/WifiInfo.js
 import React, { useState, useEffect } from 'react';
 import {
   Container,
   Paper,
   Typography,
   Box,
-  IconButton,
   Dialog,
   DialogContent,
   DialogTitle,
@@ -13,12 +13,12 @@ import {
   Button
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import WifiIcon from '@mui/icons-material/Wifi';
 import QrCodeIcon from '@mui/icons-material/QrCode2';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import { useLanguage } from '../../context/LanguageContext';
+import PageHeader from '../common/PageHeader';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
@@ -44,13 +44,6 @@ const WifiInfo = () => {
     // Track page view
     trackNavigation('wifi_info', suiteId, 'info_access');
   }, [suiteId]);
-
-  const handleBack = () => {
-    trackButtonClick('back_button', 'wifi_info');
-    trackNavigation('wifi_info', 'suite_info', 'back_button');
-    
-    navigate(`/${language}/${suiteId}/info`);
-  };
 
   const handleShowQR = (network) => {
     trackButtonClick('qr_code_view', 'wifi_info');
@@ -90,10 +83,8 @@ const WifiInfo = () => {
   if (!wifiNetworks || wifiNetworks.length === 0) {
     return (
       <Container {...PAGE_LAYOUTS.WifiInfo}>
+        <PageHeader title="WiFi Information" useParentPath={true} />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-            <ArrowBackIcon />
-          </IconButton>
           <Alert severity="info">No WiFi information available.</Alert>
         </Box>
       </Container>
@@ -102,11 +93,8 @@ const WifiInfo = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.WifiInfo}>
+      <PageHeader title="WiFi Information" useParentPath={true} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
-
         {/* WiFi Networks Display */}
         {wifiNetworks.map((network, index) => (
           <Paper key={index} elevation={3} sx={{ mb: 2, p: 3 }}>

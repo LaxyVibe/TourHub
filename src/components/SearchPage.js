@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Paper,
@@ -15,14 +15,14 @@ import {
   MenuItem,
   Chip
 } from '@mui/material';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import QrCodeIcon from '@mui/icons-material/QrCode2';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useLanguage } from '../context/LanguageContext';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
-import POIList from './common/POIList';
 import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackSearch, trackButtonClick, trackNavigation } from '../utils/analytics';
@@ -59,14 +59,9 @@ const highlightText = (text, searchQuery) => {
 const SearchPage = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { language } = useLanguage();
   
-  // Get search query from URL parameters
-  const urlSearchQuery = searchParams.get('q') || '';
-  
-  const [searchQuery, setSearchQuery] = useState(urlSearchQuery);
-  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchDropdownResults, setSearchDropdownResults] = useState([]);
   
@@ -100,20 +95,11 @@ const SearchPage = () => {
       .sort((a, b) => a.weightInHighlight - b.weightInHighlight);
   }, []);
 
-  // Initialize search results from URL on mount
-  useEffect(() => {
-    if (urlSearchQuery.trim()) {
-      const results = highlightedPOIs.filter(poi => 
-        poi.poi.label.toLowerCase().includes(urlSearchQuery.toLowerCase()) ||
-        poi.poi.highlight.toLowerCase().includes(urlSearchQuery.toLowerCase())
-      );
-      setFilteredResults(results);
-    }
-  }, [urlSearchQuery, highlightedPOIs]);
-
   const handleBack = () => {
     trackButtonClick('back_button', 'search_page');
-    trackNavigation('search_page', 'suite', 'back_button');
+    
+    // Go back to suite page
+    trackNavigation('search_page', 'suite_page', 'back_button');
     navigate(`/${language}/${suiteId}`);
   };
 
@@ -122,29 +108,17 @@ const SearchPage = () => {
     const query = searchQuery.trim();
     
     if (!query) {
-      // Clear URL parameters and results if empty query
-      setSearchParams({});
-      setFilteredResults([]);
       setShowDropdown(false);
       return;
     }
     
     // Track search
-    trackSearch(query, filteredResults.length);
+    trackSearch(query, 0); // We don't have results count here anymore
     
-    // Update URL with search query
-    setSearchParams({ q: query });
     setShowDropdown(false);
     
-    // Filter POIs for results
-    const results = highlightedPOIs.filter(poi => 
-      poi.poi.label.toLowerCase().includes(query.toLowerCase()) ||
-      poi.poi.highlight.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredResults(results);
-    
-    // Track search results count
-    trackSearch(query, results.length);
+    // Navigate to search result page
+    navigate(`/${language}/${suiteId}/search/result?q=${encodeURIComponent(query)}`);
   };
 
   const handleSearchInputChange = (newQuery) => {
@@ -185,21 +159,8 @@ const SearchPage = () => {
     setSearchQuery(item.value);
     setShowDropdown(false);
     
-    // Update URL with search query
-    setSearchParams({ q: item.value });
-    
-    // Filter POIs for results
-    const query = item.value.trim();
-    if (query) {
-      const results = highlightedPOIs.filter(poi => 
-        poi.poi.label.toLowerCase().includes(query.toLowerCase()) ||
-        poi.poi.highlight.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredResults(results);
-      
-      // Track search
-      trackSearch(query, results.length);
-    }
+    // Navigate to search result page
+    navigate(`/${language}/${suiteId}/search/result?q=${encodeURIComponent(item.value)}`);
   };
 
   const handleQRCodeClick = () => {
@@ -212,171 +173,170 @@ const SearchPage = () => {
   return (
     <Container {...PAGE_LAYOUTS.SearchPage}>
       {/* Search Header */}
-      <Paper 
-        elevation={1} 
-        sx={{ 
-          borderRadius: 0,
-          borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          backgroundColor: 'white'
-        }}
-      >
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          px: 2,
-          py: 1.5,
-          gap: 1
-        }}>
-          {/* Back Button */}
-          <IconButton
-            onClick={handleBack}
-            sx={{ p: 1 }}
-            aria-label="back"
-          >
-            <ArrowBackIcon />
-          </IconButton>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        px: 2,
+        py: 1.5,
+        gap: 1,
+        top: 0,
+        zIndex: 100,
+      }}>
+        {/* Back Button */}
+        <IconButton
+          onClick={handleBack}
+          sx={{ p: 1 }}
+          aria-label="back"
+        >
+          <ArrowBackIcon />
+        </IconButton>
 
-          {/* Search Input */}
-          <Box sx={{ position: 'relative', flex: 1 }}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              placeholder={pageSearchConfig?.searchInputPlaceholder || "Find Your Next Adventure"}
-              value={searchQuery}
-              onChange={(e) => {
-                handleSearchInputChange(e.target.value);
-              }}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  handleSearch(e);
-                }
-              }}
-              onFocus={() => {
-                if (searchQuery.trim() && searchDropdownResults.length > 0) {
-                  setShowDropdown(true);
-                }
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon color="action" />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ 
-                '& .MuiOutlinedInput-root': {
+        {/* Search Input */}
+        <Box sx={{ position: 'relative', flex: 1 }}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder={pageSearchConfig?.searchInputPlaceholder }
+            value={searchQuery}
+            onChange={(e) => {
+              handleSearchInputChange(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleSearch(e);
+              }
+            }}
+            onFocus={() => {
+              if (searchQuery.trim() && searchDropdownResults.length > 0) {
+                setShowDropdown(true);
+              }
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="action" />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ 
+              '& .MuiOutlinedInput-root': {
+                borderRadius: '25px',
+                backgroundColor: 'white',
+                '& fieldset': {
+                  borderColor: '#D7D6D6',
+                  borderWidth: 1,
+                },
+                '&:hover fieldset': {
+                  borderColor: '#D7D6D6',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#D7D6D6',
+                  borderWidth: 1,
+                },
+              }
+            }}
+          />
+
+          {/* Search Dropdown */}
+          {showDropdown && searchDropdownResults.length > 0 && (
+            <ClickAwayListener onClickAway={handleClickAway}>
+              <Paper
+                elevation={8}
+                sx={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: 0,
+                  zIndex: 1000,
+                  mt: 0.5,
                   borderRadius: 2,
-                  backgroundColor: '#f5f5f5',
-                  '& fieldset': {
-                    borderColor: 'transparent',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: 'rgba(0, 0, 0, 0.23)',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'primary.main',
-                    borderWidth: 1,
-                  },
-                }
-              }}
-            />
-
-            {/* Search Dropdown */}
-            {showDropdown && searchDropdownResults.length > 0 && (
-              <ClickAwayListener onClickAway={handleClickAway}>
-                <Paper
-                  elevation={8}
-                  sx={{
-                    position: 'absolute',
-                    top: '100%',
-                    left: 0,
-                    right: 0,
-                    zIndex: 1000,
-                    mt: 0.5,
-                    borderRadius: 2,
-                    overflow: 'hidden'
-                  }}
-                >
-                  <MenuList dense>
-                    {searchDropdownResults.map((poi) => (
-                      <MenuItem
-                        key={poi.poi.id}
-                        onClick={() => handleDropdownItemClick(poi)}
-                        sx={{
-                          py: 2,
-                          alignItems: 'flex-start',
-                          '&:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                          }
-                        }}
-                      >
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
-                          {poi.poi.coverPhoto?.url && (
-                            <Box
-                              component="img"
-                              src={poi.poi.coverPhoto.url}
-                              alt={poi.poi.label}
-                              sx={{
-                                width: 40,
-                                height: 40,
-                                objectFit: 'cover',
-                                borderRadius: 1
-                              }}
-                            />
+                  overflow: 'hidden'
+                }}
+              >
+                <MenuList dense>
+                  {searchDropdownResults.map((poi) => (
+                    <MenuItem
+                      key={poi.poi.id}
+                      onClick={() => handleDropdownItemClick(poi)}
+                      sx={{
+                        py: 2,
+                        alignItems: 'flex-start',
+                        '&:hover': {
+                          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                        }
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+                        {poi.poi.coverPhoto?.url && (
+                          <Box
+                            component="img"
+                            src={poi.poi.coverPhoto.url}
+                            alt={poi.poi.label}
+                            sx={{
+                              width: 40,
+                              height: 40,
+                              objectFit: 'cover',
+                              borderRadius: 1
+                            }}
+                          />
+                        )}
+                        <Box sx={{ flex: 1, minWidth: 0 }}>
+                          <Typography variant="body1" sx={{ fontWeight: 500, mb: 0.5 }}>
+                            {highlightText(poi.poi.label, searchQuery)}
+                          </Typography>
+                          
+                          {/* Tag Labels */}
+                          {poi.poi.tag_labels && poi.poi.tag_labels.length > 0 && (
+                            <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                              {poi.poi.tag_labels.slice(0, 2).map((tag) => (
+                                <Chip
+                                  key={tag.id || tag.name}
+                                  label={tag.name || tag}
+                                  size="small"
+                                  variant="outlined"
+                                  sx={{
+                                    fontSize: '0.6rem',
+                                    height: 20,
+                                    '& .MuiChip-label': {
+                                      px: 0.5
+                                    }
+                                  }}
+                                />
+                              ))}
+                              {poi.poi.tag_labels.length > 2 && (
+                                <Typography variant="caption" color="text.secondary" sx={{ ml: 0.5, alignSelf: 'center' }}>
+                                  +{poi.poi.tag_labels.length - 2} more
+                                </Typography>
+                              )}
+                            </Box>
                           )}
-                          <Box sx={{ flex: 1, minWidth: 0 }}>
-                            <Typography variant="body1" sx={{ fontWeight: 500, mb: 0.5 }}>
-                              {highlightText(poi.poi.label, searchQuery)}
-                            </Typography>
-                            
-                            {/* Tag Labels */}
-                            {poi.poi.tag_labels && poi.poi.tag_labels.length > 0 && (
-                              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                                {poi.poi.tag_labels.slice(0, 2).map((tag) => (
-                                  <Chip
-                                    key={tag.id || tag.name}
-                                    label={tag.name || tag}
-                                    size="small"
-                                    variant="outlined"
-                                    sx={{
-                                      fontSize: '0.6rem',
-                                      height: 20,
-                                      '& .MuiChip-label': {
-                                        px: 0.5
-                                      }
-                                    }}
-                                  />
-                                ))}
-                                {poi.poi.tag_labels.length > 2 && (
-                                  <Typography variant="caption" color="text.secondary" sx={{ ml: 0.5, alignSelf: 'center' }}>
-                                    +{poi.poi.tag_labels.length - 2} more
-                                  </Typography>
-                                )}
-                              </Box>
-                            )}
-                          </Box>
                         </Box>
-                      </MenuItem>
-                    ))}
-                  </MenuList>
-                </Paper>
-              </ClickAwayListener>
-            )}
-          </Box>
-
-          {/* QR Code Button */}
-          <IconButton
-            onClick={handleQRCodeClick}
-            sx={{ p: 1 }}
-            aria-label="QR Code"
-          >
-            <QrCodeIcon />
-          </IconButton>
+                      </Box>
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Paper>
+            </ClickAwayListener>
+          )}
         </Box>
-      </Paper>
+
+        {/* QR Code Button */}
+        <IconButton
+          onClick={handleQRCodeClick}
+          sx={{ 
+            p: 1,
+            borderRadius: '50%',
+            backgroundColor: 'white',
+            border: '2px solid #D7D6D6',
+            '&:hover': {
+              backgroundColor: '#f5f5f5',
+            }
+          }}
+          aria-label="QR Code"
+        >
+          <QrCodeIcon />
+        </IconButton>
+      </Box>
 
       {/* Search Content */}
       <Box sx={{ ...CONTENT_PADDING.standard, py: 3 }}>
@@ -392,61 +352,58 @@ const SearchPage = () => {
                 fontSize: '1.1rem'
               }}
             >
-              {pageSearchConfig.defaultListHeading || "Most Searched"}
+              {pageSearchConfig.defaultListHeading}
             </Typography>
             
-            <Paper elevation={1} sx={{ borderRadius: 2 }}>
-              <List disablePadding>
-                {pageSearchConfig.defaultList.map((item, index) => (
-                  <ListItem
-                    key={item.id || index}
-                    button
-                    onClick={() => handleDefaultListItemClick(item)}
-                    sx={{
-                      borderBottom: index < pageSearchConfig.defaultList.length - 1 ? '1px solid rgba(0, 0, 0, 0.08)' : 'none',
-                      '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                      }
+            <List disablePadding>
+              {pageSearchConfig.defaultList.map((item, index) => (
+                <ListItem
+                  key={item.id || index}
+                  button
+                  onClick={() => handleDefaultListItemClick(item)}
+                  sx={{
+                    py: 2,
+                    px: 0,
+                    borderBottom: index < pageSearchConfig.defaultList.length - 1 ? '1px solid rgba(0, 0, 0, 0.08)' : 'none',
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                    },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <ListItemText 
+                    primary={item.label}
+                    primaryTypographyProps={{
+                      fontWeight: 500,
+                      marginLeft: 1
                     }}
-                  >
-                    <ListItemText 
-                      primary={item.label}
-                      primaryTypographyProps={{
-                        fontWeight: 500
-                      }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
+                  />
+                  <ChevronRightIcon 
+                    sx={{ 
+                      color: 'rgba(0, 0, 0, 0.4)',
+                      fontSize: '1.2rem',
+                      marginRight: 1
+                    }} 
+                  />
+                </ListItem>
+              ))}
+            </List>
           </Box>
         )}
 
-        {/* Highlighted POIs Section or Search Results */}
-        {searchQuery.trim() ? (
-          // Search Results using POIList component
-          <POIList
-            pois={filteredResults.map(item => item.poi)}
-            title="Search Results"
-            subtitle={`${filteredResults.length} result${filteredResults.length !== 1 ? 's' : ''} found for "${searchQuery}"`}
-            type="result"
+        {/* Highlighted POIs Section */}
+        {highlightedPOIs.length > 0 ? (
+          <HighlightedPOIsSection
+            heading={pageSearchConfig?.highlightedListHeading || "Explore More"}
+            pois={transformPOIData(highlightedPOIs)}
             suiteId={suiteId}
-            showHeader={false}
           />
-        ) : (
-          // Highlighted POIs when not searching
-          highlightedPOIs.length > 0 ? (
-            <HighlightedPOIsSection
-              heading={pageSearchConfig?.highlightedListHeading || "Explore More"}
-              pois={transformPOIData(highlightedPOIs)}
-              suiteId={suiteId}
-            />
-          ) : null
-        )}
+        ) : null}
 
         {/* Empty State */}
-        {!searchQuery.trim() && 
-         (!pageSearchConfig?.defaultList || pageSearchConfig.defaultList.length === 0) && 
+        {(!pageSearchConfig?.defaultList || pageSearchConfig.defaultList.length === 0) && 
          highlightedPOIs.length === 0 && (
           <Paper elevation={1} sx={{ p: 4, textAlign: 'center', borderRadius: 2 }}>
             <SearchIcon sx={{ fontSize: 60, color: 'text.secondary', mb: 2 }} />

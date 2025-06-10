@@ -112,7 +112,7 @@ const HighlightedPOIsSection = ({
                 whiteSpace: 'nowrap'
               }}
             >
-              {poi.name || poi.title}
+              {poi.name}
             </Typography>
           </Box>
         ))}

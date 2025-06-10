@@ -4,31 +4,25 @@ import {
   Paper,
   Typography,
   Box,
-  IconButton,
   Card,
   CardContent,
   Divider
 } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useParams } from 'react-router-dom';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PageHeader from '../common/PageHeader';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const CheckInOutInfo = () => {
-  const navigate = useNavigate();
   const params = useParams();
   const { language } = useLanguage();
   
   const suiteId = params.suiteId;
   
-  const handleBack = () => {
-    navigate(`/${language}/${suiteId}/info`);
-  };
-
   // Get suite data
   const suiteData = getSuiteData(suiteId, language);
   const suite = suiteData?.details?.data?.[0];
@@ -36,10 +30,8 @@ const CheckInOutInfo = () => {
   if (!suite) {
     return (
       <Container {...PAGE_LAYOUTS.CheckInOutInfo}>
+        <PageHeader title="Check-in & Check-out" />
         <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-            <ArrowBackIcon />
-          </IconButton>
           <Typography variant="h6">Suite information not found</Typography>
         </Box>
       </Container>
@@ -48,10 +40,8 @@ const CheckInOutInfo = () => {
 
   return (
     <Container {...PAGE_LAYOUTS.CheckInOutInfo}>
+      <PageHeader title="Check-in & Check-out" />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <IconButton onClick={handleBack} sx={{ mb: 2 }}>
-          <ArrowBackIcon />
-        </IconButton>
 
         <Typography variant="h4" component="h1" gutterBottom>
           Check-in & Check-out

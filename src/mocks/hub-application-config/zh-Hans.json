@@ -3,36 +3,36 @@
         "id": 4,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-08T05:22:12.357Z",
-        "updatedAt": "2025-06-10T05:25:23.259Z",
+        "updatedAt": "2025-06-10T06:49:31.076Z",
         "publishedAt": "2025-06-10T05:25:08.360Z",
         "locale": "zh-Hans",
         "universalConfig": {
-            "id": 259,
+            "id": 263,
             "releasedLanguages": [
                 {
-                    "id": 1224,
+                    "id": 1244,
                     "label": "English",
-                    "value": null
+                    "value": "en"
                 },
                 {
-                    "id": 1225,
+                    "id": 1245,
                     "label": "繁體中文",
-                    "value": null
+                    "value": "zh-Hant"
                 },
                 {
-                    "id": 1226,
+                    "id": 1246,
                     "label": "简体中文",
-                    "value": null
+                    "value": "zh-Hans"
                 },
                 {
-                    "id": 1227,
+                    "id": 1247,
                     "label": "日本語",
-                    "value": null
+                    "value": "ja"
                 },
                 {
-                    "id": 1228,
+                    "id": 1248,
                     "label": "한국어",
-                    "value": null
+                    "value": "ko"
                 }
             ]
         },
@@ -139,7 +139,7 @@
         },
         "pageInfo": {
             "id": 7,
-            "heading": "房间信息",
+            "heading": "房间��息",
             "navigation": [
                 {
                     "id": 144,

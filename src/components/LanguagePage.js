@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 import { 
   Box, 
   Container, 
-  Typography, 
-  Paper, 
-  Button,
-  Radio,
-  FormControlLabel,
-  RadioGroup
+  Paper,
+  Button
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { setCookie } from '../utils/cookieUtils';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import PageHeader from './common/PageHeader';
+import MenuList from './common/MenuList';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackLanguageChange, trackButtonClick, trackNavigation } from '../utils/analytics';
 
@@ -37,20 +34,21 @@ const LanguagePage = () => {
   // Use the current language's configuration to show the language names in the current language
   const releasedLanguages = hubConfig?.data?.universalConfig?.releasedLanguages || [];
   
-  const handleLanguageChange = (event) => {
-    const newLanguage = event.target.value;
-    trackLanguageChange(language, newLanguage);
+  const handleLanguageItemClick = (languageItem) => {
+    const newLanguage = languageItem.value;
     trackButtonClick('language_selection', 'language_page');
     
     setSelectedLanguage(newLanguage);
+    // Don't apply immediately - wait for Apply button
   };
   
-  const handleApply = () => {
+  const handleApply = (langToApply = selectedLanguage) => {
+    trackLanguageChange(language, langToApply);
     trackButtonClick('apply_language', 'language_page');
     trackNavigation('language_page', 'suite_landing_direct', 'language_apply');
     
     // Store language preference in cookie (30-day expiry)
-    setCookie('preferredLanguage', selectedLanguage, 30);
+    setCookie('preferredLanguage', langToApply, 30);
     
     // Signal to PageHeader that language has been changed
     try {
@@ -74,14 +72,14 @@ const LanguagePage = () => {
     // If we found a suiteId in the URL, directly navigate to the suite landing with new language
     if (suiteId) {
       // Update language in context
-      setLanguage(selectedLanguage);
+      setLanguage(langToApply);
       
       // Explicitly navigate to the suite landing page with the new language
       // Construct the URL as /:newLanguage/:suiteId/
-      navigate(`/${selectedLanguage}/${suiteId}`);
+      navigate(`/${langToApply}/${suiteId}`);
     } else {
       // If no suiteId was found, just update the language and let the normal navigation happen
-      setLanguage(selectedLanguage);
+      setLanguage(langToApply);
     }
   };
   
@@ -99,43 +97,33 @@ const LanguagePage = () => {
         }}
       >
         <Box sx={{ mb: 4, flexGrow: 1 }}>
-          <RadioGroup
-            aria-label="language"
-            value={selectedLanguage}
-            onChange={handleLanguageChange}
-          >
-            {releasedLanguages.map((lang) => (
-              <FormControlLabel 
-                key={lang.value}
-                value={lang.value}
-                control={<Radio color="primary" />}
-                label={
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Typography variant="body1">{lang.label}</Typography>
-                  </Box>
-                }
-                sx={{ mb: 1, py: 1, borderBottom: '1px solid rgba(0, 0, 0, 0.06)' }}
-              />
-            ))}
-          </RadioGroup>
+          <MenuList
+            items={releasedLanguages}
+            onItemClick={handleLanguageItemClick}
+            showHeader={false}
+            showArrow={false}
+            selectedValue={selectedLanguage}
+            sx={{ mb: 0 }}
+          />
         </Box>
         
-        <Button 
-          variant="contained" 
-          color="primary" 
-          fullWidth 
-          onClick={handleApply}
-          sx={{ 
-            py: 1.5, 
-            borderRadius: 2,
-            backgroundColor: '#3B7B7B',
-            '&:hover': {
-              backgroundColor: '#2A5A5A',
-            }
-          }}
-        >
-          {applyButtonLabel}
-        </Button>
+        {/* Apply Button */}
+        <Box sx={{ pt: 2, borderTop: '1px solid rgba(0, 0, 0, 0.08)' }}>
+          <Button
+            variant="contained"
+            fullWidth
+            size="large"
+            onClick={() => handleApply()}
+            disabled={selectedLanguage === language}
+            sx={{
+              py: 1.5,
+              borderRadius: 2,
+              fontWeight: 600
+            }}
+          >
+            {applyButtonLabel}
+          </Button>
+        </Box>
       </Paper>
     </Container>
   );

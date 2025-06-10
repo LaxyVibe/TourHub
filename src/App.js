@@ -17,6 +17,7 @@ import POIDetail from './components/hub/POIDetail';
 import POIList from './components/common/POIList';
 import FeaturedTours from './components/hub/FeaturedTours';
 import SearchPage from './components/SearchPage';
+import SearchResultPage from './components/SearchResultPage';
 import LanguagePage from './components/LanguagePage';
 import { getHubClientInfo, getTourClientInfo, getPlaceClientInfo } from './config/clients';
 import { getPOIsByType } from './utils/dataFetcher';
@@ -135,6 +136,10 @@ function FAQInfoWrapper() {
 
 function SearchWrapper() {
   return <SearchPage />;
+}
+
+function SearchResultWrapper() {
+  return <SearchResultPage />;
 }
 
 function RestaurantsWrapper() {
@@ -312,7 +317,10 @@ function App() {
               <Route path="nearby-restaurants" element={<RestaurantsWrapper />} />
               <Route path="nearby-attractions" element={<PlacesWrapper />} />
               <Route path="tours" element={<ToursWrapper />} />
-              <Route path="search" element={<SearchWrapper />} />
+              <Route path="search">
+                <Route index element={<SearchWrapper />} />
+                <Route path="result" element={<SearchResultWrapper />} />
+              </Route>
               
               {/* Legacy routes for backward compatibility */}
               <Route path="join/:tourId" element={<TourWrapper />} />
@@ -367,6 +375,7 @@ function App() {
           <Route path="/tours" element={<DefaultLanguageRedirect />} />
           <Route path="/tours/*" element={<DefaultLanguageRedirect />} />
           <Route path="/search" element={<DefaultLanguageRedirect />} />
+          <Route path="/search/*" element={<DefaultLanguageRedirect />} />
           
           <Route path="/:langCode">
             <Route index element={<HubWrapper />} />
@@ -387,7 +396,10 @@ function App() {
               <Route path="nearby-restaurants" element={<RestaurantsWrapper />} />
               <Route path="nearby-attractions" element={<PlacesWrapper />} />
               <Route path="tours" element={<ToursWrapper />} />
-              <Route path="search" element={<SearchWrapper />} />
+              <Route path="search">
+                <Route index element={<SearchWrapper />} />
+                <Route path="result" element={<SearchResultWrapper />} />
+              </Route>
               
               {/* Legacy routes for backward compatibility */}
               <Route path="*" element={<SuiteWrapper />} />
