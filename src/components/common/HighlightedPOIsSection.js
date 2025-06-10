@@ -35,12 +35,14 @@ const HighlightedPOIsSection = ({
   return (
     <Box sx={{ mb: 3, mt: 4 }}>
       <Typography 
-        variant="h6" 
         component="h2" 
         sx={{ 
-          mb: 2, 
-          fontWeight: 'bold', 
-          fontSize: { xs: '1.125rem', sm: '1.25rem' } 
+          mb: 2,
+          fontSize: '18px',
+          fontWeight: 600, 
+          fontFamily: 'Inter, sans-serif',
+          color: 'neutral.700',
+          className: 'h-8'
         }}
       >
         {heading}

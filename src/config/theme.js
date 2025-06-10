@@ -65,6 +65,13 @@ export const theme = createTheme({
     h6: {
       fontWeight: 600,
     },
+    headerTitle: {
+      fontFamily: '"Playfair Display", serif',
+      fontSize: '32px',
+      fontWeight: 900,
+      color: '#3B7B7B',
+      textAlign: 'center',
+    },
   },
   components: {
     MuiPaper: {

@@ -3,7 +3,6 @@ import {
   Container, 
   Typography, 
   Box, 
-  IconButton,
   Button,
   Card,
   CardMedia,
@@ -15,7 +14,7 @@ import {
   Paper
 } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PageHeader from '../common/PageHeader';
 import TourIcon from '@mui/icons-material/Tour';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import TranslateIcon from '@mui/icons-material/Translate';
@@ -67,20 +66,11 @@ const FeaturedTours = ({ initialState }) => {
   
   return (
     <Container {...PAGE_LAYOUTS.FeaturedTours}>
+      <PageHeader 
+        title={hubConfig.pageLanding.naviagtion[4].label} 
+        onBack={handleBack} 
+      />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-        <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
-        <IconButton 
-          edge="start" 
-          onClick={handleBack} 
-          sx={{ mr: 2 }}
-          aria-label="back"
-        >
-          <ArrowBackIcon />
-        </IconButton>
-        <Typography variant="h5" component="h1" fontWeight="bold" sx={{ fontSize: { xs: '1.25rem', sm: '1.5rem' } }}>
-          {hubConfig.pageLanding.naviagtion[4].label}
-        </Typography>
-      </Box>
 
       {tours.length === 0 ? (
         <Paper elevation={2} sx={{ p: 3, borderRadius: 2, textAlign: 'center' }}>

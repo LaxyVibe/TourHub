@@ -8,7 +8,6 @@ import SuiteLanding from './components/SuiteLanding';
 import TourLanding from './components/TourLanding';
 import PlaceLanding from './components/PlaceLanding';
 import StayInfo from './components/hub/StayInfo';
-import WifiInfo from './components/hub/WifiInfo';
 import AddressInfo from './components/hub/AddressInfo';
 import CheckInOutInfo from './components/hub/CheckInOutInfo';
 import HouseRulesInfo from './components/hub/HouseRulesInfo';
@@ -109,11 +108,6 @@ function PlaceWrapper() {
 }
 
 // Wrapper components for new hub routes
-function WifiInfoWrapper() {
-  // The WifiInfo component now reads data directly from the URL params and suite config
-  return <WifiInfo />;
-}
-
 function StayInfoWrapper() {
   // The StayInfo component now reads data directly from the URL params and hub config
   return <StayInfo />;
@@ -309,7 +303,6 @@ function App() {
               {/* Routes based on hub-application-config navigation */}
               <Route path="info">
                 <Route index element={<StayInfoWrapper />} />
-                <Route path="wifi" element={<WifiInfoWrapper />} />
                 <Route path="address" element={<AddressInfoWrapper />} />
                 <Route path="check-in-out" element={<CheckInOutInfoWrapper />} />
                 <Route path="house-rules" element={<HouseRulesInfoWrapper />} />
@@ -324,7 +317,6 @@ function App() {
               {/* Legacy routes for backward compatibility */}
               <Route path="join/:tourId" element={<TourWrapper />} />
               <Route path="go/:placeId" element={<PlaceWrapper />} />
-              <Route path="wifi-info" element={<WifiInfoWrapper />} />
               <Route path="stay-info" element={<StayInfoWrapper />} />
               <Route path="*" element={<SuiteWrapper />} />
             </Route>
@@ -365,7 +357,6 @@ function App() {
           
           {/* Direct routes for hub navigation with language redirect */}
           <Route path="/info" element={<DefaultLanguageRedirect />} />
-          <Route path="/info/wifi" element={<DefaultLanguageRedirect />} />
           <Route path="/info/address" element={<DefaultLanguageRedirect />} />
           <Route path="/info/check-in-out" element={<DefaultLanguageRedirect />} />
           <Route path="/info/house-rules" element={<DefaultLanguageRedirect />} />
@@ -387,7 +378,6 @@ function App() {
               {/* Routes based on hub-application-config navigation */}
               <Route path="info">
                 <Route index element={<StayInfoWrapper />} />
-                <Route path="wifi" element={<WifiInfoWrapper />} />
                 <Route path="address" element={<AddressInfoWrapper />} />
                 <Route path="check-in-out" element={<CheckInOutInfoWrapper />} />
                 <Route path="house-rules" element={<HouseRulesInfoWrapper />} />
