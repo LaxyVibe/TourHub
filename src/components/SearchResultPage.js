@@ -61,13 +61,6 @@ const SearchResultPage = () => {
 
       {/* Search Results Content */}
       <Box sx={{ ...CONTENT_PADDING.standard, py: 3 }}>
-        <Typography variant="h6" sx={{ mb: 1, fontWeight: 600 }}>
-          Search Results
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''} found
-        </Typography>
-        
         <POISearchResults
           searchResults={filteredResults}
           suiteId={suiteId}

@@ -71,8 +71,8 @@ const POISearchResults = ({ searchResults = [], suiteId }) => {
             <Box sx={{ 
               display: 'flex', 
               alignItems: 'flex-start', 
-              height: { xs: 'auto', sm: 160 },
-              flexDirection: { xs: 'column', sm: 'row' },
+              height: 'auto',
+              flexDirection: 'row',
               gap: 2
             }}>
               {/* Cover Photo on Left */}
@@ -80,8 +80,8 @@ const POISearchResults = ({ searchResults = [], suiteId }) => {
                 <Box
                   component="img"
                   sx={{ 
-                    width: { xs: '100%', sm: 200 }, 
-                    height: { xs: 200, sm: 160 },
+                    width: 90,
+                    height: 90,
                     objectFit: 'cover',
                     flexShrink: 0,
                     borderRadius: 2
@@ -96,19 +96,19 @@ const POISearchResults = ({ searchResults = [], suiteId }) => {
                 flex: 1, 
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: { xs: 'auto', sm: '100%' },
-                minHeight: { xs: 120, sm: 0 }
+                justifyContent: 'flex-start',
+                gap: 1
               }}>
                 {/* Title */}
-                <Box sx={{ mb: 2 }}>
+                <Box sx={{ mb: 1 }}>
                   <Typography 
-                    variant="h5" 
+                    variant="h6" 
                     component="h3" 
                     sx={{ 
                       fontWeight: 600,
-                      fontSize: '1.3rem',
-                      lineHeight: 1.2
+                      fontSize: '1.1rem',
+                      lineHeight: 1.3,
+                      mb: 0
                     }}
                   >
                     {poi.label}
@@ -116,23 +116,24 @@ const POISearchResults = ({ searchResults = [], suiteId }) => {
                 </Box>
                 
                 {/* Tags */}
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', alignItems: 'center' }}>
                   {/* Regular Tags */}
                   {poi.tag_labels && poi.tag_labels.length > 0 && (
                     poi.tag_labels.map((tag) => (
                       <Chip 
                         key={tag.id || tag.name}
-                        size="medium" 
+                        size="large" 
                         label={tag.name || tag}
                         sx={{ 
-                          fontSize: '0.875rem',
-                          height: 32,
-                          backgroundColor: '#f5f5f5',
-                          border: '1px solid #e0e0e0',
-                          color: '#666',
-                          fontWeight: 500,
-                          '&:hover': {
-                            backgroundColor: '#eeeeee',
+                          fontSize: '0.75rem',
+                          height: 24,
+                          backgroundColor: '#9C9696',
+                          color: '#ffffff',
+                          fontWeight: 400,
+                          borderRadius: '4px',
+                          '& .MuiChip-label': {
+                            paddingLeft: '8px',
+                            paddingRight: '8px'
                           }
                         }}
                       />
@@ -142,17 +143,18 @@ const POISearchResults = ({ searchResults = [], suiteId }) => {
                   {/* Host Tag */}
                   {isHost && (
                     <Chip 
-                      size="medium" 
+                      size="small" 
                       label="Host"
                       sx={{ 
-                        fontSize: '0.875rem',
-                        height: 32,
+                        fontSize: '0.75rem',
+                        height: 24,
                         backgroundColor: '#ff6b47',
                         color: 'white',
-                        fontWeight: 600,
-                        border: 'none',
-                        '&:hover': {
-                          backgroundColor: '#ff5722',
+                        fontWeight: 400,
+                        borderRadius: '4px',
+                        '& .MuiChip-label': {
+                          paddingLeft: '8px',
+                          paddingRight: '8px'
                         }
                       }}
                     />

@@ -23,7 +23,6 @@ import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import { getSuiteData } from '../utils/suiteUtils';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
-import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
 import { trackButtonClick, trackNavigation } from '../utils/analytics';
 
 /**
@@ -122,7 +121,30 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   const [error, setError] = useState(null);
   const [suiteInfo, setSuiteInfo] = useState(null);
   const [wifiDialogOpen, setWifiDialogOpen] = useState(false);
+  const [poiRecommendationsData, setPOIRecommendationsData] = useState(null);
   const navigate = useNavigate();
+
+  // Load POI recommendations data based on current language
+  useEffect(() => {
+    const loadPOIRecommendations = async () => {
+      try {
+        const poiModule = await import(`../mocks/poi-recommendations/${language}.json`);
+        setPOIRecommendationsData(poiModule.default);
+      } catch (error) {
+        console.error(`Failed to load POI recommendations for language ${language}:`, error);
+        // Fallback to English if language-specific data is not available
+        try {
+          const fallbackModule = await import(`../mocks/poi-recommendations/en.json`);
+          setPOIRecommendationsData(fallbackModule.default);
+        } catch (fallbackError) {
+          console.error('Failed to load fallback POI recommendations:', fallbackError);
+          setPOIRecommendationsData({ data: [] });
+        }
+      }
+    };
+
+    loadPOIRecommendations();
+  }, [language]);
 
   useEffect(() => {
     const loadClientInfo = async () => {
@@ -579,7 +601,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
             heading={hubConfig?.data?.pageSearch?.highlightedListHeading}
             pois={
               // Use POI recommendations data with weightInHighlight !== -1
-              poiRecommendationsData.data
+              poiRecommendationsData ? poiRecommendationsData.data
                 .filter(item => item.weightInHighlight !== -1)
                 .sort((a, b) => a.weightInHighlight - b.weightInHighlight)
                 .slice(0, 6) // Show top 6 highlighted POIs
@@ -594,7 +616,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
                   distance: item.kmFromStay ? `${item.kmFromStay} km` : '0.5 km',
                   slug: item.poi.slug,
                   externalURL: item.poi.externalURL
-                }))
+                })) : []
             }
             suiteId={suiteId}
           />

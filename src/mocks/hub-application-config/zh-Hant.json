@@ -3,34 +3,34 @@
         "id": 2,
         "documentId": "oimsqqqznrilynkiyascc7ox",
         "createdAt": "2025-06-01T07:01:43.169Z",
-        "updatedAt": "2025-06-10T06:49:31.089Z",
+        "updatedAt": "2025-06-11T05:08:12.563Z",
         "publishedAt": "2025-06-10T05:20:12.426Z",
         "locale": "zh-Hant",
         "universalConfig": {
-            "id": 266,
+            "id": 275,
             "releasedLanguages": [
                 {
-                    "id": 1259,
+                    "id": 1304,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 1260,
+                    "id": 1305,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 1261,
+                    "id": 1306,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 1262,
+                    "id": 1307,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 1263,
+                    "id": 1308,
                     "label": "한국어",
                     "value": "ko"
                 }

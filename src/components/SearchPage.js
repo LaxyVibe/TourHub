@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Paper,
@@ -23,7 +23,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useLanguage } from '../context/LanguageContext';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import HighlightedPOIsSection from './common/HighlightedPOIsSection';
-import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackSearch, trackButtonClick, trackNavigation } from '../utils/analytics';
 
@@ -64,6 +63,7 @@ const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchDropdownResults, setSearchDropdownResults] = useState([]);
+  const [poiRecommendationsData, setPOIRecommendationsData] = useState(null);
   
   // Get hub configuration for current language
   const hubConfig = getHubConfigByLanguage(language);
@@ -71,6 +71,28 @@ const SearchPage = () => {
   
   // Get suite ID from params
   const suiteId = params.suiteId;
+
+  // Load POI recommendations data based on current language
+  useEffect(() => {
+    const loadPOIRecommendations = async () => {
+      try {
+        const poiModule = await import(`../mocks/poi-recommendations/${language}.json`);
+        setPOIRecommendationsData(poiModule.default);
+      } catch (error) {
+        console.error(`Failed to load POI recommendations for language ${language}:`, error);
+        // Fallback to English if language-specific data is not available
+        try {
+          const fallbackModule = await import(`../mocks/poi-recommendations/en.json`);
+          setPOIRecommendationsData(fallbackModule.default);
+        } catch (fallbackError) {
+          console.error('Failed to load fallback POI recommendations:', fallbackError);
+          setPOIRecommendationsData({ data: [] });
+        }
+      }
+    };
+
+    loadPOIRecommendations();
+  }, [language]);
 
   // Transform POI data from poi-recommendations format to HighlightedPOIsSection format
   const transformPOIData = (poiItems) => {
@@ -90,10 +112,11 @@ const SearchPage = () => {
 
   // Filter POI recommendations that have weightInHighlight !== -1 and sort by weight
   const highlightedPOIs = React.useMemo(() => {
+    if (!poiRecommendationsData) return [];
     return poiRecommendationsData.data
       .filter(item => item.weightInHighlight !== -1)
       .sort((a, b) => a.weightInHighlight - b.weightInHighlight);
-  }, []);
+  }, [poiRecommendationsData]);
 
   const handleBack = () => {
     trackButtonClick('back_button', 'search_page');

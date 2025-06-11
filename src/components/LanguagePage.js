@@ -28,7 +28,11 @@ const LanguagePage = () => {
   // Extract language page configuration from current language
   const pageConfig = hubConfig?.data?.pageLanguage || {};
   const heading = pageConfig?.heading || 'Language Setting';
-  const applyButtonLabel = pageConfig?.applyButton?.label || 'Apply';
+  
+  // Get apply button label from the selected language configuration (not current language)
+  const selectedHubConfig = getHubConfigByLanguage(selectedLanguage);
+  const selectedPageConfig = selectedHubConfig?.data?.pageLanguage || {};
+  const applyButtonLabel = selectedPageConfig?.applyButton?.label || 'Apply';
   
   // Get the list of released languages from the universal config
   // Use the current language's configuration to show the language names in the current language
@@ -87,15 +91,6 @@ const LanguagePage = () => {
     <Container {...PAGE_LAYOUTS.LanguagePage}>
       <PageHeader title={heading} />
       
-      <Paper 
-        elevation={0} 
-        sx={{ 
-          ...CONTENT_PADDING.standard,
-          flexGrow: 1, 
-          display: 'flex', 
-          flexDirection: 'column' 
-        }}
-      >
         <Box sx={{ mb: 4, flexGrow: 1 }}>
           <MenuList
             items={releasedLanguages}
@@ -117,14 +112,14 @@ const LanguagePage = () => {
             disabled={selectedLanguage === language}
             sx={{
               py: 1.5,
-              borderRadius: 2,
-              fontWeight: 600
+              borderRadius: 16,
+              fontWeight: 600,
+              marginBottom: 4
             }}
           >
             {applyButtonLabel}
           </Button>
         </Box>
-      </Paper>
     </Container>
   );
 };
