@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { 
   Box, 
   Container, 
-  Paper,
   Button
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +10,7 @@ import { setCookie } from '../utils/cookieUtils';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import PageHeader from './common/PageHeader';
 import MenuList from './common/MenuList';
-import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
+import { PAGE_LAYOUTS } from '../config/layout';
 import { trackLanguageChange, trackButtonClick, trackNavigation } from '../utils/analytics';
 
 const LanguagePage = () => {

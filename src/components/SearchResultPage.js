@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   Container,
-  Box,
-  Typography
+  Box
 } from '@mui/material';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
