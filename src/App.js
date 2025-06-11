@@ -14,6 +14,7 @@ import HouseRulesInfo from './components/hub/HouseRulesInfo';
 import AmenitiesInfo from './components/hub/AmenitiesInfo';
 import FAQInfo from './components/hub/FAQInfo';
 import POIDetail from './components/hub/POIDetail';
+import POIAddressInfo from './components/hub/POIAddressInfo';
 import POIList from './components/common/POIList';
 import FeaturedTours from './components/hub/FeaturedTours';
 import SearchPage from './components/SearchPage';
@@ -190,6 +191,10 @@ function POIDetailWrapper() {
   return <POIDetail />;
 }
 
+function POIAddressInfoWrapper() {
+  return <POIAddressInfo />;
+}
+
 function PlacesWrapper() {
   const { suiteId: urlSuiteId, langCode } = useParams();
   const location = useLocation();
@@ -305,6 +310,7 @@ function App() {
               <Route index element={<SuiteWrapper />} />
               <Route path="language" element={<LanguagePageWrapper />} />
               <Route path="poi/:poiSlug" element={<POIDetailWrapper />} />
+              <Route path="poi/:poiSlug/address" element={<POIAddressInfoWrapper />} />
               {/* Routes based on hub-application-config navigation */}
               <Route path="info">
                 <Route index element={<StayInfoWrapper />} />
@@ -384,6 +390,7 @@ function App() {
               <Route index element={<SuiteWrapper />} />
               <Route path="language" element={<LanguagePageWrapper />} />
               <Route path="poi/:poiSlug" element={<POIDetailWrapper />} />
+              <Route path="poi/:poiSlug/address" element={<POIAddressInfoWrapper />} />
               {/* Routes based on hub-application-config navigation */}
               <Route path="info">
                 <Route index element={<StayInfoWrapper />} />
