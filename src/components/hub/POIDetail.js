@@ -13,10 +13,12 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import PhoneIcon from '@mui/icons-material/Phone';
 import POIHeader from './POIHeader';
 import { useLanguage } from '../../context/LanguageContext';
 import { getPOIsByType } from '../../utils/dataFetcher';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
+import { getSuiteData } from '../../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 import { trackNavigation, trackContentInteraction } from '../../utils/analytics';
 
@@ -56,8 +58,16 @@ const POIDetail = () => {
   const [recommendation, setRecommendation] = useState(null);
   const [poiRecommendationsData, setPOIRecommendationsData] = useState(null);
   
+  // State for expandable text sections
+  const [isRecommendationExpanded, setIsRecommendationExpanded] = useState(false);
+  const [isHighlightExpanded, setIsHighlightExpanded] = useState(false);
+  
   const hubConfig = getHubConfigByLanguage(language);
   const pageConfig = hubConfig?.data?.pagPoiDetail;
+
+  // Get suite data for host avatar
+  const suiteData = getSuiteData(suiteId, language);
+  const hostAvatar = suiteData?.details?.data?.[0]?.ownedBy?.avatar;
 
   // Load POI recommendations data based on current language
   useEffect(() => {
@@ -120,6 +130,10 @@ const POIDetail = () => {
         } else {
           setPOI(foundPOI);
           
+          // Debug: Log POI data to check laxyURL
+          console.log('POI Data loaded:', foundPOI);
+          console.log('LaxyURL:', foundPOI.laxyURL);
+          
           // Track POI view
           trackNavigation(`poi_detail_${foundPOI.type}`, foundPOI.slug, 'direct_access');
           
@@ -145,6 +159,66 @@ const POIDetail = () => {
       loadPOIDetails();
     }
   }, [language, poiSlug, suiteId, poiRecommendationsData, getPOIRecommendation]);
+
+  // Helper function to render expandable text
+  const renderExpandableText = (text, isExpanded, setIsExpanded, characterLimit = 300, isItalic = true) => {
+    if (!text || text.length <= characterLimit) {
+      return (
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            fontStyle: isItalic ? 'italic' : 'normal',
+            fontFamily: 'Commissioner, sans-serif',
+            fontWeight: 400,
+            fontSize: '16px',
+            lineHeight: 1.6
+          }}
+        >
+          {text}
+        </Typography>
+      );
+    }
+
+    const truncatedText = text.substring(0, characterLimit);
+    const displayText = isExpanded ? text : `${truncatedText}...`;
+
+    return (
+      <Box>
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            fontStyle: isItalic ? 'italic' : 'normal',
+            fontFamily: 'Commissioner, sans-serif',
+            fontWeight: 400,
+            fontSize: '16px',
+            lineHeight: 1.6,
+            mb: 1
+          }}
+        >
+          {displayText}
+        </Typography>
+        <Button
+          variant="text"
+          size="small"
+          onClick={() => setIsExpanded(!isExpanded)}
+          sx={{
+            p: 0,
+            minWidth: 'auto',
+            fontSize: '14px',
+            fontWeight: 500,
+            color: 'primary.main',
+            textTransform: 'none',
+            '&:hover': {
+              backgroundColor: 'transparent',
+              textDecoration: 'underline'
+            }
+          }}
+        >
+          {isExpanded ? 'Read less' : 'Read more'}
+        </Button>
+      </Box>
+    );
+  };
 
   const [isPlayingAudio, setIsPlayingAudio] = React.useState(false);
   const audioRef = React.useRef(null);
@@ -293,8 +367,7 @@ const POIDetail = () => {
               <Box 
                 sx={{ 
                   display: 'flex', 
-                  alignItems: 'center', 
-                  mb: 2,
+                  alignItems: 'center',
                   cursor: 'pointer',
                   '&:hover': {
                     backgroundColor: 'rgba(0, 0, 0, 0.04)',
@@ -315,31 +388,25 @@ const POIDetail = () => {
                 ) : (
                   <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%', mr: 1 }} />
                 )}
-                <Typography variant="h6" component="h3" sx={{ fontWeight: 'medium' }}>
-                  Address
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    lineHeight: 1.6,
+                    '&:hover': {
+                      color: 'primary.main'
+                    }
+                  }}
+                >
+                  {poi.address}
                 </Typography>
               </Box>
-              
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  lineHeight: 1.6,
-                  cursor: 'pointer',
-                  '&:hover': {
-                    color: 'primary.main'
-                  }
-                }}
-                onClick={() => navigate(`/${language}/${suiteId}/poi/${poi.slug}/address`)}
-              >
-                {poi.address}
-              </Typography>
             </Box>
           )}
 
           {/* External URL Section */}
           {poi.externalURL && (
             <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {pageConfig?.urlIcon ? (
                   <Box
                     component="img"
@@ -350,20 +417,32 @@ const POIDetail = () => {
                 ) : (
                   <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%', mr: 1 }} />
                 )}
-                <Typography variant="h6" component="h3" sx={{ fontWeight: 'medium' }}>
-                  Website
-                </Typography>
+                <Button 
+                  variant="text" 
+                  href={poi.externalURL} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  sx={{ p: 0, textAlign: 'left', justifyContent: 'flex-start' }}
+                >
+                  {poi.externalURL}
+                </Button>
               </Box>
-              
-              <Button 
-                variant="text" 
-                href={poi.externalURL} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                sx={{ p: 0, textAlign: 'left', justifyContent: 'flex-start' }}
-              >
-                {poi.externalURL}
-              </Button>
+            </Box>
+          )}
+
+          {/* Phone Number Section */}
+          {poi.dial && (
+            <Box sx={{ mb: 3 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <PhoneIcon sx={{ width: 24, height: 24, color: 'primary.main', mr: 1 }} />
+                <Button 
+                  variant="text" 
+                  href={`tel:${poi.dial}`}
+                  sx={{ p: 0, textAlign: 'left', justifyContent: 'flex-start' }}
+                >
+                  {poi.dial}
+                </Button>
+              </Box>
             </Box>
           )}
 
@@ -372,34 +451,68 @@ const POIDetail = () => {
           {/* Host Recommendation Section */}
           {recommendation && (
             <Box sx={{ mb: 3 }}>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-                {pageConfig?.recommendationHeading || 'Host Recommendation'}
-              </Typography>
-              <Paper 
-                elevation={1} 
-                sx={{ 
-                  p: 2, 
-                  backgroundColor: 'primary.50',
-                  borderLeft: 4,
-                  borderColor: 'primary.main'
-                }}
-              >
-                <Typography variant="body1" sx={{ fontStyle: 'italic' }}>
-                  {recommendation}
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    fontWeight: 600,
+                    fontSize: '18px',
+                    fontFamily: 'Inter, sans-serif',
+                    color: '#328188'
+                  }}
+                >
+                  {pageConfig?.recommendationHeading || 'Host Recommendation'}
                 </Typography>
-              </Paper>
+                {hostAvatar && (
+                  <Box 
+                    component="img" 
+                    src={hostAvatar.url}
+                    alt="Host"
+                    sx={{ 
+                      width: 48, 
+                      height: 48, 
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '2px solid #fff',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                      flexShrink: 0
+                    }} 
+                  />
+                )}
+              </Box>
+              <Box>
+                {renderExpandableText(
+                  recommendation, 
+                  isRecommendationExpanded, 
+                  setIsRecommendationExpanded,
+                  250
+                )}
+              </Box>
             </Box>
           )}
 
           {/* Highlight Content */}
           {poi.highlight && (
             <Box sx={{ mb: 3 }}>
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  mb: 2, 
+                  fontWeight: 600,
+                  fontSize: '18px',
+                  fontFamily: 'Inter, sans-serif',
+                  color: '#423B3C'
+                }}
+              >
                 {pageConfig?.highlightHeading || 'Highlight'}
               </Typography>
-              <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
-                {poi.highlight}
-              </Typography>
+              {renderExpandableText(
+                poi.highlight, 
+                isHighlightExpanded, 
+                setIsHighlightExpanded,
+                400,
+                false
+              )}
             </Box>
           )}
 
@@ -424,6 +537,40 @@ const POIDetail = () => {
                 {isPlayingAudio ? 'Stop Audio' : 'Listen to Audio Tour'}
               </Button>
               <audio ref={audioRef} src={poi.audioGuide} style={{ display: 'none' }} />
+            </Box>
+          )}
+
+          {/* LaxyURL Section */}
+          {poi.laxyURL && (
+            <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid rgba(0, 0, 0, 0.08)' }}>
+              <Typography 
+                variant="body1" 
+                sx={{ 
+                  mb: 2, 
+                  fontWeight: 500,
+                  color: 'text.primary',
+                  textAlign: 'center'
+                }}
+              >
+                Explore more about {poi.label}?
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={() => {
+                  trackContentInteraction('laxy_audio_guide_click', poi?.type || 'poi', poi?.slug || poiSlug);
+                  window.open(poi.laxyURL, '_blank');
+                }}
+                sx={{
+                  py: 1.5,
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  mb: 2
+                }}
+              >
+                Start Audio Guide with Laxy
+              </Button>
             </Box>
           )}
         </Paper>

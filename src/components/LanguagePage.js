@@ -87,10 +87,11 @@ const LanguagePage = () => {
   };
   
   return (
-    <Container {...PAGE_LAYOUTS.LanguagePage}>
+    <Container {...PAGE_LAYOUTS.LanguagePage} sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', pb: 0 }}>
       <PageHeader title={heading} />
       
-        <Box sx={{ mb: 4, flexGrow: 1 }}>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <Box sx={{ flex: 1, overflowY: 'auto', pb: 2 }}>
           <MenuList
             items={releasedLanguages}
             onItemClick={handleLanguageItemClick}
@@ -101,8 +102,19 @@ const LanguagePage = () => {
           />
         </Box>
         
-        {/* Apply Button */}
-        <Box sx={{ pt: 2, borderTop: '1px solid rgba(0, 0, 0, 0.08)' }}>
+        {/* Apply Button - Fixed at bottom */}
+        <Box 
+          sx={{ 
+            position: 'sticky',
+            bottom: 0,
+            backgroundColor: 'background.default',
+            pt: 2, 
+            pb: 2,
+            borderTop: '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
+            zIndex: 10
+          }}
+        >
           <Button
             variant="contained"
             fullWidth
@@ -113,12 +125,13 @@ const LanguagePage = () => {
               py: 1.5,
               borderRadius: 16,
               fontWeight: 600,
-              marginBottom: 4
+              minHeight: 48
             }}
           >
             {applyButtonLabel}
           </Button>
         </Box>
+      </Box>
     </Container>
   );
 };

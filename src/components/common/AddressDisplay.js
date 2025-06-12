@@ -10,7 +10,6 @@ import {
   DialogTitle,
   DialogContent
 } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
@@ -96,17 +95,53 @@ const AddressDisplay = ({
     }
   };
 
-  const handleAddressClick = () => {
-    if (addressURL) {
-      window.open(addressURL, '_blank');
-    }
-  };
-
   if (isCompact) {
     // Compact version for POI details
     return (
       <>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        {/* 1. Embedded Map */}
+        {showMap && address && (
+          <Box sx={{ mb: 3 }}>
+            <Box
+              sx={{
+                width: '100%',
+                height: '200px',
+                borderRadius: 2,
+                overflow: 'hidden',
+                border: '1px solid #e0e0e0'
+              }}
+            >
+              {addressEmbedHTML ? (
+                <Box
+                  dangerouslySetInnerHTML={{ __html: addressEmbedHTML }}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    '& iframe': {
+                      width: '100% !important',
+                      height: '100% !important',
+                      border: 'none !important'
+                    }
+                  }}
+                />
+              ) : (
+                <iframe
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAoc4RCOPkN2-oZt5OVt9lC7mJzmcaeV1Y&q=${encodeURIComponent(address)}`}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Location Map"
+                />
+              )}
+            </Box>
+          </Box>
+        )}
+
+        {/* 2. Address with clipboard button */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
           <Typography variant="body2" sx={{ lineHeight: 1.6, flex: 1, mr: 1 }}>
             {address}
           </Typography>
@@ -120,52 +155,63 @@ const AddressDisplay = ({
           </IconButton>
         </Box>
 
-        {/* Native Language Address */}
+        {/* 3. Native Language Address with clipboard button */}
         {nativeAddress && nativeAddress !== address && (
-          <Box sx={{ mt: 2, p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, border: '1px solid #e0e0e0' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+            <Box sx={{ flex: 1, mr: 1 }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, display: 'block', mb: 0.5 }}>
                 Native Language Address
               </Typography>
-              <IconButton
-                onClick={() => copyToClipboard(nativeAddress, 'Native address')}
-                size="small"
-                sx={{ color: 'primary.main' }}
-                title="Copy native address to clipboard"
-              >
-                <ContentCopyIcon fontSize="small" />
-              </IconButton>
+              <Typography variant="body2" sx={{ lineHeight: 1.6, fontStyle: 'italic' }}>
+                {nativeAddress}
+              </Typography>
+              <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 0.5 }}>
+                Show this address to locals for assistance
+              </Typography>
             </Box>
-            <Typography variant="body2" sx={{ lineHeight: 1.6, fontStyle: 'italic', fontSize: '0.85rem' }}>
-              {nativeAddress}
-            </Typography>
-            <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'text.secondary' }}>
-              Show this address to locals for assistance
-            </Typography>
-            
-            {/* Speech Button */}
-            {hubConfig?.data?.globalComponent?.speechButton && (
-              <Box sx={{ mt: 1 }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  startIcon={
-                    hubConfig.data.globalComponent.speechButton.icon?.url ? (
-                      <Box
-                        component="img"
-                        src={hubConfig.data.globalComponent.speechButton.icon.url}
-                        alt="Speech"
-                        sx={{ width: 14, height: 14 }}
-                      />
-                    ) : null
-                  }
-                  onClick={handleSpeechDialogOpen}
-                  sx={{ textTransform: 'none', fontSize: '0.75rem', py: 0.5 }}
-                >
-                  {hubConfig.data.globalComponent.speechButton.label}
-                </Button>
-              </Box>
-            )}
+            <IconButton
+              onClick={() => copyToClipboard(nativeAddress, 'Native address')}
+              size="small"
+              sx={{ color: 'primary.main' }}
+              title="Copy native address to clipboard"
+            >
+              <ContentCopyIcon fontSize="small" />
+            </IconButton>
+          </Box>
+        )}
+
+        {/* 4. Speech Button */}
+        {nativeAddress && hubConfig?.data?.globalComponent?.speechButton && (
+          <Box sx={{ mb: 3 }}>
+            <Button
+              variant="outlined"
+              fullWidth
+              startIcon={
+                hubConfig.data.globalComponent.speechButton.icon?.url ? (
+                  <Box
+                    component="img"
+                    src={hubConfig.data.globalComponent.speechButton.icon.url}
+                    alt="Speech"
+                    sx={{ width: 14, height: 14 }}
+                  />
+                ) : null
+              }
+              onClick={handleSpeechDialogOpen}
+              sx={{ 
+                textTransform: 'none', 
+                fontSize: '0.75rem', 
+                py: 1,
+                borderRadius: '37px',
+                border: '1px solid #46B2BB',
+                color: '#46B2BB',
+                '&:hover': {
+                  backgroundColor: 'rgba(70, 178, 187, 0.08)',
+                  border: '1px solid #46B2BB'
+                }
+              }}
+            >
+              {hubConfig.data.globalComponent.speechButton.label}
+            </Button>
           </Box>
         )}
 
@@ -225,75 +271,9 @@ const AddressDisplay = ({
   // Full version for suite address page
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
-        <Typography variant="body1" sx={{ lineHeight: 1.6, flex: 1, mr: 1 }}>
-          {address}
-        </Typography>
-        <IconButton
-          onClick={() => copyToClipboard(address, 'Address')}
-          size="small"
-          sx={{ ml: 1, color: 'primary.main' }}
-          title="Copy address to clipboard"
-        >
-          <ContentCopyIcon fontSize="small" />
-        </IconButton>
-      </Box>
-
-      {/* Native Language Address */}
-      {nativeAddress && nativeAddress !== address && (
-        <Box sx={{ mb: 3, p: 2, backgroundColor: '#f8f9fa', borderRadius: 1, border: '1px solid #e0e0e0' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-            <Typography variant="subtitle2" sx={{ color: 'text.secondary', fontWeight: 600 }}>
-              Native Language Address
-            </Typography>
-            <IconButton
-              onClick={() => copyToClipboard(nativeAddress, 'Native address')}
-              size="small"
-              sx={{ color: 'primary.main' }}
-              title="Copy native address to clipboard"
-            >
-              <ContentCopyIcon fontSize="small" />
-            </IconButton>
-          </Box>
-          <Typography variant="body2" sx={{ lineHeight: 1.6, fontStyle: 'italic' }}>
-            {nativeAddress}
-          </Typography>
-          <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'text.secondary' }}>
-            Show this address to locals for assistance
-          </Typography>
-          
-          {/* Speech Button */}
-          {hubConfig?.data?.globalComponent?.speechButton && (
-            <Box sx={{ mt: 2 }}>
-              <Button
-                variant="outlined"
-                size="small"
-                startIcon={
-                  hubConfig.data.globalComponent.speechButton.icon?.url ? (
-                    <Box
-                      component="img"
-                      src={hubConfig.data.globalComponent.speechButton.icon.url}
-                      alt="Speech"
-                      sx={{ width: 16, height: 16 }}
-                    />
-                  ) : null
-                }
-                onClick={handleSpeechDialogOpen}
-                sx={{ textTransform: 'none' }}
-              >
-                {hubConfig.data.globalComponent.speechButton.label}
-              </Button>
-            </Box>
-          )}
-        </Box>
-      )}
-
-      {/* Embedded Map */}
+      {/* 1. Embedded Map */}
       {showMap && address && (
         <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            Map
-          </Typography>
           <Box
             sx={{
               width: '100%',
@@ -304,7 +284,6 @@ const AddressDisplay = ({
             }}
           >
             {addressEmbedHTML ? (
-              // Use custom embed HTML if available
               <Box
                 dangerouslySetInnerHTML={{ __html: addressEmbedHTML }}
                 sx={{
@@ -318,7 +297,6 @@ const AddressDisplay = ({
                 }}
               />
             ) : (
-              // Fallback to generic Google Maps embed
               <iframe
                 src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyAoc4RCOPkN2-oZt5OVt9lC7mJzmcaeV1Y&q=${encodeURIComponent(address)}`}
                 width="100%"
@@ -334,18 +312,80 @@ const AddressDisplay = ({
         </Box>
       )}
 
-      {/* Map Button */}
-      {showMapButton && addressURL && (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddressClick}
-          startIcon={<LocationOnIcon />}
-          sx={{ mt: 2 }}
+      {/* 2. Address with clipboard button */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+        <Typography variant="body1" sx={{ lineHeight: 1.6, flex: 1, mr: 1 }}>
+          {address}
+        </Typography>
+        <IconButton
+          onClick={() => copyToClipboard(address, 'Address')}
+          size="small"
+          sx={{ color: 'primary.main' }}
+          title="Copy address to clipboard"
         >
-          View on Google Maps
-        </Button>
+          <ContentCopyIcon fontSize="small" />
+        </IconButton>
+      </Box>
+
+      {/* 3. Native Language Address with clipboard button */}
+      {nativeAddress && nativeAddress !== address && (
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+          <Box sx={{ flex: 1, mr: 1 }}>
+            <Typography variant="subtitle2" sx={{ color: 'text.secondary', fontWeight: 600, mb: 0.5 }}>
+              Native Language Address
+            </Typography>
+            <Typography variant="body2" sx={{ lineHeight: 1.6, fontStyle: 'italic' }}>
+              {nativeAddress}
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 1 }}>
+              Show this address to locals for assistance
+            </Typography>
+          </Box>
+          <IconButton
+            onClick={() => copyToClipboard(nativeAddress, 'Native address')}
+            size="small"
+            sx={{ color: 'primary.main' }}
+            title="Copy native address to clipboard"
+          >
+            <ContentCopyIcon fontSize="small" />
+          </IconButton>
+        </Box>
       )}
+
+      {/* 4. Speech Button */}
+      {nativeAddress && hubConfig?.data?.globalComponent?.speechButton && (
+        <Box sx={{ mb: 3 }}>
+          <Button
+            variant="outlined"
+            fullWidth
+            startIcon={
+              hubConfig.data.globalComponent.speechButton.icon?.url ? (
+                <Box
+                  component="img"
+                  src={hubConfig.data.globalComponent.speechButton.icon.url}
+                  alt="Speech"
+                  sx={{ width: 16, height: 16 }}
+                />
+              ) : null
+            }
+            onClick={handleSpeechDialogOpen}
+            sx={{ 
+              textTransform: 'none',
+              py: 1.5,
+              borderRadius: '37px',
+              border: '1px solid #46B2BB',
+              color: '#46B2BB',
+              '&:hover': {
+                backgroundColor: 'rgba(70, 178, 187, 0.08)',
+                border: '1px solid #46B2BB'
+              }
+            }}
+          >
+            {hubConfig.data.globalComponent.speechButton.label}
+          </Button>
+        </Box>
+      )}
+
 
       {/* Speech Dialog */}
       {nativeAddress && hubConfig?.data?.globalComponent?.speechButton && (
