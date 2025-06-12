@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
   Container,
-  Paper,
   Typography,
   Box,
   CircularProgress
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import PageHeader from '../common/PageHeader';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useLanguage } from '../../context/LanguageContext';
 import { getPOIsByType } from '../../utils/dataFetcher';
 import AddressDisplay from '../common/AddressDisplay';
@@ -107,30 +105,17 @@ const POIAddressInfo = () => {
       <PageHeader title="Address" />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
 
-        <Typography variant="h4" component="h1" gutterBottom>
-          {poi.label} - Address
-        </Typography>
-
-        <Paper elevation={3} sx={{ p: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            <LocationOnIcon sx={{ mr: 1, color: 'primary.main' }} />
-            <Typography variant="h6" component="h2">
-              Location
-            </Typography>
-          </Box>
-          
-          <AddressDisplay
-            suiteId={suiteId}
-            address={poi.address}
-            nativeLanguageCode={poi.nativeLanguageCode}
-            addressURL={poi.externalURL}
-            addressEmbedHTML={poi.addressEmbedHTML}
-            showMap={true}
-            showMapButton={true}
-            poiSlug={poi.slug}
-            isCompact={false}
-          />
-        </Paper>
+        <AddressDisplay
+          suiteId={suiteId}
+          address={poi.address}
+          nativeLanguageCode={poi.nativeLanguageCode}
+          addressURL={poi.externalURL}
+          addressEmbedHTML={poi.addressEmbedHTML}
+          showMap={true}
+          showMapButton={true}
+          poiSlug={poi.slug}
+          isCompact={false}
+        />
       </Box>
     </Container>
   );
