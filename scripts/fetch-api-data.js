@@ -5,8 +5,8 @@ const path = require('path');
 const https = require('https');
 
 // Configuration
-const API_BASE_URL = 'https://ethical-novelty-0c204c906b.strapiapp.com';
-const API_TOKEN = 'e6c7707d67784f0154e87db422a3ad4ce63da140e7d1a33d0e7f66f0519a9c01d78170118713518b5d293180802e86faa7eec333f6f8aada58eb5497808f2ee45fc8b8c3c004fd6c95b325b922461ec850871c96e78d3a232659b16fed709c1254e52dd3ccc9219de349a9c3cc5c64da42fb0238bc318402bffcd2f764a57b92';
+const API_BASE_URL = 'https://laxy-studio-strapi-c1d6d20cbc41.herokuapp.com';
+const API_TOKEN = 'e67959c9c07282664a57013db7120c2d9993fb097f9bd28cde7e550e0eaff82845957f4b9d572c5a4c33813922a982c8442bb460dab88f3253b964cf59b8428f227cec012a832526060cd2511631c9c2bc7525bb4252c3c15377cd8bb6d45b88f0721bbf87752720c4cdfbe1e4551ef29108638e377e9d536127afdb571b1acb';
 
 // Supported languages
 const LANGUAGES = ['en', 'ja', 'ko', 'zh-Hans', 'zh-Hant'];

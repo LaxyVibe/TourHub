@@ -1,115 +1,115 @@
 {
     "data": {
-        "id": 2,
-        "documentId": "oimsqqqznrilynkiyascc7ox",
-        "createdAt": "2025-06-01T07:01:43.169Z",
-        "updatedAt": "2025-06-11T05:08:12.563Z",
-        "publishedAt": "2025-06-10T05:20:12.426Z",
+        "id": 3,
+        "documentId": "au3e8t9cegnebahml864mmss",
+        "createdAt": "2025-06-15T13:47:16.469Z",
+        "updatedAt": "2025-06-15T13:47:22.476Z",
+        "publishedAt": "2025-06-15T13:47:16.402Z",
         "locale": "zh-Hant",
         "universalConfig": {
-            "id": 275,
+            "id": 13,
             "releasedLanguages": [
                 {
-                    "id": 1304,
+                    "id": 141,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 1305,
+                    "id": 144,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 1306,
+                    "id": 145,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 1307,
+                    "id": 142,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 1308,
+                    "id": 146,
                     "label": "한국어",
                     "value": "ko"
                 }
             ]
         },
         "globalComponent": {
-            "id": 2,
+            "id": 3,
             "readMoreLabel": "閱讀更多",
             "speechButton": {
-                "id": 49,
+                "id": 65,
                 "label": "以當地語言朗讀",
                 "icon": {
-                    "id": 63,
-                    "documentId": "w5hhfct4vzp7xr2j7qfsz052",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/volume_05_2ef55b9626.svg"
+                    "id": 42,
+                    "documentId": "mticwymvi5wqs4bdz0lobe4s",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993196/volume_05_0df3287e92.svg"
                 }
             }
         },
         "header": {
-            "id": 2,
+            "id": 3,
             "leftRoute": "/language",
             "rightRoute": "/search",
             "leftIcon": {
-                "id": 71,
-                "documentId": "cus9yi3ew8tbzrgo8kahnw1w",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/language_22b3130411.svg"
+                "id": 50,
+                "documentId": "hkuhf9x3sdxvk6ze7jvq08t4",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993225/language_d9b073e167.svg"
             },
             "rightIcon": {
-                "id": 72,
-                "documentId": "wa48s986jixukulj4wgw4ch8",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/Thin_f701b47deb.svg"
+                "id": 51,
+                "documentId": "jvchy61ioa80jed127o3frn8",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993228/Thin_23221aaa82.svg"
             }
         },
         "pageLanding": {
-            "id": 2,
+            "id": 3,
             "recommendationHeading": "我們的推薦",
             "naviagtion": [
                 {
-                    "id": 20,
+                    "id": 48,
                     "label": "資訊",
                     "route": "/info",
                     "icon": {
-                        "id": 66,
-                        "documentId": "yl0sgdoax941x0d0u45d9vkx",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_43_f8dc38bc4f.svg"
+                        "id": 45,
+                        "documentId": "b2zhi98woacgvlwrhqp9uin6",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993207/Travel_43_d900d08ec4.svg"
                     }
                 },
                 {
-                    "id": 21,
+                    "id": 49,
                     "label": "Wi-Fi",
                     "route": "/info/wifi",
                     "icon": {
-                        "id": 69,
-                        "documentId": "dle3bydt73mugd09n5ojhfq9",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/wifi_02_73a29027af.svg"
+                        "id": 48,
+                        "documentId": "kkb9gay0ml8pvpadtif2ctze",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993218/wifi_02_6e96d6b5d7.svg"
                     }
                 },
                 {
-                    "id": 22,
+                    "id": 50,
                     "label": "景點",
                     "route": "/nearby-attractions",
                     "icon": {
-                        "id": 67,
-                        "documentId": "lwf61c4etel3lfotwdgdjgi0",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_09_eb4e0d6717.svg"
+                        "id": 46,
+                        "documentId": "wywjk07k8u0mccx2vblhyh99",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993211/Travel_09_b79b076d3a.svg"
                     }
                 },
                 {
-                    "id": 23,
+                    "id": 51,
                     "label": "飲食",
                     "route": "/nearby-restaurants",
                     "icon": {
-                        "id": 70,
-                        "documentId": "hyy0o5jdbx0822n8o1tjtong",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_24_4dc49182d3.svg"
+                        "id": 49,
+                        "documentId": "g94ao3prng3aura1zq9fhctg",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993221/Travel_24_98232d72ac.svg"
                     }
                 },
                 {
-                    "id": 24,
+                    "id": 52,
                     "label": "導覽團",
                     "route": "/tours",
                     "icon": null
@@ -117,115 +117,115 @@
             ]
         },
         "pageLanguage": {
-            "id": 2,
+            "id": 3,
             "heading": "語言",
             "applyButton": {
-                "id": 25,
+                "id": 53,
                 "label": "選擇語言"
             }
         },
         "pageSearch": {
-            "id": 7,
+            "id": 3,
             "searchInputPlaceholder": "發掘您的下一個體驗",
             "defaultListHeading": "最多搜尋",
             "highlightedListHeading": "我們的推薦",
             "defaultList": [
                 {
-                    "id": 64,
+                    "id": 59,
                     "label": "溫泉",
                     "value": "温泉"
                 }
             ]
         },
         "pageInfo": {
-            "id": 6,
+            "id": 3,
             "heading": "房間資訊",
             "navigation": [
                 {
-                    "id": 65,
+                    "id": 60,
                     "label": "地址",
                     "route": "/info/address",
                     "icon": {
-                        "id": 58,
-                        "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
+                        "id": 35,
+                        "documentId": "zuctd71mj1t3ewbflg06qhp9",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993169/Icon_3ae9a348e8.svg"
                     }
                 },
                 {
-                    "id": 66,
+                    "id": 61,
                     "label": "入住 & 退房",
                     "route": "/info/check-in-out",
                     "icon": {
-                        "id": 65,
-                        "documentId": "dl1idjts06zs4qnnii4f5be9",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/clock_01_9052f2670b.svg"
+                        "id": 44,
+                        "documentId": "qxbgqr0zdns48sbirwymeswz",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993203/clock_01_75afb297c8.svg"
                     }
                 },
                 {
-                    "id": 67,
+                    "id": 62,
                     "label": "房間規則",
                     "route": "/info/house-rules",
                     "icon": {
-                        "id": 62,
-                        "documentId": "m14shdcw32422vw3nyp4dny0",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/book_03_22c6b5ad3e.svg"
+                        "id": 41,
+                        "documentId": "aeq3xauun70rod09urg9x2eo",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993191/book_03_2384005118.svg"
                     }
                 },
                 {
-                    "id": 68,
+                    "id": 63,
                     "label": "設施",
                     "route": "/info/amenities",
                     "icon": {
-                        "id": 59,
-                        "documentId": "jcq574qfdexe1lqxdsjq9f47",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Group_e68ebd5f71.svg"
+                        "id": 38,
+                        "documentId": "mfzomycxw1znjegg0x8mewu5",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993180/Group_e881416c53.svg"
                     }
                 },
                 {
-                    "id": 69,
+                    "id": 64,
                     "label": "常見問題",
                     "route": "/info/faq",
                     "icon": {
-                        "id": 68,
-                        "documentId": "pupmn6p3u0wt8szrlecxj93x",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/interface_help_question_circle_circle_faq_frame_help_info_mark_more_query_question_Streamline_Core_965885ab4b.svg"
+                        "id": 47,
+                        "documentId": "qcmz642lrze1motca93rn3vz",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993214/interface_help_question_circle_circle_faq_frame_help_info_mark_more_query_question_Streamline_Core_a5796d0c61.svg"
                     }
                 }
             ]
         },
         "pageWiFi": {
-            "id": 4,
+            "id": 3,
             "scanQRButton": {
-                "id": 70,
+                "id": 66,
                 "label": "掃描 QR 碼連線"
             },
             "clipboardButton": {
-                "id": 71,
+                "id": 67,
                 "label": "複製密碼"
             },
             "showQRButton": {
-                "id": 72,
+                "id": 68,
                 "label": "顯示 QR 碼以供分享"
             }
         },
         "pagPoiDetail": {
-            "id": 5,
+            "id": 3,
             "recommendationHeading": "房東推薦",
             "highlightHeading": "特點",
             "addressIcon": {
-                "id": 58,
-                "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
+                "id": 35,
+                "documentId": "zuctd71mj1t3ewbflg06qhp9",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993169/Icon_3ae9a348e8.svg"
             },
             "urlIcon": {
-                "id": 56,
-                "documentId": "ooea7o2z2dixe3xym0r3j7m4",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791018/globe_03_e1437b2ed1.svg"
+                "id": 36,
+                "documentId": "fq6hs0uj0pnuexhotksn5iul",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993174/globe_03_259a84a02e.svg"
             },
             "dialIcon": {
-                "id": 60,
-                "documentId": "t6ezztx2wxerlwrfsxwua9kn",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/phone_124278a2aa.svg"
+                "id": 39,
+                "documentId": "m9x1fxtptmqivknkiaxi974h",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993184/phone_01ff591bbc.svg"
             }
         }
     },
