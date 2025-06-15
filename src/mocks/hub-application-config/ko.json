@@ -1,36 +1,36 @@
 {
     "data": {
-        "id": 5,
-        "documentId": "oimsqqqznrilynkiyascc7ox",
-        "createdAt": "2025-06-08T05:24:13.896Z",
-        "updatedAt": "2025-06-11T05:08:11.856Z",
-        "publishedAt": "2025-06-11T05:08:11.081Z",
+        "id": 4,
+        "documentId": "au3e8t9cegnebahml864mmss",
+        "createdAt": "2025-06-15T13:47:19.467Z",
+        "updatedAt": "2025-06-15T13:47:22.478Z",
+        "publishedAt": "2025-06-15T13:47:19.378Z",
         "locale": "ko",
         "universalConfig": {
-            "id": 271,
+            "id": 15,
             "releasedLanguages": [
                 {
-                    "id": 1284,
+                    "id": 152,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 1285,
+                    "id": 153,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 1286,
+                    "id": 154,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 1287,
+                    "id": 156,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 1288,
+                    "id": 155,
                     "label": "한국어",
                     "value": "ko"
                 }
@@ -40,12 +40,12 @@
             "id": 4,
             "readMoreLabel": "자세히 보기",
             "speechButton": {
-                "id": 169,
+                "id": 96,
                 "label": "현지 언어로 말하기",
                 "icon": {
-                    "id": 63,
-                    "documentId": "w5hhfct4vzp7xr2j7qfsz052",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/volume_05_2ef55b9626.svg"
+                    "id": 42,
+                    "documentId": "mticwymvi5wqs4bdz0lobe4s",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993196/volume_05_0df3287e92.svg"
                 }
             }
         },
@@ -54,14 +54,14 @@
             "leftRoute": "/language",
             "rightRoute": "/search",
             "leftIcon": {
-                "id": 71,
-                "documentId": "cus9yi3ew8tbzrgo8kahnw1w",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/language_22b3130411.svg"
+                "id": 50,
+                "documentId": "hkuhf9x3sdxvk6ze7jvq08t4",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993225/language_d9b073e167.svg"
             },
             "rightIcon": {
-                "id": 72,
-                "documentId": "wa48s986jixukulj4wgw4ch8",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791047/Thin_f701b47deb.svg"
+                "id": 51,
+                "documentId": "jvchy61ioa80jed127o3frn8",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993228/Thin_23221aaa82.svg"
             }
         },
         "pageLanding": {
@@ -69,47 +69,47 @@
             "recommendationHeading": "추천 목록",
             "naviagtion": [
                 {
-                    "id": 156,
+                    "id": 79,
                     "label": "정보",
                     "route": "/info",
                     "icon": {
-                        "id": 66,
-                        "documentId": "yl0sgdoax941x0d0u45d9vkx",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_43_f8dc38bc4f.svg"
+                        "id": 45,
+                        "documentId": "b2zhi98woacgvlwrhqp9uin6",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993207/Travel_43_d900d08ec4.svg"
                     }
                 },
                 {
-                    "id": 157,
+                    "id": 80,
                     "label": "Wi-Fi",
                     "route": "/info/wifi",
                     "icon": {
-                        "id": 69,
-                        "documentId": "dle3bydt73mugd09n5ojhfq9",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/wifi_02_73a29027af.svg"
+                        "id": 48,
+                        "documentId": "kkb9gay0ml8pvpadtif2ctze",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993218/wifi_02_6e96d6b5d7.svg"
                     }
                 },
                 {
-                    "id": 158,
+                    "id": 81,
                     "label": "관광 명소",
                     "route": "/nearby-attractions",
                     "icon": {
-                        "id": 67,
-                        "documentId": "lwf61c4etel3lfotwdgdjgi0",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_09_eb4e0d6717.svg"
+                        "id": 46,
+                        "documentId": "wywjk07k8u0mccx2vblhyh99",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993211/Travel_09_b79b076d3a.svg"
                     }
                 },
                 {
-                    "id": 159,
+                    "id": 82,
                     "label": "맛집",
                     "route": "/nearby-restaurants",
                     "icon": {
-                        "id": 70,
-                        "documentId": "hyy0o5jdbx0822n8o1tjtong",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/Travel_24_4dc49182d3.svg"
+                        "id": 49,
+                        "documentId": "g94ao3prng3aura1zq9fhctg",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993221/Travel_24_98232d72ac.svg"
                     }
                 },
                 {
-                    "id": 160,
+                    "id": 83,
                     "label": "투어",
                     "route": "/tours",
                     "icon": null
@@ -120,112 +120,112 @@
             "id": 4,
             "heading": "언어",
             "applyButton": {
-                "id": 161,
+                "id": 84,
                 "label": "언어 선택"
             }
         },
         "pageSearch": {
-            "id": 9,
+            "id": 4,
             "searchInputPlaceholder": "다음 경험 찾아보기",
             "defaultListHeading": "인기 검색어",
             "highlightedListHeading": "추천 목록",
             "defaultList": [
                 {
-                    "id": 162,
+                    "id": 90,
                     "label": "온천",
                     "value": null
                 }
             ]
         },
         "pageInfo": {
-            "id": 8,
+            "id": 4,
             "heading": "객실 정보",
             "navigation": [
                 {
-                    "id": 163,
+                    "id": 91,
                     "label": "주소",
                     "route": "/info/address",
                     "icon": {
-                        "id": 58,
-                        "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
+                        "id": 35,
+                        "documentId": "zuctd71mj1t3ewbflg06qhp9",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993169/Icon_3ae9a348e8.svg"
                     }
                 },
                 {
-                    "id": 164,
+                    "id": 92,
                     "label": "체크인 & 체크아웃",
                     "route": "/info/check-in-out",
                     "icon": {
-                        "id": 65,
-                        "documentId": "dl1idjts06zs4qnnii4f5be9",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/clock_01_9052f2670b.svg"
+                        "id": 44,
+                        "documentId": "qxbgqr0zdns48sbirwymeswz",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993203/clock_01_75afb297c8.svg"
                     }
                 },
                 {
-                    "id": 165,
+                    "id": 93,
                     "label": "숙소 이용 규칙",
                     "route": "/info/house-rules",
                     "icon": {
-                        "id": 62,
-                        "documentId": "m14shdcw32422vw3nyp4dny0",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/book_03_22c6b5ad3e.svg"
+                        "id": 41,
+                        "documentId": "aeq3xauun70rod09urg9x2eo",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993191/book_03_2384005118.svg"
                     }
                 },
                 {
-                    "id": 166,
+                    "id": 94,
                     "label": "편의 시설",
                     "route": "/info/amenities",
                     "icon": {
-                        "id": 59,
-                        "documentId": "jcq574qfdexe1lqxdsjq9f47",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Group_e68ebd5f71.svg"
+                        "id": 38,
+                        "documentId": "mfzomycxw1znjegg0x8mewu5",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993180/Group_e881416c53.svg"
                     }
                 },
                 {
-                    "id": 167,
+                    "id": 95,
                     "label": "자주 묻는 질문",
                     "route": "/info/faq",
                     "icon": {
-                        "id": 68,
-                        "documentId": "pupmn6p3u0wt8szrlecxj93x",
-                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791020/interface_help_question_circle_circle_faq_frame_help_info_mark_more_query_question_Streamline_Core_965885ab4b.svg"
+                        "id": 47,
+                        "documentId": "qcmz642lrze1motca93rn3vz",
+                        "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993214/interface_help_question_circle_circle_faq_frame_help_info_mark_more_query_question_Streamline_Core_a5796d0c61.svg"
                     }
                 }
             ]
         },
         "pageWiFi": {
-            "id": 6,
+            "id": 4,
             "scanQRButton": {
-                "id": 170,
+                "id": 97,
                 "label": "QR 코드 스캔하여 연결하기"
             },
             "clipboardButton": {
-                "id": 171,
+                "id": 98,
                 "label": "비밀번호 복사"
             },
             "showQRButton": {
-                "id": 172,
+                "id": 99,
                 "label": "QR 코드 표시하여 공유하기"
             }
         },
         "pagPoiDetail": {
-            "id": 7,
+            "id": 4,
             "recommendationHeading": null,
             "highlightHeading": "하이라이트",
             "addressIcon": {
-                "id": 58,
-                "documentId": "f0rhrsc7gfvdbia7ucezjx4u",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/Icon_54d095c553.svg"
+                "id": 35,
+                "documentId": "zuctd71mj1t3ewbflg06qhp9",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993169/Icon_3ae9a348e8.svg"
             },
             "urlIcon": {
-                "id": 56,
-                "documentId": "ooea7o2z2dixe3xym0r3j7m4",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791018/globe_03_e1437b2ed1.svg"
+                "id": 36,
+                "documentId": "fq6hs0uj0pnuexhotksn5iul",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993174/globe_03_259a84a02e.svg"
             },
             "dialIcon": {
-                "id": 60,
-                "documentId": "t6ezztx2wxerlwrfsxwua9kn",
-                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1748791019/phone_124278a2aa.svg"
+                "id": 39,
+                "documentId": "m9x1fxtptmqivknkiaxi974h",
+                "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993184/phone_01ff591bbc.svg"
             }
         }
     },

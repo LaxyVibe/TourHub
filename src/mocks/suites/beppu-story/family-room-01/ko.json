@@ -1,8 +1,8 @@
 {
     "data": [
         {
-            "id": 10,
-            "documentId": "o91y8s8d4k6996mn5m47qkm8",
+            "id": 2,
+            "documentId": "i0n9t1b9ktzszafp237jaqvo",
             "name": "family-room-01",
             "label": "Family Room 1",
             "headline": null,
@@ -11,64 +11,64 @@
             "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.4395542950692!2d131.5044823!3d33.2811618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a79f8bcc9bdd%3A0x6265dcb4b7a8c0c8!2z5Yil5bqc44K544OI44O844Oq44O84oWh!5e0!3m2!1sja!2sjp!4v1749357483667!5m2!1sja!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
             "checkInOut": "<p>체크인: 오후 3:00 이후<br>체크아웃: 오전 10:00 이전</p>\n<p>고객님의 편의를 위해 얼리 체크인 및 레이트 체크아웃 옵션을 제공하게 되어 기쁩니다. 객실 이용 가능 여부와 점유율에 따라 얼리 체크인은 최소 3시간, 레이트 체크아웃은 최대 3시간까지 이용하실 수 있습니다. 이 서비스에는 시간당 1,000엔의 추가 요금이 부과됩니다. 필요한 준비를 기꺼이 도와드리겠습니다. :)</p>",
             "amenities": null,
-            "houseRules": "<p>- 최대 숙박 인원 5명<br>- 반려동물 동반 불가<br>- 파티 또는 이벤트 금지<br>- 상업적 사진 ���영 금지<br>- 금연</p>",
+            "houseRules": "<p>- 최대 숙박 인원 5명<br>- 반려동물 동반 불가<br>- 파티 또는 이벤트 금지<br>- 상업적 사진 촬영 금지<br>- 금연</p>",
             "slider": [
                 {
-                    "id": 85,
-                    "documentId": "b6zuxzo6m462oy5j63chiblr",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749211215/familyroom01_beppu_airbnb_e691d8ac4a.webp"
+                    "id": 27,
+                    "documentId": "w96e76uo7sgeo9tr6wmrrvpi",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993145/familyroom01_beppu_airbnb_f31309b7bc.webp"
                 }
             ],
             "faq": [
                 {
-                    "id": 97,
+                    "id": 13,
                     "question": "몇 명까지 숙박할 수 있나요?",
                     "answer": "<p>최대 5명</p>"
                 },
                 {
-                    "id": 98,
+                    "id": 14,
                     "question": "체크인과 체크아웃 시간은 어떻게 되나요?",
                     "answer": "<p>체크인: 오후 3:00 이후<br>체크아웃: 오전 10:00 이전</p>\n<p>고객님의 편의를 위해 얼리 체크인 및 레이트 체크아웃 옵션을 제공하게 되어 기쁩니다. 객실 이용 가능 여부와 점유율에 따라 얼리 체크인은 최소 3시간, 레이트 체크아웃은 최대 3시간까지 이용하실 수 있습니다. 이 서비스에는 시간당 1,000엔의 추가 요금이 부과됩니다. 필요한 준비를 기꺼이 도와드리겠습니다. :)</p>"
                 },
                 {
-                    "id": 99,
+                    "id": 15,
                     "question": "레스토랑이 있나요?",
                     "answer": "<p>죄송하지만 레스토랑은 없습니다.</p>"
                 },
                 {
-                    "id": 100,
+                    "id": 16,
                     "question": "주차할 수 있나요?",
                     "answer": "<p>인근에 무료 전용 주차장이 있습니다(예약 불필요).</p>"
                 }
             ],
             "wifi": [
                 {
-                    "id": 33,
+                    "id": 41,
                     "network": "Airbnb3",
                     "password": "beppuairbnb"
                 },
                 {
-                    "id": 34,
+                    "id": 42,
                     "network": "Airbnb4",
                     "password": "beppuairbnb"
                 }
             ],
             "ownedBy": {
-                "id": 7,
-                "documentId": "nh91l7ks7t9s37xczk3mkcwx",
+                "id": 5,
+                "documentId": "sryg01oy5y4rbisxyhzujue9",
                 "slug": "beppu-story",
                 "label": "Beppu Story",
                 "greeting": "Beppu Story에 오신 것을 환영합니다!",
                 "nativeLanguageCode": "ja",
                 "avatar": {
-                    "id": 79,
-                    "documentId": "rvf8uwz2ob1djwacq8pntj7c",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749201884/beppu_airbnb_logo_786f756142.png"
+                    "id": 15,
+                    "documentId": "fsq8lgbw9fbut3p0nlkibn3b",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993104/beppu_airbnb_logo_7553f8ffa7.png"
                 },
                 "pickedPOIs": [
                     {
-                        "id": 23,
-                        "documentId": "wegzr8tt6ofuoyv5udg8zwan",
+                        "id": 133,
+                        "documentId": "c7j2oppvcojte9if27e22xue",
                         "slug": "Beppu-Hatto-Onsen-Festival",
                         "label": "벳푸 핫토 온천 축제 (3월 하순 ~ 4월 상순)",
                         "address": null,
@@ -82,51 +82,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 27,
-                                "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                                "id": 10,
+                                "documentId": "xd02cfhqrxhr35klrjghebhi",
                                 "name": "이벤트",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 96,
-                            "documentId": "qopeocz4ldj51tz7ip26vanx",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/First_week_of_April_c6073665bc.jpg"
+                            "id": 70,
+                            "documentId": "su3ta56s79trfrd2nu3n6hsd",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993291/Beppu_Hatto_Onsen_Festival_a9473eeefc.jpg"
                         }
                     },
                     {
-                        "id": 8,
-                        "documentId": "j3mbj5p4mgqmig383z4dkvqy",
+                        "id": 99,
+                        "documentId": "zbyhe0y7k0w2ma9h1538lab9",
                         "slug": "Kaimonji-Onsen",
-                        "label": "海門寺温泉",
+                        "label": "카이몬지 온천",
                         "address": "〒874-0920 오이타현 벳푸시 기타하마 2초메 3-2",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.4653855924157!2d131.5032886!3d33.2804858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6dd05cfbeff%3A0xdc9485bc2d68384!2z5rW36ZaA5a-65rip5rOJIEthaW1vbmppIG9uc2Vu!5e0!3m2!1sja!2sjp!4v1749357166015!5m2!1sja!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "0977-22-3625",
-                        "highlight": "카이몬지 온천은 일본 오이타현 벳푸시에 위치한 유서 깊은 공중 온천으로, 합리적인 가격에 현지 주민과 여행객 모두에게 사랑받고 있습니다. 진정한 일본식 온천 문화를 경험하고 싶은 분들에게 이상적인 선택입니다.\n\n온천 자체는 전통적이고 소박한 스타일을 유지하고 있으며, 화려하��는 않지만 따뜻함과 향수를 불러일으킵니다. 소박한 시설은 조용하고 순수한 온천 경험을 선호하는 여행객에게 적합합니다. 벳푸 시내와 가깝고 역에서 도보로 갈 수 있어 교통이 매우 편리합니다.\n\n벳푸의 일상과 온천 문화를 깊이 느끼고 싶다면 카이몬지 온천은 일정에 포함할 가치가 있는 좋은 선택입니다.",
+                        "highlight": "카이몬지 온천은 일본 오이타현 벳푸시에 위치한 유서 깊은 공중 온천으로, 합리적인 가격에 현지 주민과 여행객 모두에게 사랑받고 있습니다. 진정한 일본식 온천 문화를 경험하고 싶은 분들에게 이상적인 선택입니다.\n\n온천 자체는 전통적이고 소박한 스타일을 유지하고 있으며, 화려하지는 않지만 따뜻함과 향수를 불러일으킵니다. 소박한 시설은 조용하고 순수한 온천 경험을 선호하는 여행객에게 적합합니다. 벳푸 시내와 가깝고 역에서 도보로 갈 수 있어 교통이 매우 편리합니다.\n\n벳푸의 일상과 온천 문화를 깊이 느끼고 싶다면 카이몬지 온천은 일정에 포함할 가치가 있는 좋은 선택입니다.",
                         "externalURL": "https://www.city.beppu.oita.jp/sisetu/shieionsen/detail7.html",
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 2,
-                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "id": 14,
+                                "documentId": "cfq91726e76i6u7ywdblwsnn",
                                 "name": "온천",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 101,
-                            "documentId": "bvcba6r7fyrr8qd5pzset6xk",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218466/Kaimonji_Onsen_23e9c9fd87.webp"
+                            "id": 20,
+                            "documentId": "bn0d6ekn7kb3kd07g07srb2d",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993120/Kaimonji_Onsen_bdf2f3eabf.webp"
                         }
                     },
                     {
-                        "id": 18,
-                        "documentId": "nyk1nox195rwz864vhirbq4u",
+                        "id": 106,
+                        "documentId": "hjcj7rzrritadxa3c3cmrgjg",
                         "slug": "Suginoi-Hotel-Aqua-Garden",
-                        "label": "杉乃井ホテル 棚湯・ザ アクアガーデン  ",
+                        "label": "스기노이 호텔 타나유 · 더 아쿠아 가든",
                         "address": "〒874-0822 오이타현 벳푸시 칸카이지 1",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.289058650653!2d131.4726!3d33.28510000000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a65c95c88521%3A0x2b1c619b643d0a36!2sThe%20Aqua%20Garden!5e0!3m2!1sen!2sjp!4v1749359230971!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -138,57 +138,57 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 2,
-                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "id": 14,
+                                "documentId": "cfq91726e76i6u7ywdblwsnn",
                                 "name": "온천",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 103,
-                            "documentId": "tdzqknqthwr3dwv5kha3kwkb",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218519/Suginoi_Hotel_Aqua_Garden_9b37b7daf3.jpg"
+                            "id": 28,
+                            "documentId": "fh1ususq0aqyits1nm12k08d",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993148/Suginoi_Hotel_Aqua_Garden_9183456676.jpg"
                         }
                     },
                     {
-                        "id": 13,
-                        "documentId": "htmjfrmp84tbio8un21wx15r",
+                        "id": 89,
+                        "documentId": "ay4mg0bs3x2bxba901uhtanm",
                         "slug": "Takegawara-Onsen",
-                        "label": "竹瓦温泉",
+                        "label": "다케가와라 온천",
                         "address": "〒874-0944 오이타현 벳푸시 모토마치 16-23",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.5811698237458!2d131.5059894!3d33.277455599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6dbc076d72f%3A0x30437b42d69f3478!2sTakegawara%20Onsen!5e0!3m2!1sen!2sjp!4v1749359217585!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "0977-23-1585",
-                        "highlight": "타케가와라 온천은 벳푸 시를 대표하는 전통 공중 온천 중 하나로, 유서 깊은 고풍스러운 건물 안에 자리하고 있습니다. 건물 자체는 100년 이상의 역사를 가지고 있으며, 벳푸 온천 문화의 상징이자 도시의 랜드마크로 여겨집니다.\n\n전통적인 일본식 온천탕 외에도, 이곳에서 가장 유명한 특징은 '모래찜질(스나유)'입니다. 방문객들은 따뜻한 모래 더미에 누워 천연 지열 증기로 몸을 데우며 일반 온천과는 다른 치유 효과를 경험할 수 있어 국내외 여행객들에게 큰 사랑을 받고 있습니다.\n\n역사와 문화가 교차하는 곳으로서, 타케가와라 온���은 단순히 목욕하는 장소를 넘어 시간 여행의 경험을 선사하므로 벳푸를 처음 방문하는 여행객에게 강력히 추천합니다.",
+                        "highlight": "타케가와라 온천은 벳푸 시를 대표하는 전통 공중 온천 중 하나로, 유서 깊은 고풍스러운 건물 안에 자리하고 있습니다. 건물 자체는 100년 이상의 역사를 가지고 있으며, 벳푸 온천 문화의 상징이자 도시의 랜드마크로 여겨집니다.\n\n전통적인 일본식 온천탕 외에도, 이곳에서 가장 유명한 특징은 '모래찜질(스나유)'입니다. 방문객들은 따뜻한 모래 더미에 누워 천연 지열 증기로 몸을 데우며 일반 온천과는 다른 치유 효과를 경험할 수 있어 국내외 여행객들에게 큰 사랑을 받고 있습니다.\n\n역사와 문화가 교차하는 곳으로서, 타케가와라 온천은 단순히 목욕하는 장소를 넘어 시간 여행의 경험을 선사하므로 벳푸를 처음 방문하는 여행객에게 강력히 추천합니다.",
                         "externalURL": "https://www.takegawara-onsen.com/",
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 2,
-                                "documentId": "h60byd410zus966b96j4rkwy",
+                                "id": 14,
+                                "documentId": "cfq91726e76i6u7ywdblwsnn",
                                 "name": "온천",
                                 "color": "GREY"
                             },
                             {
-                                "id": 19,
-                                "documentId": "jn73kyohuix43w65wfv62om2",
+                                "id": 25,
+                                "documentId": "y0fm6ubj5q6j89tv7xchn360",
                                 "name": "인기 관광지",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 107,
-                            "documentId": "ei1h9j1eah08akaicbqfn2uz",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Takegawara_Onsen_aac32fc3ec.jpg"
+                            "id": 61,
+                            "documentId": "cuwoxz5swpqikoe2n5p1kmse",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993261/Takegawara_Onsen_ae85d80840.jpg"
                         }
                     },
                     {
-                        "id": 33,
-                        "documentId": "molyzu13gr79s4fgj78qujdr",
+                        "id": 102,
+                        "documentId": "jib9rnnskq6upziyoqrcy20w",
                         "slug": "Miyako",
-                        "label": "[お好み焼きと家庭料理の店] 味Dining みやこ",
+                        "label": "[오코노미야키와 가정 요리 전문점] 아지 다이닝 미야코",
                         "address": "일본 〒874-0944 오이타현 벳푸시 모토마치 7-4 솔파세오긴자",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.5981343224757!2d131.5048875!3d33.2770116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6c3382ce709%3A0xa9853fd37dca9845!2z5ZGz44OA44Kk44OL44Oz44KwIOOBv-OChOOBkw!5e0!3m2!1sen!2sjp!4v1749359253640!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -200,23 +200,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 110,
-                            "documentId": "y69bm7ss1jstmshzpima4vjg",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Miyako_c067dfaa2a.jpg"
+                            "id": 65,
+                            "documentId": "lgncb5nepp8m2sme3xsfnskr",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993274/Miyako_3465e2547c.jpg"
                         }
                     },
                     {
-                        "id": 28,
-                        "documentId": "d4mfo8qjqzeeg8zq84hrzb51",
+                        "id": 54,
+                        "documentId": "c719oonijgcgt626kq8fdcix",
                         "slug": "Robata-Jin",
-                        "label": "ろばた仁",
+                        "label": "로바타 진",
                         "address": "일본 〒874-0920 오이타현 벳푸시 기타하마 1초메 15-7",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.5067376287343!2d131.50581929999998!3d33.2794036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6dc86628019%3A0x660c877a77932490!2sRobata%20Jin!5e0!3m2!1sen!2sjp!4v1749359241111!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -228,23 +228,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 108,
-                            "documentId": "r0qf8vv496p9orpds12sjaaz",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Robata_Jin_2b5b537da0.jpg"
+                            "id": 62,
+                            "documentId": "cmxjsspjlcpa681n2l8nsm52",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993265/Robata_Jin_7347b0a438.jpg"
                         }
                     },
                     {
-                        "id": 76,
-                        "documentId": "hpkbzxg22hpftaenhc8hadnu",
+                        "id": 87,
+                        "documentId": "k43jal69ybwqggeyuh7x5plr",
                         "slug": "Don-Quijote-Beppu",
-                        "label": "ドン・キホーテ (동키호테)",
+                        "label": "돈키호테 벳푸점",
                         "address": "일본 〒874-0929 오이타현 벳푸시 미나미키타하마마치 6-20",
                         "addressURL": null,
                         "addressEmbedHTML": null,
@@ -256,51 +256,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 11,
-                                "documentId": "izxukfe1rundmemg5xdild9x",
+                                "id": 18,
+                                "documentId": "n1fasfi52e6y59v8id9eimde",
                                 "name": "쇼핑",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 91,
-                            "documentId": "ckxs82lad6tncj5zmsu8ctzp",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218429/Don_Quijote_Beppu_36c08947d6.webp"
+                            "id": 33,
+                            "documentId": "b26zl95p6yx9h2497yl2xnhu",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993163/Don_Quijote_Beppu_bc0d8ce926.webp"
                         }
                     },
                     {
-                        "id": 48,
-                        "documentId": "cy9slbcmqkc3seup0lvwkymr",
+                        "id": 50,
+                        "documentId": "rc804d2del0mxnd6yah50v5x",
                         "slug": "Fukuya-Ramen",
-                        "label": "ふくやラーメン工房 総本店",
+                        "label": "후쿠야 라멘 공방 총본점",
                         "address": "일본 〒874-0926 오이타현 벳푸시 교마치 8-16",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.2133157247627!2d131.5039933!3d33.2870819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6df796c3b93%3A0xcdc0fb800ae8b95e!2sFukuya%20So-Honten!5e0!3m2!1sen!2sjp!4v1749359288720!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "+81 977-25-9471",
-                        "highlight": "벳푸시 교마치에 위치한 \"\"라멘 코보 후쿠야 소본텐\"\"은 진정한 맛과 진한 돈코츠 육수로 유명한 오래된 라멘 전문점입니다. 가게 외관은 소박하고 눈에 띄지 않지만, 내부는 심플하고 편안한 일본식 디자인으로 친근한 분위기를 자아내 많은 현지인과 단골들의 일상적인 식사 장소로 사랑받고 있습니다.\n\n이곳은 전통적인 방식으로 돈코츠 ��수를 끓여내 진한 향을 내면서도 느끼하지 않으며, 쫄깃한 중세면과 어우러져 풍미 가득한 클래식 규슈 라멘을 선사합니다. 기본 라멘 외에도 야채 라멘, 차슈 추가 버전, 매운맛 변형 등 다양한 손님들의 입맛을 만족시킬 수 있는 메뉴를 제공합니다.\n\n가게는 좌석 식사와 포장 서비스를 모두 제공하여, 바쁜 여행 일정 중에도 따뜻한 라멘 한 그릇을 빠르게 맛보기에 매우 적합합니다. 점심이든 저녁이든, 이곳은 만족스러운 뜨거운 라멘 한 그릇을 제공할 수 있습니다.",
+                        "highlight": "벳푸시 교마치에 위치한 \"\"라멘 코보 후쿠야 소본텐\"\"은 진정한 맛과 진한 돈코츠 육수로 유명한 오래된 라멘 전문점입니다. 가게 외관은 소박하고 눈에 띄지 않지만, 내부는 심플하고 편안한 일본식 디자인으로 친근한 분위기를 자아내 많은 현지인과 단골들의 일상적인 식사 장소로 사랑받고 있습니다.\n\n이곳은 전통적인 방식으로 돈코츠 육수를 끓여내 진한 향을 내면서도 느끼하지 않으며, 쫄깃한 중세면과 어우러져 풍미 가득한 클래식 규슈 라멘을 선사합니다. 기본 라멘 외에도 야채 라멘, 차슈 추가 버전, 매운맛 변형 등 다양한 손님들의 입맛을 만족시킬 수 있는 메뉴를 제공합니다.\n\n가게는 좌석 식사와 포장 서비스를 모두 제공하여, 바쁜 여행 일정 중에도 따뜻한 라멘 한 그릇을 빠르게 맛보기에 매우 적합합니다. 점심이든 저녁이든, 이곳은 만족스러운 뜨거운 라멘 한 그릇을 제공할 수 있습니다.",
                         "externalURL": "https://fukuya-ramen.com/",
                         "type": "restaurant",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 100,
-                            "documentId": "j1dseikwr8nsfzktmsp73p70",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218467/Fukuya_Ramen_1b19c00326.jpg"
+                            "id": 19,
+                            "documentId": "e5agzobomj3a6u58h7iz9sgp",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993117/Fukuya_Ramen_60448ac175.jpg"
                         }
                     },
                     {
-                        "id": 43,
-                        "documentId": "f5lvupmy88iwu5p15g4dg5qq",
+                        "id": 65,
+                        "documentId": "ufvfj53ool114vx4qoajv07p",
                         "slug": "Gusto-Family-Restaurant",
-                        "label": "ガスト 別府店",
+                        "label": "가스토 벳푸점",
                         "address": "일본 〒874-0929 오이타현 벳푸시 미나미키타하마마치 5-23",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6670.760326954975!2d131.50500399999999!3d33.28271600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6de987686f1%3A0x80977dcb31a9e37e!2z44Ks44K544OIIOWIpeW6nOW6lw!5e0!3m2!1sen!2sjp!4v1749359278056!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -312,51 +312,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 94,
-                            "documentId": "hrtpdu6huwv7szoverwgka2z",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218458/Gusto_Family_Restaurant_f03a5a4e3d.jpg"
+                            "id": 54,
+                            "documentId": "v3pgajqtu70x5o79o2hro4mp",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993239/Gusto_Family_Restaurant_e599f80ef5.jpg"
                         }
                     },
                     {
-                        "id": 68,
-                        "documentId": "x621cwnwwwrmwyfqlcg9gq87",
+                        "id": 137,
+                        "documentId": "he4j08woj4a9xa8951wr185e",
                         "slug": "Jigoku-Steam-Food",
-                        "label": "地獄蒸し工房 鉄輪",
+                        "label": "지옥찜 공방 가나와",
                         "address": "일본 〒874-0041 오이타현 벳푸시 후로모토 5조",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.1273790772834!2d131.4762201!3d33.3154852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a7a18b11e30f%3A0x7d092fbf0d6c8086!2sJigokumushikobo%20Kannawa!5e0!3m2!1sen!2sjp!4v1749359417652!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "+81 977-66-3775",
-                        "highlight": "지고쿠무시 공방 칸나와는 벳푸의 유명한 체험형 향토 요리 레스토랑으로, 천연 온천 증기를 이용하여 요리하는 지고쿠무시 요리로 유명합니다. 이 조리법은 에도 시대부터 전해 내려온 것으로, 채소, 해산물, 고기 등의 식재료를 찜통에 넣어 지하에서 뿜어져 나오는 고온의 증기로 직접 익혀, 기름이나 물 한 방울도 넣지 않고 식재료 본연의 맛과 영양을 보존합니다.\n\n공방은 두 가지 체험 방식을 제공합니다: 현장에서 제공하는 세트 메뉴를 선택하거나, 직접 식재료를 ���져와 DIY 찜 요리(시설 사용료 부과)를 할 수 있습니다. 직접 손으로 요리하는 체험 과정은 흥미롭고 깊은 추억을 남길 수 있어 가족, 친구, 연인 사이에서 인기 있는 벳푸의 특별한 코스입니다.\n\n가게 내부에는 넓은 식사 공간이 있지만, 포장 및 배달 서비스는 제공하지 않습니다. 칸나와 온천 지역 중심에 위치하여 교통이 편리하며, 벳푸를 방문할 때 놓치지 말아야 할 현지 체험 맛집입니다.",
+                        "highlight": "지고쿠무시 공방 칸나와는 벳푸의 유명한 체험형 향토 요리 레스토랑으로, 천연 온천 증기를 이용하여 요리하는 지고쿠무시 요리로 유명합니다. 이 조리법은 에도 시대부터 전해 내려온 것으로, 채소, 해산물, 고기 등의 식재료를 찜통에 넣어 지하에서 뿜어져 나오는 고온의 증기로 직접 익혀, 기름이나 물 한 방울도 넣지 않고 식재료 본연의 맛과 영양을 보존합니다.\n\n공방은 두 가지 체험 방식을 제공합니다: 현장에서 제공하는 세트 메뉴를 선택하거나, 직접 식재료를 가져와 DIY 찜 요리(시설 사용료 부과)를 할 수 있습니다. 직접 손으로 요리하는 체험 과정은 흥미롭고 깊은 추억을 남길 수 있어 가족, 친구, 연인 사이에서 인기 있는 벳푸의 특별한 코스입니다.\n\n가게 내부에는 넓은 식사 공간이 있지만, 포장 및 배달 서비스는 제공하지 않습니다. 칸나와 온천 지역 중심에 위치하여 교통이 편리하며, 벳푸를 방문할 때 놓치지 말아야 할 현지 체험 맛집입니다.",
                         "externalURL": "http://jigokumushi.com/",
                         "type": "restaurant",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 98,
-                            "documentId": "u124zrz5pi1it52psqe67quq",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218464/Jigoku_Steam_Food_d8d7154f44.jpg"
+                            "id": 17,
+                            "documentId": "gx4ei6tx9t03gg9rndbpsipc",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993110/Jigoku_Steam_Food_5036f0ebc7.jpg"
                         }
                     },
                     {
-                        "id": 63,
-                        "documentId": "txdt0lh6nxjvv5ztf2i5xoxm",
-                        "slug": "Kamesho-Sushi-Restaurant ",
-                        "label": "亀正 (카메쇼)",
+                        "id": 131,
+                        "documentId": "b0awrv0nz4o9jx05w2g2bfqa",
+                        "slug": "Kamesho-Sushi-Restaurant",
+                        "label": "카메쇼",
                         "address": "일본 〒874-0840 오이타현 벳푸시 츠루미 34번지",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.2560101022887!2d131.4841769!3d33.31212190000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a70b04ebffff%3A0x3a0db168b14ff957!2sKamesho%20Kurukuru%20Sushi!5e0!3m2!1sen!2sjp!4v1749359409305!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -368,51 +368,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 93,
-                            "documentId": "ru16edxxcmmbmxdzq0iydbor",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218457/Kamesho_Sushi_Restaurant_a74b908d15.jpg"
+                            "id": 53,
+                            "documentId": "vbqclj7f6fnfr58wetno9q8f",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993236/Kamesho_Sushi_Restaurant_43a2b77d65.jpg"
                         }
                     },
                     {
-                        "id": 58,
-                        "documentId": "spkzddcn3qcvcz9ghce3e1xy",
+                        "id": 122,
+                        "documentId": "ta9w6rsuey2dq5giwvjymqmm",
                         "slug": "Taiichi-Shoten-Ramen-Restaurant",
-                        "label": "太一商店 別府やまなみ店 ",
+                        "label": "타이치 상점 벳푸 야마나미점",
                         "address": "일본 〒874-0942 오이타현 벳푸시 지요마치 2-29",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.2602628035274!2d131.4821036!3d33.3120107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a70a3edc6e65%3A0xd691cc2f33149c83!2sTaichishoten%20Beppuyamanamiten!5e0!3m2!1sen!2sjp!4v1749359328438!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "+81 977-67-0876",
-                        "highlight": "타이치 쇼텐 벳푸 야마나미점은 벳푸시 키타나카에 위치한 인기 라멘집으로, 푸짐한 양과 진한 국물의 '지로계 라멘' 스타일로 미식가들에게 사랑받고 있습니다. 매장 디자인은 간결하고 실용적이며, 좌석이 넓어 혼밥하기에도 좋고 친구와 함께 푸짐한 라멘을 즐기기에��� 적합합니다.\n\n육수는 돼지뼈를 기반으로 진한 간장 맛이 어우러져 기름기가 풍부하면서도 느끼하지 않습니다. 면은 굵은 곱슬면으로 쫄깃한 식감을 자랑하며, 푸짐한 숙주나물, 양배추, 두툼한 차슈와 함께 제공되어 매우 만족스러운 식사를 할 수 있습니다. 또한, 개인 취향에 따라 마늘, 등지방, 면 양을 추가하여 나만의 커스터마이징 라멘을 만들 수도 있습니다.\n\n이 외에도, 이 가게는 포장 서비스도 제공하며, 진한 맛과 푸짐한 라멘을 좋아하는 사람들에게는 꼭 방문해야 할 명소 중 하나입니다.",
+                        "highlight": "타이치 쇼텐 벳푸 야마나미점은 벳푸시 키타나카에 위치한 인기 라멘집으로, 푸짐한 양과 진한 국물의 '지로계 라멘' 스타일로 미식가들에게 사랑받고 있습니다. 매장 디자인은 간결하고 실용적이며, 좌석이 넓어 혼밥하기에도 좋고 친구와 함께 푸짐한 라멘을 즐기기에도 적합합니다.\n\n육수는 돼지뼈를 기반으로 진한 간장 맛이 어우러져 기름기가 풍부하면서도 느끼하지 않습니다. 면은 굵은 곱슬면으로 쫄깃한 식감을 자랑하며, 푸짐한 숙주나물, 양배추, 두툼한 차슈와 함께 제공되어 매우 만족스러운 식사를 할 수 있습니다. 또한, 개인 취향에 따라 마늘, 등지방, 면 양을 추가하여 나만의 커스터마이징 라멘을 만들 수도 있습니다.\n\n이 외에도, 이 가게는 포장 서비스도 제공하며, 진한 맛과 푸짐한 라멘을 좋아하는 사람들에게는 꼭 방문해야 할 명소 중 하나입니다.",
                         "externalURL": "http://taichi-shouten.com/",
                         "type": "restaurant",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 106,
-                            "documentId": "s2s40swb11mgszwp9i31yh6i",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218522/Taiichi_Shoten_Ramen_Restaurant_3d3343a961.jpg"
+                            "id": 60,
+                            "documentId": "bxcel738a2au9zqf61p7ka67",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993258/Taiichi_Shoten_Ramen_Restaurant_2e028bdbb9.jpg"
                         }
                     },
                     {
-                        "id": 51,
-                        "documentId": "tqlsokni1bav4vrle2r42a0d",
+                        "id": 126,
+                        "documentId": "ni2f8rqmz4p31j41wfw7cqba",
                         "slug": "Tomonaga-Bakery",
-                        "label": "友永パン屋",
+                        "label": "토모나가 빵집",
                         "address": "일본 〒874-0942 오이타현 벳푸시 지요마치 2-29",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.6907363219098!2d131.504148!3d33.2745879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6c3b67a8ff7%3A0x3feb11a15c177bc1!2sTomonaga%20Bakery!5e0!3m2!1sen!2sjp!4v1749359298103!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -424,51 +424,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 109,
-                            "documentId": "dcaul7poztbt9hs6ypx3g5s3",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218525/Tomonaga_Bakery_4e6cd407a7.jpg"
+                            "id": 64,
+                            "documentId": "baw7gjiq544l4i112urpxs0f",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993271/Tomonaga_Bakery_4f3a049426.jpg"
                         }
                     },
                     {
-                        "id": 74,
-                        "documentId": "fd6h05vxjmatrpqcbydefa7e",
-                        "slug": "Tonkichi-Pork-Cutlet-Restaurant ",
-                        "label": "とんカツ亭",
+                        "id": 70,
+                        "documentId": "wq5ru3gyazxqyv3zel38jv70",
+                        "slug": "Tonkichi-Pork-Cutlet-Restaurant",
+                        "label": "돈카츠테이",
                         "address": "일본 〒874-0922 오이타현 벳푸시 후나코지마치 4-38",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.7256473316343!2d131.5020446!3d33.2998398!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a73d8297750b%3A0xf67fab0c01c2b352!2sTonkatsutei%20Beppu!5e0!3m2!1sen!2sjp!4v1749359440720!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "+81 977-26-6685",
-                        "highlight": "\"돈카츠 테이는 오이타현 하야미군 히지마치에 위치한 인기 일본식 돈카츠 전문점으로, 바삭한 겉껍질과 육즙 가득한 두툼한 돈카츠로 유명합니다. 이곳의 돈카츠는 섬세한 공정으로 처리되어 겉은 바삭하고 속은 부드러우며, 진한 특제 소스와 갓 튀겨낸 식감이 어우러져 현지 주민과 관광객 모두에게 호평을 받고 있습니다.\n\n가게 내부는 간결하고 따뜻하며, 좌석 공간이 마련되어 있어 가족 외식이나 자가용 여행 중 휴식하며 식사하기에 매우 적합합니다. 클래식 돈카츠 정식 외에도 미소 돈카츠, 치즈 돈카츠, 해산물 튀김 등 다양한 선택지를 제공하며, 반찬과 흰쌀밥, 미소 된장국의 조합도 매우 정성스러워 배부르고 만족스러운 식사를 할 수 있는 레스토랑입니다.&lt;br>&lt;br>가게 위치가 벳푸에서 유후인으로 가는 중간 지점에 있어, 여행 일정 중 점심 식사 장소로 매우 적합합니다.",
+                        "highlight": "돈카츠 테이는 오이타현 하야미군 히지마치에 위치한 인기 일본식 돈카츠 전문점으로, 바삭한 겉껍질과 육즙 가득한 두툼한 돈카츠로 유명합니다. 이곳의 돈카츠는 섬세한 공정으로 처리되어 겉은 바삭하고 속은 부드러우며, 진한 특제 소스와 갓 튀겨낸 식감이 어우러져 현지 주민과 관광객 모두에게 호평을 받고 있습니다.\n\n가게 내부는 간결하고 따뜻하며, 좌석 공간이 마련되어 있어 가족 외식이나 자가용 여행 중 휴식하며 식사하기에 매우 적합합니다. 클래식 돈카츠 정식 외에도 미소 돈카츠, 치즈 돈카츠, 해산물 튀김 등 다양한 선택지를 제공하며, 반찬과 흰쌀밥, 미소 된장국의 조합도 매우 정성스러워 배부르고 만족스러운 식사를 할 수 있는 레스토랑입니다.&lt;br>&lt;br>가게 위치가 벳푸에서 유후인으로 가는 중간 지점에 있어, 여행 일정 중 점심 식사 장소로 매우 적합합니다.",
                         "externalURL": null,
                         "type": "restaurant",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 87,
-                            "documentId": "edq9qgbmsskqtdfgsv3t8909",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218254/Tonkichi_Pork_Cutlet_Restaurant_1b7010bddb.webp"
+                            "id": 30,
+                            "documentId": "krzmra0m4y3q56q0qghmd8ug",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993153/Tonkichi_Pork_Cutlet_Restaurant_96b3b8190d.webp"
                         }
                     },
                     {
-                        "id": 38,
-                        "documentId": "do1otg0ze0xx8m4f8jbo9zxv",
+                        "id": 59,
+                        "documentId": "ryy1jnppo9wybvmp70ech7am",
                         "slug": "Yakitori-Bon",
-                        "label": "焼とり凡 母家",
+                        "label": "야키토리 범 오모야",
                         "address": "일본 〒874-0920 오이타현 벳푸시 기타하마 1초메 1-11",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.5431976589944!2d131.5028965!3d33.2784494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6c2b7f05fd1%3A0x4db01432deac96d9!2z54S844Go44KK5YehIOavjeWutg!5e0!3m2!1sen!2sjp!4v1749359265680!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -480,23 +480,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 6,
-                                "documentId": "umzp2nf6o4qa129zr2h8a54n",
+                                "id": 20,
+                                "documentId": "g5i2tgti48fgebp6rlauo6ci",
                                 "name": "맛집",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 113,
-                            "documentId": "scje4089zdqbe999frcocjjl",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218572/Yakitori_Bon_4b10eb3d3e.jpg"
+                            "id": 68,
+                            "documentId": "jthi0uk1t3mn2ih8vig77jqg",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993284/Yakitori_Bon_7f6349f1d9.jpg"
                         }
                     },
                     {
-                        "id": 83,
-                        "documentId": "hukispdgdjcwtb2wa64hj4fs",
+                        "id": 94,
+                        "documentId": "u7dzshg6ndcfbqn4lostzltw",
                         "slug": "YouMe-Town",
-                        "label": "ゆめタウン別府 (유메타운)",
+                        "label": "유메타운 벳푸",
                         "address": "일본 〒874-0943 오이타현 벳푸시 쿠스노키마치 382-7",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6671.257148794366!2d131.5075326!3d33.2762149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6c4cbb65641%3A0x933daa209e21df0b!2sYouMe%20Town%20Beppu!5e0!3m2!1sen!2sjp!4v1749359463586!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -508,23 +508,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 11,
-                                "documentId": "izxukfe1rundmemg5xdild9x",
+                                "id": 18,
+                                "documentId": "n1fasfi52e6y59v8id9eimde",
                                 "name": "쇼핑",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 112,
-                            "documentId": "stsjr32h4s42wgykv22huxhg",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218567/You_Me_Town_ea648f3b11.jpg"
+                            "id": 67,
+                            "documentId": "lyvotngq6b8coryziudxxe1o",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993280/You_Me_Town_1942a0f995.jpg"
                         }
                     },
                     {
-                        "id": 103,
-                        "documentId": "sdy1wipnsab8l3r7i4qhghix",
+                        "id": 116,
+                        "documentId": "jd9fe7zsk035bjm6x5n5ap4f",
                         "slug": "Asami-Shrine",
-                        "label": "八幡朝見神社 (아사미 신사)",
+                        "label": "하치만 아사미 신사",
                         "address": "일본 〒874-0812 오이타현 벳푸시 아사미 2초메 15-19",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.8040574276943!2d131.4951489!3d33.27162169999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6934ad40397%3A0x6477dc4b0952a412!2sHachiman%20Asami%20Shrine!5e0!3m2!1sen!2sjp!4v1749359524312!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -536,23 +536,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 14,
-                                "documentId": "az166squuv465r5v67q5clde",
+                                "id": 31,
+                                "documentId": "cbe1blfqovxzr7wnb3dce3c8",
                                 "name": "산책",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 90,
-                            "documentId": "g877lwrf9bij8j9qaltgyroq",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218429/Asami_Shrine_9e45d8fbc3.jpg"
+                            "id": 32,
+                            "documentId": "mjqr2uqo8dnjjiao94f4xut8",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993159/Asami_Shrine_e8e00db78f.jpg"
                         }
                     },
                     {
-                        "id": 98,
-                        "documentId": "zggs300v34z7naqadz76n6j3",
+                        "id": 149,
+                        "documentId": "ukfqzkoowvkcpqcorzthjnou",
                         "slug": "Beppu-Park",
-                        "label": "別府公園",
+                        "label": "벳푸 공원",
                         "address": "일본 〒874-0903 오이타현 벳푸시 벳푸 3018-1",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.4244488848994!2d131.4910055!3d33.28155710000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6f020482965%3A0x9e5d27cb752123a8!2sBeppu%20Park!5e0!3m2!1sen!2sjp!4v1749359512569!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -564,29 +564,29 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 14,
-                                "documentId": "az166squuv465r5v67q5clde",
+                                "id": 31,
+                                "documentId": "cbe1blfqovxzr7wnb3dce3c8",
                                 "name": "산책",
                                 "color": "GREY"
                             },
                             {
-                                "id": 19,
-                                "documentId": "jn73kyohuix43w65wfv62om2",
+                                "id": 25,
+                                "documentId": "y0fm6ubj5q6j89tv7xchn360",
                                 "name": "인기 관광지",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 92,
-                            "documentId": "wk6a9p4wb1vb65whjt1dv4kx",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218426/Beppu_Park_d863d7a370.jpg"
+                            "id": 34,
+                            "documentId": "w8a1ixjs7esonbfebnlrb0sm",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993166/Beppu_Park_9c3ec76d96.jpg"
                         }
                     },
                     {
-                        "id": 88,
-                        "documentId": "ojd63tl0ap0mqz0wls0z9ioq",
+                        "id": 109,
+                        "documentId": "qjxyx38759qbkxcvw0rzwshe",
                         "slug": "Matogahama-Park",
-                        "label": "的ケ浜公園",
+                        "label": "마토가하마 공원",
                         "address": "일본 〒874-0928 오이타현 벳푸시 기타마토가하마마치 5",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.2953375788084!2d131.50515289999998!3d33.2849357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6ded9706d85%3A0xc114a1dd39d3335!2sMatogahama%20Park!5e0!3m2!1sen!2sjp!4v1749359474655!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -598,23 +598,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 14,
-                                "documentId": "az166squuv465r5v67q5clde",
+                                "id": 31,
+                                "documentId": "cbe1blfqovxzr7wnb3dce3c8",
                                 "name": "산책",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 95,
-                            "documentId": "xtn408i6379wgob1qgp7bnms",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218457/Matogahama_Park_2812f00a14.jpg"
+                            "id": 56,
+                            "documentId": "hkspxp7htf4ig2pslswgye80",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993244/Matogahama_Park_ca14f9cc40.jpg"
                         }
                     },
                     {
-                        "id": 113,
-                        "documentId": "cwzfwggt56pmedpj357h7iks",
+                        "id": 47,
+                        "documentId": "ojprcnuzd2onbyvkfnqpf95l",
                         "slug": "Shidaka-Lake",
-                        "label": "志高湖",
+                        "label": "시다카 호수",
                         "address": "일본 〒874-0000 오이타현 벳푸시 히가시야마벳푸 4380-1",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3336.1078125982526!2d131.4549176!3d33.26366970000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a5e51e2ff08b%3A0x1e166e28e296ff65!2sShidaka%20Lake!5e0!3m2!1sen!2sjp!4v1749359544754!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -626,51 +626,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 14,
-                                "documentId": "az166squuv465r5v67q5clde",
+                                "id": 31,
+                                "documentId": "cbe1blfqovxzr7wnb3dce3c8",
                                 "name": "산책",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 111,
-                            "documentId": "qpfwp2d9d76nn6trexuxaqw9",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218526/Shidaka_Lake_b7edd05a26.jpg"
+                            "id": 66,
+                            "documentId": "tdq1qt2it4ia84ohr8nf4ub0",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993277/Shidaka_Lake_cc66655f32.jpg"
                         }
                     },
                     {
-                        "id": 108,
-                        "documentId": "zbuqqk89n0ny8glydruig56m",
+                        "id": 145,
+                        "documentId": "ndibwc6kzg3gud9w03qwrde6",
                         "slug": "Tanoura-Beach",
-                        "label": "田ノ浦ビーチ",
+                        "label": "야키토리 범 오모야",
                         "address": "일본 〒870-0100 오이타현 오이타시 간자키 4253",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3336.3912072576054!2d131.5474087!3d33.256249200000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a1115d167fe9%3A0xba67a416773d5b1c!2sTanoura%20beach!5e0!3m2!1sen!2sjp!4v1749359533520!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "+81 97-537-5638",
-                        "highlight": "\"타노우라 해변은 오이타시 칸자키 지역에 위치한 인기 해변 명소로, 고요하고 쾌적한 분위기와 편리한 시설로 유명합니다. 이곳에는 인공적으로 조성된 완만한 경사의 모래사장과 방파제가 있어 산책, 물놀이, 그리고 저녁 노을 감상에 적합합니다.\n\n해변 맞은편에는 작은 인공섬 공원이 있으며, 보행교를 통해 쉽게 갈 수 있습니다. 섬에는 어린이 놀이기구와 벤치가 마련되어 있어 가족과 커플이 산책하고 사��을 찍기 좋은 인기 장소입니다. 해안을 따라 길게 뻗은 산책로는 평탄하고 걷기 좋아 조깅, 반려동물 산책, 그리고 편안하게 휴식을 취하기에 이상적인 공간입니다.\n\n여름에는 해변이 일반인에게 개방되어 수영이 가능하며, 수질이 깨끗하여 물고기를 잡거나 작은 생물을 관찰하기에 적합합니다. 화장실과 샤워실 등 기본 시설도 갖춰져 있습니다. 이 지역은 반려동물 동반도 가능하여 반려견을 사랑하는 사람들에게 친화적인 해변 선택지입니다.",
+                        "highlight": "\"타노우라 해변은 오이타시 칸자키 지역에 위치한 인기 해변 명소로, 고요하고 쾌적한 분위기와 편리한 시설로 유명합니다. 이곳에는 인공적으로 조성된 완만한 경사의 모래사장과 방파제가 있어 산책, 물놀이, 그리고 저녁 노을 감상에 적합합니다.\n\n해변 맞은편에는 작은 인공섬 공원이 있으며, 보행교를 통해 쉽게 갈 수 있습니다. 섬에는 어린이 놀이기구와 벤치가 마련되어 있어 가족과 커플이 산책하고 사진을 찍기 좋은 인기 장소입니다. 해안을 따라 길게 뻗은 산책로는 평탄하고 걷기 좋아 조깅, 반려동물 산책, 그리고 편안하게 휴식을 취하기에 이상적인 공간입니다.\n\n여름에는 해변이 일반인에게 개방되어 수영이 가능하며, 수질이 깨끗하여 물고기를 잡거나 작은 생물을 관찰하기에 적합합니다. 화장실과 샤워실 등 기본 시설도 갖춰져 있습니다. 이 지역은 반려동물 동반도 가능하여 반려견을 사랑하는 사람들에게 친화적인 해변 선택지입니다.",
                         "externalURL": "https://www.city.oita.oita.jp/o177/tanoura_syoukai.html",
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 14,
-                                "documentId": "az166squuv465r5v67q5clde",
+                                "id": 31,
+                                "documentId": "cbe1blfqovxzr7wnb3dce3c8",
                                 "name": "산책",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 104,
-                            "documentId": "r5rh0sozi2ribn7x4h6i3gd5",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218523/Tanoura_Beach_d9059c49b4.jpg"
+                            "id": 58,
+                            "documentId": "tl28tf13q1itbjqacl9a6wnw",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993253/Tanoura_Beach_d51055ed51.jpg"
                         }
                     },
                     {
-                        "id": 93,
-                        "documentId": "cwnmx2xehk47ihvgvsu6enkp",
+                        "id": 43,
+                        "documentId": "nkd2ej5kim0rc9kkf0c90ws6",
                         "slug": "Yayoi-Tengu",
-                        "label": "やよい天狗",
+                        "label": "야요이 텐구",
                         "address": "일본 〒874-0920 오이타현 벳푸시 기타하마 1초메 1-21",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3335.5628792715493!2d131.5033774!3d33.2779343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a6c2d16bd203%3A0x325a21d5c2a8dfa8!2sYayoi%20Tengu!5e0!3m2!1sen!2sjp!4v1749359498895!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -682,23 +682,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 14,
-                                "documentId": "az166squuv465r5v67q5clde",
+                                "id": 31,
+                                "documentId": "cbe1blfqovxzr7wnb3dce3c8",
                                 "name": "산책",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 86,
-                            "documentId": "r63gizas49njrb1uyone8vh6",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218253/Yayoi_Tengu_2feac9b7fb.avif"
+                            "id": 29,
+                            "documentId": "xymbmct90lzww2chxijcpq9v",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993150/Yayoi_Tengu_0cfbb6be33.avif"
                         }
                     },
                     {
-                        "id": 133,
-                        "documentId": "bbl73mrle3aq2txprtcjn4pv",
+                        "id": 37,
+                        "documentId": "lxxj4eydfyx81d25fx4623yv",
                         "slug": "African-Safari",
-                        "label": "アフリカンサファリ (아프리칸 사파리) ",
+                        "label": "아프리칸 사파리",
                         "address": "일본 〒872-0722 오이타현 우사시 아지무마치 미나미하타 2-1755-1",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3332.7712648138936!2d131.4137658!3d33.35092509999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a82560d12c2f%3A0x6f9e5e00fb890acd!2sKyushu%20Wildlife%20Park%20African%20Safari!5e0!3m2!1sen!2sjp!4v1749359580506!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -710,21 +710,21 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 19,
-                                "documentId": "jn73kyohuix43w65wfv62om2",
+                                "id": 25,
+                                "documentId": "y0fm6ubj5q6j89tv7xchn360",
                                 "name": "인기 관광지",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 89,
-                            "documentId": "bxy45vfdf1jzbargk7sg7drz",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218426/African_Safari_7c6ed4ea46.jpg"
+                            "id": 31,
+                            "documentId": "ujmkkbhq0cas90iajt1asgjm",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993156/African_Safari_0b2a57df5a.jpg"
                         }
                     },
                     {
-                        "id": 154,
-                        "documentId": "aqw9hrjzadsgenzogj16ajqu",
+                        "id": 33,
+                        "documentId": "rnmkx5dp1q18a54vl94sdf6y",
                         "slug": "Beppu-Summer-Fireworks-Festival",
                         "label": "벳푸 여름 불꽃놀이 대회 (7월 하순)",
                         "address": null,
@@ -738,21 +738,21 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 27,
-                                "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                                "id": 10,
+                                "documentId": "xd02cfhqrxhr35klrjghebhi",
                                 "name": "이벤트",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 102,
-                            "documentId": "o01x6pbtl356in08vgdrj2g6",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218463/End_of_July_070245810e.jpg"
+                            "id": 69,
+                            "documentId": "kxk09w1udkblszwicsuxeu08",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993288/Beppu_Summer_Fireworks_Festival_8220adcb80.jpg"
                         }
                     },
                     {
-                        "id": 158,
-                        "documentId": "ghaps26t7fkox3fnu2uy23ur",
+                        "id": 77,
+                        "documentId": "hm5m7axp9xl437e9shjpjaeo",
                         "slug": "Enjoy-Christmas-in-Beppu",
                         "label": "벳푸에서 즐기는 크리스마스 (12월)",
                         "address": null,
@@ -766,51 +766,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 27,
-                                "documentId": "lxdko1bwrqlgtzcxii4h92qn",
+                                "id": 10,
+                                "documentId": "xd02cfhqrxhr35klrjghebhi",
                                 "name": "이벤트",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 88,
-                            "documentId": "vvfe0m9tubhdwzhkci817r0n",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218423/Christmas_2f428c87cb.jpg"
+                            "id": 71,
+                            "documentId": "h3p1f5ldu14ztktlppexvuje",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993294/Enjoy_Christmas_in_Beppu_5d77d68805.jpg"
                         }
                     },
                     {
-                        "id": 128,
-                        "documentId": "zh8b93w48qf9dmk0vg1pqoz1",
+                        "id": 153,
+                        "documentId": "f4fwpb81h7i0fqrbgosmkdh6",
                         "slug": "Jigoku-Hell-Tour",
-                        "label": "別府地獄めぐり",
+                        "label": "벳푸 지옥 순례",
                         "address": "일본 〒874-0000 오이타현 벳푸시 칸나와 559-1",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.1121527910245!2d131.4696745!3d33.315883299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a7b960bca539%3A0x8bdccd2d35d910f2!2sHells%20of%20Beppu!5e0!3m2!1sen!2sjp!4v1749359571081!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "+81 977-66-1577",
-                        "highlight": "\"벳푸 지옥순례는 벳푸를 대표하는 관광 코스 중 하나로, 온천 관람과 문화적 요소를 결합하여 독특한 시각 및 감각 체험을 선사합니다. 일반적인 온천이 입욕 위주인 것과 달리, 지옥순례는 관람을 목적으로 하는 온천의 경이로운 풍경을 보여주며, 각기 다른 테마의 여러 지옥으로 구성되어 방문객이 지열의 신비로움과 웅장함을 한 번에 만끽할 수 있도록 합니다.\n\n지옥순례��� 총 여덟 곳의 주요 온천 명소로 구성되어 있습니다: 우미 지옥(海地獄), 피의 연못 지옥(血の池地獄), 오니야마 지옥(鬼山地獄), 시라이케 지옥(白池地獄), 다쓰마키 지옥(龍巻地獄), 야마 지옥(山地獄), 오니이시보즈 지옥(鬼石坊主地獄), 가마도 지옥(かまど地獄). 각 장소는 다양한 지열 현상과 전시 내용을 가지고 있으며, 어떤 곳은 피처럼 붉고, 어떤 곳은 바다처럼 푸릅니다. 또한 악어 사육장과 지열 증기 음식 체험 시설도 있어 자연과 인문학을 결합한 다채로운 관광 코스입니다.\n\n일부 지옥은 거리가 다소 멀기 때문에 시내버스나 자가용을 이용하는 것을 추천하며, 지옥순례 통합권을 구매하면 여덟 곳을 한 번에 할인된 가격으로 방문할 수 있습니다. 반나절에서 하루 동안의 심도 있는 여행 코스로 적합합니다.",
+                        "highlight": "\"벳푸 지옥순례는 벳푸를 대표하는 관광 코스 중 하나로, 온천 관람과 문화적 요소를 결합하여 독특한 시각 및 감각 체험을 선사합니다. 일반적인 온천이 입욕 위주인 것과 달리, 지옥순례는 관람을 목적으로 하는 온천의 경이로운 풍경을 보여주며, 각기 다른 테마의 여러 지옥으로 구성되어 방문객이 지열의 신비로움과 웅장함을 한 번에 만끽할 수 있도록 합니다.\n\n지옥순례는 총 여덟 곳의 주요 온천 명소로 구성되어 있습니다: 우미 지옥(海地獄), 피의 연못 지옥(血の池地獄), 오니야마 지옥(鬼山地獄), 시라이케 지옥(白池地獄), 다쓰마키 지옥(龍巻地獄), 야마 지옥(山地獄), 오니이시보즈 지옥(鬼石坊主地獄), 가마도 지옥(かまど地獄). 각 장소는 다양한 지열 현상과 전시 내용을 가지고 있으며, 어떤 곳은 피처럼 붉고, 어떤 곳은 바다처럼 푸릅니다. 또한 악어 사육장과 지열 증기 음식 체험 시설도 있어 자연과 인문학을 결합한 다채로운 관광 코스입니다.\n\n일부 지옥은 거리가 다소 멀기 때문에 시내버스나 자가용을 이용하는 것을 추천하며, 지옥순례 통합권을 구매하면 여덟 곳을 한 번에 할인된 가격으로 방문할 수 있습니다. 반나절에서 하루 동안의 심도 있는 여행 코스로 적합합니다.",
                         "externalURL": "https://www.beppu-jigoku.com/",
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 19,
-                                "documentId": "jn73kyohuix43w65wfv62om2",
+                                "id": 25,
+                                "documentId": "y0fm6ubj5q6j89tv7xchn360",
                                 "name": "인기 관광지",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 97,
-                            "documentId": "vmfv9owvxmv4nhzifxugqkbg",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218461/Jigoku_Hell_Tour_c4bfe7ef62.jpg"
+                            "id": 16,
+                            "documentId": "z8iyfrx4xc70tni8fu6z30i8",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993107/Jigoku_Hell_Tour_e70335560f.jpg"
                         }
                     },
                     {
-                        "id": 148,
-                        "documentId": "r9tx7ibedot5di1qqbirwauu",
+                        "id": 112,
+                        "documentId": "wwzn6fi6olvnxqwcds45r21p",
                         "slug": "Jyumonjibaru-Observatory",
-                        "label": "十文字原展望台 (쥬몬지바루 전망대)",
+                        "label": "주몬지하라 전망대",
                         "address": "일본 〒874-0016 오이타현 벳푸시 노다자이케노쓰루 1200",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3333.5828542348854!2d131.4602103!3d33.329719499999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a7ecbf391055%3A0x3b0fe1c46181594b!2sJumonji%20Viewpoint!5e0!3m2!1sen!2sjp!4v1749359610113!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -822,51 +822,51 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 22,
-                                "documentId": "k9qdrsbmhsvv20nvux36rnem",
+                                "id": 35,
+                                "documentId": "fakk0mv2t9ckbl11cnd4m2s8",
                                 "name": "전망대",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 99,
-                            "documentId": "p99s0kubvkpz03b9qyhuyrmt",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218463/Jyumonjibaru_Observatory_f10f220795.jpg"
+                            "id": 18,
+                            "documentId": "mniby0xjcvkqkz3gin1n9r94",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993113/Jyumonjibaru_Observatory_3ddbe13a55.jpg"
                         }
                     },
                     {
-                        "id": 118,
-                        "documentId": "ghxccw6ct55ol1cs3getmko7",
+                        "id": 80,
+                        "documentId": "buj1fyygg1np66jit4b0is97",
                         "slug": "Takasaki-Mountain-Monkey-Park",
-                        "label": "高崎山自然動物園 (타카사키야마)",
+                        "label": "다카사키야마 자연 동물원",
                         "address": "일본 〒870-0802 오이타현 오이타시 간자키 3098-1",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3336.313444949981!2d131.5328036!3d33.25828549999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a1386bb372c3%3A0xfa8325f5ccb225ff!2sTakasakiyama%20Natural%20Zoological%20Garden!5e0!3m2!1sen!2sjp!4v1749359553556!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
                         "dial": "+81 97-532-5010",
-                        "highlight": "\"다카사키야마 자연동물원은 오이타시 간자키 지역에 위치한 야생 원숭이(일본 원숭이)를 주인공으로 ��는 자연동물 공원으로, 규슈 지역에서 가장 대표적인 가족 야외 명소 중 하나입니다. 공원 내 원숭이들은 자연 산림에서 생활하며, 방문객들은 가까이에서 이들의 자연스러운 모습을 관찰하며 사람과 동물이 공존하는 조화로운 분위기를 경험할 수 있습니다.\n\n이곳은 울타리 없는 디자인으로 유명하며, 원숭이들이 공원 내에서 자유롭게 활동하고 매우 활발하며 사람을 두려워하지 않습니다. 원숭이들의 생활을 관찰하는 것 외에도, 공원 측은 정기적인 먹이 주기 해설을 진행하여 방문객들이 원숭이의 습성과 집단 행동을 이해하도록 돕습니다. 특히 가족 단위 방문객과 생태 애호가들에게 인기가 많습니다.\n\n공원 내에는 매표소, 간단한 기념품 가게, 정보 전시 공간이 마련되어 교육적인 여행지로도 이상적입니다. 공원은 오이타 마린 팰리스 수족관 우미타마고와 인접해 있어 반나절에서 하루 동안의 연계 관광 코스로 계획할 수 있습니다.",
+                        "highlight": "\"다카사키야마 자연동물원은 오이타시 간자키 지역에 위치한 야생 원숭이(일본 원숭이)를 주인공으로 하는 자연동물 공원으로, 규슈 지역에서 가장 대표적인 가족 야외 명소 중 하나입니다. 공원 내 원숭이들은 자연 산림에서 생활하며, 방문객들은 가까이에서 이들의 자연스러운 모습을 관찰하며 사람과 동물이 공존하는 조화로운 분위기를 경험할 수 있습니다.\n\n이곳은 울타리 없는 디자인으로 유명하며, 원숭이들이 공원 내에서 자유롭게 활동하고 매우 활발하며 사람을 두려워하지 않습니다. 원숭이들의 생활을 관찰하는 것 외에도, 공원 측은 정기적인 먹이 주기 해설을 진행하여 방문객들이 원숭이의 습성과 집단 행동을 이해하도록 돕습니다. 특히 가족 단위 방문객과 생태 애호가들에게 인기가 많습니다.\n\n공원 내에는 매표소, 간단한 기념품 가게, 정보 전시 공간이 마련되어 교육적인 여행지로도 이상적입니다. 공원은 오이타 마린 팰리스 수족관 우미타마고와 인접해 있어 반나절에서 하루 동안의 연계 관광 코스로 계획할 수 있습니다.",
                         "externalURL": "http://www.takasakiyama.jp/takasakiyama/",
                         "type": "attraction",
                         "nativeLanguageCode": "ja",
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 19,
-                                "documentId": "jn73kyohuix43w65wfv62om2",
+                                "id": 25,
+                                "documentId": "y0fm6ubj5q6j89tv7xchn360",
                                 "name": "인기 관광지",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 105,
-                            "documentId": "hh9k87l707vjoa8n992f0kqk",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218524/Takasaki_Mountain_Monkey_Park_99148c610d.jpg"
+                            "id": 59,
+                            "documentId": "sl3agayy164c9neg14tzwe0n",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993255/Takasaki_Mountain_Monkey_Park_7563ebf6b2.jpg"
                         }
                     },
                     {
-                        "id": 123,
-                        "documentId": "z10jc3i9ga28uttlf604u81q",
+                        "id": 141,
+                        "documentId": "uyj91g2qym0hfs9s78jvhk7u",
                         "slug": "Umitamago-Aquarium",
-                        "label": "大分マリーンパレス水族館 うみたまご (우미타마고) ",
+                        "label": "오이타 마린 팰리스 수족관 우미타마고",
                         "address": "일본 〒870-0100 오이타현 오이타시 간자키 우토-3078-22",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3336.296645477282!2d131.53556319999998!3d33.258725399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a139253d6ab5%3A0x39c434d349a8835a!2sOita%20Marine%20Palace%20Aquarium%20%22Umitamago%22!5e0!3m2!1sen!2sjp!4v1749359562419!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -878,21 +878,21 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 19,
-                                "documentId": "jn73kyohuix43w65wfv62om2",
+                                "id": 25,
+                                "documentId": "y0fm6ubj5q6j89tv7xchn360",
                                 "name": "인기 관광지",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 116,
-                            "documentId": "asz5pnxpb1xbwhcyi87n5x8l",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218575/Umitamago_Aquarium_9fa0d8be77.webp"
+                            "id": 21,
+                            "documentId": "q5qia9ektjm2ga5mnhccyxdt",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993124/Umitamago_Aquarium_26c789b8a4.webp"
                         }
                     },
                     {
-                        "id": 138,
-                        "documentId": "fwrz1xfpfd960ejishq2e3gs",
+                        "id": 74,
+                        "documentId": "z5ftr8chb861ij88uz9jkgp0",
                         "slug": "Yufuin",
                         "label": "유후인",
                         "address": "일본 오이타현 유후시 유후인 온천",
@@ -906,23 +906,23 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 19,
-                                "documentId": "jn73kyohuix43w65wfv62om2",
+                                "id": 25,
+                                "documentId": "y0fm6ubj5q6j89tv7xchn360",
                                 "name": "인기 관광지",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 114,
-                            "documentId": "jizv45o2bfspkao9idaf2gvn",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218573/Yufuin_5633a6874d.jpg"
+                            "id": 57,
+                            "documentId": "r8yr6omq6mjffvln9ip3blnk",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993249/Yufuin_990fc54861.jpg"
                         }
                     },
                     {
-                        "id": 143,
-                        "documentId": "e1qlbjpl94hf73gk1cjy180p",
+                        "id": 60,
+                        "documentId": "wn13m48m8jo1ngqgrjubqou2",
                         "slug": "Yukemuri-Observatory",
-                        "label": "湯けむり展望台 (유케무리 전망대) ",
+                        "label": "유케무리 전망대",
                         "address": "일본 〒874-0041 오이타현 벳푸시 칸나와 8조",
                         "addressURL": null,
                         "addressEmbedHTML": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3334.1203760000276!2d131.4853258!3d33.3156683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3546a775b765d5e7%3A0x21200e289a85660c!2sYukemuri%20Observation%20Deck!5e0!3m2!1sen!2sjp!4v1749359600114!5m2!1sen!2sjp\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
@@ -934,16 +934,16 @@
                         "laxyURL": null,
                         "tag_labels": [
                             {
-                                "id": 22,
-                                "documentId": "k9qdrsbmhsvv20nvux36rnem",
+                                "id": 35,
+                                "documentId": "fakk0mv2t9ckbl11cnd4m2s8",
                                 "name": "전망대",
                                 "color": "GREY"
                             }
                         ],
                         "coverPhoto": {
-                            "id": 115,
-                            "documentId": "n93yzsh2mb9vckxmzbtnlq7v",
-                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749218571/Yukemuri_Observatory_24ac3b3be9.jpg"
+                            "id": 63,
+                            "documentId": "k4n3yokyb1jvs0k994ws1ci3",
+                            "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993268/Yukemuri_Observatory_f7f1e74717.jpg"
                         }
                     }
                 ]
