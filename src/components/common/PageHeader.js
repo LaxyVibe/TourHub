@@ -60,7 +60,6 @@ const PageHeader = ({ title, onBack, isHierarchical }) => {
         alignItems: 'center', 
         px: 2,
         py: 1,
-        borderBottom: '1px solid rgba(0, 0, 0, 0.08)'
       }}
     >
       {/* Back button */}

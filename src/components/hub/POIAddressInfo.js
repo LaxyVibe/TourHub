@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Container,
-  Typography,
   Box,
   CircularProgress
 } from '@mui/material';
@@ -18,7 +17,7 @@ const POIAddressInfo = () => {
   
   const [poi, setPOI] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
 
   useEffect(() => {
     const loadPOIDetails = async () => {
@@ -74,32 +73,6 @@ const POIAddressInfo = () => {
     );
   }
 
-  if (error || !poi) {
-    return (
-      <Container {...PAGE_LAYOUTS.AddressInfo}>
-        <PageHeader title="Address" />
-        <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <Typography variant="h6" color="error">
-            {error || 'Location information not found'}
-          </Typography>
-        </Box>
-      </Container>
-    );
-  }
-
-  if (!poi.address) {
-    return (
-      <Container {...PAGE_LAYOUTS.AddressInfo}>
-        <PageHeader title="Address" />
-        <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <Typography variant="h6">
-            No address information available for this location.
-          </Typography>
-        </Box>
-      </Container>
-    );
-  }
-
   return (
     <Container {...PAGE_LAYOUTS.AddressInfo}>
       <PageHeader title="Address" />
@@ -114,7 +87,6 @@ const POIAddressInfo = () => {
           showMap={true}
           showMapButton={true}
           poiSlug={poi.slug}
-          isCompact={false}
         />
       </Box>
     </Container>

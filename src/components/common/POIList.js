@@ -3,24 +3,21 @@ import {
   Container,
   Typography,
   Box,
-  Card,
-  CardMedia,
-  CardContent,
   Chip,
-  IconButton,
   Paper
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useLanguage } from '../../context/LanguageContext';
 import PageHeader from '../common/PageHeader';
 import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/analytics';
 
 /**
  * Reusable POI List component for displaying restaurants, attractions, search results, etc.
+ * Uses the improved layout with images on the left and content on the right
  * 
  * @param {Object} props
- * @param {Array} props.pois - Array of POI objects to display
+ * @param {Array} props.pois - Array of POI objects to display (for restaurants/attractions)
+ * @param {Array} props.searchResults - Array of search result objects from poi-recommendations (for search results)
  * @param {string} props.title - Page title
  * @param {string} props.subtitle - Page subtitle (optional)
  * @param {string} props.type - Type of POIs ('restaurant', 'attraction', 'result', etc.)
@@ -31,6 +28,7 @@ import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/ana
  */
 const POIList = ({ 
   pois = [], 
+  searchResults = [],
   title = 'Points of Interest', 
   subtitle = '', 
   type = 'poi',
@@ -40,6 +38,9 @@ const POIList = ({
 }) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
+
+  // Determine the data source - either searchResults or pois
+  const dataItems = searchResults.length > 0 ? searchResults : pois.map(poi => ({ poi }));
 
   const handlePOIClick = (poi) => {
     // Track POI view
@@ -62,11 +63,22 @@ const POIList = ({
     }
   };
 
+  const isHostRecommended = (poiSlug) => {
+    // Check if this POI has a recommendation (indicating it's host-recommended)
+    // Only applies to search results
+    if (searchResults.length > 0) {
+      const result = searchResults.find(result => result.poi.slug === poiSlug);
+      return result && result.recommendation && result.recommendation.trim().length > 0;
+    }
+    return false;
+  };
+
   return (
-    <Container sx={{ pb: 4, px: { xs: 0, sm: 0 }, pt: 0 }}>
+    <Container maxWidth="sm" sx={{ pb: 4, px: { xs: 0, sm: 0 }, pt: 0 }}>
       {showHeader && (
         <PageHeader 
           title={title}
+          onBack={onBackClick}
         />
       )}
       
@@ -95,7 +107,7 @@ const POIList = ({
           </Typography>
         )}
 
-        {pois.length === 0 ? (
+        {dataItems.length === 0 ? (
           <Paper 
             elevation={1} 
             sx={{ 
@@ -106,97 +118,127 @@ const POIList = ({
             }}
           >
             <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
-              No {type}s found
+              {searchResults.length > 0 ? 'No results found' : `No ${type}s found`}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              There are currently no {type}s available for this location.
+              {searchResults.length > 0 ? 'Try adjusting your search terms' : `There are currently no ${type}s available for this location.`}
             </Typography>
           </Paper>
-        ) : (          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {pois.map((poi) => (
-              <Card 
-                key={poi.id}
-                elevation={2}
-                sx={{
-                  borderRadius: 2,
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: 4,
-                  }
-                }}
-                onClick={() => handlePOIClick(poi)}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-                  {/* Cover Photo on Left */}
-                  {poi.coverPhoto && (
-                    <CardMedia
-                      component="img"
-                      sx={{ 
-                        width: 120, 
-                        height: 120,
-                        objectFit: 'cover',
-                        flexShrink: 0
-                      }}
-                      image={poi.coverPhoto.url}
-                      alt={poi.label}
-                    />
-                  )}
-                  
-                  {/* Content on Right */}
-                  <CardContent sx={{ flex: 1, p: 2 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                      <Typography 
-                        variant="h6" 
-                        component="h3" 
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            {dataItems.map((item) => {
+              const poi = item.poi;
+              const isHost = isHostRecommended(poi.slug);
+              
+              return (
+                <Box 
+                  key={poi.id}
+                  sx={{
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                    }
+                  }}
+                  onClick={() => handlePOIClick(poi)}
+                >
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'flex-start', 
+                    height: 'auto',
+                    flexDirection: 'row',
+                    gap: 2
+                  }}>
+                    {/* Cover Photo on Left */}
+                    {poi.coverPhoto && (
+                      <Box
+                        component="img"
                         sx={{ 
-                          fontWeight: 600,
-                          fontSize: '1.1rem',
-                          lineHeight: 1.3
+                          width: 90,
+                          height: 90,
+                          objectFit: 'cover',
+                          flexShrink: 0,
+                          borderRadius: 2
                         }}
-                      >
-                        {poi.label}
-                      </Typography>
-                      
-                      {poi.externalURL && (
-                        <IconButton 
-                          size="small" 
-                          sx={{ color: 'primary.main' }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(poi.externalURL, '_blank');
+                        src={poi.coverPhoto.url}
+                        alt={poi.label}
+                      />
+                    )}
+                    
+                    {/* Content on Right */}
+                    <Box sx={{ 
+                      flex: 1, 
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      gap: 1
+                    }}>
+                      {/* Title */}
+                      <Box sx={{ mb: 1 }}>
+                        <Typography 
+                          variant="h6" 
+                          component="h3" 
+                          sx={{ 
+                            fontWeight: 600,
+                            fontSize: '1.1rem',
+                            lineHeight: 1.3,
+                            mb: 0
                           }}
                         >
-                          <OpenInNewIcon fontSize="small" />
-                        </IconButton>
-                      )}
-                    </Box>
-                    
-                    {/* Tags below label */}
-                    {poi.tag_labels && poi.tag_labels.length > 0 && (
-                      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                        {poi.tag_labels.map((tag) => (
+                          {poi.label}
+                        </Typography>
+                      </Box>
+                      
+                      {/* Tags */}
+                      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', alignItems: 'center' }}>
+                        {/* Regular Tags */}
+                        {poi.tag_labels && poi.tag_labels.length > 0 && (
+                          poi.tag_labels.map((tag) => (
+                            <Chip 
+                              key={tag.id || tag.name}
+                              size="large" 
+                              label={tag.name || tag}
+                              sx={{ 
+                                fontSize: '0.75rem',
+                                height: 24,
+                                backgroundColor: '#9C9696',
+                                color: '#ffffff',
+                                fontWeight: 400,
+                                borderRadius: '4px',
+                                '& .MuiChip-label': {
+                                  paddingLeft: '8px',
+                                  paddingRight: '8px'
+                                }
+                              }}
+                            />
+                          ))
+                        )}
+                        
+                        {/* Host Tag */}
+                        {isHost && (
                           <Chip 
-                            key={tag.id || tag.name}
                             size="small" 
-                            label={tag.name || tag}
-                            variant="outlined"
+                            label="Host"
                             sx={{ 
                               fontSize: '0.75rem',
                               height: 24,
-                              bgcolor: tag.color ? `${tag.color}.100` : 'grey.100',
-                              borderColor: tag.color || 'grey.300'
+                              backgroundColor: '#ff6b47',
+                              color: 'white',
+                              fontWeight: 400,
+                              borderRadius: '4px',
+                              '& .MuiChip-label': {
+                                paddingLeft: '8px',
+                                paddingRight: '8px'
+                              }
                             }}
                           />
-                        ))}
+                        )}
                       </Box>
-                    )}
-                  </CardContent>
+                    </Box>
+                  </Box>
                 </Box>
-              </Card>
-            ))}
+              );
+            })}
           </Box>
         )}
       </Box>

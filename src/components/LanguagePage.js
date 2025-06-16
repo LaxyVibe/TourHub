@@ -87,7 +87,7 @@ const LanguagePage = () => {
   };
   
   return (
-    <Container {...PAGE_LAYOUTS.LanguagePage} sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', pb: 0 }}>
+    <Container {...PAGE_LAYOUTS.LanguagePage} sx={{ display: 'flex', flexDirection: 'column', pb: 0 }}>
       <PageHeader title={heading} />
       
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
@@ -98,7 +98,7 @@ const LanguagePage = () => {
             showHeader={false}
             showArrow={false}
             selectedValue={selectedLanguage}
-            sx={{ mb: 0 }}
+            sx={{ mb: 0, mx: 3.5 }}
           />
         </Box>
         
@@ -110,8 +110,6 @@ const LanguagePage = () => {
             backgroundColor: 'background.default',
             pt: 2, 
             pb: 2,
-            borderTop: '1px solid rgba(0, 0, 0, 0.08)',
-            boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
             zIndex: 10
           }}
         >
