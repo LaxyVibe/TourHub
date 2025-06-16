@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import PageHeader from '../common/PageHeader';
 import { useLanguage } from '../../context/LanguageContext';
 import { getPOIsByType } from '../../utils/dataFetcher';
+import { DEFAULT_CLIENT_ID } from '../../config/constants';
 import AddressDisplay from '../common/AddressDisplay';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
@@ -31,7 +32,7 @@ const POIAddressInfo = () => {
         
         for (const poiType of poiTypes) {
           try {
-            const result = await getPOIsByType('beppu-story', suiteId, poiType, language);
+            const result = await getPOIsByType(DEFAULT_CLIENT_ID, suiteId, poiType, language);
             foundPOI = result.pois.find(p => p.slug === poiSlug);
             if (foundPOI) {
               foundPOI.type = poiType; // Ensure type is set

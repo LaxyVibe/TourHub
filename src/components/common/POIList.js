@@ -1,14 +1,216 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Typography,
   Box,
-  Chip
+  Chip,
+  Skeleton
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import PageHeader from '../common/PageHeader';
 import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/analytics';
+
+/**
+ * Individual POI List Item component with skeleton loading
+ */
+const POIListItem = ({ poi, isHost, onPOIClick }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(true); // Stop showing skeleton even if image failed
+  };
+
+  return (
+    <Box 
+      key={poi.id}
+      sx={{
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        '&:hover': {
+          transform: 'translateY(-2px)',
+        }
+      }}
+      onClick={() => onPOIClick(poi)}
+    >
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'flex-start', 
+        height: 'auto',
+        flexDirection: 'row',
+        gap: 2
+      }}>
+        {/* Cover Photo on Left with Skeleton */}
+        <Box sx={{ position: 'relative', width: 90, height: 90, flexShrink: 0 }}>
+          {!imageLoaded && (
+            <Skeleton 
+              variant="rectangular" 
+              width={90} 
+              height={90} 
+              sx={{ borderRadius: 2 }}
+            />
+          )}
+          {poi.coverPhoto && !imageError && (
+            <Box
+              component="img"
+              sx={{ 
+                width: 90,
+                height: 90,
+                objectFit: 'cover',
+                flexShrink: 0,
+                borderRadius: 2,
+                display: imageLoaded ? 'block' : 'none'
+              }}
+              src={poi.coverPhoto.url}
+              alt={poi.label}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+            />
+          )}
+          {/* Fallback for missing or failed images */}
+          {(!poi.coverPhoto || imageError) && imageLoaded && (
+            <Box
+              sx={{
+                width: 90,
+                height: 90,
+                backgroundColor: 'grey.200',
+                borderRadius: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'grey.500'
+              }}
+            >
+              <Typography variant="caption">No Image</Typography>
+            </Box>
+          )}
+        </Box>
+        
+        {/* Content on Right */}
+        <Box sx={{ 
+          flex: 1, 
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          gap: 1
+        }}>
+          {/* Title */}
+          <Box sx={{ mb: 1 }}>
+            <Typography 
+              variant="h6" 
+              component="h3" 
+              sx={{ 
+                fontWeight: 600,
+                fontSize: '1.1rem',
+                lineHeight: 1.3,
+                mb: 0
+              }}
+            >
+              {poi.label}
+            </Typography>
+          </Box>
+          
+          {/* Tags */}
+          <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', alignItems: 'center' }}>
+            {/* Regular Tags */}
+            {poi.tag_labels && poi.tag_labels.length > 0 && (
+              poi.tag_labels.map((tag) => (
+                <Chip 
+                  key={tag.id || tag.name}
+                  size="large" 
+                  label={tag.name || tag}
+                  sx={{ 
+                    fontSize: '0.75rem',
+                    height: 24,
+                    backgroundColor: '#9C9696',
+                    color: '#ffffff',
+                    fontWeight: 400,
+                    borderRadius: '4px',
+                    '& .MuiChip-label': {
+                      paddingLeft: '8px',
+                      paddingRight: '8px'
+                    }
+                  }}
+                />
+              ))
+            )}
+            
+            {/* Host Tag */}
+            {isHost && (
+              <Chip 
+                size="small" 
+                label="Host"
+                sx={{ 
+                  fontSize: '0.75rem',
+                  height: 24,
+                  backgroundColor: '#ff6b47',
+                  color: 'white',
+                  fontWeight: 400,
+                  borderRadius: '4px',
+                  '& .MuiChip-label': {
+                    paddingLeft: '8px',
+                    paddingRight: '8px'
+                  }
+                }}
+              />
+            )}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+/**
+ * Skeleton loading component for POI list items
+ */
+const POIListSkeleton = () => {
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      {[...Array(3)].map((_, index) => (
+        <Box key={index} sx={{ 
+          display: 'flex', 
+          alignItems: 'flex-start', 
+          height: 'auto',
+          flexDirection: 'row',
+          gap: 2
+        }}>
+          {/* Image Skeleton */}
+          <Skeleton 
+            variant="rectangular" 
+            width={90} 
+            height={90} 
+            sx={{ borderRadius: 2, flexShrink: 0 }}
+          />
+          
+          {/* Content Skeleton */}
+          <Box sx={{ 
+            flex: 1, 
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            gap: 1
+          }}>
+            {/* Title Skeleton */}
+            <Skeleton variant="text" width="80%" height={28} />
+            
+            {/* Tags Skeleton */}
+            <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
+              <Skeleton variant="rounded" width={60} height={24} />
+              <Skeleton variant="rounded" width={45} height={24} />
+            </Box>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  );
+};
 
 /**
  * Reusable POI List component for displaying restaurants, attractions, search results, etc.
@@ -22,6 +224,7 @@ import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/ana
  * @param {string} props.type - Type of POIs ('restaurant', 'attraction', 'result', etc.)
  * @param {string} props.suiteId - Suite ID for navigation
  * @param {boolean} props.showHeader - Whether to show the PageHeader (default: true)
+ * @param {boolean} props.loading - Whether to show skeleton loading (default: false)
  * @param {Function} props.onBackClick - Custom back click handler (optional)
  * @returns {JSX.Element} The POI list component
  */
@@ -33,6 +236,7 @@ const POIList = ({
   type = 'poi',
   suiteId,
   showHeader = true,
+  loading = false,
   onBackClick
 }) => {
   const { language } = useLanguage();
@@ -106,7 +310,9 @@ const POIList = ({
           </Typography>
         )}
 
-        {dataItems.length === 0 ? (
+        {loading ? (
+          <POIListSkeleton />
+        ) : dataItems.length === 0 ? (
           <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
             No results found
           </Typography>
@@ -117,112 +323,12 @@ const POIList = ({
               const isHost = isHostRecommended(poi.slug);
               
               return (
-                <Box 
+                <POIListItem 
                   key={poi.id}
-                  sx={{
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                    }
-                  }}
-                  onClick={() => handlePOIClick(poi)}
-                >
-                  <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'flex-start', 
-                    height: 'auto',
-                    flexDirection: 'row',
-                    gap: 2
-                  }}>
-                    {/* Cover Photo on Left */}
-                    {poi.coverPhoto && (
-                      <Box
-                        component="img"
-                        sx={{ 
-                          width: 90,
-                          height: 90,
-                          objectFit: 'cover',
-                          flexShrink: 0,
-                          borderRadius: 2
-                        }}
-                        src={poi.coverPhoto.url}
-                        alt={poi.label}
-                      />
-                    )}
-                    
-                    {/* Content on Right */}
-                    <Box sx={{ 
-                      flex: 1, 
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'flex-start',
-                      gap: 1
-                    }}>
-                      {/* Title */}
-                      <Box sx={{ mb: 1 }}>
-                        <Typography 
-                          variant="h6" 
-                          component="h3" 
-                          sx={{ 
-                            fontWeight: 600,
-                            fontSize: '1.1rem',
-                            lineHeight: 1.3,
-                            mb: 0
-                          }}
-                        >
-                          {poi.label}
-                        </Typography>
-                      </Box>
-                      
-                      {/* Tags */}
-                      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', alignItems: 'center' }}>
-                        {/* Regular Tags */}
-                        {poi.tag_labels && poi.tag_labels.length > 0 && (
-                          poi.tag_labels.map((tag) => (
-                            <Chip 
-                              key={tag.id || tag.name}
-                              size="large" 
-                              label={tag.name || tag}
-                              sx={{ 
-                                fontSize: '0.75rem',
-                                height: 24,
-                                backgroundColor: '#9C9696',
-                                color: '#ffffff',
-                                fontWeight: 400,
-                                borderRadius: '4px',
-                                '& .MuiChip-label': {
-                                  paddingLeft: '8px',
-                                  paddingRight: '8px'
-                                }
-                              }}
-                            />
-                          ))
-                        )}
-                        
-                        {/* Host Tag */}
-                        {isHost && (
-                          <Chip 
-                            size="small" 
-                            label="Host"
-                            sx={{ 
-                              fontSize: '0.75rem',
-                              height: 24,
-                              backgroundColor: '#ff6b47',
-                              color: 'white',
-                              fontWeight: 400,
-                              borderRadius: '4px',
-                              '& .MuiChip-label': {
-                                paddingLeft: '8px',
-                                paddingRight: '8px'
-                              }
-                            }}
-                          />
-                        )}
-                      </Box>
-                    </Box>
-                  </Box>
-                </Box>
+                  poi={poi}
+                  isHost={isHost}
+                  onPOIClick={handlePOIClick}
+                />
               );
             })}
           </Box>

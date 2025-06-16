@@ -5,8 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Routes, Route, useParams, useLocation, Navigate } from 'react-router-dom';
 import HubLanding from './components/HubLanding';
 import SuiteLanding from './components/SuiteLanding';
-import TourLanding from './components/TourLanding';
-import PlaceLanding from './components/PlaceLanding';
 import StayInfo from './components/hub/StayInfo';
 import AddressInfo from './components/hub/AddressInfo';
 import CheckInOutInfo from './components/hub/CheckInOutInfo';
@@ -16,15 +14,15 @@ import FAQInfo from './components/hub/FAQInfo';
 import POIDetail from './components/hub/POIDetail';
 import POIAddressInfo from './components/hub/POIAddressInfo';
 import POIList from './components/common/POIList';
-import FeaturedTours from './components/hub/FeaturedTours';
 import SearchPage from './components/SearchPage';
 import SearchResultPage from './components/SearchResultPage';
 import LanguagePage from './components/LanguagePage';
 import Footer from './components/common/Footer';
-import { getHubClientInfo, getTourClientInfo, getPlaceClientInfo } from './config/clients';
+import { getHubClientInfo } from './config/clients';
 import { getPOIsByType } from './utils/dataFetcher';
 import { LanguageProvider } from './context/LanguageContext';
 import { DEFAULT_LANGUAGE, extractLanguageFromPath } from './utils/languageUtils';
+import { DEFAULT_SUITE_ID, DEFAULT_CLIENT_ID } from './config/constants';
 import { theme } from './config/theme';
 import { getHubConfigByLanguage } from './mocks/hub-application-config';
 import usePageTracking from './hooks/usePageTracking';
@@ -52,8 +50,11 @@ function HubWrapper() {
   // Extract the cleaned pathname without the language code for client info
   const { cleanedPathname } = extractLanguageFromPath(pathname);
   
+  // For hub landing, use the default suite
+  const defaultSuiteId = DEFAULT_SUITE_ID;
+  
   return <HubLanding clientInfo={{
-    ...getHubClientInfo(hostname, cleanedPathname),
+    ...getHubClientInfo(hostname, cleanedPathname, langCode, defaultSuiteId),
     language: langCode
   }} />;
 }
@@ -67,47 +68,9 @@ function SuiteWrapper() {
   const { cleanedPathname } = extractLanguageFromPath(pathname.replace(`/${suiteId}`, ''));
   
   return <SuiteLanding clientInfo={{
-    ...getHubClientInfo(hostname, cleanedPathname),
+    ...getHubClientInfo(hostname, cleanedPathname, langCode, suiteId),
     language: langCode,
     suiteId
-  }} />;
-}
-
-function TourWrapper() {
-  const { tourId, langCode } = useParams();
-  const { pathname } = useLocation();
-  const hostname = window.location.hostname;
-  
-  // Extract the cleaned pathname without the language code for client info
-  const { cleanedPathname } = extractLanguageFromPath(pathname);
-  
-  // Get tour client info
-  const tourClientInfo = getTourClientInfo(hostname, cleanedPathname, tourId);
-  
-  // Get hub client info to access hubCommentsToTours
-  const hubClientInfo = getHubClientInfo(hostname, cleanedPathname);
-  
-  // Merge the hubCommentsToTours from hubClientInfo into tourClientInfo
-  const clientInfo = {
-    ...tourClientInfo,
-    hubCommentsToTours: hubClientInfo.hubCommentsToTours,
-    language: langCode
-  };
-  
-  return <TourLanding clientInfo={clientInfo} />;
-}
-
-function PlaceWrapper() {
-  const { placeId, langCode } = useParams();
-  const { pathname } = useLocation();
-  const hostname = window.location.hostname;
-  
-  // Extract the cleaned pathname without the language code for client info
-  const { cleanedPathname } = extractLanguageFromPath(pathname);
-  
-  return <PlaceLanding clientInfo={{
-    ...getPlaceClientInfo(hostname, cleanedPathname, placeId),
-    language: langCode
   }} />;
 }
 
@@ -157,7 +120,7 @@ function RestaurantsWrapper() {
   React.useEffect(() => {
     const fetchPOIs = async () => {
       try {
-        const result = await getPOIsByType('beppu-story', suiteId, 'restaurant', langCode || DEFAULT_LANGUAGE);
+        const result = await getPOIsByType(DEFAULT_CLIENT_ID, suiteId, 'restaurant', langCode || DEFAULT_LANGUAGE);
         setPois(result.pois);
         
         // Get title from hub-application-config
@@ -176,7 +139,15 @@ function RestaurantsWrapper() {
   }, [langCode, suiteId]);
 
   if (loading) {
-    return <div>Loading restaurants...</div>;
+    return (
+      <POIList 
+        pois={[]}
+        title={title}
+        type="restaurant"
+        suiteId={suiteId}
+        loading={true}
+      />
+    );
   }
   
   return (
@@ -185,6 +156,7 @@ function RestaurantsWrapper() {
       title={title}
       type="restaurant"
       suiteId={suiteId}
+      loading={false}
     />
   );
 }
@@ -210,7 +182,7 @@ function PlacesWrapper() {
   React.useEffect(() => {
     const fetchPOIs = async () => {
       try {
-        const result = await getPOIsByType('beppu-story', suiteId || 'family-room-1', 'attraction', langCode || DEFAULT_LANGUAGE);
+        const result = await getPOIsByType(DEFAULT_CLIENT_ID, suiteId || DEFAULT_SUITE_ID, 'attraction', langCode || DEFAULT_LANGUAGE);
         setPois(result.pois);
         
         // Get title from hub-application-config
@@ -229,7 +201,15 @@ function PlacesWrapper() {
   }, [langCode, suiteId]);
 
   if (loading) {
-    return <div>Loading attractions...</div>;
+    return (
+      <POIList 
+        pois={[]}
+        title={title}
+        type="attraction"
+        suiteId={suiteId}
+        loading={true}
+      />
+    );
   }
   
   return (
@@ -238,26 +218,11 @@ function PlacesWrapper() {
       title={title}
       type="attraction"
       suiteId={suiteId}
+      loading={false}
     />
   );
 }
 
-function ToursWrapper() {
-  const { suiteId: urlSuiteId, langCode } = useParams();
-  const location = useLocation();
-  // Get suiteId from either URL params or from navigation state (for the new route structure)
-  const suiteId = urlSuiteId || (location.state && location.state.suiteId);
-  
-  const { cleanedPathname } = extractLanguageFromPath(location.pathname.replace(`/${suiteId}`, ''));
-  
-  const clientInfo = {
-    ...getHubClientInfo(window.location.hostname, cleanedPathname),
-    language: langCode,
-    suiteId
-  };
-  
-  return <FeaturedTours initialState={{ tours: clientInfo.featuredTours, clientInfo }} />;
-}
 
 // Language Page wrapper component
 function LanguagePageWrapper() {
@@ -299,128 +264,56 @@ function DefaultLanguageRedirect() {
 }
 
 function App() {
-  const hostname = window.location.hostname;
   
   const getRouteConfig = () => {
-    if (hostname.startsWith('stay-') || hostname.startsWith('uat-stay-')) {
-      return (
-        <Routes>
-          <Route path="/" element={<DefaultLanguageRedirect />} />
-          
-          <Route path="/:langCode">
-            <Route index element={<HubWrapper />} />
+    return (
+      <Routes>
+        <Route path="/" element={<DefaultLanguageRedirect />} />
+        
+        {/* Direct routes for hub navigation with language redirect */}
+        <Route path="/info" element={<DefaultLanguageRedirect />} />
+        <Route path="/info/address" element={<DefaultLanguageRedirect />} />
+        <Route path="/info/check-in-out" element={<DefaultLanguageRedirect />} />
+        <Route path="/info/house-rules" element={<DefaultLanguageRedirect />} />
+        <Route path="/info/amenities" element={<DefaultLanguageRedirect />} />
+        <Route path="/info/faq" element={<DefaultLanguageRedirect />} />
+        <Route path="/nearby-restaurants" element={<DefaultLanguageRedirect />} />
+        <Route path="/nearby-attractions" element={<DefaultLanguageRedirect />} />
+        <Route path="/search" element={<DefaultLanguageRedirect />} />
+        <Route path="/search/*" element={<DefaultLanguageRedirect />} />
+        
+        <Route path="/:langCode">
+          <Route index element={<HubWrapper />} />
+          <Route path="language" element={<LanguagePageWrapper />} />
+          <Route path=":suiteId">
+            <Route index element={<SuiteWrapper />} />
             <Route path="language" element={<LanguagePageWrapper />} />
-            <Route path=":suiteId">
-              <Route index element={<SuiteWrapper />} />
-              <Route path="language" element={<LanguagePageWrapper />} />
-              <Route path="poi/:poiSlug" element={<POIDetailWrapper />} />
-              <Route path="poi/:poiSlug/address" element={<POIAddressInfoWrapper />} />
-              {/* Routes based on hub-application-config navigation */}
-              <Route path="info">
-                <Route index element={<StayInfoWrapper />} />
-                <Route path="address" element={<AddressInfoWrapper />} />
-                <Route path="check-in-out" element={<CheckInOutInfoWrapper />} />
-                <Route path="house-rules" element={<HouseRulesInfoWrapper />} />
-                <Route path="amenities" element={<AmenitiesInfoWrapper />} />
-                <Route path="faq" element={<FAQInfoWrapper />} />
-              </Route>
-              <Route path="nearby-restaurants" element={<RestaurantsWrapper />} />
-              <Route path="nearby-attractions" element={<PlacesWrapper />} />
-              <Route path="tours" element={<ToursWrapper />} />
-              <Route path="search">
-                <Route index element={<SearchWrapper />} />
-                <Route path="result" element={<SearchResultWrapper />} />
-              </Route>
-              
-              {/* Legacy routes for backward compatibility */}
-              <Route path="join/:tourId" element={<TourWrapper />} />
-              <Route path="go/:placeId" element={<PlaceWrapper />} />
-              <Route path="stay-info" element={<StayInfoWrapper />} />
-              <Route path="*" element={<SuiteWrapper />} />
+            <Route path="poi/:poiSlug" element={<POIDetailWrapper />} />
+            <Route path="poi/:poiSlug/address" element={<POIAddressInfoWrapper />} />
+            {/* Routes based on hub-application-config navigation */}
+            <Route path="info">
+              <Route index element={<StayInfoWrapper />} />
+              <Route path="address" element={<AddressInfoWrapper />} />
+              <Route path="check-in-out" element={<CheckInOutInfoWrapper />} />
+              <Route path="house-rules" element={<HouseRulesInfoWrapper />} />
+              <Route path="amenities" element={<AmenitiesInfoWrapper />} />
+              <Route path="faq" element={<FAQInfoWrapper />} />
             </Route>
-          </Route>
-          <Route path="/:suiteId/*" element={<DefaultLanguageRedirect />} />
-          <Route path="*" element={<DefaultLanguageRedirect />} />
-        </Routes>
-      );
-    }
-    else if (hostname.includes('join.') || hostname.includes('join--')) {
-      return (
-        <Routes>
-          <Route path="/" element={<DefaultLanguageRedirect />} />
-          <Route path="/:tourId" element={<DefaultLanguageRedirect />} />
-          <Route path="/:langCode">
-            <Route index element={<DefaultLanguageRedirect />} />
-            <Route path=":tourId" element={<TourWrapper />} />
-            <Route path=":tourId/go/:placeId" element={<PlaceWrapper />} />
-          </Route>
-          <Route path="*" element={<h1>Tour not found</h1>} />
-        </Routes>
-      );
-    }
-    else if (hostname.includes('go.') || hostname.includes('go--')) {
-      return (
-        <Routes>
-          <Route path="/" element={<DefaultLanguageRedirect />} />
-          <Route path="/:placeId" element={<DefaultLanguageRedirect />} />
-          <Route path="/:langCode/:placeId" element={<PlaceWrapper />} />
-          <Route path="*" element={<h1>Place not found</h1>} />
-        </Routes>
-      );
-    }
-    else {
-      return (
-        <Routes>
-          <Route path="/" element={<DefaultLanguageRedirect />} />
-          
-          {/* Direct routes for hub navigation with language redirect */}
-          <Route path="/info" element={<DefaultLanguageRedirect />} />
-          <Route path="/info/address" element={<DefaultLanguageRedirect />} />
-          <Route path="/info/check-in-out" element={<DefaultLanguageRedirect />} />
-          <Route path="/info/house-rules" element={<DefaultLanguageRedirect />} />
-          <Route path="/info/amenities" element={<DefaultLanguageRedirect />} />
-          <Route path="/info/faq" element={<DefaultLanguageRedirect />} />
-          <Route path="/nearby-restaurants" element={<DefaultLanguageRedirect />} />
-          <Route path="/nearby-attractions" element={<DefaultLanguageRedirect />} />
-          <Route path="/tours" element={<DefaultLanguageRedirect />} />
-          <Route path="/tours/*" element={<DefaultLanguageRedirect />} />
-          <Route path="/search" element={<DefaultLanguageRedirect />} />
-          <Route path="/search/*" element={<DefaultLanguageRedirect />} />
-          
-          <Route path="/:langCode">
-            <Route index element={<HubWrapper />} />
-            <Route path="language" element={<LanguagePageWrapper />} />
-            <Route path=":suiteId">
-              <Route index element={<SuiteWrapper />} />
-              <Route path="language" element={<LanguagePageWrapper />} />
-              <Route path="poi/:poiSlug" element={<POIDetailWrapper />} />
-              <Route path="poi/:poiSlug/address" element={<POIAddressInfoWrapper />} />
-              {/* Routes based on hub-application-config navigation */}
-              <Route path="info">
-                <Route index element={<StayInfoWrapper />} />
-                <Route path="address" element={<AddressInfoWrapper />} />
-                <Route path="check-in-out" element={<CheckInOutInfoWrapper />} />
-                <Route path="house-rules" element={<HouseRulesInfoWrapper />} />
-                <Route path="amenities" element={<AmenitiesInfoWrapper />} />
-                <Route path="faq" element={<FAQInfoWrapper />} />
-              </Route>
-              <Route path="nearby-restaurants" element={<RestaurantsWrapper />} />
-              <Route path="nearby-attractions" element={<PlacesWrapper />} />
-              <Route path="tours" element={<ToursWrapper />} />
-              <Route path="search">
-                <Route index element={<SearchWrapper />} />
-                <Route path="result" element={<SearchResultWrapper />} />
-              </Route>
-              
-              {/* Legacy routes for backward compatibility */}
-              <Route path="*" element={<SuiteWrapper />} />
+            <Route path="nearby-restaurants" element={<RestaurantsWrapper />} />
+            <Route path="nearby-attractions" element={<PlacesWrapper />} />
+            <Route path="search">
+              <Route index element={<SearchWrapper />} />
+              <Route path="result" element={<SearchResultWrapper />} />
             </Route>
+            
+            {/* Legacy routes for backward compatibility */}
+            <Route path="*" element={<SuiteWrapper />} />
           </Route>
-          <Route path="/:suiteId/*" element={<DefaultLanguageRedirect />} />
-          <Route path="*" element={<DefaultLanguageRedirect />} />
-        </Routes>
-      );
-    }
+        </Route>
+        <Route path="/:suiteId/*" element={<DefaultLanguageRedirect />} />
+        <Route path="*" element={<DefaultLanguageRedirect />} />
+      </Routes>
+    );
   };
 
   return (

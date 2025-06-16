@@ -1,12 +1,14 @@
 // Test script to verify laxyURL is being passed through
 const { getPOIsByType } = require('./src/utils/dataFetcher.js');
+const { DEFAULT_CLIENT_ID, DEFAULT_SUITE_ID } = require('./src/config/constants.js');
 
 const testLaxyURL = async () => {
   try {
     console.log('Testing laxyURL data fetching...');
+    console.log(`Using client: ${DEFAULT_CLIENT_ID}, suite: ${DEFAULT_SUITE_ID}`);
     
-    // Get attractions from family-room-01
-    const result = await getPOIsByType('beppu-story', 'family-room-01', 'attraction', 'en');
+    // Get attractions from discovered configuration
+    const result = await getPOIsByType(DEFAULT_CLIENT_ID, DEFAULT_SUITE_ID, 'attraction', 'en');
     
     console.log('Number of attractions found:', result.pois.length);
     

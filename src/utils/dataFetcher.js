@@ -6,12 +6,12 @@ const suiteDataCache = {};
 
 /**
  * Dynamically loads suite data for a specific language and room
- * @param {string} clientId - The client ID (e.g., beppu-story)
- * @param {string} roomId - The room ID (e.g., family-room-1)
- * @param {string} language - The language code (e.g., en, ja)
+ * @param {string} clientId - The client ID
+ * @param {string} roomId - The room ID
+ * @param {string} language - The language code
  * @returns {Promise<Object>} - The suite data for the requested language
  */
-const loadSuiteDataForLanguage = async (clientId, roomId, language) => {
+export const loadSuiteDataForLanguage = async (clientId, roomId, language) => {
   const cacheKey = `${clientId}/${roomId}/${language}`;
   
   // If we already have this data cached, return it
@@ -48,170 +48,12 @@ const loadSuiteDataForLanguage = async (clientId, roomId, language) => {
   }
 };
 
-// Fallback client data if needed
-const defaultClientData = {
-  name: 'Beppu Story',
-  title: 'Beppu Story',
-  subtitle: 'Experience Authentic Japanese Hospitality',
-  logo: '/logo.png',
-  featuredTours: [],
-  featuredPlaces: [],
-  restaurantList: [],
-  suites: [],
-};
-
-/**
- * Get client base info - returns mock data directly from suite data
- */
-export const getClientBaseInfo = async (clientId, language = 'en') => {
-  console.log(`Using suite data for client ${clientId}, language ${language}`);
-  
-  const roomId = 'family-room-1'; // Default room
-  
-  // Try to load the suite data for the requested language
-  try {
-    // Dynamically load the suite data if needed
-    const suiteData = await loadSuiteDataForLanguage(clientId, roomId, language);
-    
-    if (!suiteData || !suiteData.data || suiteData.data.length === 0) {
-      return defaultClientData;
-    }
-    
-    // Extract client info from suite data
-    const suite = suiteData.data[0];
-    const clientInfo = {
-      name: suite.ownedBy?.label || 'Beppu Story',
-      title: suite.ownedBy?.label || 'Beppu Story',
-      subtitle: 'Experience Authentic Japanese Hospitality',
-      logo: suite.ownedBy?.avatar?.url || '/logo.png',
-      restaurantTitle: 'Dining Options',
-      restaurantSubtitle: 'Local Restaurants',
-      featuredTours: [],
-      featuredPlaces: [],
-      restaurantList: [],
-      suites: [
-        {
-          id: suite.name || 'family-room-1',
-          name: suite.label || 'Family Room 1',
-          passcode: '1111', // Default passcode
-          roomImages: suite.slider?.map(img => ({
-            id: img.documentId,
-            src: img.url,
-            alt: 'Room Image'
-          })) || []
-        }
-      ],
-      carouselTitle: suite.label || 'Family Room 1'
-    };
-    
-    return clientInfo;
-  } catch (error) {
-    console.error(`Error getting client base info for ${clientId}:`, error);
-    return defaultClientData;
-  }
-};
-
-/**
- * Get restaurants data with language support - uses suite data
- */
-export const getRestaurantsData = async (clientId, language = 'en') => {
-  console.log(`Using suite data for restaurants: client ${clientId}, language ${language}`);
-  
-  const roomId = 'family-room-1'; // Default room
-  
-  // Try to load the suite data for the requested language
-  try {
-    // Dynamically load the suite data if needed
-    const suiteData = await loadSuiteDataForLanguage(clientId, roomId, language);
-    
-    if (!suiteData || !suiteData.data || suiteData.data.length === 0) {
-      return {
-        restaurants: [],
-        title: 'Dining Options',
-        subtitle: 'Local Restaurants'
-      };
-    }
-    
-    // Extract restaurant POIs from suite data
-    const suite = suiteData.data[0];
-    const restaurants = suite.ownedBy?.pickedPOIs?.filter(poi => poi.type === 'restaurant').map(restaurant => ({
-      id: restaurant.id,
-      name: restaurant.label,
-      description: restaurant.highlight,
-      address: restaurant.address,
-      image: restaurant.coverPhoto?.url || 'https://via.placeholder.com/300x200?text=Restaurant',
-      url: restaurant.externalURL,
-      tags: restaurant.tag_labels?.map(tag => tag.name) || []
-    })) || [];
-  
-    return {
-      restaurants,
-      title: 'Dining Options',
-      subtitle: 'Local Restaurants'
-    };
-  } catch (error) {
-    console.error(`Error getting restaurant data for ${clientId}:`, error);
-    return {
-      restaurants: [],
-      title: 'Dining Options',
-      subtitle: 'Local Restaurants'
-    };
-  }
-};
-
-/**
- * Get places data with language support - uses suite data
- */
-export const getPlacesData = async (clientId, language = 'en') => {
-  console.log(`Using suite data for places: client ${clientId}, language ${language}`);
-  
-  const roomId = 'family-room-1'; // Default room
-  
-  try {
-    // Dynamically load the suite data if needed
-    const suiteData = await loadSuiteDataForLanguage(clientId, roomId, language);
-    
-    if (!suiteData || !suiteData.data || suiteData.data.length === 0) {
-      return {
-        places: [],
-        title: 'Points of Interest',
-        subtitle: "Discover Beppu's attractions"
-      };
-    }
-    
-    // Extract places (non-restaurant POIs) from suite data
-    const suite = suiteData.data[0];
-    const places = suite.ownedBy?.pickedPOIs?.filter(poi => poi.type !== 'restaurant').map(place => ({
-      id: place.id,
-      name: place.label,
-      description: place.highlight,
-      address: place.address,
-      image: place.coverPhoto?.url || 'https://via.placeholder.com/300x200?text=Place',
-      url: place.externalURL,
-      tags: place.tag_labels?.map(tag => tag.name) || []
-    })) || [];
-
-    return {
-      places,
-      title: 'Points of Interest',
-      subtitle: "Discover Beppu's attractions"
-    };
-  } catch (error) {
-    console.error(`Error getting places data for ${clientId}:`, error);
-    return {
-      places: [],
-      title: 'Points of Interest',
-      subtitle: "Discover Beppu's attractions"
-    };
-  }
-};
-
 /**
  * Get POIs by type from suite configuration data, sorted by POI recommendation weights
- * @param {string} clientId - The client ID (e.g., beppu-story)
- * @param {string} suiteId - The suite ID (e.g., family-room-01, family-room-1)
+ * @param {string} clientId - The client ID
+ * @param {string} suiteId - The suite ID
  * @param {string} type - The POI type ('restaurant' or 'attraction')
- * @param {string} language - The language code (e.g., en, ja)
+ * @param {string} language - The language code
  * @returns {Promise<Object>} - The filtered POIs data
  */
 export const getPOIsByType = async (clientId, suiteId, type, language = 'en') => {
