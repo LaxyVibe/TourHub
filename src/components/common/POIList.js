@@ -3,8 +3,7 @@ import {
   Container,
   Typography,
   Box,
-  Chip,
-  Paper
+  Chip
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
@@ -29,7 +28,7 @@ import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/ana
 const POIList = ({ 
   pois = [], 
   searchResults = [],
-  title = 'Points of Interest', 
+  title = '', 
   subtitle = '', 
   type = 'poi',
   suiteId,
@@ -108,22 +107,9 @@ const POIList = ({
         )}
 
         {dataItems.length === 0 ? (
-          <Paper 
-            elevation={1} 
-            sx={{ 
-              p: 4, 
-              textAlign: 'center', 
-              borderRadius: 2,
-              bgcolor: 'grey.50'
-            }}
-          >
-            <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
-              {searchResults.length > 0 ? 'No results found' : `No ${type}s found`}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {searchResults.length > 0 ? 'Try adjusting your search terms' : `There are currently no ${type}s available for this location.`}
-            </Typography>
-          </Paper>
+          <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
+            No results found
+          </Typography>
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             {dataItems.map((item) => {
