@@ -33,7 +33,7 @@ const HighlightedPOIsSection = ({
   };
 
   return (
-    <Box sx={{ mb: 3, mt: 4 }}>
+    <Box sx={{ mb: 3, mt: 2 }}>
       <Typography 
         component="h2" 
         sx={{ 
@@ -54,6 +54,7 @@ const HighlightedPOIsSection = ({
           gap: 2, 
           overflowX: 'auto',
           pb: 1,
+          px: 1,
           '&::-webkit-scrollbar': {
             height: 8,
           },
@@ -105,7 +106,9 @@ const HighlightedPOIsSection = ({
             <Typography 
               variant="body1" 
               sx={{ 
-                fontWeight: 'medium', 
+                fontFamily: 'Commissioner, sans-serif',
+                fontWeight: 400,
+                fontSize: '16px',
                 textAlign: 'center',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',

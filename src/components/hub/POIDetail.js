@@ -290,12 +290,13 @@ const POIDetail = () => {
       {/* Main Content Card */}
       <Container {...PAGE_LAYOUTS.POIDetail} sx={{ position: 'relative', mt: -8 }}>
         <Paper 
-          elevation={3} 
+          elevation={0} 
           sx={{ 
             borderRadius: 4, // 16px radius
             overflow: 'hidden',
             position: 'relative',
             zIndex: 10,
+            backgroundColor: '#F5F5F5', // Neutral/100 background
             ...CONTENT_PADDING.standard
           }}
         >

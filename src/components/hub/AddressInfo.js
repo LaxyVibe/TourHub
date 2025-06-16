@@ -1,15 +1,13 @@
 import React from 'react';
 import {
   Container,
-  Paper,
-  Typography,
   Box
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import PageHeader from '../common/PageHeader';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import AddressDisplay from '../common/AddressDisplay';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
@@ -26,44 +24,24 @@ const AddressInfo = () => {
   // Get native language code
   const nativeLanguageCode = suite?.ownedBy?.nativeLanguageCode;
 
-  if (!suite) {
-    return (
-      <Container {...PAGE_LAYOUTS.AddressInfo}>
-        <PageHeader title="Address" />
-        <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <Typography variant="h6">Suite information not found</Typography>
-        </Box>
-      </Container>
-    );
-  }
+  // Get hub configuration and find the Address navigation item
+  const hubConfig = getHubConfigByLanguage(language);
+  const addressNavItem = hubConfig?.data?.pageInfo?.navigation?.find(item => item.route === "/info/address");
+  const pageTitle = addressNavItem?.label;
 
   return (
     <Container {...PAGE_LAYOUTS.AddressInfo}>
-      <PageHeader title="Address" />
+      <PageHeader title={pageTitle} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-
-        <Typography variant="h4" component="h1" gutterBottom>
-          Address
-        </Typography>
-
-        <Paper elevation={3} sx={{ p: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            <LocationOnIcon sx={{ mr: 1, color: 'primary.main' }} />
-            <Typography variant="h6" component="h2">
-              Location
-            </Typography>
-          </Box>
-          
-          <AddressDisplay
-            suiteId={suiteId}
-            address={suite.address}
-            nativeLanguageCode={nativeLanguageCode}
-            addressURL={suite.addressURL}
-            addressEmbedHTML={suite.addressEmbedHTML}
-            showMap={true}
-            showMapButton={true}
-          />
-        </Paper>
+        <AddressDisplay
+          suiteId={suiteId}
+          address={suite.address}
+          nativeLanguageCode={nativeLanguageCode}
+          addressURL={suite.addressURL}
+          addressEmbedHTML={suite.addressEmbedHTML}
+          showMap={true}
+          showMapButton={true}
+        />
       </Box>
     </Container>
   );

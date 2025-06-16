@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Container,
-  Paper,
   Typography,
   Box,
   Accordion,
@@ -11,9 +10,9 @@ import {
 import { useParams } from 'react-router-dom';
 import PageHeader from '../common/PageHeader';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const FAQInfo = () => {
@@ -26,68 +25,63 @@ const FAQInfo = () => {
   const suiteData = getSuiteData(suiteId, language);
   const suite = suiteData?.details?.data?.[0];
 
-  if (!suite) {
-    return (
-      <Container {...PAGE_LAYOUTS.FAQInfo}>
-        <PageHeader title="Frequently Asked Questions" />
-        <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <Typography variant="h6">Suite information not found</Typography>
-        </Box>
-      </Container>
-    );
-  }
+  // Get hub configuration and find the FAQ navigation item
+  const hubConfig = getHubConfigByLanguage(language);
+  const faqNavItem = hubConfig?.data?.pageInfo?.navigation?.find(item => item.route === "/info/faq");
+  const pageTitle = faqNavItem?.label || "Frequently Asked Questions";
 
   const faqItems = suite.faq || [];
 
   return (
     <Container {...PAGE_LAYOUTS.FAQInfo}>
-      <PageHeader title="Frequently Asked Questions" />
+      <PageHeader title={pageTitle} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-
-        <Typography variant="h4" component="h1" gutterBottom>
-          Frequently Asked Questions
-        </Typography>
-
-        <Paper elevation={3} sx={{ p: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-            <HelpOutlineIcon sx={{ mr: 1, color: 'primary.main' }} />
-            <Typography variant="h6" component="h2">
-              Common Questions
-            </Typography>
-          </Box>
-          
-          {faqItems.length === 0 ? (
-            <Typography variant="body1" color="text.secondary">
-              No frequently asked questions available.
-            </Typography>
-          ) : (
-            faqItems.map((faqItem, index) => (
-              <Accordion key={faqItem.id || index} sx={{ mb: 1 }}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls={`faq-content-${index}`}
-                  id={`faq-header-${index}`}
-                >
-                  <Typography variant="subtitle1" fontWeight="medium">
-                    {faqItem.question}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  {typeof faqItem.answer === 'string' && faqItem.answer.includes('<') ? (
-                    <Box 
-                      sx={{ lineHeight: 1.6 }}
-                      dangerouslySetInnerHTML={{ __html: faqItem.answer }}
-                    />
-                  ) : (
-                    <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
-                      {faqItem.answer}
-                    </Typography>
-                  )}
-                </AccordionDetails>
-              </Accordion>
-            ))
-          )}
-        </Paper>
+        {faqItems.map((faqItem, index) => (
+          <Accordion 
+            key={faqItem.id || index} 
+            sx={{ 
+              mb: 1,
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              '&:before': {
+                display: 'none',
+              },
+              ...(index > 0 && {
+                borderTop: '1px solid rgba(0, 0, 0, 0.12)',
+                pt: 2
+              })
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`faq-content-${index}`}
+              id={`faq-header-${index}`}
+              sx={{ backgroundColor: 'transparent' }}
+            >
+              <Typography variant="subtitle1" fontWeight="medium">
+                {faqItem.question}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ backgroundColor: 'transparent', pt: 1, pb: 2 }}>
+              {typeof faqItem.answer === 'string' && faqItem.answer.includes('<') ? (
+                <Box 
+                  sx={{ 
+                    lineHeight: 1.8,
+                    '& p': { mb: 2 },
+                    '& strong': { fontWeight: 'bold', color: 'primary.main' },
+                    '& ul, & ol': { pl: 2, mb: 2 },
+                    '& li': { mb: 1 }
+                  }}
+                  dangerouslySetInnerHTML={{ __html: faqItem.answer }}
+                />
+              ) : (
+                <Typography variant="body1" sx={{ lineHeight: 1.6 }}>
+                  {faqItem.answer}
+                </Typography>
+              )}
+            </AccordionDetails>
+          </Accordion>
+        ))}
       </Box>
     </Container>
   );

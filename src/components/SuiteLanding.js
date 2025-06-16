@@ -3,7 +3,6 @@ import {
   Box, 
   Container, 
   Typography, 
-  Paper, 
   Grid,
   CircularProgress
 } from '@mui/material';
@@ -303,27 +302,6 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
     }
   }; */
 
-  const handleTourSelect = (tourId) => {
-    trackButtonClick(`tour_${tourId}`, 'suite_landing');
-    trackNavigation('suite_landing', 'tour_detail', 'featured_tour_click');
-    
-    // Check if there's a specific route for individual tours in the hub config
-    // For now, navigate to a nested route under tours
-    const toursNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/tours");
-    if (toursNav) {
-      navigate(`/${language}/${suiteId}/tours/${tourId}`, {
-        state: { 
-          tourId,
-          suiteId,
-          language
-        }
-      });
-    } else {
-      // Fallback to legacy route
-      navigate(`/${suiteId}/${language}/join/${tourId}`);
-    }
-  };
-
     if (loading) {
     return (
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -347,21 +325,21 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   const suiteData = getSuiteData(suiteId, language);
   const sliderImages = suiteData?.details?.data?.[0]?.slider || [];
   
-  const featuredTours = clientInfo.featuredTours || [];
 
   return (
     <Container {...PAGE_LAYOUTS.SuiteLanding}>
       <SuiteLandingHeader title={suiteData?.details?.data?.[0]?.ownedBy?.label} suiteId={suiteId} />
       
-      <Box sx={{ ...CONTENT_PADDING.standard, pt: 2 }}>
+      <Box sx={{ ...CONTENT_PADDING.standard, py: 3 }}>
         <>
           {/* Greeting Section */}
           {suiteData?.details?.data?.[0]?.ownedBy && (
             <Box sx={{ 
               display: 'flex', 
               alignItems: 'center', 
-              mb: 3,
-              p: 2.5,
+              px: 0.5,
+              pt: 1,
+              pb: 2.5,
             }}>
               {suiteData.details.data[0].ownedBy.avatar && (
                 <Box 
@@ -374,7 +352,6 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
                     borderRadius: '50%',
                     mr: 2,
                     objectFit: 'cover',
-                    border: '2px solid #fff',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                   }} 
                 />
@@ -395,7 +372,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
           )}
 
           {(sliderImages.length > 0 || roomImages.length > 0) && (
-            <Box sx={{ mb: 2 }}>
+            <Box sx={{ mb: 2, mx: 0.5 }}>
               <Carousel 
                 animation="slide"
                 autoPlay
@@ -440,7 +417,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
             </Typography>
           )}
           
-          <Grid container spacing={0.5} justifyContent="space-between" sx={{ mb: 2, mt: 1 }}>
+          <Grid container spacing={0.5} justifyContent="space-between" sx={{ mt: 1, mx: 4 }}>
             {sectionLabels.wifiLabel && (
               <NavigationButton
                 iconUrl={sectionLabels.wifiIcon}
@@ -526,76 +503,6 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
               </Grid>
             )} */}
           </Grid>
-          {featuredTours.length > 0 && (
-            <Box sx={{ mb: 3, mt: 4 }}>
-              <Typography variant="h6" component="h2" sx={{ mb: 2, fontWeight: 'bold', fontSize: { xs: '1.125rem', sm: '1.25rem' } }}>
-                {sectionLabels.popularToursLabel || 'Featured Experiences'}
-              </Typography>
-              <Box sx={{ overflowX: 'auto', display: 'flex', pb: 2 }}>
-                {featuredTours.map((tour) => (
-                  <Paper
-                    key={tour.id}
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'flex-start',
-                      justifyContent: 'center',
-                      p: 2,
-                      borderRadius: 2,
-                      minWidth: 120,
-                      mr: 1,
-                      position: 'relative',
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                      transition: 'transform 0.3s',
-                      '&:hover': {
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-                      }
-                    }}
-                    onClick={() => handleTourSelect(tour.id)}
-                  >
-                    <Box 
-                      component="img" 
-                      src={tour.imageUrl} 
-                      alt={tour.title} 
-                      sx={{ 
-                        width: '100%', 
-                        height: 120, 
-                        objectFit: 'cover',
-                        borderRadius: 1,
-                        mb: 1
-                      }} 
-                    />
-                    <Typography variant="subtitle1" sx={{ fontWeight: 'medium', mb: 0.5 }}>
-                      {tour.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      {tour.description}
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                      {tour.price} {tour.currency}
-                    </Typography>
-                    <Box sx={{ 
-                      position: 'absolute', 
-                      top: 8, 
-                      right: 8, 
-                      bgcolor: 'white', 
-                      p: 0.5, 
-                      borderRadius: 1,
-                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                    }}>
-                      <Typography variant="caption" color="text.secondary">
-                        {tour.duration} | {tour.groupSize} {tour.groupSize === 1 ? 'person' : 'people'}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                ))}
-              </Box>
-            </Box>
-          )}
-          
           {/* Highlighted POIs Section */}
           <HighlightedPOIsSection 
             heading={hubConfig?.data?.pageSearch?.highlightedListHeading}

@@ -90,8 +90,7 @@ export const CONTAINER_CONFIG = {
     sx: { 
       px: PWA_PADDING.none,
       py: PWA_PADDING.none,
-      pb: PWA_PADDING.xl,
-      minHeight: '100vh'
+      pb: PWA_PADDING.xl
     }
   },
   
@@ -122,7 +121,6 @@ export const CONTAINER_CONFIG = {
     sx: { 
       px: PWA_PADDING.none,
       py: PWA_PADDING.none,
-      height: '100vh',
       display: 'flex',
       flexDirection: 'column'
     }
@@ -176,19 +174,19 @@ export const PAGE_LAYOUTS = {
   // Content detail pages
   TourLanding: CONTAINER_CONFIG.wide,
   PlaceLanding: CONTAINER_CONFIG.wide,
-  POIDetail: CONTAINER_CONFIG.medium,
+  POIDetail: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
   
   // Featured content pages
   FeaturedTours: CONTAINER_CONFIG.featured,
   FeaturedRestaurants: CONTAINER_CONFIG.featured,
   FeaturedPlaces: CONTAINER_CONFIG.featured,
   
-  // Information pages
-  WifiInfo: CONTAINER_CONFIG.medium,
-  StayInfo: CONTAINER_CONFIG.medium,
-  AddressInfo: CONTAINER_CONFIG.medium,
-  CheckInOutInfo: CONTAINER_CONFIG.medium,
-  HouseRulesInfo: CONTAINER_CONFIG.medium,
-  AmenitiesInfo: CONTAINER_CONFIG.medium,
-  FAQInfo: CONTAINER_CONFIG.medium
+  // Information pages - all using suiteLanding width for consistency
+  WifiInfo: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
+  StayInfo: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
+  AddressInfo: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
+  CheckInOutInfo: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
+  HouseRulesInfo: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
+  AmenitiesInfo: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
+  FAQInfo: CONTAINER_CONFIG.suiteLanding // Changed from medium to suiteLanding
 };

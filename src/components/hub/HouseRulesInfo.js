@@ -1,15 +1,13 @@
 import React from 'react';
 import {
   Container,
-  Paper,
-  Typography,
   Box
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import PageHeader from '../common/PageHeader';
-import GavelIcon from '@mui/icons-material/Gavel';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const HouseRulesInfo = () => {
@@ -22,39 +20,25 @@ const HouseRulesInfo = () => {
   const suiteData = getSuiteData(suiteId, language);
   const suite = suiteData?.details?.data?.[0];
 
-  if (!suite) {
-    return (
-      <Container {...PAGE_LAYOUTS.HouseRulesInfo}>
-        <PageHeader title="House Rules" />
-        <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <Typography variant="h6">Suite information not found</Typography>
-        </Box>
-      </Container>
-    );
-  }
+  // Get hub configuration and find the House Rules navigation item
+  const hubConfig = getHubConfigByLanguage(language);
+  const houseRulesNavItem = hubConfig?.data?.pageInfo?.navigation?.find(item => item.route === "/info/house-rules");
+  const pageTitle = houseRulesNavItem?.label;
 
   return (
     <Container {...PAGE_LAYOUTS.HouseRulesInfo}>
-      <PageHeader title="House Rules" />
+      <PageHeader title={pageTitle} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-
-        <Typography variant="h4" component="h1" gutterBottom>
-          House Rules
-        </Typography>
-
-        <Paper elevation={3} sx={{ p: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            <GavelIcon sx={{ mr: 1, color: 'primary.main' }} />
-            <Typography variant="h6" component="h2">
-              Rules & Policies
-            </Typography>
-          </Box>
-          
-          <Box 
-            sx={{ lineHeight: 1.6 }}
-            dangerouslySetInnerHTML={{ __html: suite.houseRules || 'No house rules information available.' }}
-          />
-        </Paper>
+        <Box 
+          sx={{ 
+            lineHeight: 1.8,
+            '& p': { mb: 2 },
+            '& strong': { fontWeight: 'bold', color: 'primary.main' },
+            '& ul, & ol': { pl: 2, mb: 2 },
+            '& li': { mb: 1 }
+          }}
+          dangerouslySetInnerHTML={{ __html: suite.houseRules || 'No house rules information available.' }}
+        />
       </Box>
     </Container>
   );

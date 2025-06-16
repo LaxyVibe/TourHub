@@ -20,11 +20,13 @@ import FeaturedTours from './components/hub/FeaturedTours';
 import SearchPage from './components/SearchPage';
 import SearchResultPage from './components/SearchResultPage';
 import LanguagePage from './components/LanguagePage';
+import Footer from './components/common/Footer';
 import { getHubClientInfo, getTourClientInfo, getPlaceClientInfo } from './config/clients';
 import { getPOIsByType } from './utils/dataFetcher';
 import { LanguageProvider } from './context/LanguageContext';
 import { DEFAULT_LANGUAGE, extractLanguageFromPath } from './utils/languageUtils';
 import { theme } from './config/theme';
+import { getHubConfigByLanguage } from './mocks/hub-application-config';
 import usePageTracking from './hooks/usePageTracking';
 
 // ScrollToTop component to handle scrolling to top on route changes and GA tracking
@@ -150,16 +152,18 @@ function RestaurantsWrapper() {
   const suiteId = urlSuiteId || (location.state && location.state.suiteId);
   const [pois, setPois] = React.useState([]);
   const [title, setTitle] = React.useState('Nearby Restaurants');
-  const [subtitle, setSubtitle] = React.useState('Discover local dining options');
   const [loading, setLoading] = React.useState(true);
   
   React.useEffect(() => {
     const fetchPOIs = async () => {
       try {
-        const result = await getPOIsByType('beppu-story', suiteId || 'family-room-1', 'restaurant', langCode || DEFAULT_LANGUAGE);
+        const result = await getPOIsByType('beppu-story', suiteId, 'restaurant', langCode || DEFAULT_LANGUAGE);
         setPois(result.pois);
-        setTitle(result.title);
-        setSubtitle(result.subtitle);
+        
+        // Get title from hub-application-config
+        const hubConfig = getHubConfigByLanguage(langCode || DEFAULT_LANGUAGE);
+        const foodsNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/nearby-restaurants");
+        setTitle(foodsNav?.label || result.title || 'Nearby Restaurants');
       } catch (error) {
         console.error("Failed to fetch restaurant POIs:", error);
         setPois([]);
@@ -179,7 +183,6 @@ function RestaurantsWrapper() {
     <POIList 
       pois={pois}
       title={title}
-      subtitle={subtitle}
       type="restaurant"
       suiteId={suiteId}
     />
@@ -202,7 +205,6 @@ function PlacesWrapper() {
   const suiteId = urlSuiteId || (location.state && location.state.suiteId);
   const [pois, setPois] = React.useState([]);
   const [title, setTitle] = React.useState('Nearby Attractions');
-  const [subtitle, setSubtitle] = React.useState('Explore local attractions');
   const [loading, setLoading] = React.useState(true);
   
   React.useEffect(() => {
@@ -210,8 +212,11 @@ function PlacesWrapper() {
       try {
         const result = await getPOIsByType('beppu-story', suiteId || 'family-room-1', 'attraction', langCode || DEFAULT_LANGUAGE);
         setPois(result.pois);
-        setTitle(result.title);
-        setSubtitle(result.subtitle);
+        
+        // Get title from hub-application-config
+        const hubConfig = getHubConfigByLanguage(langCode || DEFAULT_LANGUAGE);
+        const spotsNav = hubConfig?.data?.pageLanding?.naviagtion?.find(item => item.route === "/nearby-attractions");
+        setTitle(spotsNav?.label || result.title || 'Nearby Attractions');
       } catch (error) {
         console.error("Failed to fetch attraction POIs:", error);
         setPois([]);
@@ -231,7 +236,6 @@ function PlacesWrapper() {
     <POIList 
       pois={pois}
       title={title}
-      subtitle={subtitle}
       type="attraction"
       suiteId={suiteId}
     />
@@ -427,6 +431,7 @@ function App() {
           <ScrollToTop />
           <LanguageProvider>
             {getRouteConfig()}
+            <Footer />
           </LanguageProvider>
         </BrowserRouter>
       </div>

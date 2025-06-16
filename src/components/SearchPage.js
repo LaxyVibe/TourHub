@@ -136,7 +136,7 @@ const SearchPage = () => {
     }
     
     // Track search
-    trackSearch(query, 0); // We don't have results count here anymore
+    trackSearch(query, 0);
     
     setShowDropdown(false);
     
@@ -387,9 +387,10 @@ const SearchPage = () => {
                   sx={{
                     py: 2,
                     px: 0,
-                    borderBottom: index < pageSearchConfig.defaultList.length - 1 ? '1px solid rgba(0, 0, 0, 0.08)' : 'none',
+                    borderBottom: index < pageSearchConfig.defaultList.length - 1 ? '2px solid rgba(0, 0, 0, 0.08)' : 'none',
                     '&:hover': {
                       backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      cursor: 'pointer'
                     },
                     display: 'flex',
                     alignItems: 'center',

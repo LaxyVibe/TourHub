@@ -6,7 +6,7 @@ import {
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import PageHeader from './common/PageHeader';
-import POISearchResults from './common/POISearchResults';
+import POIList from './common/POIList';
 import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackNavigation } from '../utils/analytics';
@@ -60,9 +60,10 @@ const SearchResultPage = () => {
 
       {/* Search Results Content */}
       <Box sx={{ ...CONTENT_PADDING.standard, py: 3 }}>
-        <POISearchResults
+        <POIList
           searchResults={filteredResults}
           suiteId={suiteId}
+          showHeader={false}
         />
       </Box>
     </Container>

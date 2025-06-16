@@ -1,15 +1,13 @@
 import React from 'react';
 import {
   Container,
-  Paper,
-  Typography,
   Box
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import PageHeader from '../common/PageHeader';
-import HotelIcon from '@mui/icons-material/Hotel';
 import { useLanguage } from '../../context/LanguageContext';
 import { getSuiteData } from '../../utils/suiteUtils';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 
 const AmenitiesInfo = () => {
@@ -22,39 +20,25 @@ const AmenitiesInfo = () => {
   const suiteData = getSuiteData(suiteId, language);
   const suite = suiteData?.details?.data?.[0];
 
-  if (!suite) {
-    return (
-      <Container {...PAGE_LAYOUTS.AmenitiesInfo}>
-        <PageHeader title="Amenities" />
-        <Box sx={{ ...CONTENT_PADDING.standard }}>
-          <Typography variant="h6">Suite information not found</Typography>
-        </Box>
-      </Container>
-    );
-  }
+  // Get hub configuration and find the Amenities navigation item
+  const hubConfig = getHubConfigByLanguage(language);
+  const amenitiesNavItem = hubConfig?.data?.pageInfo?.navigation?.find(item => item.route === "/info/amenities");
+  const pageTitle = amenitiesNavItem?.label;
 
   return (
     <Container {...PAGE_LAYOUTS.AmenitiesInfo}>
-      <PageHeader title="Amenities" />
+      <PageHeader title={pageTitle} />
       <Box sx={{ ...CONTENT_PADDING.standard }}>
-
-        <Typography variant="h4" component="h1" gutterBottom>
-          Amenities
-        </Typography>
-
-        <Paper elevation={3} sx={{ p: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            <HotelIcon sx={{ mr: 1, color: 'primary.main' }} />
-            <Typography variant="h6" component="h2">
-              Available Amenities
-            </Typography>
-          </Box>
-          
-          <Box 
-            sx={{ lineHeight: 1.6 }}
-            dangerouslySetInnerHTML={{ __html: suite.amenities || 'No amenities information available.' }}
-          />
-        </Paper>
+        <Box 
+          sx={{ 
+            lineHeight: 1.8,
+            '& p': { mb: 2 },
+            '& strong': { fontWeight: 'bold', color: 'primary.main' },
+            '& ul, & ol': { pl: 2, mb: 2 },
+            '& li': { mb: 1 }
+          }}
+          dangerouslySetInnerHTML={{ __html: suite.amenities }}
+        />
       </Box>
     </Container>
   );
