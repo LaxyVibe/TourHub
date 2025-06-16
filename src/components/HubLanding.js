@@ -12,6 +12,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { fetchClientInfo } from '../config/clients/hubClients';
 import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 import { getAllSuites } from '../utils/suiteUtils';
+import { DEFAULT_CLIENT_ID, DEFAULT_SUITE_ID } from '../config/constants';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackSuiteView, trackButtonClick, trackNavigation } from '../utils/analytics';
 
@@ -66,7 +67,8 @@ const HubLanding = ({ clientInfo: initialClientInfo }) => {
   useEffect(() => {
     const loadClientInfo = async () => {
       try {
-        const data = await fetchClientInfo('beppu-story', language);
+        // Use the default suite for hub landing
+        const data = await fetchClientInfo(DEFAULT_CLIENT_ID, DEFAULT_SUITE_ID, language);
         setClientInfo(data);
         
         // Load suites from the folder structure instead of API

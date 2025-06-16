@@ -176,10 +176,6 @@ export const PAGE_LAYOUTS = {
   PlaceLanding: CONTAINER_CONFIG.wide,
   POIDetail: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding
   
-  // Featured content pages
-  FeaturedTours: CONTAINER_CONFIG.featured,
-  FeaturedRestaurants: CONTAINER_CONFIG.featured,
-  FeaturedPlaces: CONTAINER_CONFIG.featured,
   
   // Information pages - all using suiteLanding width for consistency
   WifiInfo: CONTAINER_CONFIG.suiteLanding, // Changed from medium to suiteLanding

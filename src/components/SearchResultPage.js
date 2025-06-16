@@ -64,6 +64,7 @@ const SearchResultPage = () => {
           searchResults={filteredResults}
           suiteId={suiteId}
           showHeader={false}
+          loading={false}
         />
       </Box>
     </Container>

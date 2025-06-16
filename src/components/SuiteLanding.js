@@ -13,6 +13,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AttractionsTwoToneIcon from '@mui/icons-material/AttractionsTwoTone';
 // import TourIcon from '@mui/icons-material/Tour'; // Temporarily disabled
 import { useLanguage } from '../context/LanguageContext';
+import { DEFAULT_CLIENT_ID } from '../config/constants';
 import Carousel from 'react-material-ui-carousel';
 import { fetchClientInfo } from '../config/clients/hubClients';
 import SuiteLandingHeader from './common/SuiteLandingHeader';
@@ -148,7 +149,7 @@ const SuiteLanding = ({ clientInfo: initialClientInfo }) => {
   useEffect(() => {
     const loadClientInfo = async () => {
       try {
-        const data = await fetchClientInfo('beppu-story', language);
+        const data = await fetchClientInfo(DEFAULT_CLIENT_ID, suiteId, language);
         setClientInfo(data);
 
         // If suiteId is present, find the matching suite

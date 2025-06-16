@@ -1,6 +1,23 @@
+// Import dynamic configuration
+import { DEFAULT_CLIENT_ID } from '../config/constants';
+
 // Use webpack's require.context to dynamically import suite data
-// This allows us to scan the directory structure at build time
-const suitesContext = require.context('../mocks/suites/beppu-story', true, /\.json$/);
+// Note: The path structure is built by the fetch-api-data.js script based on discovered configuration
+const createSuitesContext = () => {
+  try {
+    // Try to create context for the discovered client path
+    return require.context('../mocks/suites', true, /\.json$/);
+  } catch (error) {
+    console.warn('Could not create suites context, falling back to empty context');
+    return {
+      keys: () => [],
+      resolve: () => {},
+      id: 'empty'
+    };
+  }
+};
+
+const suitesContext = createSuitesContext();
 
 // Discover available suites based on the folder structure
 const discoverAvailableSuites = () => {
@@ -9,13 +26,18 @@ const discoverAvailableSuites = () => {
     const suiteKeys = suitesContext.keys();
     
     // Extract unique suite IDs from the file paths
-    // File paths will be like './family-room-1/en.json'
+    // File paths will be like './client-id/suite-id/en.json'
     const suiteIds = [...new Set(
-      suiteKeys.map(key => {
-        const pathParts = key.split('/');
-        // Return the first folder name
-        return pathParts[1];
-      })
+      suiteKeys
+        .map(key => {
+          const pathParts = key.split('/');
+          // Check if this is a valid client/suite/language structure
+          if (pathParts.length >= 3 && pathParts[1] === DEFAULT_CLIENT_ID) {
+            return pathParts[2];
+          }
+          return null;
+        })
+        .filter(Boolean)
     )];
     
     // Process each suite
@@ -23,11 +45,11 @@ const discoverAvailableSuites = () => {
       const suiteData = {};
       
       // Find all language files for this suite
-      const suiteFiles = suiteKeys.filter(key => key.includes(`/${suiteId}/`));
+      const suiteFiles = suiteKeys.filter(key => key.includes(`/${DEFAULT_CLIENT_ID}/${suiteId}/`));
       
       // Load language data
       suiteFiles.forEach(filePath => {
-        // Extract language code from filename (e.g., './family-room-1/en.json' -> 'en')
+        // Extract language code from filename (e.g., './client-id/suite-id/en.json' -> 'en')
         const langCode = filePath.split('/').pop().replace('.json', '');
         const langData = suitesContext(filePath);
         suiteData[langCode] = langData;

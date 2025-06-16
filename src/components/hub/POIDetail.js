@@ -15,6 +15,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
 import POIHeader from './POIHeader';
+import { DEFAULT_CLIENT_ID } from '../../config/constants';
 import { useLanguage } from '../../context/LanguageContext';
 import { getPOIsByType } from '../../utils/dataFetcher';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
@@ -29,7 +30,7 @@ const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
   }
   
   try {
-    const nativeModule = await import(`../../mocks/suites/beppu-story/${suiteId}/${nativeLanguageCode}.json`);
+    const nativeModule = await import(`../../mocks/suites/${DEFAULT_CLIENT_ID}/${suiteId}/${nativeLanguageCode}.json`);
     const nativeData = nativeModule.default;
     
     // Find the POI in the native language data
@@ -112,7 +113,7 @@ const POIDetail = () => {
         
         for (const poiType of poiTypes) {
           try {
-            const result = await getPOIsByType('beppu-story', suiteId, poiType, language);
+            const result = await getPOIsByType(DEFAULT_CLIENT_ID, suiteId, poiType, language);
             foundPOI = result.pois.find(p => p.slug === poiSlug);
             if (foundPOI) {
               foundPOI.type = poiType; // Ensure type is set
