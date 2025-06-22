@@ -17,7 +17,6 @@ import {
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import QrCodeIcon from '@mui/icons-material/QrCode2';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useLanguage } from '../context/LanguageContext';
@@ -186,13 +185,6 @@ const SearchPage = () => {
     navigate(`/${language}/${suiteId}/search/result?q=${encodeURIComponent(item.value)}`);
   };
 
-  const handleQRCodeClick = () => {
-    trackButtonClick('qr_code_scanner', 'search_page');
-    // Handle QR code functionality
-    // For now, show a simple alert. In future, this could integrate with a QR code scanner
-    alert('QR Code Scanner functionality would be implemented here. This could open the device camera to scan QR codes for tours, places, or special offers.');
-  };
-
   return (
     <Container {...PAGE_LAYOUTS.SearchPage}>
       {/* Search Header */}
@@ -343,22 +335,6 @@ const SearchPage = () => {
           )}
         </Box>
 
-        {/* QR Code Button */}
-        <IconButton
-          onClick={handleQRCodeClick}
-          sx={{ 
-            p: 1,
-            borderRadius: '50%',
-            backgroundColor: 'white',
-            border: '2px solid #D7D6D6',
-            '&:hover': {
-              backgroundColor: '#f5f5f5',
-            }
-          }}
-          aria-label="QR Code"
-        >
-          <QrCodeIcon />
-        </IconButton>
       </Box>
 
       {/* Search Content */}
