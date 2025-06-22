@@ -134,9 +134,9 @@ const HubLanding = ({ clientInfo: initialClientInfo }) => {
         </Paper>
 
       <Box sx={{ mb: 3 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
           {suites.map((suite) => (
-            <Grid item xs={12} sm={6} md={4} key={suite.id}>
+            <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={suite.id}>
               <Paper
                 elevation={2}
                 sx={{
@@ -144,6 +144,9 @@ const HubLanding = ({ clientInfo: initialClientInfo }) => {
                   overflow: 'hidden',
                   cursor: 'pointer',
                   transition: 'transform 0.2s',
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
                   '&:hover': {
                     transform: 'translateY(-4px)',
                   }
@@ -160,8 +163,8 @@ const HubLanding = ({ clientInfo: initialClientInfo }) => {
                     }}
                   />
                 )}
-                <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
-                  <Typography variant="subtitle1" fontWeight="medium">
+                <Box sx={{ p: { xs: 1.5, sm: 2 }, flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <Typography variant="subtitle1" fontWeight="medium" sx={{ mb: 1 }}>
                     {suite.name}
                   </Typography>
                   {suite.description && (

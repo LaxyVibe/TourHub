@@ -6,13 +6,12 @@ import {
   Typography,
   Box,
   IconButton,
-  Alert,
   Snackbar,
   Button
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import WifiIcon from '@mui/icons-material/Wifi';
-import QrCodeIcon from '@mui/icons-material/QrCode2';
+import QRCode from 'react-qr-code';
 import { useLanguage } from '../../context/LanguageContext';
 import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
@@ -21,6 +20,7 @@ import { trackButtonClick, trackContentInteraction } from '../../utils/analytics
 const WifiDialog = ({ open, onClose, suiteId }) => {
   const [qrDialogOpen, setQrDialogOpen] = useState(false);
   const [copyAlert, setCopyAlert] = useState(false);
+  const [copiedNetworkName, setCopiedNetworkName] = useState('');
   const [selectedNetwork, setSelectedNetwork] = useState(null);
   const { language } = useLanguage();
   
@@ -33,7 +33,7 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
 
   const handleShowQR = (network) => {
     trackButtonClick('qr_code_view', 'wifi_dialog');
-    trackContentInteraction('qr_code_display', 'wifi_network', network.ssid);
+    trackContentInteraction('qr_code_display', 'wifi_network', network.network);
     
     setSelectedNetwork(network);
     setQrDialogOpen(true);
@@ -46,64 +46,21 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
     setSelectedNetwork(null);
   };
 
-  const handleCopyPassword = (password) => {
+  const handleCopyPassword = (password, networkName) => {
     if (!password) return;
     
     trackButtonClick('copy_password', 'wifi_dialog');
-    trackContentInteraction('password_copy', 'wifi_network', selectedNetwork?.ssid || 'unknown');
+    trackContentInteraction('password_copy', 'wifi_network', networkName || 'unknown');
     
     navigator.clipboard.writeText(password);
+    setCopiedNetworkName(networkName);
     setCopyAlert(true);
-  };
-
-  const handleScanQR = () => {
-    trackButtonClick('scan_qr_code', 'wifi_dialog');
-    trackContentInteraction('qr_scanner_attempt', 'wifi_network', selectedNetwork?.ssid || 'unknown');
-    
-    // This would typically open camera for QR scanning
-    // For now, just show an alert as camera access requires additional setup
-    alert(hubConfig?.data?.pageWiFi?.scanQRButton?.label);
   };
 
   const handleClose = () => {
     trackButtonClick('close_wifi_dialog', 'wifi_dialog');
     onClose();
   };
-
-  // If we don't have any wifi info, display a message
-  if (!wifiNetworks || wifiNetworks.length === 0) {
-    return (
-      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Box sx={{ flex: 1 }} /> {/* Spacer for centering */}
-            <IconButton onClick={handleClose} sx={{ position: 'absolute', right: 16, top: 16 }}>
-              <CloseIcon />
-            </IconButton>
-          </Box>
-        </DialogTitle>
-        <DialogContent sx={{ textAlign: 'center', pb: 4 }}>
-          {/* Large WiFi Icon in Circle */}
-          <Box 
-            sx={{ 
-              width: 120, 
-              height: 120, 
-              borderRadius: '50%', 
-              backgroundColor: 'primary.main', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 3
-            }}
-          >
-            <WifiIcon sx={{ fontSize: 60, color: 'white' }} />
-          </Box>
-          <Alert severity="info">No WiFi information available.</Alert>
-        </DialogContent>
-      </Dialog>
-    );
-  }
 
   return (
     <>
@@ -123,7 +80,9 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
               width: 120, 
               height: 120, 
               borderRadius: '50%', 
-              backgroundColor: 'primary.main', 
+              border: '8px solid',
+              borderColor: 'primary.main',
+              backgroundColor: 'transparent',
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center',
@@ -131,7 +90,7 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
               mb: 3
             }}
           >
-            <WifiIcon sx={{ fontSize: 60, color: 'white' }} />
+            <WifiIcon sx={{ fontSize: 60, color: 'primary.main' }} />
           </Box>
 
           {/* Network ID Display */}
@@ -140,56 +99,42 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
           </Typography>
 
           {/* Action Buttons */}
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 400, mx: 'auto' }}>
-            {/* Scan QR Code Button - Filled */}
-            <Button
-              variant="contained"
-              onClick={handleScanQR}
-              fullWidth
-              sx={{ 
-                py: 1.5,
-                borderRadius: 3,
-                textTransform: 'none',
-                fontSize: '16px'
-              }}
-            >
-              {hubConfig?.data?.pageWiFi?.scanQRButton?.label}
-            </Button>
-
-            {/* Copy Password Buttons - Outlined */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, maxWidth: 400, mx: 'auto' }}>
+            {/* Network-specific action buttons */}
             {wifiNetworks.map((network, index) => (
-              network.password && (
+              <React.Fragment key={index}>
+                {/* Copy Password Button */}
+                {network.password && (
+                  <Button
+                    variant="outlined"
+                    onClick={() => handleCopyPassword(network.password, network.network)}
+                    fullWidth
+                    sx={{ 
+                      borderRadius: '37px',
+                      textTransform: 'none',
+                      fontSize: '16px'
+                    }}
+                  >
+                    {hubConfig?.data?.pageWiFi?.clipboardButton?.label} - {network.network}
+                  </Button>
+                )}
+                
+                {/* Show QR Code Button */}
                 <Button
-                  key={index}
                   variant="outlined"
-                  onClick={() => handleCopyPassword(network.password)}
+                  onClick={() => handleShowQR(network)}
                   fullWidth
                   sx={{ 
-                    py: 1.5,
-                    borderRadius: 3,
+                    borderRadius: '37px',
                     textTransform: 'none',
-                    fontSize: '16px'
+                    fontSize: '16px',
+                    mb: index < wifiNetworks.length - 1 ? 1 : 0
                   }}
                 >
-                  {hubConfig?.data?.pageWiFi?.clipboardButton?.label} for "{network.network}"
+                  {hubConfig?.data?.pageWiFi?.showQRButton?.label} - {network.network}
                 </Button>
-              )
+              </React.Fragment>
             ))}
-
-            {/* Show QR Code Button - Outlined */}
-            <Button
-              variant="outlined"
-              onClick={() => handleShowQR(wifiNetworks[0])}
-              fullWidth
-              sx={{ 
-                py: 1.5,
-                borderRadius: 3,
-                textTransform: 'none',
-                fontSize: '16px'
-              }}
-            >
-              {hubConfig?.data?.pageWiFi?.showQRButton?.label}
-            </Button>
           </Box>
         </DialogContent>
       </Dialog>
@@ -198,7 +143,9 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
       <Dialog open={qrDialogOpen} onClose={handleCloseQrDialog} maxWidth="xs" fullWidth>
         <DialogTitle>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            {hubConfig?.data?.pageWiFi?.showQRButton?.label}
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              {selectedNetwork ? `QR Code - ${selectedNetwork.network}` : hubConfig?.data?.pageWiFi?.showQRButton?.label}
+            </Typography>
             <IconButton onClick={handleCloseQrDialog}>
               <CloseIcon />
             </IconButton>
@@ -206,7 +153,23 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
         </DialogTitle>
         <DialogContent>
           <Box textAlign="center" sx={{ py: 2 }}>
-            <QrCodeIcon sx={{ fontSize: 150, color: 'primary.main', mb: 2 }} />
+            {selectedNetwork && (
+              <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                mb: 2,
+                padding: 2,
+                backgroundColor: 'white',
+                borderRadius: 2,
+                border: '1px solid #e0e0e0'
+              }}>
+                <QRCode
+                  value={`WIFI:S:${selectedNetwork.network};T:${selectedNetwork.password ? 'WPA' : 'nopass'};P:${selectedNetwork.password || ''};;`}
+                  size={200}
+                  level="M"
+                />
+              </Box>
+            )}
             <Typography variant="body1" sx={{ mb: 1 }}>
               Network: {selectedNetwork?.network}
             </Typography>
@@ -227,7 +190,7 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
         open={copyAlert}
         autoHideDuration={2000}
         onClose={() => setCopyAlert(false)}
-        message={hubConfig?.data?.pageWiFi?.clipboardButton?.label}
+        message={`Password copied for ${copiedNetworkName}!`}
       />
     </>
   );

@@ -5,7 +5,6 @@ import {
   Typography 
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { trackButtonClick, trackNavigation } from '../../utils/analytics';
 
@@ -67,23 +66,13 @@ const PageHeader = ({ title, onBack, isHierarchical }) => {
         onClick={handleBackClick}
         sx={{ p: 1, mr: 2 }}
       >
-        {shouldUseHierarchical ? (
-          <KeyboardArrowUpIcon 
-            sx={{ 
-              width: 24, 
-              height: 24, 
-              color: '#333333' 
-            }} 
-          />
-        ) : (
-          <ArrowBackIcon 
-            sx={{ 
-              width: 24, 
-              height: 24, 
-              color: '#333333' 
-            }} 
-          />
-        )}
+        <ArrowBackIcon 
+          sx={{ 
+            width: 24, 
+            height: 24, 
+            color: '#333333' 
+          }} 
+        />
       </IconButton>
 
       {/* Title */}
