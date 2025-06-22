@@ -3,34 +3,34 @@
         "id": 2,
         "documentId": "au3e8t9cegnebahml864mmss",
         "createdAt": "2025-06-15T13:47:13.423Z",
-        "updatedAt": "2025-06-15T13:47:22.475Z",
-        "publishedAt": "2025-06-15T13:47:13.358Z",
+        "updatedAt": "2025-06-17T09:28:55.294Z",
+        "publishedAt": "2025-06-17T09:28:10.270Z",
         "locale": "zh-Hans",
         "universalConfig": {
-            "id": 12,
+            "id": 42,
             "releasedLanguages": [
                 {
-                    "id": 137,
+                    "id": 207,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 138,
+                    "id": 206,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 139,
+                    "id": 210,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 143,
+                    "id": 208,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 140,
+                    "id": 211,
                     "label": "한국어",
                     "value": "ko"
                 }
@@ -133,7 +133,7 @@
                 {
                     "id": 33,
                     "label": "温泉",
-                    "value": null
+                    "value": "温泉"
                 }
             ]
         },

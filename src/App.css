@@ -15,9 +15,14 @@
   flex-direction: column;
 }
 
-/* Smooth scrolling for the entire app */
+/* Smooth scrolling for the entire app - but allow override for scroll to top */
 html {
   scroll-behavior: smooth;
+}
+
+/* Override smooth scroll when programmatically scrolling to top */
+html.scroll-to-top {
+  scroll-behavior: auto !important;
 }
 
 /* Improve touch interactions on mobile */

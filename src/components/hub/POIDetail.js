@@ -6,7 +6,6 @@ import {
   Box,
   Rating,
   Chip,
-  Divider,
   Button,
   CircularProgress
 } from '@mui/material';
@@ -14,6 +13,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import PhoneIcon from '@mui/icons-material/Phone';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import POIHeader from './POIHeader';
 import { DEFAULT_CLIENT_ID } from '../../config/constants';
 import { useLanguage } from '../../context/LanguageContext';
@@ -22,6 +22,24 @@ import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 import { getSuiteData } from '../../utils/suiteUtils';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../../config/layout';
 import { trackNavigation, trackContentInteraction } from '../../utils/analytics';
+
+// Function to extract domain from URL for display
+const extractDomain = (url) => {
+  if (!url) return '';
+  
+  try {
+    const urlObj = new URL(url);
+    // Remove 'www.' prefix if present
+    let hostname = urlObj.hostname;
+    if (hostname.startsWith('www.')) {
+      hostname = hostname.substring(4);
+    }
+    return hostname;
+  } catch (error) {
+    console.warn('Invalid URL:', url);
+    return url; // Return original URL if parsing fails
+  }
+};
 
 // Function to dynamically load suite data for native language POI details
 const loadNativeLanguagePOI = async (poiSlug, nativeLanguageCode, suiteId) => {
@@ -162,8 +180,20 @@ const POIDetail = () => {
   }, [language, poiSlug, suiteId, poiRecommendationsData, getPOIRecommendation]);
 
   // Helper function to render expandable text
-  const renderExpandableText = (text, isExpanded, setIsExpanded, characterLimit = 300, isItalic = true) => {
-    if (!text || text.length <= characterLimit) {
+  const renderExpandableText = (text, isExpanded, setIsExpanded, characterLimit = 300, isItalic = false) => {
+    if (!text) return null;
+    
+    // Helper function to render text with line breaks
+    const renderTextWithLineBreaks = (content) => {
+      return content.split('\n').map((line, index, array) => (
+        <React.Fragment key={index}>
+          {line}
+          {index < array.length - 1 && <br />}
+        </React.Fragment>
+      ));
+    };
+    
+    if (text.length <= characterLimit) {
       return (
         <Typography 
           variant="body1" 
@@ -175,7 +205,7 @@ const POIDetail = () => {
             lineHeight: 1.6
           }}
         >
-          {text}
+          {renderTextWithLineBreaks(text)}
         </Typography>
       );
     }
@@ -196,7 +226,7 @@ const POIDetail = () => {
             mb: 1
           }}
         >
-          {displayText}
+          {renderTextWithLineBreaks(displayText)}
         </Typography>
         <Button
           variant="text"
@@ -263,23 +293,6 @@ const POIDetail = () => {
     );
   }
 
-  if (!poi) {
-    return (
-      <Box>
-        <POIHeader />
-        <Container {...PAGE_LAYOUTS.POIDetail}>
-          <Box sx={{ ...CONTENT_PADDING.standard }}>
-            <Paper elevation={3} sx={{ p: 3, textAlign: 'center' }}>
-              <RestaurantIcon sx={{ fontSize: 60, color: 'text.secondary', mb: 2 }} />
-              <Typography variant="h6">Not Found</Typography>
-              <Typography color="text.secondary">The location you are looking for is not available.</Typography>
-            </Paper>
-          </Box>
-        </Container>
-      </Box>
-    );
-  }
-
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
       {/* POI Header with image and back button */}
@@ -302,35 +315,46 @@ const POIDetail = () => {
           }}
         >
           {/* POI Label */}
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 3, mt:4 }}>
-            <Typography variant="h4" component="h1" sx={{ fontWeight: 'bold', flex: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mt: 3 }}>
+            <Typography variant="h6" component="h1" sx={{ 
+              fontFamily: 'Commissioner, sans-serif',
+              fontWeight: 700,
+              fontSize: '24px',
+              flex: 1 
+            }}>
               {poi.label}
             </Typography>
           </Box>
 
           {/* Native Label */}
           {nativePOI && nativePOI.label && nativePOI.label !== poi.label && (
-            <Typography variant="h5" sx={{ mb: 3, color: 'text.secondary', fontStyle: 'italic' }}>
+            <Typography variant="body1" sx={{ 
+              mb: 2, 
+              fontFamily: 'Commissioner, sans-serif',
+              fontWeight: 400,
+              fontSize: '18px'
+            }}>
               {nativePOI.label}
             </Typography>
           )}
 
           {/* Tag Labels */}
           {poi.tag_labels && poi.tag_labels.length > 0 && (
-            <Box sx={{ mb: 3 }}>
+            <Box sx={{ mb: 2 }}>
               <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', alignItems: 'center' }}>
                 {/* Regular Tags */}
                 {poi.tag_labels.map((tag) => (
                   <Chip 
                     key={tag.id || tag.name}
-                    size="large" 
+                    size="medium" 
                     label={tag.name || tag}
                     sx={{ 
-                      fontSize: '0.75rem',
-                      height: 24,
+                      fontSize: '16px',
+                      fontFamily: 'Commissioner, sans-serif',
+                      fontWeight: 400,
+                      height: 28,
                       backgroundColor: '#9C9696',
                       color: '#ffffff',
-                      fontWeight: 400,
                       borderRadius: '4px',
                       '& .MuiChip-label': {
                         paddingLeft: '8px',
@@ -346,11 +370,12 @@ const POIDetail = () => {
                     size="small" 
                     label="Host"
                     sx={{ 
-                      fontSize: '0.75rem',
-                      height: 24,
+                      fontSize: '16px',
+                      fontFamily: 'Commissioner, sans-serif',
+                      fontWeight: 400,
+                      height: 28,
                       backgroundColor: '#ff6b47',
                       color: 'white',
-                      fontWeight: 400,
                       borderRadius: '4px',
                       '& .MuiChip-label': {
                         paddingLeft: '8px',
@@ -363,99 +388,149 @@ const POIDetail = () => {
             </Box>
           )}
 
-          {/* Address Section */}
-          {poi.address && (
-            <Box sx={{ mb: 3 }}>
-              <Box 
-                sx={{ 
-                  display: 'flex', 
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                    borderRadius: 1
-                  },
-                  p: 1,
-                  mx: -1
-                }}
-                onClick={() => navigate(`/${language}/${suiteId}/poi/${poi.slug}/address`)}
-              >
-                {pageConfig?.addressIcon ? (
-                  <Box
-                    component="img"
-                    src={pageConfig.addressIcon.url}
-                    alt="Address"
-                    sx={{ width: 24, height: 24, mr: 1, color: 'primary.main' }}
-                  />
-                ) : (
-                  <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%', mr: 1 }} />
-                )}
-                <Typography 
-                  variant="body1" 
+          {/* Contact Information Sections */}
+          {(poi.address || poi.externalURL || poi.dial) && (
+            <Box sx={{ mb: 2 }}>
+              {/* Address Section */}
+              {poi.address && (
+                <Box 
                   sx={{ 
-                    lineHeight: 1.6,
+                    display: 'flex', 
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    cursor: 'pointer',
                     '&:hover': {
-                      color: 'primary.main'
-                    }
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                      borderRadius: 1
+                    },
+                    px: 1,
+                    py: 2,
+                    mx: -1,
+                    ...(poi.externalURL || poi.dial ? {
+                      borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+                      mb: 0
+                    } : {})
+                  }}
+                  onClick={() => navigate(`/${language}/${suiteId}/poi/${poi.slug}/address`)}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+                    {pageConfig?.addressIcon ? (
+                      <Box
+                        component="img"
+                        src={pageConfig.addressIcon.url}
+                        alt="Address"
+                        sx={{ width: 24, height: 24, mr: 1, color: 'primary.main' }}
+                      />
+                    ) : (
+                      <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%', mr: 1 }} />
+                    )}
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        lineHeight: 1.6,
+                        fontFamily: 'Commissioner, sans-serif',
+                        fontWeight: 400,
+                        fontSize: '16px',
+                        '&:hover': {
+                          color: 'primary.main'
+                        }
+                      }}
+                    >
+                      {poi.address}
+                    </Typography>
+                  </Box>
+                  <ChevronRightIcon 
+                    sx={{ 
+                      color: 'text.secondary',
+                      fontSize: 20,
+                      ml: 1
+                    }} 
+                  />
+                </Box>
+              )}
+
+              {/* External URL Section */}
+              {poi.externalURL && (
+                <Box 
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    px: 1,
+                    py: 2,
+                    mx: -1,
+                    ...(poi.dial ? {
+                      borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
+                      mb: 0
+                    } : {})
                   }}
                 >
-                  {poi.address}
-                </Typography>
-              </Box>
-            </Box>
-          )}
+                  {pageConfig?.urlIcon ? (
+                    <Box
+                      component="img"
+                      src={pageConfig.urlIcon.url}
+                      alt="Website"
+                      sx={{ width: 24, height: 24, mr: 1, color: 'primary.main' }}
+                    />
+                  ) : (
+                    <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%', mr: 1 }} />
+                  )}
+                  <Button 
+                    variant="text" 
+                    href={poi.externalURL} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    sx={{ 
+                      p: 0, 
+                      textAlign: 'left', 
+                      justifyContent: 'flex-start',
+                      fontFamily: 'Commissioner, sans-serif',
+                      fontWeight: 400,
+                      fontSize: '16px'
+                    }}
+                  >
+                    {extractDomain(poi.externalURL)}
+                  </Button>
+                </Box>
+              )}
 
-          {/* External URL Section */}
-          {poi.externalURL && (
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                {pageConfig?.urlIcon ? (
-                  <Box
-                    component="img"
-                    src={pageConfig.urlIcon.url}
-                    alt="Website"
-                    sx={{ width: 24, height: 24, mr: 1, color: 'primary.main' }}
-                  />
-                ) : (
-                  <Box sx={{ width: 24, height: 24, bgcolor: 'primary.main', borderRadius: '50%', mr: 1 }} />
-                )}
-                <Button 
-                  variant="text" 
-                  href={poi.externalURL} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  sx={{ p: 0, textAlign: 'left', justifyContent: 'flex-start' }}
+              {/* Phone Number Section */}
+              {poi.dial && (
+                <Box 
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    px: 1,
+                    py: 2,
+                    mx: -1
+                  }}
                 >
-                  {poi.externalURL}
-                </Button>
-              </Box>
+                  <PhoneIcon sx={{ width: 24, height: 24, color: 'primary.main', mr: 1 }} />
+                  <Button 
+                    variant="text" 
+                    href={`tel:${poi.dial}`}
+                    sx={{ 
+                      p: 0, 
+                      textAlign: 'left', 
+                      justifyContent: 'flex-start',
+                      fontFamily: 'Commissioner, sans-serif',
+                      fontWeight: 400,
+                      fontSize: '16px'
+                    }}
+                  >
+                    {poi.dial}
+                  </Button>
+                </Box>
+              )}
             </Box>
           )}
 
-          {/* Phone Number Section */}
-          {poi.dial && (
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <PhoneIcon sx={{ width: 24, height: 24, color: 'primary.main', mr: 1 }} />
-                <Button 
-                  variant="text" 
-                  href={`tel:${poi.dial}`}
-                  sx={{ p: 0, textAlign: 'left', justifyContent: 'flex-start' }}
-                >
-                  {poi.dial}
-                </Button>
-              </Box>
-            </Box>
-          )}
-
-          <Divider sx={{ my: 3 }} />
 
           {/* Host Recommendation Section */}
           {recommendation && (
             <Box sx={{ mb: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
                 <Typography 
-                  variant="h6" 
+                  variant="h8" 
                   sx={{ 
                     fontWeight: 600,
                     fontSize: '18px',
@@ -463,7 +538,7 @@ const POIDetail = () => {
                     color: '#328188'
                   }}
                 >
-                  {pageConfig?.recommendationHeading || 'Host Recommendation'}
+                  {pageConfig?.recommendationHeading}
                 </Typography>
                 {hostAvatar && (
                   <Box 
@@ -506,7 +581,7 @@ const POIDetail = () => {
                   color: '#423B3C'
                 }}
               >
-                {pageConfig?.highlightHeading || 'Highlight'}
+                {pageConfig?.highlightHeading}
               </Typography>
               {renderExpandableText(
                 poi.highlight, 

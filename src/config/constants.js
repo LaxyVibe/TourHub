@@ -5,11 +5,13 @@
 // Import discovered configuration from API
 let DEFAULT_CLIENT_ID;
 let DEFAULT_SUITE_ID;
+let AVAILABLE_SUITES;
 
 try {
   const discoveredConfig = require('./discovered.json');
   DEFAULT_CLIENT_ID = discoveredConfig.clientId;
-  DEFAULT_SUITE_ID = discoveredConfig.suiteId;
+  DEFAULT_SUITE_ID = discoveredConfig.currentSuite || discoveredConfig.suiteId; // Support both old and new structure
+  AVAILABLE_SUITES = discoveredConfig.availableSuites || [DEFAULT_SUITE_ID]; // Support both old and new structure
   
   if (!DEFAULT_CLIENT_ID || !DEFAULT_SUITE_ID) {
     throw new Error('Missing required configuration in discovered.json');
@@ -18,10 +20,11 @@ try {
   throw new Error(`Failed to load API-discovered configuration: ${error.message}. Please run 'npm run prebuild' to fetch configuration from API.`);
 }
 
-export { DEFAULT_CLIENT_ID, DEFAULT_SUITE_ID };
+export { DEFAULT_CLIENT_ID, DEFAULT_SUITE_ID, AVAILABLE_SUITES };
 
 // API Configuration (if needed in frontend)
 export const API_CONFIG = {
   CLIENT_ID: DEFAULT_CLIENT_ID,
-  SUITE_ID: DEFAULT_SUITE_ID
+  SUITE_ID: DEFAULT_SUITE_ID,
+  AVAILABLE_SUITES: AVAILABLE_SUITES
 };

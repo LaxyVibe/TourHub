@@ -35,7 +35,39 @@ function ScrollToTop() {
   usePageTracking();
   
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Add class to disable smooth scrolling temporarily
+    document.documentElement.classList.add('scroll-to-top');
+    
+    // Use requestAnimationFrame to ensure the scroll happens after the DOM is updated
+    const scrollToTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      
+      // Also try scrolling the body element in case of any layout issues
+      if (document.body.scrollTop !== 0) {
+        document.body.scrollTop = 0;
+      }
+      if (document.documentElement.scrollTop !== 0) {
+        document.documentElement.scrollTop = 0;
+      }
+    };
+    
+    // First attempt - immediate scroll
+    scrollToTop();
+    
+    // Second attempt - after animation frame (for any delayed renders)
+    const rafId = requestAnimationFrame(() => {
+      scrollToTop();
+      
+      // Remove the class to restore smooth scrolling after scroll is complete
+      setTimeout(() => {
+        document.documentElement.classList.remove('scroll-to-top');
+      }, 100);
+    });
+    
+    return () => {
+      cancelAnimationFrame(rafId);
+      document.documentElement.classList.remove('scroll-to-top');
+    };
   }, [pathname]);
   
   return null;

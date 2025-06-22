@@ -41,42 +41,24 @@ const LANGUAGES = ['en', 'ja', 'ko', 'zh-Hans', 'zh-Hant'];
 const BASE_MOCK_PATH = path.join(__dirname, '..', 'src', 'mocks');
 
 /**
- * Generate API endpoints dynamically based on the suite ID
- */
-function generateAPIEndpoints(clientId, suiteId) {
-  return {
-    hubApplicationConfig: {
-      path: '/api/hub-application-config',
-      params: 'populate[universalConfig][populate][releasedLanguages][fields][0]=label&populate[universalConfig][populate][releasedLanguages][fields][1]=value&populate[globalComponent][fields][0]=readMoreLabel&populate[globalComponent][populate][speechButton][fields][0]=label&populate[globalComponent][populate][speechButton][populate][icon][fields][0]=url&populate[header][fields][0]=leftRoute&populate[header][fields][1]=rightRoute&populate[header][populate][leftIcon][fields][0]=url&populate[header][populate][rightIcon][fields][0]=url&populate[pageLanding][fields][0]=recommendationHeading&populate[pageLanding][populate][naviagtion][fields][0]=label&populate[pageLanding][populate][naviagtion][fields][1]=route&populate[pageLanding][populate][naviagtion][populate][icon][fields][0]=url&populate[pageLanguage][fields][0]=heading&populate[pageLanguage][populate][applyButton][fields][0]=label&populate[pageSearch][fields][0]=searchInputPlaceholder&populate[pageSearch][fields][1]=defaultListHeading&populate[pageSearch][fields][2]=highlightedListHeading&populate[pageSearch][populate][defaultList][fields][0]=label&populate[pageSearch][populate][defaultList][fields][1]=value&populate[pageInfo][fields][0]=heading&populate[pageInfo][populate][navigation][fields][0]=label&populate[pageInfo][populate][navigation][fields][1]=route&populate[pageInfo][populate][navigation][populate][icon][fields][0]=url&populate[pageWiFi][populate][scanQRButton][fields][0]=label&populate[pageWiFi][populate][clipboardButton][fields][0]=label&populate[pageWiFi][populate][showQRButton][fields][0]=label&populate[pagPoiDetail][fields][0]=recommendationHeading&populate[pagPoiDetail][fields][1]=highlightHeading&populate[pagPoiDetail][populate][addressIcon][fields][0]=url&populate[pagPoiDetail][populate][urlIcon][fields][0]=url&populate[pagPoiDetail][populate][dialIcon][fields][0]=url',
-      outputDir: 'hub-application-config'
-    },
-    suites: {
-      path: '/api/suites',
-      params: `filters[ownedBy][slug][$eq]=${clientId}&filters[name][$eq]=${suiteId}&fields[0]=name&fields[1]=label&fields[2]=headline&fields[3]=address&fields[4]=addressURL&fields[5]=addressEmbedHTML&fields[6]=checkInOut&fields[7]=amenities&fields[8]=houseRules&populate[slider][fields][0]=url&populate[faq][fields][0]=question&populate[faq][fields][1]=answer&populate[wifi][fields][0]=network&populate[wifi][fields][1]=password&populate[ownedBy][fields][0]=slug&populate[ownedBy][fields][1]=label&populate[ownedBy][fields][2]=greeting&populate[ownedBy][fields][3]=nativeLanguageCode&populate[ownedBy][populate][avatar][fields][0]=url&populate[ownedBy][populate][pickedPOIs][fields][0]=slug&populate[ownedBy][populate][pickedPOIs][fields][1]=label&populate[ownedBy][populate][pickedPOIs][fields][2]=address&populate[ownedBy][populate][pickedPOIs][fields][3]=addressURL&populate[ownedBy][populate][pickedPOIs][fields][4]=addressEmbedHTML&populate[ownedBy][populate][pickedPOIs][fields][5]=dial&populate[ownedBy][populate][pickedPOIs][fields][6]=highlight&populate[ownedBy][populate][pickedPOIs][fields][7]=externalURL&populate[ownedBy][populate][pickedPOIs][fields][8]=type&populate[ownedBy][populate][pickedPOIs][fields][9]=nativeLanguageCode&populate[ownedBy][populate][pickedPOIs][fields][10]=laxyURL&populate[ownedBy][populate][pickedPOIs][populate][tag_labels][fields][0]=name&populate[ownedBy][populate][pickedPOIs][populate][tag_labels][fields][1]=color&populate[ownedBy][populate][pickedPOIs][populate][coverPhoto][fields][0]=url`,
-      outputDir: `suites/${clientId}/${suiteId}`
-    },
-    poiRecommendations: {
-      path: '/api/poi-recommendations',
-      params: `filters[recommended_by][slug][$eq]=${clientId}&fields[0]=recommendation&fields[1]=kmFromStay&fields[2]=weightInNearbyRestaurants&fields[3]=weightInNearbyAttractions&fields[4]=weightInHighlight&populate[poi][fields][0]=slug&populate[poi][fields][1]=label&populate[poi][fields][2]=address&populate[poi][fields][3]=highlight&populate[poi][fields][4]=externalURL&populate[poi][fields][5]=type&populate[poi][populate][tag_labels][fields][0]=name&populate[poi][populate][tag_labels][fields][1]=color&populate[poi][populate][coverPhoto][fields][0]=url&pagination[page]=1&pagination[pageSize]=10000`,
-      outputDir: 'poi-recommendations'
-    }
-  };
-}
-
-/**
  * Write the discovered configuration to a JSON file for frontend use
  */
-function writeDiscoveredConfig(clientId, suiteId) {
+function writeDiscoveredConfig(clientId, suiteIds, currentSuite = null) {
   const configPath = path.join(__dirname, '..', 'src', 'config', 'discovered.json');
   const configData = {
     clientId: clientId,
-    suiteId: suiteId,
+    availableSuites: Array.isArray(suiteIds) ? suiteIds : [suiteIds],
+    currentSuite: currentSuite || (Array.isArray(suiteIds) ? suiteIds[0] : suiteIds),
     discoveredAt: new Date().toISOString()
   };
 
   ensureDirectoryExists(path.dirname(configPath));
   fs.writeFileSync(configPath, JSON.stringify(configData, null, 2));
-  console.log(`  📝 Updated configuration: ${path.relative(path.join(__dirname, '..'), configPath)}`);
+  if (currentSuite) {
+    console.log(`  📝 Updated configuration for suite: ${currentSuite}`);
+  } else {
+    console.log(`  📝 Updated configuration: ${path.relative(path.join(__dirname, '..'), configPath)}`);
+  }
 }
 
 /**
@@ -99,11 +81,10 @@ async function fetchAvailableSuites(clientId) {
     console.log(`  ✓ Found ${suites.length} suite(s): ${suiteNames.join(', ')}`);
     
     if (suites.length > 1) {
-      console.log(`  ℹ️  Multiple suites available. Using first one: ${suiteNames[0]}`);
-      console.log(`  💡 To use a different suite, you can modify the DEFAULT_CLIENT_ID or add suite selection logic`);
+      console.log(`  ℹ️  Multiple suites available. Fetching data for all suites.`);
     }
     
-    return suites[0].name; // Use the first available suite
+    return suiteNames; // Return all suite names
   } catch (error) {
     console.error(`  ✗ Failed to fetch suites: ${error.message}`);
     throw error;
@@ -206,27 +187,60 @@ async function fetchAllData() {
   console.log(`🗣️  Languages: ${LANGUAGES.join(', ')}`);
   
   try {
-    // First, dynamically fetch the available suite ID
-    const suiteId = await fetchAvailableSuites(DEFAULT_CLIENT_ID);
-    console.log(`📋 Using suite: ${suiteId}`);
+    // First, dynamically fetch all available suite IDs
+    const suiteIds = await fetchAvailableSuites(DEFAULT_CLIENT_ID);
+    console.log(`📋 Processing ${suiteIds.length} suite(s): ${suiteIds.join(', ')}`);
     
-    // Write the discovered configuration for frontend use
-    writeDiscoveredConfig(DEFAULT_CLIENT_ID, suiteId);
-    
-    // Generate API endpoints with the discovered suite ID
-    const API_ENDPOINTS = generateAPIEndpoints(DEFAULT_CLIENT_ID, suiteId);
+    // Write initial discovered configuration
+    writeDiscoveredConfig(DEFAULT_CLIENT_ID, suiteIds);
     
     let totalRequests = 0;
     let successfulRequests = 0;
     let skippedRequests = 0;
     let failedRequests = 0;
     
-    for (const endpointKey of Object.keys(API_ENDPOINTS)) {
-      console.log(`📋 Processing ${endpointKey}:`);
+    // Process hub application config (only once, not per suite)
+    console.log(`📋 Processing hubApplicationConfig:`);
+    const hubConfigEndpoint = {
+      hubApplicationConfig: {
+        path: '/api/hub-application-config',
+        params: 'populate[universalConfig][populate][releasedLanguages][fields][0]=label&populate[universalConfig][populate][releasedLanguages][fields][1]=value&populate[globalComponent][fields][0]=readMoreLabel&populate[globalComponent][populate][speechButton][fields][0]=label&populate[globalComponent][populate][speechButton][populate][icon][fields][0]=url&populate[header][fields][0]=leftRoute&populate[header][fields][1]=rightRoute&populate[header][populate][leftIcon][fields][0]=url&populate[header][populate][rightIcon][fields][0]=url&populate[pageLanding][fields][0]=recommendationHeading&populate[pageLanding][populate][naviagtion][fields][0]=label&populate[pageLanding][populate][naviagtion][fields][1]=route&populate[pageLanding][populate][naviagtion][populate][icon][fields][0]=url&populate[pageLanguage][fields][0]=heading&populate[pageLanguage][populate][applyButton][fields][0]=label&populate[pageSearch][fields][0]=searchInputPlaceholder&populate[pageSearch][fields][1]=defaultListHeading&populate[pageSearch][fields][2]=highlightedListHeading&populate[pageSearch][populate][defaultList][fields][0]=label&populate[pageSearch][populate][defaultList][fields][1]=value&populate[pageInfo][fields][0]=heading&populate[pageInfo][populate][navigation][fields][0]=label&populate[pageInfo][populate][navigation][fields][1]=route&populate[pageInfo][populate][navigation][populate][icon][fields][0]=url&populate[pageWiFi][populate][scanQRButton][fields][0]=label&populate[pageWiFi][populate][clipboardButton][fields][0]=label&populate[pageWiFi][populate][showQRButton][fields][0]=label&populate[pagPoiDetail][fields][0]=recommendationHeading&populate[pagPoiDetail][fields][1]=highlightHeading&populate[pagPoiDetail][populate][addressIcon][fields][0]=url&populate[pagPoiDetail][populate][urlIcon][fields][0]=url&populate[pagPoiDetail][populate][dialIcon][fields][0]=url',
+        outputDir: 'hub-application-config'
+      }
+    };
+    
+    for (const language of LANGUAGES) {
+      totalRequests++;
+      const result = await fetchEndpointData('hubApplicationConfig', language, hubConfigEndpoint);
+      if (result === true) {
+        successfulRequests++;
+      } else if (result === 'skipped') {
+        skippedRequests++;
+      } else {
+        failedRequests++;
+      }
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+    
+    // Process each suite
+    for (const suiteId of suiteIds) {
+      console.log(`📋 Processing suite: ${suiteId}`);
+      
+      // Write the discovered configuration for frontend use (update with current suite)
+      writeDiscoveredConfig(DEFAULT_CLIENT_ID, suiteIds, suiteId);
+      
+      // Generate API endpoints with the current suite ID
+      const suiteEndpoints = {
+        suites: {
+          path: '/api/suites',
+          params: `filters[ownedBy][slug][$eq]=${DEFAULT_CLIENT_ID}&filters[name][$eq]=${suiteId}&fields[0]=name&fields[1]=label&fields[2]=headline&fields[3]=address&fields[4]=addressURL&fields[5]=addressEmbedHTML&fields[6]=checkInOut&fields[7]=amenities&fields[8]=houseRules&populate[slider][fields][0]=url&populate[faq][fields][0]=question&populate[faq][fields][1]=answer&populate[wifi][fields][0]=network&populate[wifi][fields][1]=password&populate[ownedBy][fields][0]=slug&populate[ownedBy][fields][1]=label&populate[ownedBy][fields][2]=greeting&populate[ownedBy][fields][3]=nativeLanguageCode&populate[ownedBy][populate][avatar][fields][0]=url&populate[ownedBy][populate][pickedPOIs][fields][0]=slug&populate[ownedBy][populate][pickedPOIs][fields][1]=label&populate[ownedBy][populate][pickedPOIs][fields][2]=address&populate[ownedBy][populate][pickedPOIs][fields][3]=addressURL&populate[ownedBy][populate][pickedPOIs][fields][4]=addressEmbedHTML&populate[ownedBy][populate][pickedPOIs][fields][5]=dial&populate[ownedBy][populate][pickedPOIs][fields][6]=highlight&populate[ownedBy][populate][pickedPOIs][fields][7]=externalURL&populate[ownedBy][populate][pickedPOIs][fields][8]=type&populate[ownedBy][populate][pickedPOIs][fields][9]=nativeLanguageCode&populate[ownedBy][populate][pickedPOIs][fields][10]=laxyURL&populate[ownedBy][populate][pickedPOIs][populate][tag_labels][fields][0]=name&populate[ownedBy][populate][pickedPOIs][populate][tag_labels][fields][1]=color&populate[ownedBy][populate][pickedPOIs][populate][coverPhoto][fields][0]=url`,
+          outputDir: `suites/${DEFAULT_CLIENT_ID}/${suiteId}`
+        }
+      };
       
       for (const language of LANGUAGES) {
         totalRequests++;
-        const result = await fetchEndpointData(endpointKey, language, API_ENDPOINTS);
+        const result = await fetchEndpointData('suites', language, suiteEndpoints);
         if (result === true) {
           successfulRequests++;
         } else if (result === 'skipped') {
@@ -234,10 +248,31 @@ async function fetchAllData() {
         } else {
           failedRequests++;
         }
-        
-        // Add a small delay between requests to be respectful to the API
         await new Promise(resolve => setTimeout(resolve, 300));
       }
+    }
+    
+    // Process POI recommendations (only once, not per suite)
+    console.log(`📋 Processing poiRecommendations:`);
+    const poiEndpoints = {
+      poiRecommendations: {
+        path: '/api/poi-recommendations',
+        params: `filters[recommended_by][slug][$eq]=${DEFAULT_CLIENT_ID}&fields[0]=recommendation&fields[1]=kmFromStay&fields[2]=weightInNearbyRestaurants&fields[3]=weightInNearbyAttractions&fields[4]=weightInHighlight&populate[poi][fields][0]=slug&populate[poi][fields][1]=label&populate[poi][fields][2]=address&populate[poi][fields][3]=highlight&populate[poi][fields][4]=externalURL&populate[poi][fields][5]=type&populate[poi][populate][tag_labels][fields][0]=name&populate[poi][populate][tag_labels][fields][1]=color&populate[poi][populate][coverPhoto][fields][0]=url&pagination[page]=1&pagination[pageSize]=10000`,
+        outputDir: 'poi-recommendations'
+      }
+    };
+    
+    for (const language of LANGUAGES) {
+      totalRequests++;
+      const result = await fetchEndpointData('poiRecommendations', language, poiEndpoints);
+      if (result === true) {
+        successfulRequests++;
+      } else if (result === 'skipped') {
+        skippedRequests++;
+      } else {
+        failedRequests++;
+      }
+      await new Promise(resolve => setTimeout(resolve, 300));
     }
     
     console.log(`\n🎉 Completed!`);
