@@ -3,34 +3,34 @@
         "id": 2,
         "documentId": "au3e8t9cegnebahml864mmss",
         "createdAt": "2025-06-15T13:47:13.423Z",
-        "updatedAt": "2025-06-17T09:28:55.294Z",
-        "publishedAt": "2025-06-17T09:28:10.270Z",
+        "updatedAt": "2025-06-23T07:29:11.266Z",
+        "publishedAt": "2025-06-22T14:09:42.729Z",
         "locale": "zh-Hans",
         "universalConfig": {
-            "id": 42,
+            "id": 104,
             "releasedLanguages": [
                 {
-                    "id": 207,
+                    "id": 419,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 206,
+                    "id": 420,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 210,
+                    "id": 421,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 208,
+                    "id": 423,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 211,
+                    "id": 422,
                     "label": "한국어",
                     "value": "ko"
                 }
@@ -39,6 +39,9 @@
         "globalComponent": {
             "id": 2,
             "readMoreLabel": "阅读更多",
+            "readLessLabel": null,
+            "hostTagLabel": null,
+            "poweredByLabel": null,
             "speechButton": {
                 "id": 39,
                 "label": "用当地语言朗读",
@@ -127,6 +130,8 @@
         "pageSearch": {
             "id": 2,
             "searchInputPlaceholder": "发掘您的下一个体验",
+            "searchResultHeading": null,
+            "noResultsFound": null,
             "defaultListHeading": "最多搜索",
             "highlightedListHeading": "我们的推荐",
             "defaultList": [
@@ -195,6 +200,8 @@
         },
         "pageWiFi": {
             "id": 2,
+            "networkLabel": null,
+            "passwordLabel": null,
             "scanQRButton": {
                 "id": 40,
                 "label": "扫描 QR 码连接"
@@ -210,7 +217,7 @@
         },
         "pagPoiDetail": {
             "id": 2,
-            "recommendationHeading": null,
+            "recommendationHeading": "我们的推荐",
             "highlightHeading": "精选亮点",
             "addressIcon": {
                 "id": 35,

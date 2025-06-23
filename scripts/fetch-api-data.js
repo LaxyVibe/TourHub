@@ -11,12 +11,33 @@
  * - Automatic configuration generation for frontend
  * - Fail-fast approach with clear error messages
  * - Multi-language support
+ * - Configurable API parameters for maintainability
  * 
  * Usage:
  *   node scripts/fetch-api-data.js
  *   
  * Environment Variables (optional):
  *   CLIENT_ID - Override the default client ID (default: beppu-story)
+ * 
+ * Customizing Hub Config Parameters:
+ *   To modify what data is fetched from the hub-application-config endpoint,
+ *   edit the HUB_CONFIG_PARAMS object below. The structure follows Strapi's
+ *   populate and fields conventions:
+ *   
+ *   - fields: Array of field names to fetch
+ *   - populate: Object containing nested relations to populate
+ *   
+ *   Example:
+ *   {
+ *     componentName: {
+ *       fields: ['field1', 'field2'],
+ *       populate: {
+ *         relationName: {
+ *           fields: ['relatedField']
+ *         }
+ *       }
+ *     }
+ *   }
  * 
  * Output:
  *   - Updates mock data files in src/mocks/
@@ -39,6 +60,129 @@ const LANGUAGES = ['en', 'ja', 'ko', 'zh-Hans', 'zh-Hant'];
 
 // Base paths
 const BASE_MOCK_PATH = path.join(__dirname, '..', 'src', 'mocks');
+
+/**
+ * Hub Application Config API Parameters Configuration
+ * This configuration object defines what data to fetch from the hub-application-config endpoint.
+ * Each section represents a different component/page of the application.
+ * 
+ * Structure:
+ * - Key: The component/section name
+ * - Value: Array of field configurations or nested populate configurations
+ */
+const HUB_CONFIG_PARAMS = {
+  universalConfig: {
+    populate: {
+      releasedLanguages: {
+        fields: ['label', 'value']
+      }
+    }
+  },
+  globalComponent: {
+    fields: [
+      'readMoreLabel',
+      'readLessLabel',
+      'hostTagLabel',
+      'poweredByLabel'
+    ],
+    populate: {
+      speechButton: {
+        fields: ['label'],
+        populate: {
+          icon: {
+            fields: ['url']
+          }
+        }
+      }
+    }
+  },
+  header: {
+    fields: ['leftRoute', 'rightRoute'],
+    populate: {
+      leftIcon: {
+        fields: ['url']
+      },
+      rightIcon: {
+        fields: ['url']
+      }
+    }
+  },
+  pageLanding: {
+    fields: ['recommendationHeading'],
+    populate: {
+      naviagtion: { // Note: keeping original typo for API compatibility
+        fields: ['label', 'route'],
+        populate: {
+          icon: {
+            fields: ['url']
+          }
+        }
+      }
+    }
+  },
+  pageLanguage: {
+    fields: ['heading'],
+    populate: {
+      applyButton: {
+        fields: ['label']
+      }
+    }
+  },
+  pageSearch: {
+    fields: [
+      'searchInputPlaceholder',
+      'searchResultHeading',
+      'noResultsFound',
+      'defaultListHeading',
+      'highlightedListHeading'
+    ],
+    populate: {
+      defaultList: {
+        fields: ['label', 'value']
+      }
+    }
+  },
+  pageInfo: {
+    fields: ['heading'],
+    populate: {
+      navigation: {
+        fields: ['label', 'route'],
+        populate: {
+          icon: {
+            fields: ['url']
+          }
+        }
+      }
+    }
+  },
+  pageWiFi: {
+    populate: {
+      scanQRButton: {
+        fields: ['label']
+      },
+      clipboardButton: {
+        fields: ['label']
+      },
+      showQRButton: {
+        fields: ['label']
+      }
+    }
+  },
+  pagPoiDetail: { // Note: keeping original typo for API compatibility
+    fields: ['recommendationHeading', 'highlightHeading'],
+    populate: {
+      addressIcon: {
+        fields: ['url']
+      },
+      urlIcon: {
+        fields: ['url']
+      },
+      dialIcon: {
+        fields: ['url']
+      }
+    }
+  }
+};
 
 /**
  * Write the discovered configuration to a JSON file for frontend use
@@ -177,6 +321,58 @@ async function fetchEndpointData(endpointKey, language, apiEndpoints) {
 }
 
 /**
+ * Convert a configuration object to URL parameters format
+ * This function recursively builds the populate and fields parameters for Strapi API
+ */
+function buildUrlParams(config, basePath = '') {
+  const params = [];
+  
+  function processConfig(obj, path) {
+    if (obj.fields && Array.isArray(obj.fields)) {
+      obj.fields.forEach((field, index) => {
+        params.push(`${path}[fields][${index}]=${field}`);
+      });
+    }
+    
+    if (obj.populate) {
+      Object.keys(obj.populate).forEach(key => {
+        const populatePath = path ? `${path}[populate][${key}]` : `populate[${key}]`;
+        processConfig(obj.populate[key], populatePath);
+      });
+    }
+  }
+  
+  Object.keys(config).forEach(key => {
+    const configPath = basePath ? `${basePath}[${key}]` : `populate[${key}]`;
+    processConfig(config[key], configPath);
+  });
+  
+  return params.join('&');
+}
+
+/**
+ * Build hub application config endpoint with dynamic parameters
+ */
+function buildHubConfigEndpoint() {
+  const params = buildUrlParams(HUB_CONFIG_PARAMS);
+  
+  // Optional: Log the generated parameters for debugging
+  if (process.env.DEBUG_PARAMS) {
+    console.log('🔧 Generated hub config parameters:');
+    console.log(params);
+  }
+  
+  return {
+    hubApplicationConfig: {
+      path: '/api/hub-application-config',
+      params: params,
+      outputDir: 'hub-application-config'
+    }
+  };
+}
+
+
+/**
  * Main function to fetch all data
  */
 async function fetchAllData() {
@@ -201,13 +397,7 @@ async function fetchAllData() {
     
     // Process hub application config (only once, not per suite)
     console.log(`📋 Processing hubApplicationConfig:`);
-    const hubConfigEndpoint = {
-      hubApplicationConfig: {
-        path: '/api/hub-application-config',
-        params: 'populate[universalConfig][populate][releasedLanguages][fields][0]=label&populate[universalConfig][populate][releasedLanguages][fields][1]=value&populate[globalComponent][fields][0]=readMoreLabel&populate[globalComponent][populate][speechButton][fields][0]=label&populate[globalComponent][populate][speechButton][populate][icon][fields][0]=url&populate[header][fields][0]=leftRoute&populate[header][fields][1]=rightRoute&populate[header][populate][leftIcon][fields][0]=url&populate[header][populate][rightIcon][fields][0]=url&populate[pageLanding][fields][0]=recommendationHeading&populate[pageLanding][populate][naviagtion][fields][0]=label&populate[pageLanding][populate][naviagtion][fields][1]=route&populate[pageLanding][populate][naviagtion][populate][icon][fields][0]=url&populate[pageLanguage][fields][0]=heading&populate[pageLanguage][populate][applyButton][fields][0]=label&populate[pageSearch][fields][0]=searchInputPlaceholder&populate[pageSearch][fields][1]=defaultListHeading&populate[pageSearch][fields][2]=highlightedListHeading&populate[pageSearch][populate][defaultList][fields][0]=label&populate[pageSearch][populate][defaultList][fields][1]=value&populate[pageInfo][fields][0]=heading&populate[pageInfo][populate][navigation][fields][0]=label&populate[pageInfo][populate][navigation][fields][1]=route&populate[pageInfo][populate][navigation][populate][icon][fields][0]=url&populate[pageWiFi][populate][scanQRButton][fields][0]=label&populate[pageWiFi][populate][clipboardButton][fields][0]=label&populate[pageWiFi][populate][showQRButton][fields][0]=label&populate[pagPoiDetail][fields][0]=recommendationHeading&populate[pagPoiDetail][fields][1]=highlightHeading&populate[pagPoiDetail][populate][addressIcon][fields][0]=url&populate[pagPoiDetail][populate][urlIcon][fields][0]=url&populate[pagPoiDetail][populate][dialIcon][fields][0]=url',
-        outputDir: 'hub-application-config'
-      }
-    };
+    const hubConfigEndpoint = buildHubConfigEndpoint();
     
     for (const language of LANGUAGES) {
       totalRequests++;

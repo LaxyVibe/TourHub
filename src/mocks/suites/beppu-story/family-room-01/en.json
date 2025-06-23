@@ -43,12 +43,12 @@
             ],
             "wifi": [
                 {
-                    "id": 39,
+                    "id": 110,
                     "network": "Airbnb3",
                     "password": "beppuairbnb"
                 },
                 {
-                    "id": 40,
+                    "id": 111,
                     "network": "Airbnb4",
                     "password": "beppuairbnb"
                 }

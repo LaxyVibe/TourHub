@@ -27,6 +27,10 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
   // Get hub configuration for current language
   const hubConfig = getHubConfigByLanguage(language);
   
+  // Get WiFi page labels from configuration
+  const networkLabel = hubConfig?.data?.pageWiFi?.networkLabel || 'Network';
+  const passwordLabel = hubConfig?.data?.pageWiFi?.passwordLabel || 'Password';
+  
   // Get suite data for the current suite and language
   const suiteData = getSuiteData(suiteId, language);
   const wifiNetworks = suiteData?.details?.data?.[0]?.wifi || [];
@@ -93,9 +97,9 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
             <WifiIcon sx={{ fontSize: 60, color: 'primary.main' }} />
           </Box>
 
-          {/* Network ID Display */}
+          {/* Network Display */}
           <Typography variant="h6" sx={{ mb: 4, color: 'text.primary' }}>
-            ID: {wifiNetworks.map(network => network.network).join(' / ')}
+            {networkLabel}: {wifiNetworks.map(network => network.network).join(' / ')}
           </Typography>
 
           {/* Action Buttons */}
@@ -115,7 +119,7 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
                       fontSize: '16px'
                     }}
                   >
-                    {hubConfig?.data?.pageWiFi?.clipboardButton?.label} - {network.network}
+                    {(hubConfig?.data?.pageWiFi?.clipboardButton?.label || 'Copy Password for "{{value}}"').replace('{{value}}', network.network)}
                   </Button>
                 )}
                 
@@ -131,7 +135,7 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
                     mb: index < wifiNetworks.length - 1 ? 1 : 0
                   }}
                 >
-                  {hubConfig?.data?.pageWiFi?.showQRButton?.label} - {network.network}
+                  {hubConfig?.data?.pageWiFi?.showQRButton?.label}
                 </Button>
               </React.Fragment>
             ))}
@@ -144,7 +148,7 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
         <DialogTitle>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {selectedNetwork ? `QR Code - ${selectedNetwork.network}` : hubConfig?.data?.pageWiFi?.showQRButton?.label}
+              {selectedNetwork ? `${selectedNetwork.network}` : hubConfig?.data?.pageWiFi?.showQRButton?.label}
             </Typography>
             <IconButton onClick={handleCloseQrDialog}>
               <CloseIcon />
@@ -171,11 +175,11 @@ const WifiDialog = ({ open, onClose, suiteId }) => {
               </Box>
             )}
             <Typography variant="body1" sx={{ mb: 1 }}>
-              Network: {selectedNetwork?.network}
+              {networkLabel}: {selectedNetwork?.network}
             </Typography>
             {selectedNetwork?.password && (
               <Typography variant="body2" color="textSecondary">
-                Password: {selectedNetwork.password}
+                {passwordLabel}: {selectedNetwork.password}
               </Typography>
             )}
             <Typography variant="body2" sx={{ mt: 2 }}>

@@ -3,34 +3,34 @@
         "id": 3,
         "documentId": "au3e8t9cegnebahml864mmss",
         "createdAt": "2025-06-15T13:47:16.469Z",
-        "updatedAt": "2025-06-17T09:28:55.297Z",
-        "publishedAt": "2025-06-15T13:47:16.402Z",
+        "updatedAt": "2025-06-23T07:29:11.046Z",
+        "publishedAt": "2025-06-23T07:29:10.844Z",
         "locale": "zh-Hant",
         "universalConfig": {
-            "id": 43,
+            "id": 93,
             "releasedLanguages": [
                 {
-                    "id": 212,
+                    "id": 362,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 209,
+                    "id": 363,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 213,
+                    "id": 364,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 214,
+                    "id": 365,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 215,
+                    "id": 366,
                     "label": "한국어",
                     "value": "ko"
                 }
@@ -39,6 +39,9 @@
         "globalComponent": {
             "id": 3,
             "readMoreLabel": "閱讀更多",
+            "readLessLabel": "收起",
+            "hostTagLabel": "房東推介",
+            "poweredByLabel": "由{{value}}提供",
             "speechButton": {
                 "id": 65,
                 "label": "以當地語言朗讀",
@@ -127,6 +130,8 @@
         "pageSearch": {
             "id": 3,
             "searchInputPlaceholder": "發掘您的下一個體驗",
+            "searchResultHeading": "{{value}}的搜尋結果",
+            "noResultsFound": "沒有結果",
             "defaultListHeading": "最多搜尋",
             "highlightedListHeading": "我們的推薦",
             "defaultList": [
@@ -195,6 +200,8 @@
         },
         "pageWiFi": {
             "id": 3,
+            "networkLabel": null,
+            "passwordLabel": null,
             "scanQRButton": {
                 "id": 66,
                 "label": "掃描 QR 碼連線"
@@ -210,7 +217,7 @@
         },
         "pagPoiDetail": {
             "id": 3,
-            "recommendationHeading": "房東推薦",
+            "recommendationHeading": "我們的推薦",
             "highlightHeading": "特點",
             "addressIcon": {
                 "id": 35,

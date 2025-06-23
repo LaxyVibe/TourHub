@@ -3,34 +3,34 @@
         "id": 4,
         "documentId": "au3e8t9cegnebahml864mmss",
         "createdAt": "2025-06-15T13:47:19.467Z",
-        "updatedAt": "2025-06-17T09:28:55.295Z",
-        "publishedAt": "2025-06-17T09:28:40.430Z",
+        "updatedAt": "2025-06-23T07:29:11.266Z",
+        "publishedAt": "2025-06-22T14:10:00.181Z",
         "locale": "ko",
         "universalConfig": {
-            "id": 44,
+            "id": 103,
             "releasedLanguages": [
                 {
-                    "id": 220,
+                    "id": 415,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 219,
+                    "id": 416,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 217,
+                    "id": 412,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 221,
+                    "id": 413,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 216,
+                    "id": 414,
                     "label": "한국어",
                     "value": "ko"
                 }
@@ -39,6 +39,9 @@
         "globalComponent": {
             "id": 4,
             "readMoreLabel": "자세히 보기",
+            "readLessLabel": null,
+            "hostTagLabel": null,
+            "poweredByLabel": null,
             "speechButton": {
                 "id": 96,
                 "label": "현지 언어로 말하기",
@@ -127,6 +130,8 @@
         "pageSearch": {
             "id": 4,
             "searchInputPlaceholder": "다음 경험 찾아보기",
+            "searchResultHeading": null,
+            "noResultsFound": null,
             "defaultListHeading": "인기 검색어",
             "highlightedListHeading": "추천 목록",
             "defaultList": [
@@ -195,6 +200,8 @@
         },
         "pageWiFi": {
             "id": 4,
+            "networkLabel": null,
+            "passwordLabel": null,
             "scanQRButton": {
                 "id": 97,
                 "label": "QR 코드 스캔하여 연결하기"
@@ -210,7 +217,7 @@
         },
         "pagPoiDetail": {
             "id": 4,
-            "recommendationHeading": null,
+            "recommendationHeading": "추천 목록",
             "highlightHeading": "하이라이트",
             "addressIcon": {
                 "id": 35,
