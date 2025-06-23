@@ -76,18 +76,103 @@ const AddressDisplay = ({
     setSpeechDialogOpen(false);
   };
 
+  // Helper function to ensure voices are loaded (important for iOS)
+  const ensureVoicesLoaded = (callback) => {
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      callback(voices);
+    } else {
+      // Wait for voices to load
+      const handleVoicesChanged = () => {
+        const loadedVoices = window.speechSynthesis.getVoices();
+        if (loadedVoices.length > 0) {
+          window.speechSynthesis.removeEventListener('voiceschanged', handleVoicesChanged);
+          callback(loadedVoices);
+        }
+      };
+      window.speechSynthesis.addEventListener('voiceschanged', handleVoicesChanged);
+      
+      // Fallback timeout
+      setTimeout(() => {
+        window.speechSynthesis.removeEventListener('voiceschanged', handleVoicesChanged);
+        callback(window.speechSynthesis.getVoices());
+      }, 3000);
+    }
+  };
+
   // Web Speech API function
   const speakAddress = (text, languageCode) => {
     if ('speechSynthesis' in window) {
       // Cancel any ongoing speech
       window.speechSynthesis.cancel();
       
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = languageCode; // Set language for speech
-      utterance.rate = 0.8; // Slightly slower for clarity
-      utterance.pitch = 1.0;
+      // Enhanced language handling for iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
       
-      window.speechSynthesis.speak(utterance);
+      // Wait a bit for cancellation to complete on iOS
+      setTimeout(() => {
+        ensureVoicesLoaded((voices) => {
+          const utterance = new SpeechSynthesisUtterance(text);
+          
+          if (isIOS) {
+            // For iOS, we need to be more specific with language codes
+            // and ensure we select a Japanese voice
+            
+            // Find Japanese voices specifically
+            const japaneseVoices = voices.filter(voice => 
+              voice.lang.startsWith('ja') || 
+              voice.lang.includes('jp') ||
+              voice.name.toLowerCase().includes('japanese') ||
+              voice.name.toLowerCase().includes('kyoko') ||
+              voice.name.toLowerCase().includes('otoya')
+            );
+            
+            if (japaneseVoices.length > 0) {
+              // Use the first available Japanese voice
+              utterance.voice = japaneseVoices[0];
+              utterance.lang = japaneseVoices[0].lang;
+              console.log('Using Japanese voice:', japaneseVoices[0].name, japaneseVoices[0].lang);
+            } else {
+              // Fallback: try common Japanese language codes
+              const japaneseLanguageCodes = ['ja-JP', 'ja', 'ja-jp'];
+              for (const code of japaneseLanguageCodes) {
+                const voice = voices.find(v => v.lang === code);
+                if (voice) {
+                  utterance.voice = voice;
+                  utterance.lang = code;
+                  console.log('Using fallback Japanese voice:', voice.name, code);
+                  break;
+                }
+              }
+              
+              // If no Japanese voice found, still set the language
+              if (!utterance.voice) {
+                utterance.lang = 'ja-JP';
+                console.log('No Japanese voice found, using language code: ja-JP');
+              }
+            }
+          } else {
+            // For non-iOS devices, use the original approach
+            utterance.lang = languageCode;
+          }
+          
+          utterance.rate = 0.8; // Slightly slower for clarity
+          utterance.pitch = 1.0;
+          
+          // Add error handling
+          utterance.onerror = (event) => {
+            console.error('Speech synthesis error:', event.error);
+            setSnackbarMessage('Failed to speak address');
+            setSnackbarOpen(true);
+          };
+          
+          utterance.onend = () => {
+            console.log('Speech synthesis completed');
+          };
+          
+          window.speechSynthesis.speak(utterance);
+        });
+      }, isIOS ? 100 : 0);
     } else {
       setSnackbarMessage('Speech synthesis not supported in this browser');
       setSnackbarOpen(true);
