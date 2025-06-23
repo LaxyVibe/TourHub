@@ -83,6 +83,11 @@ const POIDetail = () => {
   
   const hubConfig = getHubConfigByLanguage(language);
   const pageConfig = hubConfig?.data?.pagPoiDetail;
+  
+  // Get read more/less labels from global component config
+  const readMoreLabel = hubConfig?.data?.globalComponent?.readMoreLabel || 'Read more';
+  const readLessLabel = hubConfig?.data?.globalComponent?.readLessLabel || 'Read less';
+  const hostTagLabel = hubConfig?.data?.globalComponent?.hostTagLabel || 'Host';
 
   // Get suite data for host avatar
   const suiteData = getSuiteData(suiteId, language);
@@ -183,20 +188,54 @@ const POIDetail = () => {
   const renderExpandableText = (text, isExpanded, setIsExpanded, characterLimit = 300, isItalic = false) => {
     if (!text) return null;
     
-    // Helper function to render text with line breaks
+    // Helper function to render text with line breaks and clickable URLs
     const renderTextWithLineBreaks = (content) => {
-      return content.split('\n').map((line, index, array) => (
-        <React.Fragment key={index}>
-          {line}
-          {index < array.length - 1 && <br />}
-        </React.Fragment>
-      ));
+      return content.split('\n').map((line, lineIndex, array) => {
+        // URL regex pattern to match URLs
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        const parts = line.split(urlRegex);
+        
+        return (
+          <React.Fragment key={lineIndex}>
+            {parts.map((part, partIndex) => {
+              if (urlRegex.test(part)) {
+                // This is a URL, make it clickable
+                const domain = extractDomain(part);
+                return (
+                  <Box
+                    key={partIndex}
+                    component="a"
+                    href={part}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      color: 'primary.main',
+                      textDecoration: 'underline',
+                      '&:hover': {
+                        textDecoration: 'none'
+                      }
+                    }}
+                    onClick={() => trackContentInteraction('external_link_click', poi?.type || 'poi', part)}
+                  >
+                    {domain}
+                  </Box>
+                );
+              } else {
+                // Regular text
+                return part;
+              }
+            })}
+            {lineIndex < array.length - 1 && <br />}
+          </React.Fragment>
+        );
+      });
     };
     
     if (text.length <= characterLimit) {
       return (
         <Typography 
           variant="body1" 
+          component="div"
           sx={{ 
             fontStyle: isItalic ? 'italic' : 'normal',
             fontFamily: 'Commissioner, sans-serif',
@@ -217,6 +256,7 @@ const POIDetail = () => {
       <Box>
         <Typography 
           variant="body1" 
+          component="div"
           sx={{ 
             fontStyle: isItalic ? 'italic' : 'normal',
             fontFamily: 'Commissioner, sans-serif',
@@ -245,7 +285,7 @@ const POIDetail = () => {
             }
           }}
         >
-          {isExpanded ? 'Read less' : 'Read more'}
+          {isExpanded ? readLessLabel : readMoreLabel}
         </Button>
       </Box>
     );
@@ -368,7 +408,7 @@ const POIDetail = () => {
                 {recommendation && (
                   <Chip 
                     size="small" 
-                    label="Host"
+                    label={hostTagLabel}
                     sx={{ 
                       fontSize: '16px',
                       fontFamily: 'Commissioner, sans-serif',

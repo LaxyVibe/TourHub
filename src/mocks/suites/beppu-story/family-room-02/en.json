@@ -14,9 +14,9 @@
             "houseRules": "<div class=\"ewa-rteLine\">- 5 guests maximum</div>\n<div class=\"ewa-rteLine\">- No pets</div>\n<div class=\"ewa-rteLine\">- No parties or events</div>\n<div class=\"ewa-rteLine\">- No commercial photography</div>\n<div class=\"ewa-rteLine\">- No smoking</div>",
             "slider": [
                 {
-                    "id": 22,
-                    "documentId": "rvis31xhb80oneat0raqps1i",
-                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993127/familyroom02_beppu_airbnb_b9793915a3.webp"
+                    "id": 27,
+                    "documentId": "w96e76uo7sgeo9tr6wmrrvpi",
+                    "url": "https://res.cloudinary.com/dui2mxeuh/image/upload/v1749993145/familyroom01_beppu_airbnb_f31309b7bc.webp"
                 }
             ],
             "faq": [
@@ -43,12 +43,12 @@
             ],
             "wifi": [
                 {
-                    "id": 73,
+                    "id": 122,
                     "network": "Airbnb3",
                     "password": "beppuairbnb"
                 },
                 {
-                    "id": 74,
+                    "id": 123,
                     "network": "Airbnb4",
                     "password": "beppuairbnb"
                 }

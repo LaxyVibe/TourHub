@@ -10,11 +10,12 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 import PageHeader from '../common/PageHeader';
 import { trackPOIView, trackButtonClick, trackNavigation } from '../../utils/analytics';
+import { getHubConfigByLanguage } from '../../mocks/hub-application-config';
 
 /**
  * Individual POI List Item component with skeleton loading
  */
-const POIListItem = ({ poi, isHost, onPOIClick }) => {
+const POIListItem = ({ poi, isHost, onPOIClick, hostTagLabel = 'Host' }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -145,7 +146,7 @@ const POIListItem = ({ poi, isHost, onPOIClick }) => {
             {isHost && (
               <Chip 
                 size="small" 
-                label="Host"
+                label={hostTagLabel}
                 sx={{ 
                   fontSize: '0.75rem',
                   height: 24,
@@ -242,6 +243,11 @@ const POIList = ({
   const { language } = useLanguage();
   const navigate = useNavigate();
 
+  // Get hub configuration for current language
+  const hubConfig = getHubConfigByLanguage(language);
+  const noResultsFoundText = hubConfig?.data?.pageSearch?.noResultsFound || 'No results found';
+  const hostTagLabel = hubConfig?.data?.globalComponent?.hostTagLabel || 'Host';
+
   // Determine the data source - either searchResults or pois
   const dataItems = searchResults.length > 0 ? searchResults : pois.map(poi => ({ poi }));
 
@@ -314,7 +320,7 @@ const POIList = ({
           <POIListSkeleton />
         ) : dataItems.length === 0 ? (
           <Typography variant="h6" color="text.secondary" sx={{ mb: 1 }}>
-            No results found
+            {noResultsFoundText}
           </Typography>
         ) : (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -328,6 +334,7 @@ const POIList = ({
                   poi={poi}
                   isHost={isHost}
                   onPOIClick={handlePOIClick}
+                  hostTagLabel={hostTagLabel}
                 />
               );
             })}

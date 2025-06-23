@@ -7,9 +7,9 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import PageHeader from './common/PageHeader';
 import POIList from './common/POIList';
-import poiRecommendationsData from '../mocks/poi-recommendations/en.json';
 import { PAGE_LAYOUTS, CONTENT_PADDING } from '../config/layout';
 import { trackNavigation } from '../utils/analytics';
+import { getHubConfigByLanguage } from '../mocks/hub-application-config';
 
 const SearchResultPage = () => {
   const navigate = useNavigate();
@@ -21,16 +21,47 @@ const SearchResultPage = () => {
   const searchQuery = searchParams.get('q') || '';
   
   const [filteredResults, setFilteredResults] = useState([]);
+  const [poiRecommendationsData, setPOIRecommendationsData] = useState(null);
   
   // Get suite ID from params
   const suiteId = params.suiteId;
 
+  // Get hub configuration for current language
+  const hubConfig = getHubConfigByLanguage(language);
+  const searchResultHeadingTemplate = hubConfig?.data?.pageSearch?.searchResultHeading || 'Result of {{value}}';
+  
+  // Replace template placeholder with actual search query
+  const searchResultHeading = searchResultHeadingTemplate.replace('{{value}}', searchQuery);
+
+  // Load POI recommendations data based on current language
+  useEffect(() => {
+    const loadPOIRecommendations = async () => {
+      try {
+        const poiModule = await import(`../mocks/poi-recommendations/${language}.json`);
+        setPOIRecommendationsData(poiModule.default);
+      } catch (error) {
+        console.error(`Failed to load POI recommendations for language ${language}:`, error);
+        // Fallback to English if language-specific data is not available
+        try {
+          const fallbackModule = await import(`../mocks/poi-recommendations/en.json`);
+          setPOIRecommendationsData(fallbackModule.default);
+        } catch (fallbackError) {
+          console.error('Failed to load fallback POI recommendations:', fallbackError);
+          setPOIRecommendationsData({ data: [] });
+        }
+      }
+    };
+
+    loadPOIRecommendations();
+  }, [language]);
+
   // Filter POI recommendations that have weightInHighlight !== -1 and sort by weight
   const highlightedPOIs = React.useMemo(() => {
+    if (!poiRecommendationsData) return [];
     return poiRecommendationsData.data
       .filter(item => item.weightInHighlight !== -1)
       .sort((a, b) => a.weightInHighlight - b.weightInHighlight);
-  }, []);
+  }, [poiRecommendationsData]);
 
   // Filter search results based on query
   useEffect(() => {
@@ -54,7 +85,7 @@ const SearchResultPage = () => {
     <Container {...PAGE_LAYOUTS.SearchPage}>
       {/* Page Header */}
       <PageHeader 
-        title={`Result of: ${searchQuery}`}
+        title={searchResultHeading}
         onBack={handleBack}
       />
 

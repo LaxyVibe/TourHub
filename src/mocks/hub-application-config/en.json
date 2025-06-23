@@ -3,34 +3,34 @@
         "id": 1,
         "documentId": "au3e8t9cegnebahml864mmss",
         "createdAt": "2025-06-15T13:47:10.324Z",
-        "updatedAt": "2025-06-17T09:28:55.293Z",
-        "publishedAt": "2025-06-15T13:47:10.247Z",
+        "updatedAt": "2025-06-23T07:29:11.271Z",
+        "publishedAt": "2025-06-23T07:19:29.902Z",
         "locale": "en",
         "universalConfig": {
-            "id": 45,
+            "id": 106,
             "releasedLanguages": [
                 {
-                    "id": 218,
+                    "id": 427,
                     "label": "English",
                     "value": "en"
                 },
                 {
-                    "id": 222,
+                    "id": 430,
                     "label": "繁體中文",
                     "value": "zh-Hant"
                 },
                 {
-                    "id": 223,
+                    "id": 428,
                     "label": "简体中文",
                     "value": "zh-Hans"
                 },
                 {
-                    "id": 224,
+                    "id": 431,
                     "label": "日本語",
                     "value": "ja"
                 },
                 {
-                    "id": 225,
+                    "id": 429,
                     "label": "한국어",
                     "value": "ko"
                 }
@@ -39,6 +39,9 @@
         "globalComponent": {
             "id": 1,
             "readMoreLabel": "Read more",
+            "readLessLabel": "Read less",
+            "hostTagLabel": "Host",
+            "poweredByLabel": "Powered by {{value}}",
             "speechButton": {
                 "id": 18,
                 "label": "Speak in local language",
@@ -131,6 +134,8 @@
         "pageSearch": {
             "id": 1,
             "searchInputPlaceholder": "Find Your Next Experience",
+            "searchResultHeading": "Result of {{value}}",
+            "noResultsFound": "No Results",
             "defaultListHeading": "Most Searched",
             "highlightedListHeading": "Our Recommendations",
             "defaultList": [
@@ -199,22 +204,24 @@
         },
         "pageWiFi": {
             "id": 1,
+            "networkLabel": "Network",
+            "passwordLabel": "Password",
             "scanQRButton": {
                 "id": 19,
                 "label": "Scan QR Code to Connect"
             },
             "clipboardButton": {
                 "id": 20,
-                "label": "Copy Password"
+                "label": "Copy Password for \"{{value}}\""
             },
             "showQRButton": {
                 "id": 21,
-                "label": "Show QR Code for Sharing"
+                "label": "Show QR Code to share"
             }
         },
         "pagPoiDetail": {
             "id": 1,
-            "recommendationHeading": "Host Recommendation",
+            "recommendationHeading": "Our Recommendations",
             "highlightHeading": "Highlight",
             "addressIcon": {
                 "id": 35,
